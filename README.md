@@ -55,4 +55,13 @@ Then, in shell, run the following instructions.
 bin/cake bake all Users
 bin/cake bake all Trips
 bin/cake bake all TripsUsers
+bin/cake bake all Departures
+bin/cake bake all Arrivals
+bin/cake bake all Categories
+bin/cake bake all Types
+bin/cake bake all Trips
+bin/cake bake all Methods
+bin/cake bake all Payments
+bin/cake bake all Participations
+bin/cake bake all Actions
 ```

@@ -26,8 +26,8 @@ class TripsUsersFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'fk_Trips_has_Users_Trips' => ['type' => 'foreign', 'columns' => ['trip_id'], 'references' => ['trips', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
-            'fk_Trips_has_Users_Users1' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_tripsusers_trips' => ['type' => 'foreign', 'columns' => ['trip_id'], 'references' => ['trips', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_tripsusers_users' => ['type' => 'foreign', 'columns' => ['user_id'], 'references' => ['users', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',

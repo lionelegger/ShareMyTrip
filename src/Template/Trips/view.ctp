@@ -36,7 +36,7 @@
                 <th scope="col"><?= __('Trip Id') ?></th>
                 <th scope="col"><?= __('Price') ?></th>
                 <th scope="col"><?= __('Currency') ?></th>
-                <th scope="col"><?= __('Category Id') ?></th>
+                <th scope="col"><?= __('Type Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($trip->actions as $actions): ?>
@@ -49,7 +49,7 @@
                 <td><?= h($actions->trip_id) ?></td>
                 <td><?= h($actions->price) ?></td>
                 <td><?= h($actions->currency) ?></td>
-                <td><?= h($actions->category_id) ?></td>
+                <td><?= h($actions->type_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Actions', 'action' => 'view', $actions->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Actions', 'action' => 'edit', $actions->id]) ?>

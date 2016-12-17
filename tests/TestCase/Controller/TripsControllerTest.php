@@ -18,9 +18,14 @@ class TripsControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.trips',
         'app.actions',
-        'app.users',
+        'app.types',
+        'app.categories',
+        'app.arrivals',
+        'app.departures',
         'app.participations',
+        'app.users',
         'app.payments',
+        'app.methods',
         'app.trips_users'
     ];
 

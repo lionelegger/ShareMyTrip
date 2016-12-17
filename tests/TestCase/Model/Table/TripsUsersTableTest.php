@@ -27,9 +27,14 @@ class TripsUsersTableTest extends TestCase
         'app.trips_users',
         'app.trips',
         'app.actions',
-        'app.users',
+        'app.types',
+        'app.categories',
+        'app.arrivals',
+        'app.departures',
         'app.participations',
-        'app.payments'
+        'app.users',
+        'app.payments',
+        'app.methods'
     ];
 
     /**
