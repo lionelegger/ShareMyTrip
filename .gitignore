@@ -2,3 +2,7 @@
 /config/app.php
 /tmp/*
 /logs/*
+/.idea/*
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+
