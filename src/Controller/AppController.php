@@ -40,16 +40,34 @@ class AppController extends Controller
     public function initialize()
     {
         parent::initialize();
-
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'email',
+                        'password' => 'password'
+                    ]
+                ]
+            ],
+            'loginRedirect' => [
+                'controller' => '/',
+//                'controller' => 'Trips',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Pages',
+                'action' => 'display',
+                'home'
+            ]
+        ]);
 
-        /*
-         * Enable the following components for recommended CakePHP security settings.
-         * see http://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
-        //$this->loadComponent('Csrf');
+        // Allow the display action so our pages controller
+        // continues to work.
+        $this->Auth->allow(['display']);
+        // TODO: For Debug purposes, we allow 'view', 'add', ...etc but we will have to keep only 'display' when in PRODUCTION
+        // $this->Auth->allow(['index', 'view', 'display', 'add']);
     }
 
     /**

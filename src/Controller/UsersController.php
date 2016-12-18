@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Users Controller
@@ -10,6 +11,31 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        // Add logout to the allowed actions list.
+        $this->Auth->allow(['logout', 'add']);
+    }
+    public function current() {
+        $this->set('user', $this->request->session()->read('Auth.User'));
+    }
+    public function login()
+    {
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                // TODO: Change redirection URL to list of trips
+                return $this->redirect($this->Auth->redirectUrl("/"));
+            }
+            $this->Flash->error('Your username or password is incorrect.');
+        }
+    }
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
+    }
 
     /**
      * Index method

@@ -41,17 +41,14 @@ The relational design of the ShareMyTrip database has been created with [MySQL W
 
 Once the database created in phpMyAdmin by copy/pasting the sql requests, all traffic lights are green when accessing the [http://localhost:8888](http://localhost:8888/).
 
-The categories can be inserted with: 
+The categories, types and methods entries can be inserted with: 
 ```sql
 INSERT INTO `categories` (`id`, `name`) 
 VALUES  (1, 'Travel'), 
         (2, 'Lodging'), 
         (3, 'Activity'), 
         (4, 'Other');
-```
 
-The types can be inserted with: 
-```sql
 INSERT INTO `types` (`id`, `name`, `category_id`) 
     VALUES  (NULL, 'Plane', '1'), 
             (NULL, 'Train', '1'), 
@@ -74,10 +71,7 @@ INSERT INTO `types` (`id`, `name`, `category_id`)
             (NULL, 'Bank Withdrawal', '4'),
             (NULL, 'Other expenses', '4'),  
             (NULL, 'Any other action', '4');
-```
 
-The methods can be inserted with: 
-```sql
 INSERT INTO `methods` (`id`, `name`) 
 VALUES  (NULL, 'Cash'), 
         (NULL, 'Bank transfert'), 
@@ -111,4 +105,18 @@ bin/cake bake all Participations
 bin/cake bake all Actions
 ```
 
+### Creating RESTful Routes
+[CAKEPHP documentation](http://book.cakephp.org/3.0/en/development/routing.html#resource-routes)
 
+In *config/routes.php*:
+```php
+Router::scope('/', function ($routes) {
+    $routes->extensions(['json']);
+});
+```
+
+### CakePHP [USERS controller](/src/Controller/Component/UsersController.php):
+
+* function login() : Log in a user and redirects to homepage
+* function logout() : Log out a user and redirects to homepage
+* function current() : Gets the current user logged

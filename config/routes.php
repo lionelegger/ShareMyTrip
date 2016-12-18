@@ -47,6 +47,8 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     /* Allow json requests  */
     $routes->extensions(['json']);
+    $routes->resources('Users');
+    $routes->resources('Trips');
 
     /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
