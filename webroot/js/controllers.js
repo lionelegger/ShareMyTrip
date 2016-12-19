@@ -28,7 +28,7 @@ as.controller('MainCtrl', function($scope, $http, $location) {
 
 as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     // Load the list of trips
-    // console.log('call TripsCtrl');
+    console.log('call TripsCtrl');
     $scope.loadTrips = function() {
         console.log('call loadTrips');
         $http.get('trips.json')
@@ -38,5 +38,33 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         });
     };
     $scope.loadTrips();
+
+    $scope.tripToAdd = {};
+    $scope.tripCurrentUserToAdd = {};
+    $scope.addTrip = function() {
+        $http
+            .post('Trips/add', $scope.tripToAdd)
+            .success(function() {
+                $scope.loadTrips();
+                $scope.tripToAdd = {};
+
+            }).error(function() {
+            console.log("Something went wrong during save Trip");
+        });
+    };
+
+    $scope.tripAddUser = function() {
+        console.log('call tripAddUser');
+        $http
+            .post('TripsUsers/add', $scope.tripCurrentUserToAdd)
+            .success(function() {
+                $scope.tripCurrentUserToAdd = {};
+            }).error(function() {
+            console.log("Something went wrong during save tripCurrentUser");
+        });
+
+    };
+
 });
+
 

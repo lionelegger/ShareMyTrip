@@ -2,6 +2,9 @@ as = angular.module('myApp', ['ngRoute']);
 as.config(function($routeProvider) {
     $routeProvider
         .when('/trips', {templateUrl: 'partials/trips.html', controller: 'TripsCtrl'})
+        .when('/plan', {templateUrl: 'partials/plan.html'})
+        .when('/map', {templateUrl: 'partials/map.html'})
+        .when('/cost', {templateUrl: 'partials/cost.html'})
         .when('/me', {templateUrl: 'partials/me.html'})
         .otherwise({redirectTo: ''});
 });

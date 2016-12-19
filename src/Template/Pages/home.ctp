@@ -54,14 +54,23 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">ShareMyTrip</a>
+
+            <a class="navbar-brand" href="#/trips">
+
+                <!-- TODO: Make a logo and add the logo image below
+                <img alt="Brand" src="...">
+                -->
+                <span class="glyphicon glyphicon-globe"></span>
+            </a>
+            <a class="navbar-brand" href="#/trips"> ShareMyTrip</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li ng-class="{ active: isCurrentPath('/trips') }"><a href="#/trips">Trips</a></li>
-                <li ng-class="{ active: isCurrentPath('/me') }"><a href="#/me">My account</a></li>
+                <li ng-class="{ active: isCurrentPath('/plan') }"><a href="#/plan">Plan</a></li>
+                <li ng-class="{ active: isCurrentPath('/map') }"><a href="#/map">Map</a></li>
+                <li ng-class="{ active: isCurrentPath('/cost') }"><a href="#/cost">Cost</a></li>
             </ul>
 
             <?php if($userSession): ?>
