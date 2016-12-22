@@ -20,6 +20,10 @@ class TripsController extends AppController
     {
         $trips = $this->paginate($this->Trips);
 
+
+
+
+
         $this->set(compact('trips'));
         $this->set('_serialize', ['trips']);
     }

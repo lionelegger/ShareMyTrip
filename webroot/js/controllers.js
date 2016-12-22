@@ -1,5 +1,6 @@
 as.controller('MainCtrl', function($scope, $http, $location) {
 
+    console.log('call MainCtrl');
     // to get the current user
     $http.get('users/current.json')
         .success(function(data) {
@@ -30,10 +31,10 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     // Load the list of trips
     console.log('call TripsCtrl');
     $scope.loadTrips = function() {
-        console.log('call loadTrips');
-        $http.get('trips.json')
+        console.log('call loadTrips for user ' + $scope.currentUserId);
+        $http.get('users/view/' + $scope.currentUserId + '.json')
             .success(function(data) {
-                $scope.trips = data.trips;
+                $scope.currentUser = data.user;
             }).error(function(data, status, headers, config) {
         });
     };

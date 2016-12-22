@@ -59,15 +59,17 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<div class="box" ng-repeat="trip in trips">
+<div class="box" ng-repeat="trip in currentUser.trips">
     <div class="row">
         <div class="trip clearfix">
             <div class="col-md-9 mainContent">
-                <h4 class="trip-title">{{trip.name}}</h4>
+                <h4 class="trip-title">{{trip.name}} ({{trip.id}})</h4>
             </div>
         </div>
     </div>
 </div>
 
-<p>You are logged as {{currentUserEmail}}</p>
+<p>You are logged as {{currentUserEmail}} ({{currentUserId}})</p>
+
+<pre>{{currentUser.first_name}}</pre>
 
