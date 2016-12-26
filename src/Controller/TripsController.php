@@ -20,10 +20,6 @@ class TripsController extends AppController
     {
         $trips = $this->paginate($this->Trips);
 
-
-
-
-
         $this->set(compact('trips'));
         $this->set('_serialize', ['trips']);
     }
@@ -53,11 +49,22 @@ class TripsController extends AppController
     public function add()
     {
         $trip = $this->Trips->newEntity();
+
+        // This defines the currentUser and adds it to the trip
+        $currentUser = $this->Trips->Users->get($this->Auth->user('id'), [
+            'contain' => ['Trips']
+        ]);
+
+        //debug($trip);
+
         if ($this->request->is('post')) {
             $trip = $this->Trips->patchEntity($trip, $this->request->data);
             if ($this->Trips->save($trip)) {
-                $this->Flash->success(__('The trip has been saved.'));
 
+                // Adds the currentUser to the joint table TripsUsers
+                $this->Trips->Users->link($trip, [$currentUser]);
+
+                $this->Flash->success(__('The trip has been saved.'));
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The trip could not be saved. Please, try again.'));

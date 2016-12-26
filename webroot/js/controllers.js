@@ -41,30 +41,19 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     $scope.loadTrips();
 
     $scope.tripToAdd = {};
-    $scope.tripCurrentUserToAdd = {};
     $scope.addTrip = function() {
         $http
             .post('Trips/add', $scope.tripToAdd)
             .success(function() {
+                console.log($scope.tripToAdd);
                 $scope.loadTrips();
                 $scope.tripToAdd = {};
-
             }).error(function() {
             console.log("Something went wrong during save Trip");
         });
     };
 
-    $scope.tripAddUser = function() {
-        console.log('call tripAddUser');
-        $http
-            .post('TripsUsers/add', $scope.tripCurrentUserToAdd)
-            .success(function() {
-                $scope.tripCurrentUserToAdd = {};
-            }).error(function() {
-            console.log("Something went wrong during save tripCurrentUser");
-        });
 
-    };
 
 });
 
