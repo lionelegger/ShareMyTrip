@@ -15,11 +15,36 @@ class UsersController extends AppController
     {
         parent::initialize();
         // Add logout to the allowed actions list.
-        $this->Auth->allow(['logout', 'add']);
+        $this->Auth->allow(['logout']);
     }
+
+    // to get the current user
     public function current() {
         $this->set('user', $this->request->session()->read('Auth.User'));
     }
+
+    // to get the user from the email (to add a user to a trip)
+    public function getUserFromEmail() {
+
+        if ($this->request->is('post')) {
+            $query = $this->Users->find('all')
+                ->where([$this->request->data]);
+            $user = $query->first();
+            // debug($user);
+            if($user) {
+                $this->Flash->success(__('The user has been found.'));
+            } else {
+                $this->Flash->error(__('The user could not be found. Please, try again.'));
+            }
+        }
+
+        $this->set('user', $this->paginate());
+        $this->set(compact('user'));
+        $this->set('_serialize', ['user']);
+
+    }
+
+    // login
     public function login()
     {
         if ($this->request->is('post')) {
@@ -32,6 +57,8 @@ class UsersController extends AppController
             $this->Flash->error('Your username or password is incorrect.');
         }
     }
+
+    // logout
     public function logout()
     {
         $this->Flash->success('You are now logged out.');
@@ -61,7 +88,16 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Trips', 'Participations', 'Payments']
+            'contain' => [
+                'Trips' => function ($q) {
+                    return $q
+                        -> select(['id', 'name'])
+                        -> group(['trips.id'])
+                        -> order(['trips.id' => 'ASC']);
+                },
+                'Participations',
+                'Payments'
+            ]
         ]);
 
         $this->set('user', $user);
@@ -80,7 +116,6 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));

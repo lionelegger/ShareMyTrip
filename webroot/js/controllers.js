@@ -54,22 +54,7 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         });
     };
 
-    // adds a user to a trip
-    $scope.tripUserToAdd = {};
-    $scope.tripAddUser = function() {
-        console.log('call tripAddUser');
-        $http
-            .post('Users/getIdFromEmail', $scope.tripUserToAdd)
-            .success(function(data) {
-                console.log("data sent: " + $scope.tripUserToAdd.email);
-                console.log("--------");
-                console.log(data);
-                console.log("--------");
-                $scope.tripUserToAdd = {};
-            }).error(function() {
-            console.log("Something went wrong during save tripUserToAdd");
-        });
-    };
+
 
 });
 
@@ -103,6 +88,50 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
                 $('#tripDeleteUser-'+id).text('Deleted');
             }).error(function() {
             console.log("Something went wrong during delete tripCurrentUser");
+        });
+    };
+
+    // check if a user exist
+    $scope.userToGet = {};
+    $scope.tripAddUser = function() {
+        console.log('call tripAddUser');
+        $http
+            .post('Users/getUserFromEmail.json', $scope.userToGet)
+            .success(function(data) {
+                console.log("data sent: " + $scope.userToGet.email);
+                console.log("--------");
+                console.log(data.user);
+                console.log("--------");
+
+                var $tripId = $('.modal.fade.in #tripId').first().text();
+
+                if (data.user) {
+                    $('<p>User exists !</p>').appendTo('.modal.fade.in #tripAddUser-form');
+                    $scope.tripAddUserId($tripId, data.user.id);
+                } else {
+                    $('<p>User does not exist</p>').appendTo('.modal.fade.in #tripAddUser-form');
+                }
+
+                $scope.userToGet = {};
+            }).error(function() {
+            console.log("Something went wrong during save tripUserToAdd");
+        });
+    };
+
+    // Add a user to a trip
+    $scope.tripAddUserId = function($tripId, $userId) {
+        $scope.tripUserToAdd = {
+            trip_id : $tripId,
+            user_id : $userId
+        };
+        console.log('call tripAddUser for user ' + $userId + " and trip " + $tripId);
+        $http
+            .post('TripsUsers/add.json', $scope.tripUserToAdd)
+            .success(function() {
+                console.log("user " + $userId+ " added to trip " + $tripId);
+                $scope.tripUserToAdd = {};
+            }).error(function() {
+            console.log("Something went wrong during add trip for User " + id);
         });
     };
 
