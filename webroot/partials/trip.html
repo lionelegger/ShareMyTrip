@@ -1,18 +1,16 @@
 <div id="tripDetail">
     <h1>{{trip.name}}
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" onclick="">
-            <span class="glyphicon glyphicon-plus"></span> Add an action
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal">
+            <a href="#/action/{{trip.id}}"><span class="glyphicon glyphicon-plus"></span> Add an action</a>
         </button>
     </h1>
     <div class="action" ng-repeat="action in trip.actions">
         <h3>{{action.name}} (id={{action.id}})</h3>
         <div class="actionDetails">
-            <pre>{{detail}}</pre>
-            <p>action type: {{detail.action.type.name}}</p>
-            <p>departure: {{detail.action.departures[0].date}}</p>
-            <p>arrival: {{detail.action.arrivals[0].date}}</p>
+            <pre>{{action}}</pre>
+            <p>action type: {{action.type_id}}</p>
+            <p>departure: {{action.start_date}}</p>
+            <p>arrival: {{action.end_date}}</p>
         </div>
     </div>
-
-
 </div>

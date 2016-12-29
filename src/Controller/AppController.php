@@ -67,7 +67,8 @@ class AppController extends Controller
         // continues to work.
         $this->Auth->allow(['display']);
         // TODO: For Debug purposes, we allow 'view', 'add', ...etc but we will have to keep only 'display' when in PRODUCTION
-        // $this->Auth->allow(['index', 'view', 'display', 'add']);
+        //$this->Auth->allow(['index', 'view', 'display', 'add']);
+
     }
 
     /**

@@ -14,8 +14,9 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        // Add logout to the allowed actions list.
-        $this->Auth->allow(['logout']);
+        // Add 'logout' to the allowed actions list.
+        // Add 'add' to allow register new user (when not authorized)
+        $this->Auth->allow(['logout', 'add']);
     }
 
     // to get the current user
@@ -112,6 +113,7 @@ class UsersController extends AppController
     public function add()
     {
         $user = $this->Users->newEntity();
+        debug($user);
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {

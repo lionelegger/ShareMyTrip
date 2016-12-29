@@ -25,6 +25,21 @@ as.controller('MainCtrl', function($scope, $http, $location) {
         return $location.path() == path;
     };
 
+    // Add user (Registration)
+    $scope.newUserToAdd = {};
+    $scope.addNewUser = function() {
+        $http
+            .post('Users/add', $scope.newUserToAdd)
+            .success(function() {
+                console.log($scope.newUserToAdd);
+                //$scope.loadTrips();
+                $scope.newUserToAdd = {};
+            }).error(function() {
+                console.log($scope.newUserToAdd);
+            console.log("Something went wrong during user registration");
+        });
+    };
+
 });
 
 // Ctrl that lists the trips (partials/trips.html)
@@ -140,41 +155,30 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
 as.controller('TripCtrl', function($scope, $rootScope, $http, $routeParams) {
     console.log("call tripCtrl");
 
-    // Load the details corresponding to a specific action
-    $scope.loadActionDetails = function($id) {
+    // Load the type corresponding to a specific type_id
+    // TODO: LOADACTIONTYPE IS NOT WORKING YET
+    $scope.loadActionType = function($id) {
         console.log('call loadDetails for action '  + $id);
-        $http.get('actions/view/' + $id +'.json')
+        $http.get('type/view/' + $id +'.json')
             .success(function(data) {
                 console.log("-------------");
                 console.log(data);
                 console.log('Types for action ' + $id +' loaded!');
-                $scope.detail = data;
-                //return ("lionel");
+                $scope.type = data;
+                return $scope.type;
 
             }).error(function(data) {
-            console.log("Could not load the details corresponding details to action " + $id);
+            console.log("Could not load the types corresponding to action " + $id);
         });
     };
 
     // Load the list of actions corresponding to a specific trip
     $scope.loadActions = function() {
-
         console.log('call loadActions for trip '  + $routeParams['id']);
         $http.get('trips/' + $routeParams['id'] +'.json')
             .success(function(data) {
                 $scope.trip = data.trip;
-                //$scope.trip.actions = data.trip.actions;
-                //console.log(data);
                 console.log('Trip ' + $routeParams['id'] +' and corresponding actions loaded!');
-
-                //console.log(data.trip.actions[0].id);
-                //$scope.loadActionDetails(data.trip.actions[0].id);
-                console.log('************');
-                console.log($scope.trip.actions);
-                angular.forEach($scope.trip.actions, function(action){
-                    $scope.loadActionDetails(action.id); // no need .then here
-                });
-
             }).error(function(data) {
             console.log("Could not load the actions corresponding to trip " + $routeParams['id']);
         });
@@ -182,5 +186,9 @@ as.controller('TripCtrl', function($scope, $rootScope, $http, $routeParams) {
     $scope.loadActions();
 
 
+});
+
+as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams) {
+    console.log("call ActionCtrl");
 });
 

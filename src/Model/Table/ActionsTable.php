@@ -11,8 +11,6 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Trips
  * @property \Cake\ORM\Association\BelongsTo $Types
- * @property \Cake\ORM\Association\HasMany $Arrivals
- * @property \Cake\ORM\Association\HasMany $Departures
  * @property \Cake\ORM\Association\HasMany $Participations
  * @property \Cake\ORM\Association\HasMany $Payments
  *
@@ -48,12 +46,6 @@ class ActionsTable extends Table
         $this->belongsTo('Types', [
             'foreignKey' => 'type_id',
             'joinType' => 'INNER'
-        ]);
-        $this->hasMany('Arrivals', [
-            'foreignKey' => 'action_id'
-        ]);
-        $this->hasMany('Departures', [
-            'foreignKey' => 'action_id'
         ]);
         $this->hasMany('Participations', [
             'foreignKey' => 'action_id'
@@ -94,6 +86,36 @@ class ActionsTable extends Table
 
         $validator
             ->allowEmpty('currency');
+
+        $validator
+            ->dateTime('start_date')
+            ->allowEmpty('start_date');
+
+        $validator
+            ->allowEmpty('start_name');
+
+        $validator
+            ->decimal('start_long')
+            ->allowEmpty('start_long');
+
+        $validator
+            ->decimal('start_lat')
+            ->allowEmpty('start_lat');
+
+        $validator
+            ->dateTime('end_date')
+            ->allowEmpty('end_date');
+
+        $validator
+            ->allowEmpty('end_name');
+
+        $validator
+            ->decimal('end_long')
+            ->allowEmpty('end_long');
+
+        $validator
+            ->decimal('end_lat')
+            ->allowEmpty('end_lat');
 
         return $validator;
     }

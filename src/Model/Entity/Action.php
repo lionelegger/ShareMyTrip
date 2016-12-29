@@ -7,14 +7,22 @@ use Cake\ORM\Entity;
  * Action Entity
  *
  * @property int $id
+ * @property int $trip_id
+ * @property int $type_id
  * @property string $name
  * @property string $company
  * @property string $reservation
  * @property string $notes
- * @property int $trip_id
  * @property float $price
  * @property string $currency
- * @property int $type_id
+ * @property \Cake\I18n\Time $start_date
+ * @property string $start_name
+ * @property float $start_long
+ * @property float $start_lat
+ * @property \Cake\I18n\Time $end_date
+ * @property string $end_name
+ * @property float $end_long
+ * @property float $end_lat
  *
  * @property \App\Model\Entity\Trip $trip
  * @property \App\Model\Entity\Type $type

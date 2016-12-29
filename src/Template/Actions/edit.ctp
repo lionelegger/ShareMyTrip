@@ -12,10 +12,6 @@
         <li><?= $this->Html->link(__('New Trip'), ['controller' => 'Trips', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Types'), ['controller' => 'Types', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Type'), ['controller' => 'Types', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Arrivals'), ['controller' => 'Arrivals', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Arrival'), ['controller' => 'Arrivals', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Departures'), ['controller' => 'Departures', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Departure'), ['controller' => 'Departures', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Participations'), ['controller' => 'Participations', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Participation'), ['controller' => 'Participations', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Payments'), ['controller' => 'Payments', 'action' => 'index']) ?></li>
@@ -27,14 +23,22 @@
     <fieldset>
         <legend><?= __('Edit Action') ?></legend>
         <?php
+            echo $this->Form->input('trip_id', ['options' => $trips]);
+            echo $this->Form->input('type_id', ['options' => $types]);
             echo $this->Form->input('name');
             echo $this->Form->input('company');
             echo $this->Form->input('reservation');
             echo $this->Form->input('notes');
-            echo $this->Form->input('trip_id', ['options' => $trips]);
             echo $this->Form->input('price');
             echo $this->Form->input('currency');
-            echo $this->Form->input('type_id', ['options' => $types]);
+            echo $this->Form->input('start_date', ['empty' => true]);
+            echo $this->Form->input('start_name');
+            echo $this->Form->input('start_long');
+            echo $this->Form->input('start_lat');
+            echo $this->Form->input('end_date', ['empty' => true]);
+            echo $this->Form->input('end_name');
+            echo $this->Form->input('end_long');
+            echo $this->Form->input('end_lat');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
