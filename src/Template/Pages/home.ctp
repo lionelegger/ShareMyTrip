@@ -140,7 +140,6 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
     <ng-view></ng-view>
 </div>
 
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <?= $this->Html->script('jquery.min.js') ?>
 <!-- Latest compiled and minified Boostrap JavaScript -->

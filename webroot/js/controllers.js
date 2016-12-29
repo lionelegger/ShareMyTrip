@@ -1,5 +1,5 @@
+// Main Ctrl
 as.controller('MainCtrl', function($scope, $http, $location) {
-
     console.log('call MainCtrl');
     // to get the current user
     $http.get('users/current.json')
@@ -27,6 +27,7 @@ as.controller('MainCtrl', function($scope, $http, $location) {
 
 });
 
+// Ctrl that lists the trips (partials/trips.html)
 as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     // Load the list of trips for the logged user
     console.log('call TripsCtrl');
@@ -54,11 +55,9 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         });
     };
 
-
-
 });
 
-
+// Ctrl that deals the trip participants (partials/trips.html)
 as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
     console.log('call getTripUsers');
     // get the users of the trip
@@ -106,10 +105,9 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
                 var $tripId = $('.modal.fade.in #tripId').first().text();
 
                 if (data.user) {
-                    $('<p>User exists !</p>').appendTo('.modal.fade.in #tripAddUser-form');
                     $scope.tripAddUserId($tripId, data.user.id);
                 } else {
-                    $('<p>User does not exist</p>').appendTo('.modal.fade.in #tripAddUser-form');
+                    $('.modal.fade.in .form-message').text('User does not exist. Please try another email address.');
                 }
 
                 $scope.userToGet = {};
@@ -119,6 +117,7 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
     };
 
     // Add a user to a trip
+    // TODO: do not allow to add a user twice
     $scope.tripAddUserId = function($tripId, $userId) {
         $scope.tripUserToAdd = {
             trip_id : $tripId,
@@ -128,12 +127,60 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
         $http
             .post('TripsUsers/add.json', $scope.tripUserToAdd)
             .success(function() {
-                console.log("user " + $userId+ " added to trip " + $tripId);
+                $('.modal.fade.in .form-message').text("This user has been added to the current trip");
                 $scope.tripUserToAdd = {};
             }).error(function() {
             console.log("Something went wrong during add trip for User " + id);
         });
     };
+
+});
+
+// Ctrl for the trip details (partials/trip.html)
+as.controller('TripCtrl', function($scope, $rootScope, $http, $routeParams) {
+    console.log("call tripCtrl");
+
+    // Load the details corresponding to a specific action
+    $scope.loadActionDetails = function($id) {
+        console.log('call loadDetails for action '  + $id);
+        $http.get('actions/view/' + $id +'.json')
+            .success(function(data) {
+                console.log("-------------");
+                console.log(data);
+                console.log('Types for action ' + $id +' loaded!');
+                $scope.detail = data;
+                //return ("lionel");
+
+            }).error(function(data) {
+            console.log("Could not load the details corresponding details to action " + $id);
+        });
+    };
+
+    // Load the list of actions corresponding to a specific trip
+    $scope.loadActions = function() {
+
+        console.log('call loadActions for trip '  + $routeParams['id']);
+        $http.get('trips/' + $routeParams['id'] +'.json')
+            .success(function(data) {
+                $scope.trip = data.trip;
+                //$scope.trip.actions = data.trip.actions;
+                //console.log(data);
+                console.log('Trip ' + $routeParams['id'] +' and corresponding actions loaded!');
+
+                //console.log(data.trip.actions[0].id);
+                //$scope.loadActionDetails(data.trip.actions[0].id);
+                console.log('************');
+                console.log($scope.trip.actions);
+                angular.forEach($scope.trip.actions, function(action){
+                    $scope.loadActionDetails(action.id); // no need .then here
+                });
+
+            }).error(function(data) {
+            console.log("Could not load the actions corresponding to trip " + $routeParams['id']);
+        });
+    };
+    $scope.loadActions();
+
 
 });
 
