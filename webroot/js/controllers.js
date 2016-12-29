@@ -1,5 +1,5 @@
 // Main Ctrl
-as.controller('MainCtrl', function($scope, $http, $location) {
+as.controller('MainCtrl', function($scope, $http, $location, $window) {
     console.log('call MainCtrl');
     // to get the current user
     $http.get('users/current.json')
@@ -34,6 +34,7 @@ as.controller('MainCtrl', function($scope, $http, $location) {
                 console.log($scope.newUserToAdd);
                 //$scope.loadTrips();
                 $scope.newUserToAdd = {};
+                $window.location.reload();
             }).error(function() {
                 console.log($scope.newUserToAdd);
             console.log("Something went wrong during user registration");

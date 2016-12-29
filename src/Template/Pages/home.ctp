@@ -67,11 +67,13 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <?php if($userSession): ?>
             <ul class="nav navbar-nav">
                 <li ng-class="{ active: isCurrentPath('/plan') }"><a href="#/plan">Plan</a></li>
                 <li ng-class="{ active: isCurrentPath('/map') }"><a href="#/map">Map</a></li>
                 <li ng-class="{ active: isCurrentPath('/cost') }"><a href="#/cost">Cost</a></li>
             </ul>
+            <?php endif; ?>
             <?php if($userSession): ?>
                 <span class="hidden" id="userId" data-id="<?= $userSession['id'] ?>"></span>
                 <form class="navbar-form navbar-right">

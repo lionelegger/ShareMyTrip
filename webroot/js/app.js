@@ -8,7 +8,7 @@ as.config(function($routeProvider) {
         .when('/map', {templateUrl: 'partials/map.html'})
         .when('/cost', {templateUrl: 'partials/cost.html'})
         .when('/me', {templateUrl: 'partials/me.html'})
-        .otherwise({redirectTo: ''});
+        .otherwise({redirectTo: '/trips'});
 });
 
 
