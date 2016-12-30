@@ -55,14 +55,18 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/trips">
+            <a class="navbar-brand">
 
                 <!-- TODO: Make a logo and add the logo image below
                 <img alt="Brand" src="...">
                 -->
                 <span class="glyphicon glyphicon-globe"></span>
             </a>
-            <a class="navbar-brand" href="#/trips"> ShareMyTrip</a>
+            <?php if($userSession): ?>
+                <a class="navbar-brand" href="#/trips"> ShareMyTrip</a>
+            <?php else: ?>
+                <a class="navbar-brand" href="#/home"> ShareMyTrip</a>
+            <?php endif; ?>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
