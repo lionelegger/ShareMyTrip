@@ -35,6 +35,10 @@
             <td><?= h($action->company) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Identifier') ?></th>
+            <td><?= h($action->identifier) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Reservation') ?></th>
             <td><?= h($action->reservation) ?></td>
         </tr>
@@ -84,8 +88,8 @@
         </tr>
     </table>
     <div class="row">
-        <h4><?= __('Notes') ?></h4>
-        <?= $this->Text->autoParagraph(h($action->notes)); ?>
+        <h4><?= __('Note') ?></h4>
+        <?= $this->Text->autoParagraph(h($action->note)); ?>
     </div>
     <div class="related">
         <h4><?= __('Related Participations') ?></h4>

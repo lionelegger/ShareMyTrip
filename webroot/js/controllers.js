@@ -191,5 +191,18 @@ as.controller('TripCtrl', function($scope, $rootScope, $http, $routeParams) {
 
 as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams) {
     console.log("call ActionCtrl");
+
+    // adds a trip (and the logged user as a participant with cakephp3)
+    $scope.actionToAdd = {};
+    $scope.addAction = function() {
+        $http
+            .post('Actions/add', $scope.actionToAdd)
+            .success(function() {
+                console.log($scope.actionToAdd);
+                $scope.actionToAdd = {};
+            }).error(function() {
+            console.log("Something went wrong during save Action");
+        });
+    };
 });
 

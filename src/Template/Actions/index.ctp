@@ -22,6 +22,7 @@
                 <th scope="col"><?= $this->Paginator->sort('type_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('company') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('identifier') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('reservation') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('price') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('currency') ?></th>
@@ -44,6 +45,7 @@
                 <td><?= $action->has('type') ? $this->Html->link($action->type->name, ['controller' => 'Types', 'action' => 'view', $action->type->id]) : '' ?></td>
                 <td><?= h($action->name) ?></td>
                 <td><?= h($action->company) ?></td>
+                <td><?= h($action->identifier) ?></td>
                 <td><?= h($action->reservation) ?></td>
                 <td><?= $this->Number->format($action->price) ?></td>
                 <td><?= h($action->currency) ?></td>

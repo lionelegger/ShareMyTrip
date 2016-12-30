@@ -75,10 +75,13 @@ class ActionsTable extends Table
             ->allowEmpty('company');
 
         $validator
+            ->allowEmpty('identifier');
+
+        $validator
             ->allowEmpty('reservation');
 
         $validator
-            ->allowEmpty('notes');
+            ->allowEmpty('note');
 
         $validator
             ->decimal('price')

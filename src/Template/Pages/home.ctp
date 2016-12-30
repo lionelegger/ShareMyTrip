@@ -39,7 +39,9 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
     <?= $this->Html->script('angular-route.min.js') ?>
     <!--  Bootstrap -->
     <?= $this->Html->css('bootstrap.min.css') ?>
+    <?= $this->Html->css('bootstrap-datetimepicker.min.css') ?>
     <?= $this->Html->css('custom.css') ?>
+
 </head>
 <?php if ($userSession = $this->request->session()->read('Auth.User')) ; ?>
 <body ng-app="myApp" ng-controller="MainCtrl" ng-init="currentUserId='<?= $userSession['id'] ?>'">
@@ -146,8 +148,10 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <?= $this->Html->script('jquery.min.js') ?>
+<?= $this->Html->script('moment.min.js') ?>
 <!-- Latest compiled and minified Boostrap JavaScript -->
 <?= $this->Html->script('bootstrap.min.js') ?>
+<?= $this->Html->script('bootstrap-datetimepicker.min.js') ?>
 <?= $this->Html->script('app.js') ?>
 <?= $this->Html->script('controllers.js') ?>
 <script>window.onload = initialize;</script>

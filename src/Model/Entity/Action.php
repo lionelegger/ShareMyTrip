@@ -11,8 +11,9 @@ use Cake\ORM\Entity;
  * @property int $type_id
  * @property string $name
  * @property string $company
+ * @property string $identifier
  * @property string $reservation
- * @property string $notes
+ * @property string $note
  * @property float $price
  * @property string $currency
  * @property \Cake\I18n\Time $start_date
@@ -26,8 +27,6 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Trip $trip
  * @property \App\Model\Entity\Type $type
- * @property \App\Model\Entity\Arrival[] $arrivals
- * @property \App\Model\Entity\Departure[] $departures
  * @property \App\Model\Entity\Participation[] $participations
  * @property \App\Model\Entity\Payment[] $payments
  */

@@ -1,0 +1,22 @@
+{
+  "name": "sharemytrip",
+  "version": "0.0.1",
+  "description": "Application to manage trips with friends",
+  "keywords": [
+    "travel",
+    "trip"
+  ],
+  "authors": [
+    "Lionel EGGER"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.4",
+    "bootstrap": "~3.3.6",
+    "angular": "~1.5.10",
+    "angular-route": "^1.6.1",
+    "eonasdan-bootstrap-datetimepicker": "latest"
+  },
+  "resolutions": {
+    "angular": "~1.5.10"
+  }
+}

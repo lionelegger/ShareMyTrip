@@ -32,9 +32,7 @@ class ActionsTableTest extends TestCase
         'app.methods',
         'app.trips_users',
         'app.types',
-        'app.categories',
-        'app.arrivals',
-        'app.departures'
+        'app.categories'
     ];
 
     /**

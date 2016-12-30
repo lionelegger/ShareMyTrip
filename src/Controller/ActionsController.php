@@ -37,7 +37,7 @@ class ActionsController extends AppController
     public function view($id = null)
     {
         $action = $this->Actions->get($id, [
-            'contain' => ['Trips', 'Types', 'Arrivals', 'Departures', 'Participations', 'Payments']
+            'contain' => ['Trips', 'Types', 'Participations', 'Payments']
         ]);
 
         $this->set('action', $action);

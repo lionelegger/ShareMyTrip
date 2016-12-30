@@ -18,4 +18,13 @@ function initialize() {
 
     // Put here any JS that should be loaded at initialization
 
+    // load date picker start
+    $(function () {
+        $('#start_datetimepicker').datetimepicker();
+    });
+    $(function () {
+        $('#end_datetimepicker').datetimepicker();
+    });
+
+
 }

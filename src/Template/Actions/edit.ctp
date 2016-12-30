@@ -27,8 +27,9 @@
             echo $this->Form->input('type_id', ['options' => $types]);
             echo $this->Form->input('name');
             echo $this->Form->input('company');
+            echo $this->Form->input('identifier');
             echo $this->Form->input('reservation');
-            echo $this->Form->input('notes');
+            echo $this->Form->input('note');
             echo $this->Form->input('price');
             echo $this->Form->input('currency');
             echo $this->Form->input('start_date', ['empty' => true]);
