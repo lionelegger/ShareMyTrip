@@ -96,7 +96,6 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
                         <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>&nbsp;
-                    <!-- TODO: if time, add Register functionality (see ADD USER model) -->
                     <button type="button" class="btn btn-link pull-right" data-toggle="modal" data-target="#addUserModal">Register</button>
                 </form>
             <?php endif; ?>

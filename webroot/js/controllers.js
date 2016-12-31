@@ -156,23 +156,6 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
 as.controller('TripCtrl', function($scope, $rootScope, $http, $routeParams) {
     console.log("call tripCtrl");
 
-    // Load the type corresponding to a specific type_id
-    // TODO: LOADACTIONTYPE IS NOT WORKING YET
-    $scope.loadActionType = function($id) {
-        console.log('call loadDetails for action '  + $id);
-        $http.get('type/view/' + $id +'.json')
-            .success(function(data) {
-                console.log("-------------");
-                console.log(data);
-                console.log('Types for action ' + $id +' loaded!');
-                $scope.type = data;
-                return $scope.type;
-
-            }).error(function(data) {
-            console.log("Could not load the types corresponding to action " + $id);
-        });
-    };
-
     // Load the list of actions corresponding to a specific trip
     $scope.loadActions = function() {
         console.log('call loadActions for trip '  + $routeParams['id']);
@@ -185,24 +168,61 @@ as.controller('TripCtrl', function($scope, $rootScope, $http, $routeParams) {
         });
     };
     $scope.loadActions();
-
-
 });
 
-as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams) {
+as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $window) {
     console.log("call ActionCtrl");
+
+    // load date picker start
+    // TODO: not working with angularJS....
+    $(function () {
+        $('#start_datetimepicker').datetimepicker({
+            format: 'YYYY-MM-DD hh:mm'
+        });
+        $('#end_datetimepicker').datetimepicker({
+            format: 'YYYY-MM-DD hh:mm'
+        });
+
+        //$('#start_datetimepicker').datetimepicker();
+        $('#end_datetimepicker').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#start_datetimepicker").on("dp.change", function (e) {
+            $('#end_datetimepicker').data("DateTimePicker").minDate(e.date);
+        });
+        $("#end_datetimepicker").on("dp.change", function (e) {
+            $('#start_datetimepicker').data("DateTimePicker").maxDate(e.date);
+        });
+    });
+
+
 
     // adds a trip (and the logged user as a participant with cakephp3)
     $scope.actionToAdd = {};
+    $scope.actionToAdd.trip_id = $routeParams['id'];
+    //console.log($scope.trip_id);
     $scope.addAction = function() {
         $http
             .post('Actions/add', $scope.actionToAdd)
             .success(function() {
                 console.log($scope.actionToAdd);
                 $scope.actionToAdd = {};
+                $window.location.href = '#/trips/' + $routeParams['id'];
             }).error(function() {
             console.log("Something went wrong during save Action");
         });
     };
+
+    $scope.loadTripDetails = function() {
+        $http
+            .get('trips/'+ $routeParams['id'] +'.json')
+            .success(function(data) {
+                console.log($scope.actionToAdd);
+                $scope.trip = data.trip;
+            }).error(function() {
+            console.log("Something went wrong during save Action");
+        });
+    };
+
 });
 

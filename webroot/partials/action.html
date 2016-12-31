@@ -1,13 +1,10 @@
-<ol class="breadcrumb">
-    <li><a href="#">All trips</a></li>
-    <li><a href="#">Thailand</a></li>
+<ol class="breadcrumb" ng-init="loadTripDetails()">
+    <li><a href="#/trips">All trips</a></li>
+    <li><a href="#/trips/{{actionToAdd.trip_id}}">{{trip.name}}</a></li>
     <li class="active">Add action</li>
 </ol>
-<h1>TRIP ID = {{trip.id}}</h1>
 <h1 class="page-header">Add/Update an action</h1>
 <form class="form-horizontal">
-
-    <input type="text" class="" id="trip_id" ng-model="actionToAdd.trip_id" ng-value="1"/>
     <div class="row">
         <div class="col-md-8">
             <div class="form-group">
