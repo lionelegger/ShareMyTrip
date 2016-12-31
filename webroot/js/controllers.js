@@ -174,7 +174,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $w
     console.log("call ActionCtrl");
 
     // load date picker start
-    // TODO: not working with angularJS....
+    // TODO: not working with angularJS: ng-model does not get the date ....
     $(function () {
         $('#start_datetimepicker').datetimepicker({
             format: 'YYYY-MM-DD hh:mm'
@@ -195,21 +195,78 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $w
         });
     });
 
+    // gets the action information (to update)
+    $scope.getAction = function($id) {
+        $http
+            .get('actions/view/' + $id + '.json')
+            .success(function(data) {
+                console.log(data.action);
+                $scope.action = data.action;
+            }).error(function() {
+            console.log("Something went wrong during get Action");
+        });
+    };
 
+    // if an parameter is passed in the url (#trips/1/action/2), then we want to update the action and we get the values of action 2 (:up)
+    if($routeParams['up']) {
+        console.log("Update action " + $routeParams['up']);
+        $scope.getAction($routeParams['up']);
+    }
 
-    // adds a trip (and the logged user as a participant with cakephp3)
-    $scope.actionToAdd = {};
-    $scope.actionToAdd.trip_id = $routeParams['id'];
+    // adds an action
+    $scope.action = {};
+    $scope.action.trip_id = $routeParams['id'];
     //console.log($scope.trip_id);
     $scope.addAction = function() {
         $http
-            .post('Actions/add', $scope.actionToAdd)
+            .post('Actions/add', $scope.action)
             .success(function() {
-                console.log($scope.actionToAdd);
-                $scope.actionToAdd = {};
+                console.log($scope.action);
+                $scope.action = {};
                 $window.location.href = '#/trips/' + $routeParams['id'];
             }).error(function() {
             console.log("Something went wrong during save Action");
+        });
+    };
+
+    // update an action
+    // TODO: BUG => When there is a date, the action does not update ... to investigate
+
+    $scope.actiontoUpdate = {};
+    //console.log($scope.trip_id);
+    $scope.updateAction = function($up) {
+
+        // fields to update
+        // TODO: I dont' know why it's only working by redefining the fields in a 'actiontoUpdate' variable instead of just 'action'
+        $scope.actiontoUpdate.trip_id = $routeParams['id'];
+        $scope.actiontoUpdate.id = $routeParams['up'];
+        $scope.actiontoUpdate.name = $scope.action.name;
+        $scope.actiontoUpdate.type_id = $scope.action.type_id;
+        $scope.actiontoUpdate.company = $scope.action.company;
+        $scope.actiontoUpdate.identifier = $scope.action.identifier;
+        $scope.actiontoUpdate.reservation = $scope.action.reservation;
+        $scope.actiontoUpdate.note = $scope.action.note;
+        $scope.actiontoUpdate.price = $scope.action.price;
+        $scope.actiontoUpdate.currency = $scope.action.currency;
+        $scope.actiontoUpdate.start_date = $scope.action.start_date;
+        $scope.actiontoUpdate.start_name = $scope.action.start_name;
+        $scope.actiontoUpdate.start_long = $scope.action.start_long;
+        $scope.actiontoUpdate.start_lat = $scope.action.start_lat;
+        $scope.actiontoUpdate.end_date = $scope.action.end_date;
+        $scope.actiontoUpdate.end_name = $scope.action.end_name;
+        $scope.actiontoUpdate.end_long = $scope.action.end_long;
+        $scope.actiontoUpdate.end_lat = $scope.action.end_lat;
+
+        //$scope.actiontoUpdate = $scope.action;
+        $http
+            .post('Actions/edit/'+ $up, $scope.actiontoUpdate)
+            .success(function() {
+                console.log("call updateAction with action " + $up);
+                console.log($scope.actiontoUpdate);
+                $window.location.href = '#/trips/' + $routeParams['id'];
+                $scope.actiontoUpdate = {};
+            }).error(function() {
+            console.log("Something went wrong during edit Action");
         });
     };
 
@@ -217,7 +274,6 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $w
         $http
             .get('trips/'+ $routeParams['id'] +'.json')
             .success(function(data) {
-                console.log($scope.actionToAdd);
                 $scope.trip = data.trip;
             }).error(function() {
             console.log("Something went wrong during save Action");
