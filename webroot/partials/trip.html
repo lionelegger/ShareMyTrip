@@ -14,11 +14,15 @@
             <pre>{{action}}</pre>
             <ul class="list-inline">
                 <li>action type: {{action.type_id}}</li>
-                <li ng-show="action.start_date != null">departure: {{action.start_date}}</li>
-                <li ng-show="action.end_date != null">arrival: {{action.end_date}}</li>
+                <li ng-show="action.start_name != null">start: {{action.start_name}}</li>
+                <li ng-show="action.start_date != null">start date: {{action.start_date}}</li>
+                <li ng-show="action.end_name != null">end: {{action.end_name}}</li>
+                <li ng-show="action.end_date != null">end date: {{action.end_date}}</li>
                 <li ng-show="action.company != null">company: {{action.company}}</li>
                 <li ng-show="action.identifier != null">identifier: {{action.identifier}}</li>
                 <li ng-show="action.reservation != null">reservation: {{action.reservation}}</li>
+                <li ng-show="action.note != null">note: {{action.note}}</li>
+                <li ng-show="action.price != null">price: {{action.price}} ({{action.currency}})</li>
             </ul>
         </div>
     </div>

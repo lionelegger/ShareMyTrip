@@ -207,6 +207,17 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $w
         });
     };
 
+    // gets the action types
+    $scope.getActionTypes = function() {
+        $http
+            .get('types.json')
+            .success(function(data) {
+                $scope.types = data.types;
+            }).error(function() {
+            console.log("Something went wrong during get Action");
+        });
+    };
+
     // if an parameter is passed in the url (#trips/1/action/2), then we want to update the action and we get the values of action 2 (:up)
     if($routeParams['up']) {
         console.log("Update action " + $routeParams['up']);
@@ -257,14 +268,13 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $w
         $scope.actiontoUpdate.end_long = $scope.action.end_long;
         $scope.actiontoUpdate.end_lat = $scope.action.end_lat;
 
-        //$scope.actiontoUpdate = $scope.action;
         $http
-            .post('Actions/edit/'+ $up, $scope.actiontoUpdate)
+            .post('actions/edit/'+ $up, $scope.actiontoUpdate)
             .success(function() {
                 console.log("call updateAction with action " + $up);
                 console.log($scope.actiontoUpdate);
-                $window.location.href = '#/trips/' + $routeParams['id'];
                 $scope.actiontoUpdate = {};
+                $window.location.href = '#/trips/' + $routeParams['id'];
             }).error(function() {
             console.log("Something went wrong during edit Action");
         });

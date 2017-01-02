@@ -1,4 +1,4 @@
-<ol class="breadcrumb" ng-init="loadTripDetails()">
+<ol class="breadcrumb" ng-init="loadTripDetails(); getActionTypes();">
     <li><a href="#/trips">All trips</a></li>
     <li><a href="#/trips/{{action.trip_id}}">{{trip.name}}</a></li>
     <li class="active">{{action.name}}<span ng-hide="action.id">New action</span></li>
@@ -18,14 +18,9 @@
             <div class="form-group">
                 <label for="type_id" class="col-sm-3 control-label">Type</label>
                 <div class="col-sm-9">
-                    <!-- TODO: make the options automatic with ng-options : https://docs.angularjs.org/api/ng/directive/ngOptions-->
-                    <select class="form-control" id="type_id" ng-model="action.type_id">
-                        <option value="1">Plane</option>
-                        <option value="3">Taxi</option>
-                        <option value="9">Hotel</option>
-                        <option value="16">Tour</option>
-                        <option value="19">Bank</option>
-                        <option value="21">Other</option>
+                    <!-- TODO: ng-selected is not working. Make the options select automatically with ng-options? : https://docs.angularjs.org/api/ng/directive/ngOptions-->
+                    <select class="form-control" id="type_id" ng-model="action.type_id" >
+                        <option ng-repeat="type in types" ng-value="type.id" ng-selected="type.id == action.type_id">{{type.name}}</option>
                     </select>
                 </div>
             </div>
@@ -40,7 +35,7 @@
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="start_name" placeholder="name" ng-model="action.start_name">
                 </div>
-                <div class="col-sm-4"><button role="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Localize</button></div>
+                <div class="col-sm-4"><button role="button" class="btn btn-default" data-toggle="modal" data-target="#placeSearchStart"><span class="glyphicon glyphicon-map-marker"></span> Localize</button></div>
             </div>
             <div class="form-group">
                 <label for="start_date" class="col-sm-2 control-label">Date</label>
@@ -62,7 +57,7 @@
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="end_name" placeholder="name" ng-model="action.end_name">
                 </div>
-                <div class="col-sm-3"><button role="button" class="btn btn-default"><span class="glyphicon glyphicon-map-marker"></span> Localize</button></div>
+                <div class="col-sm-3"><button role="button" class="btn btn-default" data-toggle="modal" data-target="#placeSearchEnd""><span class="glyphicon glyphicon-map-marker"></span> Localize</button></div>
             </div>
             <div class="form-group">
                 <label for="end_date" class="col-sm-2 control-label">Date</label>
@@ -128,3 +123,22 @@
     <button type="submit" class="btn btn-primary pull-right" ng-click="updateAction(action.id)" ng-show="action.id">Update</button>
 </form>
 
+<!--MODAL to get https://developers.google.com/maps/documentation/javascript/examples/places-searchbox-->
+<!-- Modal -->
+<div class="modal fade" id="placeSearchStart" tabindex="-1" role="dialog" aria-labelledby="End">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Search for the start</h4>
+            </div>
+            <div class="modal-body">
+                map here
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
