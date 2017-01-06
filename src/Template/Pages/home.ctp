@@ -35,12 +35,19 @@ $cakeDescription = 'CakePHP: the rapid development PHP framework';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title><?= $this->fetch('title') ?></title>
+
+
     <?= $this->Html->script('angular.min.js') ?>
     <?= $this->Html->script('angular-route.min.js') ?>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBsahp0E7FSU4WE0dY73LyvTyY6-CWxgI&libraries=places"></script>
+    <?= $this->Html->script('ng-map.min.js') ?>
+
     <!--  Bootstrap -->
     <?= $this->Html->css('bootstrap.min.css') ?>
     <?= $this->Html->css('bootstrap-datetimepicker.min.css') ?>
     <?= $this->Html->css('custom.css') ?>
+
 
 </head>
 <?php if ($userSession = $this->request->session()->read('Auth.User')) ; ?>

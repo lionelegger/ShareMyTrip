@@ -1,3 +1,14 @@
 <h1>Map</h1>
+<div>
+    <input places-auto-complete size=80
+           ng-model="vm.address"
+           on-place-changed="vm.placeChanged()" /> <br/>
+    <div ng-show="vm.place">
+        Address = {{vm.place.formatted_address}}<br/>
+        Location: {{vm.place.geometry.location}}<br/>
+        lat: {{vm.place.geometry.location}}<br/>
 
-
+    </div>
+    address : {{vm.address}}
+    <ng-map></ng-map>
+</div>

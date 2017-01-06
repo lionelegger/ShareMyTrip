@@ -170,7 +170,7 @@ as.controller('TripCtrl', function($scope, $rootScope, $http, $routeParams) {
     $scope.loadActions();
 });
 
-as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $window) {
+as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $window, NgMap) {
     console.log("call ActionCtrl");
 
     // load date picker start
@@ -242,6 +242,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $w
 
     // update an action
     // TODO: BUG => When there is a date, the action does not update ... to investigate
+    // TODO: I could use angular material for datepicker: https://material.angularjs.org/latest/demo/datepicker
 
     $scope.actiontoUpdate = {};
     //console.log($scope.trip_id);
@@ -290,5 +291,44 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $w
         });
     };
 
+    var vm = this;
+    vm.placeChanged = function() {
+        vm.place = this.getPlace();
+        console.log('location', vm.place.geometry.location);
+        vm.map.setCenter(vm.place.geometry.location);
+    };
+
+    NgMap.getMap().then(function(map) {
+        vm.map = map;
+    });
+
 });
 
+
+as.controller('MapCtrl', function(NgMap) {
+    console.log("call MapCtrl");
+
+    var vm = this;
+    vm.placeChanged = function() {
+        vm.place = this.getPlace();
+        console.log('location', vm.place.geometry.location);
+        vm.map.setCenter(vm.place.geometry.location);
+        //console.log(vm.place.geometry.location.latitude);
+    };
+
+    NgMap.getMap().then(function(map) {
+        vm.map = map;
+    });
+
+});
+
+as.controller('PlanCtrl', function($scope, $window) {
+    console.log("call PlanCtrl");
+    $window.map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+            lat: -34.397,
+            lng: 150.644
+        },
+        zoom: 8
+    });
+});

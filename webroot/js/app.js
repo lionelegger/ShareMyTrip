@@ -1,12 +1,12 @@
-as = angular.module('myApp', ['ngRoute']);
+as = angular.module('myApp', ['ngRoute', 'ngMap']);
 as.config(function($routeProvider) {
     $routeProvider
         .when('/trips', {templateUrl: 'partials/trips.html', controller: 'TripsCtrl'})
         .when('/trips/:id', {templateUrl: 'partials/trip.html', controller: 'TripCtrl'})
         .when('/trips/:id/action', {templateUrl: 'partials/action.html', controller: 'ActionCtrl'})
         .when('/trips/:id/action/:up', {templateUrl: 'partials/action.html', controller: 'ActionCtrl'})
-        .when('/plan', {templateUrl: 'partials/plan.html'})
-        .when('/map', {templateUrl: 'partials/map.html'})
+        .when('/plan', {templateUrl: 'partials/plan.html', controller: 'PlanCtrl'})
+        .when('/map', {templateUrl: 'partials/map.html', controller: 'MapCtrl as vm'})
         .when('/cost', {templateUrl: 'partials/cost.html'})
         .when('/me', {templateUrl: 'partials/me.html'})
         .otherwise({redirectTo: '/home'});
@@ -16,10 +16,6 @@ as.config(function($routeProvider) {
 function initialize() {
     //console.log ("inside initialize");
     'use strict';
-
-    // Put here any JS that should be loaded at initialization
-
-
 
 
 }
