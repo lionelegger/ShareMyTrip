@@ -9,6 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Trips Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\HasMany $Actions
  * @property \Cake\ORM\Association\BelongsToMany $Users
  *
@@ -37,6 +38,10 @@ class TripsTable extends Table
         $this->displayField('name');
         $this->primaryKey('id');
 
+        $this->belongsTo('Users', [
+            'foreignKey' => 'owner_id',
+            'joinType' => 'INNER'
+        ]);
         $this->hasMany('Actions', [
             'foreignKey' => 'trip_id'
         ]);
@@ -64,5 +69,19 @@ class TripsTable extends Table
             ->notEmpty('name');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['owner_id'], 'Users'));
+
+        return $rules;
     }
 }

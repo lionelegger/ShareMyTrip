@@ -35,12 +35,12 @@
             <td><?= h($action->company) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Identifier') ?></th>
-            <td><?= h($action->identifier) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Reservation') ?></th>
             <td><?= h($action->reservation) ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Identifier') ?></th>
+            <td><?= h($action->identifier) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Currency') ?></th>
@@ -59,20 +59,24 @@
             <td><?= $this->Number->format($action->id) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Owner Id') ?></th>
+            <td><?= $this->Number->format($action->owner_id) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Price') ?></th>
             <td><?= $this->Number->format($action->price) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Start Long') ?></th>
-            <td><?= $this->Number->format($action->start_long) ?></td>
+            <th scope="row"><?= __('Start Lng') ?></th>
+            <td><?= $this->Number->format($action->start_lng) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Start Lat') ?></th>
             <td><?= $this->Number->format($action->start_lat) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('End Long') ?></th>
-            <td><?= $this->Number->format($action->end_long) ?></td>
+            <th scope="row"><?= __('End Lng') ?></th>
+            <td><?= $this->Number->format($action->end_lng) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('End Lat') ?></th>

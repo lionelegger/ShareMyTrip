@@ -9,8 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Participations Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\BelongsTo $Actions
+ * @property \Cake\ORM\Association\BelongsTo $Users
  *
  * @method \App\Model\Entity\Participation get($primaryKey, $options = [])
  * @method \App\Model\Entity\Participation newEntity($data = null, array $options = [])
@@ -37,12 +37,12 @@ class ParticipationsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id',
-            'joinType' => 'INNER'
-        ]);
         $this->belongsTo('Actions', [
             'foreignKey' => 'action_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -71,8 +71,8 @@ class ParticipationsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['action_id'], 'Actions'));
+        $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;
     }

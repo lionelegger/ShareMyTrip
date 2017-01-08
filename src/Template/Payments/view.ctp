@@ -17,20 +17,20 @@
     <h3><?= h($payment->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('Currency') ?></th>
-            <td><?= h($payment->currency) ?></td>
+            <th scope="row"><?= __('User') ?></th>
+            <td><?= $payment->has('user') ? $this->Html->link($payment->user->id, ['controller' => 'Users', 'action' => 'view', $payment->user->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Action') ?></th>
             <td><?= $payment->has('action') ? $this->Html->link($payment->action->name, ['controller' => 'Actions', 'action' => 'view', $payment->action->id]) : '' ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $payment->has('user') ? $this->Html->link($payment->user->id, ['controller' => 'Users', 'action' => 'view', $payment->user->id]) : '' ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Method') ?></th>
             <td><?= $payment->has('method') ? $this->Html->link($payment->method->name, ['controller' => 'Methods', 'action' => 'view', $payment->method->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Currency') ?></th>
+            <td><?= h($payment->currency) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>

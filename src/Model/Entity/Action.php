@@ -9,20 +9,21 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $trip_id
  * @property int $type_id
+ * @property int $owner_id
  * @property string $name
  * @property string $company
- * @property string $identifier
  * @property string $reservation
+ * @property string $identifier
  * @property string $note
  * @property float $price
  * @property string $currency
- * @property \Cake\I18n\Time $start_date
  * @property string $start_name
- * @property float $start_long
+ * @property \Cake\I18n\Time $start_date
+ * @property float $start_lng
  * @property float $start_lat
- * @property \Cake\I18n\Time $end_date
  * @property string $end_name
- * @property float $end_long
+ * @property \Cake\I18n\Time $end_date
+ * @property float $end_lng
  * @property float $end_lat
  *
  * @property \App\Model\Entity\Trip $trip

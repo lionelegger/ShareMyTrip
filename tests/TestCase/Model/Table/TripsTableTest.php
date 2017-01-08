@@ -28,8 +28,6 @@ class TripsTableTest extends TestCase
         'app.actions',
         'app.types',
         'app.categories',
-        'app.arrivals',
-        'app.departures',
         'app.participations',
         'app.users',
         'app.payments',

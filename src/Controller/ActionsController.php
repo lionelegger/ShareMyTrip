@@ -53,10 +53,13 @@ class ActionsController extends AppController
     public function add($trip_id = null)
     {
         $action = $this->Actions->newEntity();
-
         if ($this->request->is('post')) {
             $action = $this->Actions->patchEntity($action, $this->request->data);
             $action->trip_id = $trip_id;
+
+            // Add the authorized User as the owner of the action
+            $action->owner_id = $this->Auth->user('id');
+
             if ($this->Actions->save($action)) {
                 $this->Flash->success(__('The action has been saved.'));
 

@@ -21,12 +21,12 @@
     <fieldset>
         <legend><?= __('Edit Payment') ?></legend>
         <?php
+            echo $this->Form->input('user_id', ['options' => $users]);
+            echo $this->Form->input('action_id', ['options' => $actions]);
+            echo $this->Form->input('method_id', ['options' => $methods, 'empty' => true]);
             echo $this->Form->input('amount');
             echo $this->Form->input('currency');
-            echo $this->Form->input('action_id', ['options' => $actions]);
             echo $this->Form->input('date', ['empty' => true]);
-            echo $this->Form->input('user_id', ['options' => $users]);
-            echo $this->Form->input('method_id', ['options' => $methods, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

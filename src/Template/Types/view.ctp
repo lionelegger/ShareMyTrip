@@ -15,12 +15,12 @@
     <h3><?= h($type->name) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($type->name) ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Category') ?></th>
             <td><?= $type->has('category') ? $this->Html->link($type->category->name, ['controller' => 'Categories', 'action' => 'view', $type->category->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Name') ?></th>
+            <td><?= h($type->name) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>
@@ -33,27 +33,47 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Trip Id') ?></th>
+                <th scope="col"><?= __('Type Id') ?></th>
+                <th scope="col"><?= __('Owner Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
                 <th scope="col"><?= __('Company') ?></th>
                 <th scope="col"><?= __('Reservation') ?></th>
-                <th scope="col"><?= __('Notes') ?></th>
-                <th scope="col"><?= __('Trip Id') ?></th>
+                <th scope="col"><?= __('Identifier') ?></th>
+                <th scope="col"><?= __('Note') ?></th>
                 <th scope="col"><?= __('Price') ?></th>
                 <th scope="col"><?= __('Currency') ?></th>
-                <th scope="col"><?= __('Type Id') ?></th>
+                <th scope="col"><?= __('Start Name') ?></th>
+                <th scope="col"><?= __('Start Date') ?></th>
+                <th scope="col"><?= __('Start Lng') ?></th>
+                <th scope="col"><?= __('Start Lat') ?></th>
+                <th scope="col"><?= __('End Name') ?></th>
+                <th scope="col"><?= __('End Date') ?></th>
+                <th scope="col"><?= __('End Lng') ?></th>
+                <th scope="col"><?= __('End Lat') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($type->actions as $actions): ?>
             <tr>
                 <td><?= h($actions->id) ?></td>
+                <td><?= h($actions->trip_id) ?></td>
+                <td><?= h($actions->type_id) ?></td>
+                <td><?= h($actions->owner_id) ?></td>
                 <td><?= h($actions->name) ?></td>
                 <td><?= h($actions->company) ?></td>
                 <td><?= h($actions->reservation) ?></td>
-                <td><?= h($actions->notes) ?></td>
-                <td><?= h($actions->trip_id) ?></td>
+                <td><?= h($actions->identifier) ?></td>
+                <td><?= h($actions->note) ?></td>
                 <td><?= h($actions->price) ?></td>
                 <td><?= h($actions->currency) ?></td>
-                <td><?= h($actions->type_id) ?></td>
+                <td><?= h($actions->start_name) ?></td>
+                <td><?= h($actions->start_date) ?></td>
+                <td><?= h($actions->start_lng) ?></td>
+                <td><?= h($actions->start_lat) ?></td>
+                <td><?= h($actions->end_name) ?></td>
+                <td><?= h($actions->end_date) ?></td>
+                <td><?= h($actions->end_lng) ?></td>
+                <td><?= h($actions->end_lat) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Actions', 'action' => 'view', $actions->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Actions', 'action' => 'edit', $actions->id]) ?>

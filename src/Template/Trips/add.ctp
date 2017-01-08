@@ -14,6 +14,7 @@
         <legend><?= __('Add Trip') ?></legend>
         <?php
             echo $this->Form->input('name');
+//            echo $this->Form->input('owner_id', ['options' => $users]);
             echo $this->Form->input('users._ids', ['options' => $users]);
         ?>
     </fieldset>

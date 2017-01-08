@@ -27,15 +27,15 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Name') ?></th>
                 <th scope="col"><?= __('Category Id') ?></th>
+                <th scope="col"><?= __('Name') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($category->types as $types): ?>
             <tr>
                 <td><?= h($types->id) ?></td>
-                <td><?= h($types->name) ?></td>
                 <td><?= h($types->category_id) ?></td>
+                <td><?= h($types->name) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Types', 'action' => 'view', $types->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Types', 'action' => 'edit', $types->id]) ?>

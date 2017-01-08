@@ -24,8 +24,6 @@ class ParticipationsControllerTest extends IntegrationTestCase
         'app.trips_users',
         'app.types',
         'app.categories',
-        'app.arrivals',
-        'app.departures',
         'app.methods'
     ];
 

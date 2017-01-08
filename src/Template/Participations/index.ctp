@@ -14,8 +14,8 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('action_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -23,8 +23,8 @@
             <?php foreach ($participations as $participation): ?>
             <tr>
                 <td><?= $this->Number->format($participation->id) ?></td>
-                <td><?= $participation->has('user') ? $this->Html->link($participation->user->id, ['controller' => 'Users', 'action' => 'view', $participation->user->id]) : '' ?></td>
                 <td><?= $participation->has('action') ? $this->Html->link($participation->action->name, ['controller' => 'Actions', 'action' => 'view', $participation->action->id]) : '' ?></td>
+                <td><?= $participation->has('user') ? $this->Html->link($participation->user->id, ['controller' => 'Users', 'action' => 'view', $participation->user->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $participation->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $participation->id]) ?>

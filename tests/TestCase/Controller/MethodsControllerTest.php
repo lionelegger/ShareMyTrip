@@ -18,15 +18,13 @@ class MethodsControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.methods',
         'app.payments',
-        'app.actions',
-        'app.trips',
         'app.users',
         'app.participations',
+        'app.actions',
+        'app.trips',
         'app.trips_users',
         'app.types',
-        'app.categories',
-        'app.arrivals',
-        'app.departures'
+        'app.categories'
     ];
 
     /**

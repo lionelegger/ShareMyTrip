@@ -24,9 +24,7 @@ class CategoriesControllerTest extends IntegrationTestCase
         'app.participations',
         'app.payments',
         'app.methods',
-        'app.trips_users',
-        'app.arrivals',
-        'app.departures'
+        'app.trips_users'
     ];
 
     /**

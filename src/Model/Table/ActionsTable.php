@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Trips
  * @property \Cake\ORM\Association\BelongsTo $Types
+ * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\HasMany $Participations
  * @property \Cake\ORM\Association\HasMany $Payments
  *
@@ -47,6 +48,10 @@ class ActionsTable extends Table
             'foreignKey' => 'type_id',
             'joinType' => 'INNER'
         ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'owner_id',
+            'joinType' => 'INNER'
+        ]);
         $this->hasMany('Participations', [
             'foreignKey' => 'action_id'
         ]);
@@ -75,10 +80,10 @@ class ActionsTable extends Table
             ->allowEmpty('company');
 
         $validator
-            ->allowEmpty('identifier');
+            ->allowEmpty('reservation');
 
         $validator
-            ->allowEmpty('reservation');
+            ->allowEmpty('identifier');
 
         $validator
             ->allowEmpty('note');
@@ -91,30 +96,30 @@ class ActionsTable extends Table
             ->allowEmpty('currency');
 
         $validator
+            ->allowEmpty('start_name');
+
+        $validator
             ->dateTime('start_date')
             ->allowEmpty('start_date');
 
         $validator
-            ->allowEmpty('start_name');
-
-        $validator
-            ->decimal('start_long')
-            ->allowEmpty('start_long');
+            ->decimal('start_lng')
+            ->allowEmpty('start_lng');
 
         $validator
             ->decimal('start_lat')
             ->allowEmpty('start_lat');
 
         $validator
+            ->allowEmpty('end_name');
+
+        $validator
             ->dateTime('end_date')
             ->allowEmpty('end_date');
 
         $validator
-            ->allowEmpty('end_name');
-
-        $validator
-            ->decimal('end_long')
-            ->allowEmpty('end_long');
+            ->decimal('end_lng')
+            ->allowEmpty('end_lng');
 
         $validator
             ->decimal('end_lat')
@@ -134,6 +139,7 @@ class ActionsTable extends Table
     {
         $rules->add($rules->existsIn(['trip_id'], 'Trips'));
         $rules->add($rules->existsIn(['type_id'], 'Types'));
+        $rules->add($rules->existsIn(['owner_id'], 'Users'));
 
         return $rules;
     }

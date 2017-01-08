@@ -27,23 +27,23 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('User Id') ?></th>
+                <th scope="col"><?= __('Action Id') ?></th>
+                <th scope="col"><?= __('Method Id') ?></th>
                 <th scope="col"><?= __('Amount') ?></th>
                 <th scope="col"><?= __('Currency') ?></th>
-                <th scope="col"><?= __('Action Id') ?></th>
                 <th scope="col"><?= __('Date') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col"><?= __('Method Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($method->payments as $payments): ?>
             <tr>
                 <td><?= h($payments->id) ?></td>
+                <td><?= h($payments->user_id) ?></td>
+                <td><?= h($payments->action_id) ?></td>
+                <td><?= h($payments->method_id) ?></td>
                 <td><?= h($payments->amount) ?></td>
                 <td><?= h($payments->currency) ?></td>
-                <td><?= h($payments->action_id) ?></td>
                 <td><?= h($payments->date) ?></td>
-                <td><?= h($payments->user_id) ?></td>
-                <td><?= h($payments->method_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Payments', 'action' => 'view', $payments->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Payments', 'action' => 'edit', $payments->id]) ?>

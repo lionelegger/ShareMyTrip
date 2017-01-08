@@ -14,8 +14,8 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('category_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -23,8 +23,8 @@
             <?php foreach ($types as $type): ?>
             <tr>
                 <td><?= $this->Number->format($type->id) ?></td>
-                <td><?= h($type->name) ?></td>
                 <td><?= $type->has('category') ? $this->Html->link($type->category->name, ['controller' => 'Categories', 'action' => 'view', $type->category->id]) : '' ?></td>
+                <td><?= h($type->name) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $type->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $type->id]) ?>

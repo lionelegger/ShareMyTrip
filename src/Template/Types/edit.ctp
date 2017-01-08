@@ -19,8 +19,8 @@
     <fieldset>
         <legend><?= __('Edit Type') ?></legend>
         <?php
-            echo $this->Form->input('name');
             echo $this->Form->input('category_id', ['options' => $categories]);
+            echo $this->Form->input('name');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

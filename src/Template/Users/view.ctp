@@ -43,15 +43,15 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
                 <th scope="col"><?= __('Action Id') ?></th>
+                <th scope="col"><?= __('User Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($user->participations as $participations): ?>
             <tr>
                 <td><?= h($participations->id) ?></td>
-                <td><?= h($participations->user_id) ?></td>
                 <td><?= h($participations->action_id) ?></td>
+                <td><?= h($participations->user_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Participations', 'action' => 'view', $participations->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Participations', 'action' => 'edit', $participations->id]) ?>
@@ -68,23 +68,23 @@
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('User Id') ?></th>
+                <th scope="col"><?= __('Action Id') ?></th>
+                <th scope="col"><?= __('Method Id') ?></th>
                 <th scope="col"><?= __('Amount') ?></th>
                 <th scope="col"><?= __('Currency') ?></th>
-                <th scope="col"><?= __('Action Id') ?></th>
                 <th scope="col"><?= __('Date') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col"><?= __('Method Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($user->payments as $payments): ?>
             <tr>
                 <td><?= h($payments->id) ?></td>
+                <td><?= h($payments->user_id) ?></td>
+                <td><?= h($payments->action_id) ?></td>
+                <td><?= h($payments->method_id) ?></td>
                 <td><?= h($payments->amount) ?></td>
                 <td><?= h($payments->currency) ?></td>
-                <td><?= h($payments->action_id) ?></td>
                 <td><?= h($payments->date) ?></td>
-                <td><?= h($payments->user_id) ?></td>
-                <td><?= h($payments->method_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Payments', 'action' => 'view', $payments->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Payments', 'action' => 'edit', $payments->id]) ?>
@@ -102,12 +102,14 @@
             <tr>
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Name') ?></th>
+                <th scope="col"><?= __('Owner Id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($user->trips as $trips): ?>
             <tr>
                 <td><?= h($trips->id) ?></td>
                 <td><?= h($trips->name) ?></td>
+                <td><?= h($trips->owner_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Trips', 'action' => 'view', $trips->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Trips', 'action' => 'edit', $trips->id]) ?>

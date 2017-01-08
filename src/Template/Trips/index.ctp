@@ -16,6 +16,7 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('owner_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -24,6 +25,7 @@
             <tr>
                 <td><?= $this->Number->format($trip->id) ?></td>
                 <td><?= h($trip->name) ?></td>
+                <td><?= $this->Number->format($trip->owner_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $trip->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $trip->id]) ?>
@@ -42,4 +44,3 @@
         <p><?= $this->Paginator->counter() ?></p>
     </div>
 </div>
-

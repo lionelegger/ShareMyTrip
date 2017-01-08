@@ -7,12 +7,12 @@ use Cake\ORM\Entity;
  * Payment Entity
  *
  * @property int $id
+ * @property int $user_id
+ * @property int $action_id
+ * @property int $method_id
  * @property float $amount
  * @property string $currency
- * @property int $action_id
  * @property \Cake\I18n\Time $date
- * @property int $user_id
- * @property int $method_id
  *
  * @property \App\Model\Entity\Action $action
  * @property \App\Model\Entity\User $user

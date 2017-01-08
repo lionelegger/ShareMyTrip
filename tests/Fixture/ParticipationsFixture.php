@@ -18,8 +18,8 @@ class ParticipationsFixture extends TestFixture
     // @codingStandardsIgnoreStart
     public $fields = [
         'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'user_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'action_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'user_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'fk_Prices_Users_Users1_idx' => ['type' => 'index', 'columns' => ['user_id'], 'length' => []],
             'fk_actions_users_actions1_idx' => ['type' => 'index', 'columns' => ['action_id'], 'length' => []],
@@ -44,8 +44,8 @@ class ParticipationsFixture extends TestFixture
     public $records = [
         [
             'id' => 1,
-            'user_id' => 1,
-            'action_id' => 1
+            'action_id' => 1,
+            'user_id' => 1
         ],
     ];
 }

@@ -20,8 +20,6 @@ class TripsControllerTest extends IntegrationTestCase
         'app.actions',
         'app.types',
         'app.categories',
-        'app.arrivals',
-        'app.departures',
         'app.participations',
         'app.users',
         'app.payments',

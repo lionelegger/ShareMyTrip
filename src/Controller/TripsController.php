@@ -64,9 +64,10 @@ class TripsController extends AppController
 
         if ($this->request->is('post')) {
             $trip = $this->Trips->patchEntity($trip, $this->request->data);
+
+            // Add the authorized User as the owner of the trip
+            $trip->owner_id = $this->Auth->user('id');
             if ($this->Trips->save($trip)) {
-                // Add the currentUser to the owner of the trip
-                $trip->owner_id = $this->Auth->user('id');
 
                 // Adds the currentUser to the joint table TripsUsers
                 $this->Trips->Users->link($trip, [$currentUser]);

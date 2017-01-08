@@ -7,8 +7,8 @@ use Cake\ORM\Entity;
  * Type Entity
  *
  * @property int $id
- * @property string $name
  * @property int $category_id
+ * @property string $name
  *
  * @property \App\Model\Entity\Category $category
  * @property \App\Model\Entity\Action[] $actions

@@ -20,19 +20,20 @@
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('trip_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('type_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('owner_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('company') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('identifier') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('reservation') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('identifier') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('price') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('currency') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('start_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('start_long') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('start_lng') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('start_lat') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('end_date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('end_name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('end_long') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('end_date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('end_lng') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('end_lat') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -43,19 +44,20 @@
                 <td><?= $this->Number->format($action->id) ?></td>
                 <td><?= $action->has('trip') ? $this->Html->link($action->trip->name, ['controller' => 'Trips', 'action' => 'view', $action->trip->id]) : '' ?></td>
                 <td><?= $action->has('type') ? $this->Html->link($action->type->name, ['controller' => 'Types', 'action' => 'view', $action->type->id]) : '' ?></td>
+                <td><?= $this->Number->format($action->owner_id) ?></td>
                 <td><?= h($action->name) ?></td>
                 <td><?= h($action->company) ?></td>
-                <td><?= h($action->identifier) ?></td>
                 <td><?= h($action->reservation) ?></td>
+                <td><?= h($action->identifier) ?></td>
                 <td><?= $this->Number->format($action->price) ?></td>
                 <td><?= h($action->currency) ?></td>
-                <td><?= h($action->start_date) ?></td>
                 <td><?= h($action->start_name) ?></td>
-                <td><?= $this->Number->format($action->start_long) ?></td>
+                <td><?= h($action->start_date) ?></td>
+                <td><?= $this->Number->format($action->start_lng) ?></td>
                 <td><?= $this->Number->format($action->start_lat) ?></td>
-                <td><?= h($action->end_date) ?></td>
                 <td><?= h($action->end_name) ?></td>
-                <td><?= $this->Number->format($action->end_long) ?></td>
+                <td><?= h($action->end_date) ?></td>
+                <td><?= $this->Number->format($action->end_lng) ?></td>
                 <td><?= $this->Number->format($action->end_lat) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $action->id]) ?>

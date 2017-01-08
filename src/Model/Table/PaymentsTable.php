@@ -9,8 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Payments Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Actions
  * @property \Cake\ORM\Association\BelongsTo $Users
+ * @property \Cake\ORM\Association\BelongsTo $Actions
  * @property \Cake\ORM\Association\BelongsTo $Methods
  *
  * @method \App\Model\Entity\Payment get($primaryKey, $options = [])
@@ -38,12 +38,12 @@ class PaymentsTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->belongsTo('Actions', [
-            'foreignKey' => 'action_id',
-            'joinType' => 'INNER'
-        ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Actions', [
+            'foreignKey' => 'action_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Methods', [
@@ -65,8 +65,7 @@ class PaymentsTable extends Table
 
         $validator
             ->decimal('amount')
-            ->requirePresence('amount', 'create')
-            ->notEmpty('amount');
+            ->allowEmpty('amount');
 
         $validator
             ->allowEmpty('currency');
@@ -87,8 +86,8 @@ class PaymentsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['action_id'], 'Actions'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
+        $rules->add($rules->existsIn(['action_id'], 'Actions'));
         $rules->add($rules->existsIn(['method_id'], 'Methods'));
 
         return $rules;

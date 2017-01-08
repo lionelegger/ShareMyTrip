@@ -15,12 +15,12 @@
     <h3><?= h($participation->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $participation->has('user') ? $this->Html->link($participation->user->id, ['controller' => 'Users', 'action' => 'view', $participation->user->id]) : '' ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Action') ?></th>
             <td><?= $participation->has('action') ? $this->Html->link($participation->action->name, ['controller' => 'Actions', 'action' => 'view', $participation->action->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('User') ?></th>
+            <td><?= $participation->has('user') ? $this->Html->link($participation->user->id, ['controller' => 'Users', 'action' => 'view', $participation->user->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Id') ?></th>

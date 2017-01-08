@@ -19,8 +19,8 @@
     <fieldset>
         <legend><?= __('Edit Participation') ?></legend>
         <?php
-            echo $this->Form->input('user_id', ['options' => $users]);
             echo $this->Form->input('action_id', ['options' => $actions]);
+            echo $this->Form->input('user_id', ['options' => $users]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

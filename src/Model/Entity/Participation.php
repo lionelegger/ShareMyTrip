@@ -7,8 +7,8 @@ use Cake\ORM\Entity;
  * Participation Entity
  *
  * @property int $id
- * @property int $user_id
  * @property int $action_id
+ * @property int $user_id
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Action $action
