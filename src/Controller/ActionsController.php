@@ -47,13 +47,16 @@ class ActionsController extends AppController
     /**
      * Add method
      *
+     * @param string|null $trip_id Action trip_id.
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($trip_id = null)
     {
         $action = $this->Actions->newEntity();
+
         if ($this->request->is('post')) {
             $action = $this->Actions->patchEntity($action, $this->request->data);
+            $action->trip_id = $trip_id;
             if ($this->Actions->save($action)) {
                 $this->Flash->success(__('The action has been saved.'));
 
@@ -65,6 +68,7 @@ class ActionsController extends AppController
         $trips = $this->Actions->Trips->find('list', ['limit' => 200]);
         $types = $this->Actions->Types->find('list', ['limit' => 200]);
         $this->set(compact('action', 'trips', 'types'));
+        $this->set(['trip_id' => $trip_id]);
         $this->set('_serialize', ['action']);
     }
 

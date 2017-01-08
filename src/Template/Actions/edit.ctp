@@ -1,3 +1,8 @@
+<? $this->Html->addCrumb('Trips', ['controller' => 'Trips', 'action' => 'index']) ?>
+<? $this->Html->addCrumb('??TripName??') ?>
+<? $this->Html->addCrumb($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) ?>
+<? $this->Html->addCrumb('Edit') ?>
+
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>

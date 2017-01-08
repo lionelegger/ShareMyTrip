@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Entity\TripsUser;
 
 /**
  * Trips Controller
@@ -18,9 +19,15 @@ class TripsController extends AppController
      */
     public function index()
     {
-        $trips = $this->paginate($this->Trips);
+        // Show only trips of the logged user
+        $query = $this->Trips->find();
+        $query->matching('Users', function ($q) {
+            return $q->where(['Users.id' => $this->Auth->user('id')]);
+        });
 
-        $this->set(compact('trips'));
+        $trips = $this->paginate($query);
+
+        $this->set('trips', $trips);
         $this->set('_serialize', ['trips']);
     }
 
@@ -55,11 +62,11 @@ class TripsController extends AppController
             'contain' => ['Trips']
         ]);
 
-        //debug($trip);
-
         if ($this->request->is('post')) {
             $trip = $this->Trips->patchEntity($trip, $this->request->data);
             if ($this->Trips->save($trip)) {
+                // Add the currentUser to the owner of the trip
+                $trip->owner_id = $this->Auth->user('id');
 
                 // Adds the currentUser to the joint table TripsUsers
                 $this->Trips->Users->link($trip, [$currentUser]);
@@ -120,5 +127,22 @@ class TripsController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Map method
+     *
+     * @param string|null $id Type id.
+     * @return \Cake\Network\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function map($id = null)
+    {
+        $trip = $this->Trips->get($id, [
+            'contain' => ['Users', 'Actions']
+        ]);
+
+        $this->set('trip', $trip);
+        $this->set('_serialize', ['trip']);
     }
 }
