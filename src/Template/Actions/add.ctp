@@ -66,12 +66,24 @@
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
 
-    #pac-input {
+    #pac-input-start {
         background-color: #fff;
         font-family: Roboto;
         font-size: 15px;
         font-weight: 300;
         margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 300px;
+        position: relative;
+    }
+
+    #pac-input-end {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-right: 12px;
         padding: 0 11px 0 13px;
         text-overflow: ellipsis;
         width: 300px;
@@ -99,13 +111,12 @@
     }
 
 </style>
+<br><br>
 <div class="row">
-    <div class="col-md-5">
-        <input id="pac-input" class="controls" type="text" placeholder="Enter a departure point">
+    <div class="col-md-12">
+        <input id="pac-input-start" class="controls" type="text" placeholder="Enter a departure point">
+        <input id="pac-input-end" class="controls" type="text" placeholder="Enter an arrival point">
         <div id="map-departure"></div>
-    </div>
-    <div class="col-md-5">
-
     </div>
 </div>
 
@@ -120,26 +131,32 @@
 
     function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map-departure'), {
-            center: {lat: -33.8688, lng: 151.2195},
-            zoom: 13,
-            mapTypeId: 'roadmap'
+            center: {lat: 46.2043907, lng: 6.143157699999961},
+            zoom: 4,
+            mapTypeId: 'roadmap',
+            disableDefaultUI: true
         });
 
         // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        var inputStart = document.getElementById('pac-input-start');
+        var searchBoxStart = new google.maps.places.SearchBox(inputStart);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(inputStart);
+
+        var inputEnd = document.getElementById('pac-input-end');
+        var searchBoxEnd = new google.maps.places.SearchBox(inputEnd);
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(inputEnd);
 
         // Bias the SearchBox results towards current map's viewport.
         map.addListener('bounds_changed', function() {
-            searchBox.setBounds(map.getBounds());
+            searchBoxStart.setBounds(map.getBounds());
+            searchBoxEnd.setBounds(map.getBounds());
         });
 
         var markers = [];
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
-        searchBox.addListener('places_changed', function() {
-            var places = searchBox.getPlaces();
+        searchBoxStart.addListener('places_changed', function() {
+            var places = searchBoxStart.getPlaces();
 
             if (places.length == 0) {
                 return;
@@ -149,6 +166,7 @@
             markers.forEach(function(marker) {
                 marker.setMap(null);
             });
+
             markers = [];
 
             // For each place, get the icon, name and location.
@@ -158,18 +176,21 @@
                     console.log("Returned place contains no geometry");
                     return;
                 }
-                var icon = {
-                    url: place.icon,
-                    size: new google.maps.Size(71, 71),
+
+                var planeStart = {
+                    url: '../../img/plane-start.png',
+                    // This marker is 20 pixels wide by 32 pixels high.
+                    size: new google.maps.Size(20, 20),
+                    // The origin for this image is (0, 0).
                     origin: new google.maps.Point(0, 0),
-                    anchor: new google.maps.Point(17, 34),
-                    scaledSize: new google.maps.Size(25, 25)
+                    // The anchor for this image is the base of the flagpole at (0, 32).
+                    anchor: new google.maps.Point(0, 20)
                 };
 
                 // Create a marker for each place.
                 markers.push(new google.maps.Marker({
                     map: map,
-                    icon: icon,
+                    icon: planeStart,
                     title: place.name,
                     position: place.geometry.location
                 }));
@@ -185,6 +206,61 @@
             $('#start-name').val(places[0].name);
             $('#start-lat').val(markers[0].position.lat());
             $('#start-lng').val(markers[0].position.lng());
+
+            map.fitBounds(bounds);
+        });
+
+        searchBoxEnd.addListener('places_changed', function() {
+            var places = searchBoxEnd.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            // Clear out the old markers.
+            markers.forEach(function(marker) {
+                marker.setMap(null);
+            });
+
+            markers = [];
+
+            // For each place, get the icon, name and location.
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function(place) {
+                if (!place.geometry) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+
+                var image = {
+                    url: '../../img/plane-end.png',
+                    // This marker is 20 pixels wide by 32 pixels high.
+                    size: new google.maps.Size(20, 20),
+                    // The origin for this image is (0, 0).
+                    origin: new google.maps.Point(0, 0),
+                    // The anchor for this image is the base of the flagpole at (0, 32).
+                    anchor: new google.maps.Point(0, 20)
+                };
+
+                // Create a marker for each place.
+                markers.push(new google.maps.Marker({
+                    map: map,
+                    icon: image,
+                    title: place.name,
+                    position: place.geometry.location
+                }));
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+
+            $('#end-name').val(places[0].name);
+            $('#end-lat').val(markers[0].position.lat());
+            $('#end-lng').val(markers[0].position.lng());
 
             map.fitBounds(bounds);
         });
