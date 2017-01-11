@@ -20,11 +20,6 @@ as.controller('MainCtrl', function($scope, $http, $location, $window) {
         console.log("call logout");
     };
 
-    // for navigation (to get the current page)
-    $scope.isCurrentPath = function (path) {
-        return $location.path() == path;
-    };
-
     // Add user (Registration)
     $scope.newUserToAdd = {};
     $scope.addNewUser = function() {
@@ -40,7 +35,6 @@ as.controller('MainCtrl', function($scope, $http, $location, $window) {
             console.log("Something went wrong during user registration");
         });
     };
-
 });
 
 // Ctrl that lists the trips (partials/trips.html)
@@ -66,6 +60,18 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
                 console.log($scope.tripToAdd);
                 $scope.loadTrips();
                 $scope.tripToAdd = {};
+            }).error(function() {
+            console.log("Something went wrong during save Trip");
+        });
+    };
+
+    // Deletes a trip (and the logged user as a participant with cakephp3)
+    $scope.deleteTrip = function(id) {
+        $http
+            .delete('Trips/delete/' + id + '.json')
+            .success(function() {
+                console.log("Delete trip " + id);
+                $scope.loadTrips();
             }).error(function() {
             console.log("Something went wrong during save Trip");
         });

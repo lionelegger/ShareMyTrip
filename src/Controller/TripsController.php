@@ -45,8 +45,11 @@ class TripsController extends AppController
      */
     public function view($id = null)
     {
+        // the trip is sorted by its action start_date
         $trip = $this->Trips->get($id, [
-            'contain' => ['Users', 'Actions']
+            'contain' => ['Users', 'Actions' => [
+                'sort' => ['Actions.start_date' => 'ASC']
+            ]]
         ]);
 
         $this->set('trip', $trip);

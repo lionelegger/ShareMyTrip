@@ -20,7 +20,7 @@
 
 </head>
 <?php if ($userSession = $this->request->session()->read('Auth.User')) ; ?>
-<body ng-app="myApp" ng-controller="MainCtrl">
+<body ng-app="myApp" ng-controller="MainCtrl" ng-init="currentUserId='<?= $userSession['id'] ?>'">
     <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -71,7 +71,7 @@
         </div><!-- /.container-fluid -->
     </nav>
     <?= $this->Flash->render() ?>
-    <div class="container clearfix" style="margin-top: 5em;">
+    <div class="container clearfix">
         <div class="breadcrumb">
             <?= $this->Html->getCrumbs(' > '); ?>
         </div>
