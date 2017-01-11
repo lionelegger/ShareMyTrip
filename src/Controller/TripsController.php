@@ -20,9 +20,14 @@ class TripsController extends AppController
     public function index()
     {
         // Show only trips of the logged user
-        $query = $this->Trips->find();
+        $query = $this->Trips->find('all',[
+            'contain' => ['Users']
+        ]);
+//        $query = $this->Trips->find('all');
         $query->matching('Users', function ($q) {
-            return $q->where(['Users.id' => $this->Auth->user('id')]);
+            return $q->where([
+                'Users.id' => $this->Auth->user('id')
+            ]);
         });
 
         $trips = $this->paginate($query);

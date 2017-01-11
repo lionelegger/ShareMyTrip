@@ -94,7 +94,7 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
 
     // delete a user to a trip
     $scope.tripDeleteUser = function(id) {
-        console.log('call tripDeleteUser for user');
+        console.log('call tripDeleteUser for user ' + id);
         $http
             .delete('TripsUsers/delete/'+id+'.json')
             .success(function() {
