@@ -21,7 +21,7 @@
     <?= $this->fetch('script') ?>
 
 </head>
-<?php if ($userSession = $this->request->session()->read('Auth.User')) ; ?>
+<?php if ($userSession = $this->request->session()->read('Auth.User')); ?>
 <body ng-app="myApp" ng-controller="MainCtrl" ng-init="currentUserId='<?= $userSession['id'] ?>'">
     <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
         <div class="container">

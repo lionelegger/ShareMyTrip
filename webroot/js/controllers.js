@@ -223,8 +223,24 @@ as.controller('ParticipantsCtrl', function($scope, $rootScope, $http) {
         });
     };
 
-});
+    // Add a user to a trip
+    // TODO: do not allow to pay more than the total?
+    $scope.actionPaymentToAdd = {};
+    $scope.actionAddPayment = function($actionId, $userId) {
+        $scope.actionPaymentToAdd.action_id = $actionId;
+        $scope.actionPaymentToAdd.user_id = $userId;
+        console.log('call actionAddPayment for action ' + $actionId + ' and user ' + $userId);
+        $http
+            .post('Payments/add.json', $scope.actionPaymentToAdd)
+            .success(function() {
+                console.log($scope.actionPaymentToAdd);
+                $scope.actionPaymentToAdd = {};
+            }).error(function() {
+            console.log("Something went wrong during add payment to action " + $actionId);
+        });
+    };
 
+});
 
 
 

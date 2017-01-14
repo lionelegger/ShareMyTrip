@@ -1,5 +1,5 @@
 <!--TODO: Use a cakePHP ActionsCtrl controller that build the list of participants to an action-->
-<div class="box col-md-5" ng-controller="ParticipantsCtrl" ng-init="getParticipantsAction(currentTripId, currentActionId);">
+<div class="box col-md-5" ng-init="getParticipantsAction(currentTripId, currentActionId);">
     <h4>Participants to this action</h4>
     <div class="row">
         <div class="col-md-9">
