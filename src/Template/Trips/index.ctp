@@ -43,7 +43,7 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <div class="box" ng-repeat="trip in currentUser.trips" ng-controller="tripParticipantsCtrl" ng-init="init(trip.id)">
+    <div class="box" ng-repeat="trip in currentUser.trips" ng-controller="ParticipantsCtrl" ng-init="getTripUsers(trip.id)">
         <div class="row">
             <div class="trip clearfix">
                 <div class="col-md-12 mainContent">
@@ -82,7 +82,7 @@
                                             <div class="col-sm-7">
                                                 <input class="form-control" id="email" placeholder="Enter friend's email address" ng-model="userToGet.email">
                                             </div>
-                                            <button type="button" id="tripAddUser" class="btn btn-default col-sm-2" ng-click="tripAddUser()">Add</button>
+                                            <button type="button" id="tripAddUser" class="btn btn-default col-sm-2" ng-click="tripCheckUser()">Add</button>
                                         </div>
                                         <div class="form-message col-md-offset-2 text-info"></div>
                                     </div>

@@ -9,6 +9,8 @@
     </title>
     <?= $this->Html->meta('icon') ?>
 
+    <base href="http://127.0.0.1:8888/UNIGE/Projects/ShareMyTrip/"/>
+
     <!--  Bootstrap -->
     <?= $this->Html->css('bootstrap.min.css') ?>
     <?= $this->Html->css('bootstrap-datetimepicker.min.css') ?>

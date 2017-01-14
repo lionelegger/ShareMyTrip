@@ -1,4 +1,6 @@
+// ---------------
 // Main Ctrl
+// ---------------
 as.controller('MainCtrl', function($scope, $http, $location, $window) {
     console.log('call MainCtrl');
     // to get the current user
@@ -37,7 +39,9 @@ as.controller('MainCtrl', function($scope, $http, $location, $window) {
     };
 });
 
-// Ctrl that lists the trips (partials/trips.html)
+// ---------------
+// TripsCtrl lists the trips (Page trips)
+// ---------------
 as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     // Load the list of trips for the logged user
     console.log('call TripsCtrl');
@@ -79,34 +83,36 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
 
 });
 
-// Ctrl that deals the trip participants (partials/trips.html)
-as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
-    console.log('call getTripUsers');
-    // get the users of the trip
-    $scope.init = function(tripId){
-        $scope.getTripUsers(tripId);
-    };
+// ---------------
+// ParticipantsCtrl deals participants to a trip or an action (Page trips -> Settings)
+// ---------------
+as.controller('ParticipantsCtrl', function($scope, $rootScope, $http) {
+    console.log('call ParticipantsCtrl');
 
-    $scope.getTripUsers = function(id) {
+    // get the users of the trip
+    $scope.getTripUsers = function(tripId) {
+        console.log('call getTripUsers');
         $http
-            .get('trips/'+id+'.json')
+            .get('trips/'+tripId+'.json')
             .success(function(data) {
                 console.log(data);
                 $scope.currentTrip=data;
+                console.log('trip users refreshed');
             }).error(function() {
             console.log("Something went wrong during load Trip");
         });
     };
 
     // delete a user to a trip
-    $scope.tripDeleteUser = function(id) {
-        console.log('call tripDeleteUser for user ' + id);
+    $scope.tripDeleteUser = function(userId) {
+        console.log('call tripDeleteUser for user ' + userId);
         $http
-            .delete('TripsUsers/delete/'+id+'.json')
+            .delete('TripsUsers/delete/'+userId+'.json')
             .success(function() {
+                // TODO: We should also remove the delete this user as participant of any action of the current trip
                 $('#tripDeleteUser').addClass("btn-default").removeClass("btn-danger");
-                $('#tripDeleteUser-'+id).parent().css( "opacity", "0.2" );
-                $('#tripDeleteUser-'+id).text('Deleted');
+                $('#tripDeleteUser-'+userId).parent().css( "opacity", "0.2" );
+                $('#tripDeleteUser-'+userId).text('Deleted');
             }).error(function() {
             console.log("Something went wrong during delete tripCurrentUser");
         });
@@ -114,7 +120,7 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
 
     // check if a user exist
     $scope.userToGet = {};
-    $scope.tripAddUser = function() {
+    $scope.tripCheckUser = function() {
         console.log('call tripAddUser');
         $http
             .post('Users/getUserFromEmail.json', $scope.userToGet)
@@ -127,7 +133,7 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
                 var $tripId = $('.modal.fade.in #tripId').first().text();
 
                 if (data.user) {
-                    $scope.tripAddUserId($tripId, data.user.id);
+                    $scope.tripAddUser($tripId, data.user.id);
                 } else {
                     $('.modal.fade.in .form-message').text('User does not exist. Please try another email address.');
                 }
@@ -140,7 +146,7 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
 
     // Add a user to a trip
     // TODO: do not allow to add a user twice
-    $scope.tripAddUserId = function($tripId, $userId) {
+    $scope.tripAddUser = function($tripId, $userId) {
         $scope.tripUserToAdd = {
             trip_id : $tripId,
             user_id : $userId
@@ -156,7 +162,91 @@ as.controller('tripParticipantsCtrl', function($scope, $rootScope, $http) {
         });
     };
 
+    // Add a user to an action
+    // TODO: do not allow to add a user twice
+    $scope.actionAddUser = function($tripId, $actionId, $userId) {
+        $scope.actionUserToAdd = {
+            action_id : $actionId,
+            user_id : $userId
+        };
+        console.log('call actionAddUser for user ' + $userId + " and action " + $actionId);
+
+        if ($("#user-"+$userId).hasClass('btn-success')) {
+            $deleteId = $("#user-"+$userId).attr('deleteId');
+            $http
+                .delete('Participations/delete/'+$deleteId+'.json')
+                .success(function() {
+                    $scope.getParticipantsAction($tripId, $actionId);
+                    $("#user-"+$userId).removeClass("btn-success");
+                    console.log("Participant has been removed!");
+                }).error(function() {
+                console.log("Something went wrong during add action for User " + id);
+            });
+        } else {
+            $http
+                .post('Participations/add.json', $scope.actionUserToAdd)
+                .success(function() {
+                    $scope.actionUserToAdd = {};
+                    $scope.getParticipantsAction($tripId, $actionId);
+                }).error(function() {
+                console.log("Something went wrong during add action for User " + id);
+            });
+        }
+
+    };
+
+    // Check if a user is participating to an action
+    $scope.getParticipantsAction = function($tripId, $actionId) {
+        console.log('call getParticipantsAction for action ' + $actionId + ' and trip ' + $tripId);
+        $http
+            .get('trips/'+$tripId+'.json')
+            .success(function(data) {
+                console.log(data);
+                $scope.currentTrip=data;
+                $http
+                    .get('actions/view/'+$actionId+'.json')
+                    .success(function(data) {
+                        console.log(data);
+                        $scope.actions=data;
+                        $scope.actions.action.participations.forEach(function(element) {
+                            $userId = element.user_id;
+                            $deleteId = element.id;
+                            console.log ('Participant id = ' + $userId);
+                            $("#user-"+$userId).addClass("btn-success").attr("deleteId", $deleteId);
+                            $("#user-"+$userId).prepend("<span class='glyphicon glyphicon-ok'></span>&nbsp;&nbsp;");
+                        });
+                    }).error(function() {
+                    console.log("Something went wrong during load Action");
+                });
+            }).error(function() {
+            console.log("Something went wrong during load Trip");
+        });
+    };
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ----------------------------------------------------------------------------------------------------
+// ----------------------------------------- NOT USED BELOW -------------------------------------------
+// ----------------------------------------------------------------------------------------------------
 
 // Ctrl for the trip details (partials/trip.html)
 as.controller('TripCtrl', function($scope, $rootScope, $http, $routeParams) {

@@ -11,6 +11,44 @@
     <button class="btn btn-default" role="button"><?= $this->Html->link(__('Cost'), ['action' => 'map', $trip->id]) ?></button>
 </nav>
 
+<h1><?= $trip->name ?>
+    <small>with
+        <?php foreach ($trip->users as $users): ?>
+            <?= h($users->first_name) ?>
+        <?php endforeach; ?>
+    </small>
+</h1>
+
+<?php $lastDate = '' ?>
+<?php if (!empty($trip->actions)):
+
+    $firstRow=true;
+    foreach ($trip->actions as $actions):
+        $start_date = $this->Time->format($actions->start_date, 'YYYY-MM-dd');
+        $start_time = $this->Time->format($actions->start_date, 'HH:mm');
+        $end_date = $this->Time->format($actions->end_date, 'YYYY-MM-dd');
+        $end_time = $this->Time->format($actions->end_date, 'HH:mm');
+        if ($start_date != $lastDate || $start_date == '') {
+            if ($firstRow==false) {echo "</div>";}
+            echo "<div class='row' style='border-top: 1px solid red;'>";
+            echo "    <div class='col-md-2'>";
+            echo $start_date;
+            echo "    </div>";
+            $firstRow=false;
+        }
+            echo "    <div class='col-md-3'>";
+
+            echo '<h4>' . $this->Html->link($actions->name, ['controller' => 'Actions', 'action' => 'edit', $actions->id]) . '</h4>';
+            echo $start_time . ' ' . $actions->start_name;
+            echo ' &#8594; ';
+            echo $end_time . ' ' . $actions->end_name;
+            echo "    </div>";
+        $lastDate = $start_date;
+    endforeach;
+    echo "</div>";
+endif; ?>
+<br><br>
+
 <!--
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
@@ -26,35 +64,6 @@
     </ul>
 </nav>
 -->
-<br><br>
-<?php $lastTime = '' ?>
-<?php if (!empty($trip->actions)): ?>
-    <?php foreach ($trip->actions as $actions): ?>
-
-        <?php
-            $currentTime = $this->Time->format($actions->start_date, 'YYYY-MM-dd');
-            if ($currentTime != $lastTime) {
-                echo "<div class='row' style='border-top: 1px solid red;'>";
-                echo "    <div class='col-md-2'>";
-                echo $currentTime;
-                echo "    </div>";
-                echo "    <div class='col-md-2'>";
-                echo $actions->name;
-                echo "    </div>";
-                echo "</div>";
-            } else {
-                echo "<div class='row'>";
-                echo "    <div class='col-md-2 col-md-offset-2'> *** ";
-                echo $actions->name;
-                echo "    </div>";
-                echo "</div>";
-            };
-            $lastTime = $currentTime;
-        ?>
-
-    <?php endforeach; ?>
-<?php endif; ?>
-<br><br>
 
 <?php if (!empty($trip->actions)): ?>
 <table cellpadding="0" cellspacing="0">
