@@ -83,11 +83,12 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
 
 });
 
+
 // ---------------
-// ParticipantsCtrl deals participants to a trip or an action (Page trips -> Settings)
+// TripCtrl deals with a single trip (Page trips)
 // ---------------
-as.controller('ParticipantsCtrl', function($scope, $rootScope, $http) {
-    console.log('call ParticipantsCtrl');
+as.controller('TripCtrl', function($scope, $rootScope, $http) {
+    console.log('call TripCtrl');
 
     // get the users of the trip
     $scope.getTripUsers = function(tripId) {
@@ -161,6 +162,14 @@ as.controller('ParticipantsCtrl', function($scope, $rootScope, $http) {
             console.log("Something went wrong during add trip for User " + id);
         });
     };
+});
+
+
+// ---------------
+// ParticipantsCtrl deals participants to a trip or an action (Page trips -> Settings)
+// ---------------
+as.controller('ActionCtrl', function($scope, $rootScope, $http) {
+    console.log('call ActionCtrl');
 
     // Add a user to an action
     // TODO: do not allow to add a user twice
@@ -265,6 +274,9 @@ as.controller('ParticipantsCtrl', function($scope, $rootScope, $http) {
 // ----------------------------------------------------------------------------------------------------
 
 // Ctrl for the trip details (partials/trip.html)
+/*
+
+
 as.controller('TripCtrl', function($scope, $rootScope, $http, $routeParams) {
     console.log("call tripCtrl");
 
@@ -408,4 +420,5 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $w
 
 
 
+*/
 

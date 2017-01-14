@@ -62,8 +62,7 @@ class ActionsController extends AppController
 
             if ($this->Actions->save($action)) {
                 $this->Flash->success(__('The action has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(array('controller' => 'trips', 'action' => 'view', $action->trip_id));
             } else {
                 $this->Flash->error(__('The action could not be saved. Please, try again.'));
             }
@@ -87,12 +86,12 @@ class ActionsController extends AppController
         $action = $this->Actions->get($id, [
             'contain' => ['Trips', 'Participations']
         ]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $action = $this->Actions->patchEntity($action, $this->request->data);
             if ($this->Actions->save($action)) {
                 $this->Flash->success(__('The action has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(array('controller' => 'trips', 'action' => 'view', $action->trip_id));
             } else {
                 $this->Flash->error(__('The action could not be saved. Please, try again.'));
             }

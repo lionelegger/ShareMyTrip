@@ -27,6 +27,9 @@
         ?>
     </fieldset>
 
-    <?= $this->Form->button(__('Submit Action'), ['class' => 'btn btn-lg btn-primary pull-right']) ?>
+    <?= $this->Form->button(__('Submit Action'),
+        ['class' => 'btn btn-lg btn-primary pull-right']
+    ) ?>
+
     <?= $this->Form->end() ?>
 </div>

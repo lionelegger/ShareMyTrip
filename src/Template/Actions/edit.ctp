@@ -2,7 +2,7 @@
 <!--TODO: Get Trip name instead of id -->
 <? $this->Html->addCrumb($action->trip_id) ?>
 <? $this->Html->addCrumb($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) ?>
-<div ng-init="currentTripId=<?=$action->trip_id ?>;currentActionId=<?=$action->id?>;" ng-controller="ParticipantsCtrl">
+<div ng-init="currentTripId=<?=$action->trip_id ?>;currentActionId=<?=$action->id?>;" ng-controller="ActionCtrl">
     <?php include_once("include/form.ctp"); ?>
     <?php include_once("include/payments.ctp"); ?>
     <?php include_once("include/googleMap.ctp"); ?>

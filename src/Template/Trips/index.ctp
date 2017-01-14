@@ -43,7 +43,7 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
-    <div class="box" ng-repeat="trip in currentUser.trips" ng-controller="ParticipantsCtrl" ng-init="getTripUsers(trip.id)">
+    <div class="box" ng-repeat="trip in currentUser.trips" ng-controller="TripCtrl" ng-init="getTripUsers(trip.id)">
         <div class="row">
             <div class="trip clearfix">
                 <div class="col-md-12 mainContent">

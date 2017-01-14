@@ -132,7 +132,7 @@
                 }
 
                 var planeStart = {
-                    url: '../../img/plane-start.png',
+                    url: 'img/plane-start.png',
                     // This marker is 20 pixels wide by 32 pixels high.
                     size: new google.maps.Size(20, 20),
                     // The origin for this image is (0, 0).
@@ -187,7 +187,7 @@
                 }
 
                 var image = {
-                    url: '../../img/plane-end.png',
+                    url: 'img/plane-end.png',
                     // This marker is 20 pixels wide by 32 pixels high.
                     size: new google.maps.Size(20, 20),
                     // The origin for this image is (0, 0).

@@ -3,7 +3,8 @@
 <? $this->Html->addCrumb($trip_id) ?>
 <? $this->Html->addCrumb('Add action') ?>
 
-<div class="row" ng-init="currentTripId=<?=$trip_id?>">
+<div class="row" ng-init="currentTripId=<?=$trip_id?>" ng-controller="ActionCtrl">
+    <?php include_once("include/googleMap.ctp"); ?>
     <?php //include_once("include/participants.ctp"); ?>
 </div>
 

@@ -58,15 +58,15 @@
             // set the icon types
             var actionType = <?= h($actions->type_id) ?>;
 
-            iconStart.url = '../../img/unknown.png';
-            iconEnd.url = '../../img/unknown.png';
+            iconStart.url = 'img/unknown.png';
+            iconEnd.url = 'img/unknown.png';
             <?php switch($actions->type_id) {
                 case '1':
-                    echo "iconStart.url = '../../img/plane-start.png';";
-                    echo "iconEnd.url = '../../img/plane-end.png';";
+                    echo "iconStart.url = 'img/plane-start.png';";
+                    echo "iconEnd.url = 'img/plane-end.png';";
                 break;
                 case '9':
-                    echo "iconStart.url = '../../img/hotel.png';";
+                    echo "iconStart.url = 'img/hotel.png';";
                 break;
             }?>
 
