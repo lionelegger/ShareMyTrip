@@ -23,7 +23,6 @@ class TripsController extends AppController
         $query = $this->Trips->find('all',[
             'contain' => ['Users']
         ]);
-//        $query = $this->Trips->find('all');
         $query->matching('Users', function ($q) {
             return $q->where([
                 'Users.id' => $this->Auth->user('id')
@@ -146,6 +145,23 @@ class TripsController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function map($id = null)
+    {
+        $trip = $this->Trips->get($id, [
+            'contain' => ['Users', 'Actions']
+        ]);
+
+        $this->set('trip', $trip);
+        $this->set('_serialize', ['trip']);
+    }
+
+    /**
+     * Cost method
+     *
+     * @param string|null $id Type id.
+     * @return \Cake\Network\Response|null
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function cost($id = null)
     {
         $trip = $this->Trips->get($id, [
             'contain' => ['Users', 'Actions']

@@ -112,9 +112,7 @@
         searchBoxStart.addListener('places_changed', function() {
             var places = searchBoxStart.getPlaces();
 
-            if (places.length == 0) {
-                return;
-            }
+            if (places.length == 0) {return;}
 
             // Clear out the old markers.
             markers.forEach(function(marker) {
@@ -218,8 +216,6 @@
 
             map.fitBounds(bounds);
         });
-
-
     }
 
 </script>

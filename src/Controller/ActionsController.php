@@ -121,4 +121,36 @@ class ActionsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    /**
+     * Trip method
+     *
+     * @param string|null $id Trip id.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function trip($id = null) {
+
+        $query = $this->Actions->find('all',[
+            'contain' => ['Users', 'Trips', 'Types', 'Participations', 'Payments']
+        ]);
+        $query->matching('Trips', function ($q) use ($id) {
+            return $q->where(['Trips.id' => $id]);
+        });
+
+        $queryUsers = $this->Actions->Users->find('all');
+//        $queryUsers->contain(['Authors', 'Comments']);
+
+
+        $actions = $this->paginate($query);
+        $users = $this->paginate($queryUsers);
+
+        $this->set([
+            'actions' => $actions,
+            'users' => $users
+        ]);
+
+        $this->set('_serialize', ['actions']);
+        $this->set('_serialize', ['users']);
+    }
 }

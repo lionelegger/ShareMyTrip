@@ -3,9 +3,9 @@
 <? $this->Html->addCrumb('Map') ?>
 
 <nav class="tripNav pull-right">
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Plan'), ['action' => 'view', $trip->id]) ?></button>
+    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Plan'), ['controller' => 'trips', 'action' => 'view', $trip->id]) ?></button>
     <button class="btn btn-primary" role="button">Map</button>
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Cost'), ['action' => 'map', $trip->id]) ?></button>
+    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'trip', $trip->id]) ?></button>
 </nav>
 
 <h1><?= $trip->name ?> map</h1>
