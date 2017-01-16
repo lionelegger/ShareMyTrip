@@ -12,13 +12,11 @@
 
 <?php $total = []; ?>
 <?php
-    foreach ($users as $user):
+    foreach ($tripUsers as $user):
         $total[$user->id] = 0;
     endforeach;
 ?>
-<pre><?= $total[3] ?></pre>
-
-<h1></h1>
+<pre><?= $total[1] ?></pre>
 <?php if (!empty($actions)):
 
     echo "<table class='table table-hover table-striped'>";
@@ -27,7 +25,7 @@
     echo "          Action name";
     echo "      </th>";
 
-    foreach ($users as $user):
+    foreach ($tripUsers as $user):
         echo "<th>";
         echo $user->first_name;
         echo "</th>";
@@ -51,7 +49,7 @@
         echo "        </td>";
 
 //        CONTENT
-        foreach ($users as $user):
+        foreach ($tripUsers as $user):
             echo "<td>";
 
             if (!empty($action->payments)):
@@ -78,7 +76,7 @@
     echo "          TOTAL";
     echo "      </td>";
 
-    foreach ($users as $user):
+    foreach ($tripUsers as $user):
         echo "<td>";
         echo "TOTAL " . $user->first_name . " = ". $total[$user->id];
         echo "</td>";
@@ -92,8 +90,8 @@
 
 endif; ?>
 
-
-
+<br/><br/><br/>
+<h3>LAST ACTION :</h3>
 <pre><?= $action ?></pre>
 
 

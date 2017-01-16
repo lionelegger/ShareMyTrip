@@ -129,25 +129,30 @@ class ActionsController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function trip($id = null) {
+    public function trip($trip_id = null) {
 
-        $query = $this->Actions->find('all',[
+        $queryActions = $this->Actions->find('all',[
             'contain' => ['Users', 'Trips', 'Types', 'Participations', 'Payments']
         ]);
-        $query->matching('Trips', function ($q) use ($id) {
-            return $q->where(['Trips.id' => $id]);
+        $queryActions->matching('Trips', function ($q) use ($trip_id) {
+            return $q->where(['Trips.id' => $trip_id]);
         });
 
-        $queryUsers = $this->Actions->Users->find('all');
-//        $queryUsers->contain(['Authors', 'Comments']);
+        $queryTrip = $this->Actions->Trips->find()
+            ->contain('Users')
+            ->where(['Trips.id' => $trip_id]);
 
+        $actions = $this->paginate($queryActions);
+        $trip = $this->paginate($queryTrip);
 
-        $actions = $this->paginate($query);
-        $users = $this->paginate($queryUsers);
+        foreach ($trip as $trip):
+            $tripUsers = $trip->users;
+        endforeach;
 
         $this->set([
             'actions' => $actions,
-            'users' => $users
+            'trip' => $trip,
+            'tripUsers' => $tripUsers
         ]);
 
         $this->set('_serialize', ['actions']);
