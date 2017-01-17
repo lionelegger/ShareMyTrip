@@ -1,4 +1,6 @@
 <? use Cake\I18n\Time; ?>
+<!-- TODO: PLAN should only show the actions in which the logged user is participating -->
+<!-- TODO: Add the participants list when not an action made with all (as a bubble hint on hover for example) -->
 
 <? $this->Html->addCrumb('Trips', ['controller' => 'Trips', 'action' => 'index']) ?>
 <? $this->Html->addCrumb($trip->name, ['controller' => 'Trips', 'action' => 'view', $trip->id]) ?>

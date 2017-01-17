@@ -131,31 +131,30 @@ class ActionsController extends AppController
      */
     public function trip($trip_id = null) {
 
+        // $actions is an array with all actions that are related to a given trip
         $queryActions = $this->Actions->find('all',[
             'contain' => ['Users', 'Trips', 'Types', 'Participations', 'Payments']
         ]);
         $queryActions->matching('Trips', function ($q) use ($trip_id) {
             return $q->where(['Trips.id' => $trip_id]);
         });
+        $actions = $this->paginate($queryActions);
 
+        // $tripUsers is an array with all users of the given trip
         $queryTrip = $this->Actions->Trips->find()
             ->contain('Users')
             ->where(['Trips.id' => $trip_id]);
 
-        $actions = $this->paginate($queryActions);
-        $trip = $this->paginate($queryTrip);
+        $trip = $this->paginate($queryTrip)->first();
+        $tripUsers = $trip->users;
 
-        foreach ($trip as $trip):
-            $tripUsers = $trip->users;
-        endforeach;
-
+        // we pass the variables to the view
         $this->set([
             'actions' => $actions,
             'trip' => $trip,
             'tripUsers' => $tripUsers
         ]);
-
-        $this->set('_serialize', ['actions']);
-        $this->set('_serialize', ['users']);
+        $this->set(compact('actions', 'trip', 'tripUsers'));
+        $this->set('_serialize', ['actions', 'users', 'tripUsers']);
     }
 }

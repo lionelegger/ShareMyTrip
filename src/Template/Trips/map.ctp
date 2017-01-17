@@ -1,3 +1,4 @@
+<!-- TODO: MAP should only show the actions in which the logged user is participating -->
 <? $this->Html->addCrumb('Trips', ['controller' => 'Trips', 'action' => 'index']) ?>
 <? $this->Html->addCrumb($trip->name, ['controller' => 'Trips', 'action' => 'view', $trip->id]) ?>
 <? $this->Html->addCrumb('Map') ?>
