@@ -131,12 +131,17 @@ class ActionsController extends AppController
      */
     public function trip($trip_id = null) {
 
-        // $actions is an array with all actions that are related to a given trip
+        // $actions is an array that contains all the following tables
         $queryActions = $this->Actions->find('all',[
             'contain' => ['Users', 'Trips', 'Types', 'Participations', 'Payments']
         ]);
+        // Choose only actions related to the specified trip ($trip_id)
         $queryActions->matching('Trips', function ($q) use ($trip_id) {
             return $q->where(['Trips.id' => $trip_id]);
+        });
+        // Choose only actions where the authentified user is participating
+        $queryActions->matching('Participations', function ($q) {
+            return $q->where(['Participations.user_id' => $this->Auth->user('id')]);
         });
         $actions = $this->paginate($queryActions);
 
