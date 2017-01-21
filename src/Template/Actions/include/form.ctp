@@ -3,8 +3,9 @@
     <fieldset>
         <?php
         $this->Form->input('trip_id', ['value' => '$trip_id', 'class' => 'hidden', 'label' => false]);
-        echo $this->Form->input('type_id', ['options' => $types]);
+        echo $this->Form->input('type_id', ['onchange' => "updateTypeId()"], ['options' => $types]);
         // echo $this->Form->input('owner_id'); don't need since we add the authUser as the owner_id in ActionsController
+        // echo $this->Form->input('status'); don't need since it will be calculated automatically depending of the payments and price
         echo $this->Form->input('name');
         echo $this->Form->input('company');
         echo $this->Form->input('reservation');

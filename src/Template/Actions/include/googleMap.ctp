@@ -3,7 +3,7 @@
     /* Always set the map height explicitly to define the size of the div
            * element that contains the map. */
 
-    #map-departure {
+    #map {
         height: 400px;
         width: 100%;
         border: 5px solid red;
@@ -70,11 +70,28 @@
     <div class="col-md-12">
         <input id="pac-input-start" class="controls" type="text" placeholder="Enter a departure point">
         <input id="pac-input-end" class="controls" type="text" placeholder="Enter an arrival point">
-        <div id="map-departure"></div>
+        <div id="map"></div>
     </div>
 </div>
 
+<?php
+$statusColor = '#666666'; // undefined (gray)
+switch($action->status) {
+    case 1: $statusColor = '#ed984c'; break; // warning (orange)
+    case 2: $statusColor = '#9b1003'; break; // danger (red)
+    case 3: $statusColor = '#2e753f'; break; // success (green)
+}
+?>
+
 <script>
+
+    var actionType = 0; // by default
+    function updateTypeId() {
+        actionType = $('#type-id option:selected').val();
+        console.log("actionType is now " + actionType);
+        return actionType;
+    }
+
     // This example adds a search box to a map, using the Google Place Autocomplete
     // feature. People can enter geographical searches. The search box will return a
     // pick list containing a mix of places and predicted search terms.
@@ -85,10 +102,13 @@
 
     function initAutocomplete() {
 
+//      TODO: make that we can pick a specific point when google found many
+//      TODO: make that when we edit an action, the map loads the prefilled localisations
+
         var LatLngStart = '';
         var LatLngEnd = '';
 
-        var map = new google.maps.Map(document.getElementById('map-departure'), {
+        var map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 46.2043907, lng: 6.143157699999961},
             zoom: 4,
             mapTypeId: 'roadmap',
@@ -105,7 +125,7 @@
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(inputEnd);
 
         // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
+        map.addListener('bounds_changed', function () {
             searchBoxStart.setBounds(map.getBounds());
             searchBoxEnd.setBounds(map.getBounds());
         });
@@ -119,30 +139,38 @@
 
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
-        searchBoxStart.addListener('places_changed', function() {
+        searchBoxStart.addListener('places_changed', function () {
+
+            actionType = updateTypeId();
+
             var places = searchBoxStart.getPlaces();
 
-            if (places.length == 0) {return;}
+            if (places.length == 0) {
+                return;
+            }
 
             // Clear out the old markers.
-            markersStart.forEach(function(marker) {
+            markersStart.forEach(function (marker) {
                 marker.setMap(null);
                 // clear oiut old lines
-                actionPath.setMap(null);
+                if (actionPath.setMap){
+                    actionPath.setMap(null);
+                }
             });
 
             markersStart = [];
 
             // For each place, get the icon, name and location.
             var boundsStart = new google.maps.LatLngBounds();
-            places.forEach(function(place) {
+            places.forEach(function (place) {
                 if (!place.geometry) {
                     console.log("Returned place contains no geometry");
                     return;
                 }
 
+                console.log('actionType = ' + actionType);
                 var planeStart = {
-                    url: 'img/plane-start.png',
+                    url: 'img/iconMap-'+actionType+'.png',
                     // This marker is 20 pixels wide by 32 pixels high.
                     size: new google.maps.Size(20, 20),
                     // The origin for this image is (0, 0).
@@ -160,8 +188,8 @@
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
                         fillOpacity: 1,
-                        fillColor: '#9b1003',
-                        strokeColor: '#8d1003',
+                        fillColor: '<?=$statusColor?>',
+                        strokeColor: '<?=$statusColor?>',
                         strokeWeight: 1.0,
                         scale: 10 //pixels
                     }
@@ -198,7 +226,7 @@
                         }],
                         path: actionCoordinates,
                         geodesic: true,
-                        strokeColor: '#8d1003',
+                        strokeColor: '<?=$statusColor?>',
                         strokeOpacity: 1,
                         strokeWeight: 2
                     });
@@ -218,33 +246,36 @@
 
         });
 
-        searchBoxEnd.addListener('places_changed', function() {
+        searchBoxEnd.addListener('places_changed', function () {
 
-            var places = searchBoxEnd.getPlaces();
+          actionType = updateTypeId();
+          var places = searchBoxEnd.getPlaces();
 
             if (places.length == 0) {
                 return;
             }
 
             // Clear out the old markers.
-            markersEnd.forEach(function(marker) {
+            markersEnd.forEach(function (marker) {
                 marker.setMap(null);
                 // clear oiut old lines
-                actionPath.setMap(null);
+                if (actionPath.setMap){
+                    actionPath.setMap(null);
+                }
             });
 
             markersEnd = [];
 
             // For each place, get the icon, name and location.
             var boundsEnd = new google.maps.LatLngBounds();
-            places.forEach(function(place) {
+            places.forEach(function (place) {
                 if (!place.geometry) {
                     console.log("Returned place contains no geometry");
                     return;
                 }
 
                 var image = {
-                    url: 'img/plane-end.png',
+                    url: 'img/iconMap-'+actionType+'.png',
                     // This marker is 20 pixels wide by 32 pixels high.
                     size: new google.maps.Size(20, 20),
                     // The origin for this image is (0, 0).
@@ -262,8 +293,8 @@
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
                         fillOpacity: 1,
-                        fillColor: '#9b1003',
-                        strokeColor: '#8d1003',
+                        fillColor: '<?=$statusColor?>',
+                        strokeColor: '<?=$statusColor?>',
                         strokeWeight: 1.0,
                         scale: 10 //pixels
                     }
@@ -300,7 +331,7 @@
                     }],
                     path: actionCoordinates,
                     geodesic: true,
-                    strokeColor: '#8d1003',
+                    strokeColor: '<?=$statusColor?>',
                     strokeOpacity: 1,
                     strokeWeight: 2
                 });
@@ -317,7 +348,6 @@
             map.fitBounds(boundsEnd);
 
         });
-
 
     }
 

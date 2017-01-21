@@ -16,6 +16,9 @@
     <?= $this->Html->css('bootstrap-datetimepicker.min.css') ?>
     <?= $this->Html->css('custom.css') ?>
 
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <?= $this->Html->script('jquery.min.js') ?>
+
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -85,8 +88,6 @@
     <!-- AngularJS -->
     <?= $this->Html->script('angular.min.js') ?>
     <?= $this->Html->script('angular-route.min.js') ?>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <?= $this->Html->script('jquery.min.js') ?>
     <?= $this->Html->script('moment.min.js') ?>
     <!-- Latest compiled and minified Boostrap JavaScript -->
     <?= $this->Html->script('bootstrap.min.js') ?>

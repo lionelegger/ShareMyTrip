@@ -109,7 +109,7 @@ class ActionsController extends AppController
             $action = $this->Actions->patchEntity($action, $this->request->data);
             if ($this->Actions->save($action)) {
                 $this->Flash->success(__('The action has been saved.'));
-                return $this->redirect(array('controller' => 'trips', 'action' => 'view', $action->trip_id));
+                return $this->redirect(array('controller' => 'actions', 'action' => 'plan', $action->trip_id));
             } else {
                 $this->Flash->error(__('The action could not be saved. Please, try again.'));
             }
