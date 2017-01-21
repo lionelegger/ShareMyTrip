@@ -5,7 +5,6 @@
 <div ng-init="currentTripId=<?=$action->trip_id ?>;currentActionId=<?=$action->id?>;" ng-controller="ActionCtrl">
     <?php include_once("include/form.ctp"); ?>
     <?php include_once("include/payments.ctp"); ?>
-    <?php include_once("include/googleMap.ctp"); ?>
     <?php include_once("include/participants.ctp"); ?>
 </div>
 <br/>

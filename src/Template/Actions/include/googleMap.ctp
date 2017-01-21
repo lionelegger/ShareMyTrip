@@ -66,10 +66,17 @@
 
 </style>
 <br><br>
+<?php
+// Initialize the values if edit mode
+$start_name_value = '';
+$end_name_value = '';
+if ($action->start_name) { $start_name_value = 'value="'.$action->start_name.'"'; }
+if ($action->end_name) { $end_name_value = 'value="'.$action->end_name.'"'; }
+?>
 <div class="row">
     <div class="col-md-12">
-        <input id="pac-input-start" class="controls" type="text" placeholder="Enter a departure point">
-        <input id="pac-input-end" class="controls" type="text" placeholder="Enter an arrival point">
+        <input id="pac-input-start" class="controls" type="text" <?=$start_name_value?> placeholder="Enter a departure point">
+        <input id="pac-input-end" class="controls" type="text" <?=$end_name_value?> placeholder="Enter an arrival point">
         <div id="map"></div>
     </div>
 </div>
@@ -88,7 +95,6 @@ switch($action->status) {
     var actionType = 0; // by default
     function updateTypeId() {
         actionType = $('#type-id option:selected').val();
-        console.log("actionType is now " + actionType);
         return actionType;
     }
 

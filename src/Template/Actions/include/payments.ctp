@@ -43,7 +43,7 @@
                             <div class="form-group">
                                 <label for="date" class="col-sm-4 control-label">Payment date</label>
                                 <div class="input-group col-sm-7">
-                                    <input type="text" class="form-control" id="date" ng-model="actionPaymentToAdd.date" placeholder="Insert date">
+                                    <input type="text" class="form-control" id="datePayment" name="datePayment" ng-model="actionPaymentToAdd.date" placeholder="Insert date">
                                     <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
                                 </div>
                             </div>
@@ -72,3 +72,16 @@
     </div>
     <div class="clearfix">&nbsp;</div>
 </div>
+<!--TODO: BUG => Date is not saved because cakephp does not take the YYYY-MM-DD format (how to change that?) -->
+<script type="text/javascript">
+    $(function () {
+        $('#datePayment').datetimepicker({
+            format: 'YYYY-MM-DD hh:mm',
+            widgetPositioning: {
+                horizontal: 'left',
+                vertical: 'bottom'
+            }
+
+        });
+    });
+</script>

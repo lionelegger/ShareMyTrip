@@ -50,7 +50,8 @@ VALUES  (1, 'Travel'),
         (4, 'Other');
 
 INSERT INTO `types` (`id`, `name`, `category_id`) 
-    VALUES  (1, 'Plane', '1'), 
+    VALUES  (0, 'Select an action', '4'),
+            (1, 'Plane', '1'), 
             (2, 'Train', '1'), 
             (3, 'Taxi', '1'), 
             (4, 'Car', '1'), 
@@ -69,9 +70,7 @@ INSERT INTO `types` (`id`, `name`, `category_id`)
             (17, 'Concert/Theatre', '3'), 
             (18, 'Other activity', '3'), 
             (19, 'Bank Withdrawal', '4'),
-            (20, 'Other expenses', '4'),  
-            (21, 'Any other action', '4');
-
+            (20, 'Other expenses', '4');
 INSERT INTO `methods` (`id`, `name`) 
 VALUES  (1, 'Cash'), 
         (2, 'Bank transfert'), 
@@ -93,13 +92,11 @@ Then, in shell, run the following instructions.
 ```sh
 bin/cake bake all Users
 bin/cake bake all Trips
-bin/cake bake all TripsUsers
 bin/cake bake all Categories
 bin/cake bake all Types
 bin/cake bake all Trips
 bin/cake bake all Methods
 bin/cake bake all Payments
-bin/cake bake all Participations
 bin/cake bake all Actions
 ```
 
