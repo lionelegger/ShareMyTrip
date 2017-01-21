@@ -6,10 +6,10 @@
         <li><?= $this->Html->link(__('New Trip'), ['controller' => 'Trips', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Types'), ['controller' => 'Types', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Type'), ['controller' => 'Types', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Participations'), ['controller' => 'Participations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Participation'), ['controller' => 'Participations', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Payments'), ['controller' => 'Payments', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New Payment'), ['controller' => 'Payments', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
     </ul>
 </nav>
 <div class="actions index large-9 medium-8 columns content">
@@ -27,6 +27,7 @@
                 <th scope="col"><?= $this->Paginator->sort('identifier') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('price') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('currency') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('status') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('start_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('start_date') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('start_lng') ?></th>
@@ -51,6 +52,7 @@
                 <td><?= h($action->identifier) ?></td>
                 <td><?= $this->Number->format($action->price) ?></td>
                 <td><?= h($action->currency) ?></td>
+                <td><?= $this->Number->format($action->status) ?></td>
                 <td><?= h($action->start_name) ?></td>
                 <td><?= h($action->start_date) ?></td>
                 <td><?= $this->Number->format($action->start_lng) ?></td>

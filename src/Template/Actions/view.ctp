@@ -9,10 +9,10 @@
         <li><?= $this->Html->link(__('New Trip'), ['controller' => 'Trips', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Types'), ['controller' => 'Types', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Type'), ['controller' => 'Types', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Participations'), ['controller' => 'Participations', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Participation'), ['controller' => 'Participations', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Payments'), ['controller' => 'Payments', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Payment'), ['controller' => 'Payments', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="actions view large-9 medium-8 columns content">
@@ -67,6 +67,10 @@
             <td><?= $this->Number->format($action->price) ?></td>
         </tr>
         <tr>
+            <th scope="row"><?= __('Status') ?></th>
+            <td><?= $this->Number->format($action->status) ?></td>
+        </tr>
+        <tr>
             <th scope="row"><?= __('Start Lng') ?></th>
             <td><?= $this->Number->format($action->start_lng) ?></td>
         </tr>
@@ -96,31 +100,6 @@
         <?= $this->Text->autoParagraph(h($action->note)); ?>
     </div>
     <div class="related">
-        <h4><?= __('Related Participations') ?></h4>
-        <?php if (!empty($action->participations)): ?>
-        <table cellpadding="0" cellspacing="0">
-            <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Action Id') ?></th>
-                <th scope="col"><?= __('User Id') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($action->participations as $participations): ?>
-            <tr>
-                <td><?= h($participations->id) ?></td>
-                <td><?= h($participations->action_id) ?></td>
-                <td><?= h($participations->user_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['controller' => 'Participations', 'action' => 'view', $participations->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['controller' => 'Participations', 'action' => 'edit', $participations->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Participations', 'action' => 'delete', $participations->id], ['confirm' => __('Are you sure you want to delete # {0}?', $participations->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-        <?php endif; ?>
-    </div>
-    <div class="related">
         <h4><?= __('Related Payments') ?></h4>
         <?php if (!empty($action->payments)): ?>
         <table cellpadding="0" cellspacing="0">
@@ -147,6 +126,37 @@
                     <?= $this->Html->link(__('View'), ['controller' => 'Payments', 'action' => 'view', $payments->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Payments', 'action' => 'edit', $payments->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'Payments', 'action' => 'delete', $payments->id], ['confirm' => __('Are you sure you want to delete # {0}?', $payments->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Users') ?></h4>
+        <?php if (!empty($action->users)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Email') ?></th>
+                <th scope="col"><?= __('First Name') ?></th>
+                <th scope="col"><?= __('Last Name') ?></th>
+                <th scope="col"><?= __('Password') ?></th>
+                <th scope="col"><?= __('Picture') ?></th>
+                <th scope="col" class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($action->users as $users): ?>
+            <tr>
+                <td><?= h($users->id) ?></td>
+                <td><?= h($users->email) ?></td>
+                <td><?= h($users->first_name) ?></td>
+                <td><?= h($users->last_name) ?></td>
+                <td><?= h($users->password) ?></td>
+                <td><?= h($users->picture) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Users', 'action' => 'view', $users->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Users', 'action' => 'edit', $users->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Users', 'action' => 'delete', $users->id], ['confirm' => __('Are you sure you want to delete # {0}?', $users->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

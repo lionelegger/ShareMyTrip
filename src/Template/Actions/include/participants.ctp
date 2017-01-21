@@ -13,12 +13,6 @@
             <!-- TODO: implement function for button switching between "add all" and "only for me" (by default)-->
             <button role="button" class="btn btn-primary">Add all</button>
         </div>
-        <div class="col-md-12">
-            Participants id:
-        <? foreach ($action->participations as $participants):
-            echo $participants->id . ", ";
-        endforeach; ?>
-        </div>
     </div>
     <div class="clearfix">&nbsp;</div>
 </div>

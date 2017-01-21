@@ -47,7 +47,7 @@
         <div class="row">
             <div class="trip clearfix">
                 <div class="col-md-12 mainContent">
-                    <h2 class="trip-title"><a href="trips/{{trip.id}}">{{trip.name}}</a></h2>
+                    <h2 class="trip-title"><a href="actions/plan/{{trip.id}}">{{trip.name}}</a></h2>
 
                     <ul class="list-inline pull-right">
                         <li ng-repeat="user in currentTrip.trip.users"><span class="label label-default" >{{user.first_name}}</span></li>

@@ -7,20 +7,20 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * Participations Model
+ * ActionsUsers Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Actions
  * @property \Cake\ORM\Association\BelongsTo $Users
  *
- * @method \App\Model\Entity\Participation get($primaryKey, $options = [])
- * @method \App\Model\Entity\Participation newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Participation[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Participation|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Participation patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Participation[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Participation findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\ActionsUser get($primaryKey, $options = [])
+ * @method \App\Model\Entity\ActionsUser newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\ActionsUser[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\ActionsUser|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\ActionsUser patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\ActionsUser[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\ActionsUser findOrCreate($search, callable $callback = null)
  */
-class ParticipationsTable extends Table
+class ActionsUsersTable extends Table
 {
 
     /**
@@ -33,7 +33,7 @@ class ParticipationsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('participations');
+        $this->table('actions_users');
         $this->displayField('id');
         $this->primaryKey('id');
 

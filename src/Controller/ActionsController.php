@@ -37,7 +37,7 @@ class ActionsController extends AppController
     public function view($id = null)
     {
         $action = $this->Actions->get($id, [
-            'contain' => ['Trips', 'Types', 'Participations', 'Payments']
+            'contain' => ['Trips', 'Types', 'Users', 'Payments']
         ]);
 
         $this->set('action', $action);
@@ -52,6 +52,7 @@ class ActionsController extends AppController
      */
     public function add($trip_id = null)
     {
+
         $action = $this->Actions->newEntity();
         if ($this->request->is('post')) {
             $action = $this->Actions->patchEntity($action, $this->request->data);
@@ -62,16 +63,34 @@ class ActionsController extends AppController
 
             if ($this->Actions->save($action)) {
                 $this->Flash->success(__('The action has been saved.'));
-                return $this->redirect(array('controller' => 'trips', 'action' => 'view', $action->trip_id));
+
+//                // get all Users from the $trip_id
+//                $query = $this->Actions->Trips->find('all')
+//                    ->where([ 'Trips.id' => $trip_id ])
+//                    ->contain('Users');
+//                // Add all trip users as participants of the action (by default)
+//                $results = $query->all();
+//                $data = $results->toArray();
+//
+//                foreach ($data[0]['users'] as $user):
+//                    $this->Actions->Users->link($action, [$user]);
+//                    $this->Flash->success($user);
+//                endforeach;
+
+                return $this->redirect(array('controller' => 'actions', 'action' => 'plan', $action->trip_id));
             } else {
                 $this->Flash->error(__('The action could not be saved. Please, try again.'));
             }
         }
         $trips = $this->Actions->Trips->find('list', ['limit' => 200]);
         $types = $this->Actions->Types->find('list', ['limit' => 200]);
-        $this->set(compact('action', 'trips', 'types'));
-        $this->set(['trip_id' => $trip_id]);
-        $this->set('_serialize', ['action']);
+        $users = $this->Actions->Users->find('list', ['limit' => 200]);
+
+        $trip = $this->Actions->Trips->get($trip_id);
+        $this->set(compact('trip'));
+
+        $this->set(compact('action', 'trips', 'types', 'users'));
+        $this->set('_serialize', ['action', 'trips']);
     }
 
     /**
@@ -84,9 +103,8 @@ class ActionsController extends AppController
     public function edit($id = null)
     {
         $action = $this->Actions->get($id, [
-            'contain' => ['Trips', 'Participations']
+            'contain' => ['Trips','Users']
         ]);
-
         if ($this->request->is(['patch', 'post', 'put'])) {
             $action = $this->Actions->patchEntity($action, $this->request->data);
             if ($this->Actions->save($action)) {
@@ -98,7 +116,8 @@ class ActionsController extends AppController
         }
         $trips = $this->Actions->Trips->find('list', ['limit' => 200]);
         $types = $this->Actions->Types->find('list', ['limit' => 200]);
-        $this->set(compact('action', 'trips', 'types'));
+        $users = $this->Actions->Users->find('list', ['limit' => 200]);
+        $this->set(compact('action', 'trips', 'types', 'users'));
         $this->set('_serialize', ['action']);
     }
 
@@ -123,25 +142,107 @@ class ActionsController extends AppController
     }
 
     /**
-     * Trip method
+     * Budget method
      *
      * @param string|null $id Trip id.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function trip($trip_id = null) {
+    public function budget($trip_id = null) {
 
         // $actions is an array that contains all the following tables
         $queryActions = $this->Actions->find('all',[
-            'contain' => ['Users', 'Trips', 'Types', 'Participations', 'Payments']
+            'contain' => ['Users', 'Trips', 'Types', 'Payments']
         ]);
         // Choose only actions related to the specified trip ($trip_id)
         $queryActions->matching('Trips', function ($q) use ($trip_id) {
             return $q->where(['Trips.id' => $trip_id]);
         });
         // Choose only actions where the authentified user is participating
-        $queryActions->matching('Participations', function ($q) {
-            return $q->where(['Participations.user_id' => $this->Auth->user('id')]);
+        $queryActions->matching('Users', function ($q) {
+            return $q->where(['users.id' => $this->Auth->user('id')]);
+        });
+        $actions = $this->paginate($queryActions);
+
+        // $tripUsers is an array with all users of the given trip
+        $queryTrip = $this->Actions->Trips->find()
+            ->contain('Users')
+            ->where(['Trips.id' => $trip_id]);
+
+        $trip = $this->paginate($queryTrip)->first();
+        $tripUsers = $trip->users;
+
+        // we pass the variables to the view
+        $this->set([
+            'actions' => $actions,
+            'trip' => $trip,
+            'tripUsers' => $tripUsers
+        ]);
+        $this->set(compact('actions', 'trip', 'tripUsers'));
+        $this->set('_serialize', ['actions', 'users', 'tripUsers']);
+    }
+
+    /**
+     * Map method
+     *
+     * @param string|null $id Trip id.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function map($trip_id = null) {
+
+        // $actions is an array that contains all the following tables
+        $queryActions = $this->Actions->find('all',[
+            'contain' => ['Users', 'Trips', 'Types', 'Payments']
+        ]);
+        // Choose only actions related to the specified trip ($trip_id)
+        $queryActions->matching('Trips', function ($q) use ($trip_id) {
+            return $q->where(['Trips.id' => $trip_id]);
+        });
+        // Choose only actions where the authentified user is participating
+        $queryActions->matching('Users', function ($q) {
+            return $q->where(['users.id' => $this->Auth->user('id')]);
+        });
+        $actions = $this->paginate($queryActions);
+
+        // $tripUsers is an array with all users of the given trip
+        $queryTrip = $this->Actions->Trips->find()
+            ->contain('Users')
+            ->where(['Trips.id' => $trip_id]);
+
+        $trip = $this->paginate($queryTrip)->first();
+        $tripUsers = $trip->users;
+
+        // we pass the variables to the view
+        $this->set([
+            'actions' => $actions,
+            'trip' => $trip,
+            'tripUsers' => $tripUsers
+        ]);
+        $this->set(compact('actions', 'trip', 'tripUsers'));
+        $this->set('_serialize', ['actions', 'users', 'tripUsers']);
+    }
+
+    /**
+     * Plan method
+     *
+     * @param string|null $id Trip id.
+     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function plan($trip_id = null) {
+
+        // $actions is an array that contains all the following tables
+        $queryActions = $this->Actions->find('all',[
+            'contain' => ['Users', 'Trips', 'Types', 'Payments']
+        ]);
+        // Choose only actions related to the specified trip ($trip_id)
+        $queryActions->matching('Trips', function ($q) use ($trip_id) {
+            return $q->where(['Trips.id' => $trip_id]);
+        });
+        // Choose only actions where the authentified user is participating
+        $queryActions->matching('Users', function ($q) {
+            return $q->where(['users.id' => $this->Auth->user('id')]);
         });
         $actions = $this->paginate($queryActions);
 

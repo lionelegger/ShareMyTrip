@@ -4,16 +4,16 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Participation Entity
+ * ActionsUser Entity
  *
  * @property int $id
  * @property int $action_id
  * @property int $user_id
  *
- * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Action $action
+ * @property \App\Model\Entity\User $user
  */
-class Participation extends Entity
+class ActionsUser extends Entity
 {
 
     /**

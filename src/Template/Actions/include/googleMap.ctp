@@ -84,6 +84,10 @@
     // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
     function initAutocomplete() {
+
+        var LatLngStart = '';
+        var LatLngEnd = '';
+
         var map = new google.maps.Map(document.getElementById('map-departure'), {
             center: {lat: 46.2043907, lng: 6.143157699999961},
             zoom: 4,
@@ -106,7 +110,13 @@
             searchBoxEnd.setBounds(map.getBounds());
         });
 
-        var markers = [];
+        var markersStart = [];
+        var markersEnd = [];
+        var actionPath = [];
+        var lineSymbol = {
+            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+        };
+
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBoxStart.addListener('places_changed', function() {
@@ -115,14 +125,16 @@
             if (places.length == 0) {return;}
 
             // Clear out the old markers.
-            markers.forEach(function(marker) {
+            markersStart.forEach(function(marker) {
                 marker.setMap(null);
+                // clear oiut old lines
+                actionPath.setMap(null);
             });
 
-            markers = [];
+            markersStart = [];
 
             // For each place, get the icon, name and location.
-            var bounds = new google.maps.LatLngBounds();
+            var boundsStart = new google.maps.LatLngBounds();
             places.forEach(function(place) {
                 if (!place.geometry) {
                     console.log("Returned place contains no geometry");
@@ -136,33 +148,78 @@
                     // The origin for this image is (0, 0).
                     origin: new google.maps.Point(0, 0),
                     // The anchor for this image is the base of the flagpole at (0, 32).
-                    anchor: new google.maps.Point(0, 20)
+                    anchor: new google.maps.Point(10, 10)
                 };
 
-                // Create a marker for each place.
-                markers.push(new google.maps.Marker({
+                // Create a marker for the status pill.
+                markersStart.push(new google.maps.Marker({
+                    map: map,
+                    position: place.geometry.location,
+                    zIndex: 1,
+                    optimized: false,
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillOpacity: 1,
+                        fillColor: '#9b1003',
+                        strokeColor: '#8d1003',
+                        strokeWeight: 1.0,
+                        scale: 10 //pixels
+                    }
+                }));
+                // Create a marker for the icon (on top).
+                markersStart.push(new google.maps.Marker({
                     map: map,
                     icon: planeStart,
                     title: place.name,
-                    position: place.geometry.location
+                    position: place.geometry.location,
+                    optimized: false,
+                    zIndex: 20
                 }));
+
+                LatLngStart = place.geometry.location;
 
                 if (place.geometry.viewport) {
                     // Only geocodes have viewport.
-                    bounds.union(place.geometry.viewport);
+                    boundsStart.union(place.geometry.viewport);
                 } else {
-                    bounds.extend(place.geometry.location);
+                    boundsStart.extend(place.geometry.location);
                 }
+
+                // draw the line between start and end
+                if (LatLngEnd) {
+                    var actionCoordinates = [
+                        LatLngStart,
+                        LatLngEnd
+                    ];
+                    actionPath = new google.maps.Polyline({
+                        icons: [{
+                            icon: lineSymbol,
+                            offset: '50%'
+                        }],
+                        path: actionCoordinates,
+                        geodesic: true,
+                        strokeColor: '#8d1003',
+                        strokeOpacity: 1,
+                        strokeWeight: 2
+                    });
+                    actionPath.setMap(map);
+                }
+
             });
 
             $('#start-name').val(places[0].name);
-            $('#start-lat').val(markers[0].position.lat());
-            $('#start-lng').val(markers[0].position.lng());
+            $('#start-lat').val(markersStart[0].position.lat());
+            $('#start-lng').val(markersStart[0].position.lng());
 
-            map.fitBounds(bounds);
+            if (LatLngEnd) {
+                boundsEnd.extend(LatLngEnd);
+            }
+            map.fitBounds(boundsStart);
+
         });
 
         searchBoxEnd.addListener('places_changed', function() {
+
             var places = searchBoxEnd.getPlaces();
 
             if (places.length == 0) {
@@ -170,14 +227,16 @@
             }
 
             // Clear out the old markers.
-            markers.forEach(function(marker) {
+            markersEnd.forEach(function(marker) {
                 marker.setMap(null);
+                // clear oiut old lines
+                actionPath.setMap(null);
             });
 
-            markers = [];
+            markersEnd = [];
 
             // For each place, get the icon, name and location.
-            var bounds = new google.maps.LatLngBounds();
+            var boundsEnd = new google.maps.LatLngBounds();
             places.forEach(function(place) {
                 if (!place.geometry) {
                     console.log("Returned place contains no geometry");
@@ -191,31 +250,75 @@
                     // The origin for this image is (0, 0).
                     origin: new google.maps.Point(0, 0),
                     // The anchor for this image is the base of the flagpole at (0, 32).
-                    anchor: new google.maps.Point(0, 20)
+                    anchor: new google.maps.Point(10, 10)
                 };
 
-                // Create a marker for each place.
-                markers.push(new google.maps.Marker({
+                // Create a marker for the status pill.
+                markersEnd.push(new google.maps.Marker({
+                    map: map,
+                    position: place.geometry.location,
+                    zIndex: 1,
+                    optimized: false,
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillOpacity: 1,
+                        fillColor: '#9b1003',
+                        strokeColor: '#8d1003',
+                        strokeWeight: 1.0,
+                        scale: 10 //pixels
+                    }
+                }));
+                // Create a marker for the icon (on top).
+                markersEnd.push(new google.maps.Marker({
                     map: map,
                     icon: image,
                     title: place.name,
-                    position: place.geometry.location
+                    position: place.geometry.location,
+                    optimized: false,
+                    zIndex: 20
                 }));
 
                 if (place.geometry.viewport) {
                     // Only geocodes have viewport.
-                    bounds.union(place.geometry.viewport);
+                    boundsEnd.union(place.geometry.viewport);
                 } else {
-                    bounds.extend(place.geometry.location);
+                    boundsEnd.extend(place.geometry.location);
                 }
+
+                LatLngEnd = place.geometry.location;
+
+                // draw the line between start and end
+                var actionCoordinates = [
+                    LatLngStart,
+                    LatLngEnd
+                ];
+
+                actionPath = new google.maps.Polyline({
+                    icons: [{
+                        icon: lineSymbol,
+                        offset: '50%'
+                    }],
+                    path: actionCoordinates,
+                    geodesic: true,
+                    strokeColor: '#8d1003',
+                    strokeOpacity: 1,
+                    strokeWeight: 2
+                });
+                actionPath.setMap(map);
             });
 
             $('#end-name').val(places[0].name);
-            $('#end-lat').val(markers[0].position.lat());
-            $('#end-lng').val(markers[0].position.lng());
+            $('#end-lat').val(markersEnd[0].position.lat());
+            $('#end-lng').val(markersEnd[0].position.lng());
 
-            map.fitBounds(bounds);
+            if (LatLngStart) {
+                boundsEnd.extend(LatLngStart);
+            }
+            map.fitBounds(boundsEnd);
+
         });
+
+
     }
 
 </script>

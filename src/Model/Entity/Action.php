@@ -17,6 +17,7 @@ use Cake\ORM\Entity;
  * @property string $note
  * @property float $price
  * @property string $currency
+ * @property int $status
  * @property string $start_name
  * @property \Cake\I18n\Time $start_date
  * @property float $start_lng
@@ -28,7 +29,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Trip $trip
  * @property \App\Model\Entity\Type $type
- * @property \App\Model\Entity\Participation[] $participations
+ * @property \App\Model\Entity\User[] $users
  * @property \App\Model\Entity\Payment[] $payments
  */
 class Action extends Entity

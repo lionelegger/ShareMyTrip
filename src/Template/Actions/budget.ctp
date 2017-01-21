@@ -1,15 +1,16 @@
 <? $this->Html->addCrumb('Trips', ['controller' => 'Trips', 'action' => 'index']) ?>
-<? $this->Html->addCrumb($actions->first()->trip->name, ['controller' => 'Trips', 'action' => 'view', $actions->first()->trip->id]) ?>
-<? $this->Html->addCrumb('Map') ?>
+<? $this->Html->addCrumb($actions->first()->trip->name, ['controller' => 'actions', 'action' => 'plan', $actions->first()->trip->id]) ?>
+<? $this->Html->addCrumb('Budget') ?>
+
+
+<?php $userSession = $this->request->session()->read('Auth.User') ?>
 
 <nav class="tripNav pull-right">
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Plan'), ['controller' => 'trips', 'action' => 'view', $actions->first()->trip->id]) ?></button>
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Map'), ['controller' => 'trips', 'action' => 'map', $actions->first()->trip->id]) ?></button>
+    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Plan'), ['controller' => 'actions', 'action' => 'plan', $actions->first()->trip->id]) ?></button>
+    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Map'), ['controller' => 'actions', 'action' => 'map', $actions->first()->trip->id]) ?></button>
     <button class="btn btn-primary" role="button">Budget</button>
 </nav>
-
 <h1><?= $actions->first()->trip->name ?> Budget</h1>
-
 <?php $total = [];
 $globalPaid = 0;
 $globalBalance = 0;
@@ -27,17 +28,19 @@ $globalBalance = 0;
     echo "<table class='table table-hover table-striped'>";
     echo "    <tr>";
     echo "      <th>";
-    echo "          Action name";
+    echo "          <h3>Action</h3>";
     echo "      </th>";
 
     foreach ($tripUsers as $user):
         echo "<th>";
+        if ($user->id == $userSession['id']){echo ("<h3 class='text-danger'>");} else {echo ("<h3>");}
         echo $user->first_name;
+        if ($user->id == $userSession['id']){echo ("</h3>");}
         echo "</th>";
     endforeach;
 
     echo "      <th>";
-    echo "          TOTAL";
+    echo "          <h3>TOTAL</h3>";
     echo "      </th>";
     echo "    </tr>";
 
@@ -46,7 +49,7 @@ $globalBalance = 0;
         $start_time = $this->Time->format($action->start_date, 'HH:mm');
         $end_date = $this->Time->format($action->end_date, 'YYYY-MM-dd');
         $end_time = $this->Time->format($action->end_date, 'HH:mm');
-        $nbParticipationsAction = count($action->participations);
+        $nbParticipationsAction = count($action->users);
 
         echo "    <tr>";
         echo "        <td>";
@@ -55,12 +58,13 @@ $globalBalance = 0;
         echo "        </td>";
 
 //        CONTENT
-        foreach ($tripUsers as $user):
+        // a cell <TD> is created for each participant of the trip (even if they don't participate to any action)
+        foreach ($tripUsers as $tripUser):
             echo "<td>";
 
             // The current user need to participate in the action
-            foreach ($action->participations as $participation):
-                if($participation->user_id == $user->id) {
+            foreach ($action->users as $user):
+                if($user->id == $tripUser->id) {
 
                     $totalCell = 0;
                     $n=0;
@@ -91,13 +95,11 @@ $globalBalance = 0;
                     if ($nbParticipationsAction > 0) {
                         $balanceCell = $totalCell - ($action->price / $nbParticipationsAction);
                         echo "<br/>Balance is: <span class='badge'>" . $balanceCell . "</span>";
-                        $totalBalance[$participation->user_id] = $totalBalance[$participation->user_id] + $balanceCell;
+                        $totalBalance[$user->id] = $totalBalance[$user->id] + $balanceCell;
                     }
 
                 }
             endforeach;
-
-
 
             echo "</td>";
         endforeach;

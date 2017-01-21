@@ -166,7 +166,7 @@ as.controller('TripCtrl', function($scope, $rootScope, $http) {
 
 
 // ---------------
-// ParticipantsCtrl deals participants to a trip or an action (Page trips -> Settings)
+// ActionCtrl deals participants to a trip or an action (Page trips -> Settings)
 // ---------------
 as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     console.log('call ActionCtrl');
@@ -183,7 +183,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         if ($("#user-"+$userId).hasClass('btn-success')) {
             $deleteId = $("#user-"+$userId).attr('deleteId');
             $http
-                .delete('Participations/delete/'+$deleteId+'.json')
+                .delete('actions-users/delete/'+$deleteId+'.json')
                 .success(function() {
                     $scope.getParticipantsAction($tripId, $actionId);
                     $("#user-"+$userId).removeClass("btn-success");
@@ -193,7 +193,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             });
         } else {
             $http
-                .post('Participations/add.json', $scope.actionUserToAdd)
+                .post('actions-users/add.json', $scope.actionUserToAdd)
                 .success(function() {
                     $scope.actionUserToAdd = {};
                     $scope.getParticipantsAction($tripId, $actionId);
@@ -217,9 +217,9 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
                     .success(function(data) {
                         console.log(data);
                         $scope.actions=data;
-                        $scope.actions.action.participations.forEach(function(element) {
-                            $userId = element.user_id;
-                            $deleteId = element.id;
+                        $scope.actions.action.users.forEach(function(element) {
+                            $userId = element._joinData.user_id;
+                            $deleteId = element._joinData.id;
                             console.log ('Participant id = ' + $userId);
                             $("#user-"+$userId).addClass("btn-success").attr("deleteId", $deleteId);
                             $("#user-"+$userId).prepend("<span class='glyphicon glyphicon-ok'></span>&nbsp;&nbsp;");

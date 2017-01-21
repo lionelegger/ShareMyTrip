@@ -96,7 +96,6 @@ class UsersController extends AppController
                         -> group(['trips.id'])
                         -> order(['trips.id' => 'ASC']);
                 },
-                'Participations',
                 'Payments'
             ]
         ]);
@@ -139,7 +138,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Trips']
+            'contain' => ['Trips', 'Actions']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -152,7 +151,8 @@ class UsersController extends AppController
             }
         }
         $trips = $this->Users->Trips->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'trips'));
+        $actions = $this->Users->Actions->find('list', ['limit' => 200]);
+        $this->set(compact('user', 'trips', 'actions'));
         $this->set('_serialize', ['user']);
     }
 

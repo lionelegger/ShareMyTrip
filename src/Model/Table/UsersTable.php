@@ -9,8 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
- * @property \Cake\ORM\Association\HasMany $Participations
  * @property \Cake\ORM\Association\HasMany $Payments
+ * @property \Cake\ORM\Association\BelongsToMany $Actions
  * @property \Cake\ORM\Association\BelongsToMany $Trips
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
@@ -38,11 +38,13 @@ class UsersTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
-        $this->hasMany('Participations', [
-            'foreignKey' => 'user_id'
-        ]);
         $this->hasMany('Payments', [
             'foreignKey' => 'user_id'
+        ]);
+        $this->belongsToMany('Actions', [
+            'foreignKey' => 'user_id',
+            'targetForeignKey' => 'action_id',
+            'joinTable' => 'actions_users'
         ]);
         $this->belongsToMany('Trips', [
             'foreignKey' => 'user_id',

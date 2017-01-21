@@ -27,9 +27,9 @@ class ActionsTableTest extends TestCase
         'app.actions',
         'app.trips',
         'app.users',
-        'app.participations',
         'app.payments',
         'app.methods',
+        'app.actions_users',
         'app.trips_users',
         'app.types',
         'app.categories'

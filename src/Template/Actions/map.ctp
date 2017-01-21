@@ -1,12 +1,12 @@
 <!-- TODO: MAP should only show the actions in which the logged user is participating -->
 <? $this->Html->addCrumb('Trips', ['controller' => 'Trips', 'action' => 'index']) ?>
-<? $this->Html->addCrumb($trip->name, ['controller' => 'Trips', 'action' => 'view', $trip->id]) ?>
+<? $this->Html->addCrumb($trip->name, ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?>
 <? $this->Html->addCrumb('Map') ?>
 
 <nav class="tripNav pull-right">
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Plan'), ['controller' => 'trips', 'action' => 'view', $trip->id]) ?></button>
+    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Plan'), ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?></button>
     <button class="btn btn-primary" role="button">Map</button>
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'trip', $trip->id]) ?></button>
+    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) ?></button>
 </nav>
 
 <h1><?= $trip->name ?> map</h1>
@@ -54,14 +54,14 @@
         markers = [];
         var bounds = new google.maps.LatLngBounds();
 
-        <?php foreach ($trip->actions as $actions): ?>
+        <?php foreach ($actions as $action): ?>
 
             // set the icon types
-            var actionType = <?= h($actions->type_id) ?>;
+            var actionType = <?= h($action->type_id) ?>;
 
             iconStart.url = 'img/unknown.png';
             iconEnd.url = 'img/unknown.png';
-            <?php switch($actions->type_id) {
+            <?php switch($action->type_id) {
                 case '1':
                     echo "iconStart.url = 'img/plane-start.png';";
                     echo "iconEnd.url = 'img/plane-end.png';";
@@ -72,27 +72,27 @@
             }?>
 
             /* START */
-            <?php if ($actions->start_lat && $actions->start_lng): ?>
+            <?php if ($action->start_lat && $action->start_lng): ?>
 
-            var latLngStart = new google.maps.LatLng(<?= h($actions->start_lat) ?>,<?= h($actions->start_lng) ?>);
+            var latLngStart = new google.maps.LatLng(<?= h($action->start_lat) ?>,<?= h($action->start_lng) ?>);
             // Create a marker for the starting point.
             markers.push(new google.maps.Marker({
                 map: map,
                 icon: iconStart,
-                title: '<?= h($actions->start_name) ?>',
+                title: '<?= h($action->start_name) ?>',
                 position: latLngStart
             }));
             bounds.extend(latLngStart);
             <?php endif ?>
 
             /* END */
-            <?php if ($actions->end_lat && $actions->end_lng): ?>
-            var latLngEnd = new google.maps.LatLng(<?= h($actions->end_lat) ?>,<?= h($actions->end_lng) ?>);
+            <?php if ($action->end_lat && $action->end_lng): ?>
+            var latLngEnd = new google.maps.LatLng(<?= h($action->end_lat) ?>,<?= h($action->end_lng) ?>);
             // Create a marker for the ending point.
             markers.push(new google.maps.Marker({
                 map: map,
                 icon: iconEnd,
-                title: '<?= h($actions->start_name) ?>',
+                title: '<?= h($action->start_name) ?>',
                 position: latLngEnd
             }));
             bounds.extend(latLngEnd);

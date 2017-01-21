@@ -136,38 +136,4 @@ class TripsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
-    /**
-     * Map method
-     *
-     * @param string|null $id Type id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function map($id = null)
-    {
-        $trip = $this->Trips->get($id, [
-            'contain' => ['Users', 'Actions']
-        ]);
-
-        $this->set('trip', $trip);
-        $this->set('_serialize', ['trip']);
-    }
-
-    /**
-     * Cost method
-     *
-     * @param string|null $id Type id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function cost($id = null)
-    {
-        $trip = $this->Trips->get($id, [
-            'contain' => ['Users', 'Actions']
-        ]);
-
-        $this->set('trip', $trip);
-        $this->set('_serialize', ['trip']);
-    }
 }

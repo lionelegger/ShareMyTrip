@@ -3,18 +3,18 @@
 <!-- TODO: Add the participants list when not an action made with all (as a bubble hint on hover for example) -->
 
 <? $this->Html->addCrumb('Trips', ['controller' => 'Trips', 'action' => 'index']) ?>
-<? $this->Html->addCrumb($trip->name, ['controller' => 'Trips', 'action' => 'view', $trip->id]) ?>
+<? $this->Html->addCrumb($trip->name, ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?>
+<? $this->Html->addCrumb('Plan') ?>
+
 
 <?= $this->Html->link(__('Add Action'), ['controller' => 'Actions', 'action' => 'add', $trip->id], ['class' => 'btn btn-lg btn-danger']) ?>
 
 <nav class="tripNav pull-right">
     <button class="btn btn-primary" role="button">Plan</button>
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Map'), ['controller' => 'trips', 'action' => 'map', $trip->id]) ?></button>
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'trip', $trip->id]) ?></button>
+    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Map'), ['controller' => 'actions', 'action' => 'map', $trip->id]) ?></button>
+    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) ?></button>
 
 </nav>
-
-<pre><?= $trip ?></pre>
 
 <h1><?= $trip->name ?>
     <small>with
@@ -25,9 +25,9 @@
 </h1>
 
 <?php $lastDate = '' ?>
-<?php if (!empty($trip->actions)):
+<?php if (!empty($actions)):
     $firstRow=true;
-    foreach ($trip->actions as $action):
+    foreach ($actions as $action):
         $start_date = $this->Time->format($action->start_date, 'YYYY-MM-dd');
         $start_time = $this->Time->format($action->start_date, 'HH:mm');
         $end_date = $this->Time->format($action->end_date, 'YYYY-MM-dd');

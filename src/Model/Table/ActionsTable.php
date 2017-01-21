@@ -12,8 +12,8 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $Trips
  * @property \Cake\ORM\Association\BelongsTo $Types
  * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\HasMany $Participations
  * @property \Cake\ORM\Association\HasMany $Payments
+ * @property \Cake\ORM\Association\BelongsToMany $Users
  *
  * @method \App\Model\Entity\Action get($primaryKey, $options = [])
  * @method \App\Model\Entity\Action newEntity($data = null, array $options = [])
@@ -52,11 +52,13 @@ class ActionsTable extends Table
             'foreignKey' => 'owner_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasMany('Participations', [
-            'foreignKey' => 'action_id'
-        ]);
         $this->hasMany('Payments', [
             'foreignKey' => 'action_id'
+        ]);
+        $this->belongsToMany('Users', [
+            'foreignKey' => 'action_id',
+            'targetForeignKey' => 'user_id',
+            'joinTable' => 'actions_users'
         ]);
     }
 
@@ -94,6 +96,10 @@ class ActionsTable extends Table
 
         $validator
             ->allowEmpty('currency');
+
+        $validator
+            ->integer('status')
+            ->allowEmpty('status');
 
         $validator
             ->allowEmpty('start_name');
