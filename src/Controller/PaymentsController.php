@@ -56,7 +56,6 @@ class PaymentsController extends AppController
             $payment = $this->Payments->patchEntity($payment, $this->request->data);
             if ($this->Payments->save($payment)) {
                 $this->Flash->success(__('The payment has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The payment could not be saved. Please, try again.'));
@@ -85,7 +84,6 @@ class PaymentsController extends AppController
             $payment = $this->Payments->patchEntity($payment, $this->request->data);
             if ($this->Payments->save($payment)) {
                 $this->Flash->success(__('The payment has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The payment could not be saved. Please, try again.'));

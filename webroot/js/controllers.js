@@ -50,6 +50,8 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         $http.get('users/view/' + $scope.currentUserId + '.json')
             .success(function(data) {
                 $scope.currentUser = data.user;
+                // dismiss the modal (that does not close on trips page)
+                $(".modal-backdrop").hide();
             }).error(function(data, status, headers, config) {
         });
     };
@@ -110,7 +112,7 @@ as.controller('TripCtrl', function($scope, $rootScope, $http) {
         $http
             .delete('TripsUsers/delete/'+userId+'.json')
             .success(function() {
-                // TODO: We should also remove the delete this user as participant of any action of the current trip
+                // TODO: We should also remove the deleted user as participant of any action of the current trip
                 $('#tripDeleteUser').addClass("btn-default").removeClass("btn-danger");
                 $('#tripDeleteUser-'+userId).parent().css( "opacity", "0.2" );
                 $('#tripDeleteUser-'+userId).text('Deleted');
@@ -127,9 +129,7 @@ as.controller('TripCtrl', function($scope, $rootScope, $http) {
             .post('Users/getUserFromEmail.json', $scope.userToGet)
             .success(function(data) {
                 console.log("data sent: " + $scope.userToGet.email);
-                console.log("--------");
                 console.log(data.user);
-                console.log("--------");
 
                 var $tripId = $('.modal.fade.in #tripId').first().text();
 
@@ -174,18 +174,17 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     // Add a user to an action
     // TODO: do not allow to add a user twice
     $scope.actionAddUser = function($tripId, $actionId, $userId) {
+        console.log('call actionAddUser for: user ' + $userId + ", action " + $actionId + ", trip " + $tripId);
         $scope.actionUserToAdd = {
             action_id : $actionId,
             user_id : $userId
         };
-        console.log('call actionAddUser for user ' + $userId + " and action " + $actionId);
-
         if ($("#user-"+$userId).hasClass('btn-success')) {
             $deleteId = $("#user-"+$userId).attr('deleteId');
             $http
                 .delete('actions-users/delete/'+$deleteId+'.json')
                 .success(function() {
-                    $scope.getParticipantsAction($tripId, $actionId);
+                    $scope.actionListParticipants($tripId, $actionId);
                     $("#user-"+$userId).removeClass("btn-success");
                     console.log("Participant has been removed!");
                 }).error(function() {
@@ -196,22 +195,77 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
                 .post('actions-users/add.json', $scope.actionUserToAdd)
                 .success(function() {
                     $scope.actionUserToAdd = {};
-                    $scope.getParticipantsAction($tripId, $actionId);
+                    $scope.actionListParticipants($tripId, $actionId);
                 }).error(function() {
                 console.log("Something went wrong during add action for User " + id);
             });
         }
+    };
 
+    // Delete all participants of the current trip (except authentified user)
+    $scope.actionDeleteAllUsers = function($actionId) {
+        console.log("call actionDeleteAllUsers for action " + $actionId);
+        $http
+            .get('actions/view/'+$actionId+'.json')
+            .success(function(data) {
+                $scope.actions.action.users.forEach(function(user) {
+                    // We do not delete the authentified user
+                    if (user.id != $scope.currentUserId) {
+                        $deleteId = $("#user-"+user.id).attr('deleteId');
+                        $http
+                            .delete('actions-users/delete/'+$deleteId+'.json')
+                            .success(function() {
+                                $scope.actionListParticipants($scope.actions.action.trip.id, $actionId);
+                                $("#user-"+$userId).removeClass("btn-success");
+                                console.log("Participant has been removed!");
+                            }).error(function() {
+                            console.log("Something went wrong during add action for User " + id);
+                        });
+                    } else {
+                        $("#user-"+$userId+" span.glyphicon.glyphicon-ok").remove();
+                    }
+                });
+            }).error(function() {
+            console.log("Something went wrong during add all users for the current action");
+        });
+    };
+
+    // Add all participants of the current trip (included authentified user)
+    $scope.actionAddAllUsers = function($actionId) {
+        console.log("call actionAddAllUsers for action " + $actionId);
+        $http
+            .get('actions/view/'+$actionId+'.json')
+            .success(function(data) {
+                $scope.actions.action.trip.users.forEach(function(user) {
+                    // We do not delete the authentified user
+                    if (user.id != $scope.currentUserId) {
+                        $scope.actionUserToAdd = {
+                            action_id : $actionId,
+                            user_id : user.id
+                        };
+                        $http
+                            .post('actions-users/add.json', $scope.actionUserToAdd)
+                            .success(function() {
+                                $scope.actionUserToAdd = {};
+                                $scope.actionListParticipants($scope.actions.action.trip.id, $actionId);
+                            }).error(function() {
+                            console.log("Something went wrong during add action for User " + id);
+                        });
+                    }
+                });
+            }).error(function() {
+            console.log("Something went wrong during add all users for the current action");
+        });
     };
 
     // Check if a user is participating to an action
-    $scope.getParticipantsAction = function($tripId, $actionId) {
-        console.log('call getParticipantsAction for action ' + $actionId + ' and trip ' + $tripId);
+    $scope.actionListParticipants = function($tripId, $actionId) {
+        console.log('call actionListParticipants for action ' + $actionId + ' and trip ' + $tripId);
         $http
             .get('trips/'+$tripId+'.json')
             .success(function(data) {
                 console.log(data);
-                $scope.currentTrip=data;
+                $scope.trips=data;
                 $http
                     .get('actions/view/'+$actionId+'.json')
                     .success(function(data) {
@@ -222,7 +276,6 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
                             $deleteId = element._joinData.id;
                             console.log ('Participant id = ' + $userId);
                             $("#user-"+$userId).addClass("btn-success").attr("deleteId", $deleteId);
-                            $("#user-"+$userId).prepend("<span class='glyphicon glyphicon-ok'></span>&nbsp;&nbsp;");
                         });
                     }).error(function() {
                     console.log("Something went wrong during load Action");
@@ -231,6 +284,69 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             console.log("Something went wrong during load Trip");
         });
     };
+
+    $scope.actionListPayments = function($actionId) {
+        console.log('call actionListPayments for action ' + $actionId);
+        $http
+            .get('actions/view/'+$actionId+'.json')
+            .success(function(data) {
+                console.log(data);
+                $scope.action=data.action;
+                $scope.action.payments.totalAll=0;
+                $scope.action.payments.totalAuth=0;
+                $scope.action.payments.forEach(function(payment) {
+                    if (payment.user_id == $scope.currentUserId) {
+                        $scope.action.payments.totalAuth += payment.amount;
+                    }
+                    $scope.action.payments.totalAll += payment.amount;
+                });
+
+                // Update the status of the action: 0=not defined / 1 = nothing paid / 2 = partially paid / 3 = All paid / 4 = overpaid
+
+                $scope.action.status = 0;
+                console.log ("TOTAL = " + $scope.action.payments.totalAll);
+                console.log ("PRICE = " + $scope.price);
+                if($scope.action.payments.totalAll == 0) {
+                    $scope.action.status = 1;
+                } else if ($scope.action.payments.totalAll == $scope.action.price) {
+                    $scope.action.status = 3;
+                } else if ($scope.action.payments.totalAll > $scope.action.price) {
+                    $scope.action.status = 4;
+                } else {
+                    $scope.action.status = 2;
+                }
+
+                $scope.actionStatusUpdate = {
+                    status : $scope.action.status
+                };
+                $http
+                    .post('actions/edit/'+$actionId+'.json', $scope.actionStatusUpdate)
+                    .success(function() {
+                        console.log("Status updated successfully");
+                        $scope.actionStatusUpdate = {};
+                    }).error(function() {
+                    console.log("Something went wrong during update status");
+                });
+                // $scope.action.payments.balance = $scope.action.price - $scope.action.payments.total;
+            }).error(function() {
+            console.log("Something went wrong during load Payments");
+        });
+
+    };
+
+    $scope.actionDeletePayment = function($paymentId, $actionId) {
+        console.log('call actionDeletePayment for payment ' + $paymentId);
+        $http
+            .delete('Payments/delete/'+$paymentId+'.json')
+            .success(function() {
+                console.log("Payment deleted");
+                $scope.actionListPayments($actionId);
+            }).error(function() {
+            console.log("Something went wrong during delete payment");
+        });
+    };
+
+
 
     // Add a user to a trip
     // TODO: do not allow to pay more than the total?

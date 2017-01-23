@@ -2,11 +2,6 @@
 <? $this->Html->addCrumb($trip->name, ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?>
 <? $this->Html->addCrumb('Add') ?>
 
-
-<!--<div class="row" ng-init="currentTripId=--><?//=$trip->id?><!--" ng-controller="ActionCtrl">-->
-<!--    --><?php //include_once("include/googleMap.ctp"); ?>
-<!--</div>-->
-
 <?php include_once("include/form.ctp"); ?>
 <?php include_once("include/participants.ctp"); ?>
 

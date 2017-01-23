@@ -58,7 +58,7 @@
                     <div class="clearfix">&nbsp;</div>
 
                     <!-- MODAL trip participation -->
-                    <div class="modal fade" tabindex="-1" role="dialog" id="tripParticipants-{{trip.id}}" >
+                    <div class="modal fade" tabindex="-1" role="dialog" data-toggle="modal" id="tripParticipants-{{trip.id}}" >
                         <div class="modal-dialog" role="document">
                             <div class="hidden" id="tripId">{{trip.id}}</div>
                             <div class="modal-content">

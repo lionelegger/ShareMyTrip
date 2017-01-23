@@ -1,8 +1,16 @@
 <div class="box col-md-5">
-    <h4>Payments</h4>
-    <p>I paid 100 CHF (<a href="#">edit</a>)</p>
-    <p>Toto paid 349 CHF</p>
-    <p>894 still needs to be paid</p>
+    <h4>Payments <small>STATUS : {{action.status}}</small></h4>
+    <div class="payment-list">
+        <ul class="list-unstyled">
+            <li ng-repeat="payment in action.payments">
+                {{payment.user.first_name}} paid {{payment.amount}} {{payment.currency}}
+                <span ng-if="payment.user_id==currentUserId"><a ng-click="actionDeletePayment(payment.id, action.id)">[Delete]</a></span>
+            </li>
+        </ul>
+        <hr>
+        <p>TOTAL paid : {{action.payments.totalAll}} {{action.currency}} (from which {{action.payments.totalAuth}} {{action.currency}} by me)</p>
+        <p class="help-block">{{action.price - action.payments.totalAll}} {{action.currency}} still needs to be paid to reach the total of {{action.price}} {{action.currency}}</p>
+    </div>
     <!-- Button trigger modal -->
     <hr/>
     <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
@@ -16,7 +24,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title" id="myModalLabel">Payment confirmation</h4>
-                    <p>The overall bill for this trip is 3492 CHF</p>
+                    <p class="help-block">The amount that is still to pay is {{action.price - action.payments.totalAll}} CHF</p>
                 </div>
                 <div class="modal-body">
                     <form id="payment" method="post" accept-charset="utf-8">
@@ -27,7 +35,7 @@
                             <div class="form-group">
                                 <label for="amount" class="col-sm-4 control-label">Amount I paid</label>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="amount" ng-model="actionPaymentToAdd.amount" placeholder="1200">
+                                    <input type="text" class="form-control" id="amount" ng-model="actionPaymentToAdd.amount" placeholder="{{action.price - action.payments.totalAll}}">
                                 </div>
                                 <div class="form-group col-sm-2">
                                     <select class="form-control" id="currency" ng-model="actionPaymentToAdd.currency">
@@ -65,7 +73,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionAddPayment(<?= $action->id ?>,<?= $userSession['id'] ?>);">Save</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionAddPayment(<?= $action->id ?>,<?= $userSession['id'] ?>);actionListPayments(<?= $action->id ?>)"">Save</button>
                 </div>
             </div>
         </div>

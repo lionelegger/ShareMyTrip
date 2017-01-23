@@ -36,8 +36,11 @@ class ActionsController extends AppController
      */
     public function view($id = null)
     {
+//        We get the users of the trip and also the users of the action !!!
+//        See http://127.0.0.1:8888/UNIGE/Projects/ShareMyTrip/Actions/view/67.json
+//        TODO: Make the participants controller cleaner
         $action = $this->Actions->get($id, [
-            'contain' => ['Trips', 'Types', 'Users', 'Payments']
+            'contain' => ['Trips' => ['Users'], 'Types', 'Users', 'Payments' => ['Users'], 'Users']
         ]);
 
         $this->set('action', $action);
@@ -52,8 +55,8 @@ class ActionsController extends AppController
      */
     public function add($trip_id = null)
     {
-
         $action = $this->Actions->newEntity();
+
         if ($this->request->is('post')) {
             $action = $this->Actions->patchEntity($action, $this->request->data);
             $action->trip_id = $trip_id;
@@ -64,18 +67,19 @@ class ActionsController extends AppController
             if ($this->Actions->save($action)) {
                 $this->Flash->success(__('The action has been saved.'));
 
-//                // get all Users from the $trip_id
-//                $query = $this->Actions->Trips->find('all')
-//                    ->where([ 'Trips.id' => $trip_id ])
-//                    ->contain('Users');
-//                // Add all trip users as participants of the action (by default)
-//                $results = $query->all();
-//                $data = $results->toArray();
-//
-//                foreach ($data[0]['users'] as $user):
-//                    $this->Actions->Users->link($action, [$user]);
-//                    $this->Flash->success($user);
-//                endforeach;
+                // Get all users of the current trip
+                $query = $this->Actions->Trips->find('all')
+                    ->where([ 'Trips.id' => $trip_id ])
+                    ->contain('Users');
+                $results = $query->all();
+                $data = $results->toArray();
+
+                // Add all trip users as participants of the action (by default when add an action)
+                foreach ($data[0]['users'] as $user):
+                    $user->_joinData = $this->Actions->Users->newEntity();
+                    $this->Actions->Users->link($action, [$user]);
+                endforeach;
+
 
                 return $this->redirect(array('controller' => 'actions', 'action' => 'plan', $action->trip_id));
             } else {

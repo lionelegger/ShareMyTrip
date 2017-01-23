@@ -72,7 +72,7 @@
         echo "<div class='box col-md-4'>";
             echo "<h4>Price</h4>";
             echo "<p class='help-block'>Please fill the total price for all participants</p>";
-            echo $this->Form->input('price');
+            echo $this->Form->input('price', ['ng-model' => 'action.price']);
             echo $this->Form->input('currency');
         echo "<div class='clearfix'>&nbsp;</div></div";
         ?>
