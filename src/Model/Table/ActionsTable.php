@@ -53,7 +53,10 @@ class ActionsTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->hasMany('Payments', [
-            'foreignKey' => 'action_id'
+            'foreignKey' => 'action_id',
+            // When an action is deleted, its dependant payments will be deleted too
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->belongsToMany('Users', [
             'foreignKey' => 'action_id',

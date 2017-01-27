@@ -43,7 +43,10 @@ class TripsTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->hasMany('Actions', [
-            'foreignKey' => 'trip_id'
+            'foreignKey' => 'trip_id',
+//            when we delete a trip, it will delete also all related actions
+            'dependent' => true,
+            'cascadeCallbacks' => true,
         ]);
         $this->belongsToMany('Users', [
             'foreignKey' => 'trip_id',

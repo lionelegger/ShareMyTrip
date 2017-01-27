@@ -69,25 +69,30 @@ class TripsController extends AppController
             'contain' => ['Trips']
         ]);
 
+
         if ($this->request->is('post')) {
             $trip = $this->Trips->patchEntity($trip, $this->request->data);
 
             // Add the authorized User as the owner of the trip
             $trip->owner_id = $this->Auth->user('id');
-            if ($this->Trips->save($trip)) {
+            if ($result=$this->Trips->save($trip)) {
 
                 // Adds the currentUser to the joint table TripsUsers
                 $this->Trips->Users->link($trip, [$currentUser]);
 
-                $this->Flash->success(__('The trip has been saved.'));
-                return $this->redirect(['action' => 'index']);
+                $record_id=$result->id;
+
+                $this->Flash->success(__('The trip has been saved with ID = ') . $record_id);
+
+//                return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('The trip could not be saved. Please, try again.'));
             }
         }
+
         $users = $this->Trips->Users->find('list', ['limit' => 200]);
-        $this->set(compact('trip', 'users'));
-        $this->set('_serialize', ['trip']);
+        $this->set(compact('trip', 'users', 'record_id'));
+        $this->set('_serialize', ['trip'], ['users'], 'record_id');
     }
 
     /**
@@ -99,22 +104,10 @@ class TripsController extends AppController
      */
     public function edit($id = null)
     {
-        $trip = $this->Trips->get($id, [
-            'contain' => ['Users']
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $trip = $this->Trips->patchEntity($trip, $this->request->data);
-            if ($this->Trips->save($trip)) {
-                $this->Flash->success(__('The trip has been saved.'));
+        // When editing a trip, we update only the fields specified below but not 'users' who are added/removed with angularJS controllers
+        $this->Trips->updateAll(["name" => $this->request->data['name']], ["id" => $id]);
+//        $this->Trips->updateAll(["currency" => $this->request->data['currency']], ["id" => $id]);
 
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('The trip could not be saved. Please, try again.'));
-            }
-        }
-        $users = $this->Trips->Users->find('list', ['limit' => 200]);
-        $this->set(compact('trip', 'users'));
-        $this->set('_serialize', ['trip']);
     }
 
     /**

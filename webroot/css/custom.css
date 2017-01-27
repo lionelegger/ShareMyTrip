@@ -28,6 +28,14 @@ a.glyphicon-btn {
     }
 }
 
+.message {
+    background-color: #00b3ee;
+    color: #ffffff;
+    line-height: 3em;
+    width: 100%;
+    text-align: center;
+}
+
 .box {
     padding: 15px 15px 0 15px;
     margin-bottom: 15px;

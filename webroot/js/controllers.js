@@ -40,57 +40,92 @@ as.controller('MainCtrl', function($scope, $http, $location, $window) {
 });
 
 // ---------------
-// TripsCtrl lists the trips (Page trips)
+// TripsCtrl lists the trips
 // ---------------
 as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     // Load the list of trips for the logged user
     console.log('call TripsCtrl');
     $scope.loadTrips = function() {
-        console.log('call loadTrips for user ' + $scope.currentUserId);
-        $http.get('users/view/' + $scope.currentUserId + '.json')
+        console.log('call loadTrips');
+        $http.get('trips.json')
             .success(function(data) {
-                $scope.currentUser = data.user;
+                $scope.trips = data.trips;
+                console.log($scope.trips);
                 // dismiss the modal (that does not close on trips page)
                 $(".modal-backdrop").hide();
-            }).error(function(data, status, headers, config) {
+            }).error(function() {
+            console.log("Something went wrong during load Trips");
         });
     };
     $scope.loadTrips();
 
+    $scope.loadTrip = function(tripId) {
+        console.log('call loadTrip');
+        $http.get('trips/'+tripId+'.json')
+            .success(function(data) {
+                $scope.trip = data.trip;
+                console.log($scope.trip);
+            }).error(function() {
+            console.log("Something went wrong during load Trip");
+        });
+    };
+
     // adds a trip (and the logged user as a participant with cakephp3)
-    $scope.tripToAdd = {};
+
     $scope.addTrip = function() {
+        console.log('call addTrip');
         $http
-            .post('Trips/add', $scope.tripToAdd)
+            .post('Trips/add.json', $scope.trip)
+            .success(function(data) {
+                // $scope.loadTrips();
+                $scope.trip = data.trip;
+                console.log("Trip " + data.trip.id + " added...");
+                $scope.getTripUsers(data.trip.id);
+            }).error(function() {
+            console.log("Something went wrong during add Trip");
+        });
+    };
+
+    $scope.editTrip = function(tripId) {
+        console.log('call editTrip with trip ' + tripId);
+        $('.modal .form-message').empty();
+        if (tripId > 0){
+            $('#collapseParticipation').collapse('show');
+            $scope.loadTrip(tripId);
+            $scope.getTripUsers(tripId);
+        } else {
+            $scope.trip={};
+            $scope.trips.trip={};
+            $('#collapseParticipation').collapse('hide');
+            // $scope.addTrip();
+        }
+    };
+
+
+    // $scope.trip = {};
+    $scope.saveTrip = function(tripId) {
+        console.log('call saveTrip with trip ' + tripId);
+        $http
+            .post('Trips/edit/' + tripId, $scope.trip)
             .success(function() {
-                console.log($scope.tripToAdd);
+                console.log("trip "+tripId+" saved!");
                 $scope.loadTrips();
-                $scope.tripToAdd = {};
             }).error(function() {
             console.log("Something went wrong during save Trip");
         });
     };
 
     // Deletes a trip (and the logged user as a participant with cakephp3)
-    $scope.deleteTrip = function(id) {
+    $scope.deleteTrip = function(tripId) {
         $http
-            .delete('Trips/delete/' + id + '.json')
+            .delete('Trips/delete/' + tripId + '.json')
             .success(function() {
-                console.log("Delete trip " + id);
+                console.log("Delete trip " + tripId);
                 $scope.loadTrips();
             }).error(function() {
             console.log("Something went wrong during save Trip");
         });
     };
-
-});
-
-
-// ---------------
-// TripCtrl deals with a single trip (Page trips)
-// ---------------
-as.controller('TripCtrl', function($scope, $rootScope, $http) {
-    console.log('call TripCtrl');
 
     // get the users of the trip
     $scope.getTripUsers = function(tripId) {
@@ -99,7 +134,7 @@ as.controller('TripCtrl', function($scope, $rootScope, $http) {
             .get('trips/'+tripId+'.json')
             .success(function(data) {
                 console.log(data);
-                $scope.currentTrip=data;
+                $scope.trips.trip=data.trip;
                 console.log('trip users refreshed');
             }).error(function() {
             console.log("Something went wrong during load Trip");
@@ -152,15 +187,22 @@ as.controller('TripCtrl', function($scope, $rootScope, $http) {
             trip_id : $tripId,
             user_id : $userId
         };
-        console.log('call tripAddUser for user ' + $userId + " and trip " + $tripId);
-        $http
-            .post('TripsUsers/add.json', $scope.tripUserToAdd)
-            .success(function() {
-                $('.modal.fade.in .form-message').text("This user has been added to the current trip");
-                $scope.tripUserToAdd = {};
-            }).error(function() {
-            console.log("Something went wrong during add trip for User " + id);
-        });
+        // Do not add yourself as trip participant (by default, the current user is already in the trip)
+        if ($scope.currentUserId != $userId){
+            console.log('call tripAddUser for user ' + $userId + " and trip " + $tripId);
+            $http
+                .post('TripsUsers/add.json', $scope.tripUserToAdd)
+                .success(function() {
+                    $('.modal.fade.in .form-message').text("This user has been added to the current trip");
+                    $scope.getTripUsers($tripId);
+                    $scope.tripUserToAdd = {};
+                }).error(function() {
+                console.log("Something went wrong during add trip for User " + id);
+            });
+        } else {
+            $('.modal.fade.in .form-message').text("You already are part of the trip... ");
+        }
+
     };
 });
 
