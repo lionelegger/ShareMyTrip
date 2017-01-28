@@ -61,11 +61,13 @@ class ActionsController extends AppController
             $action = $this->Actions->patchEntity($action, $this->request->data);
             $action->trip_id = $trip_id;
 
+
             // Add the authorized User as the owner of the action
             $action->owner_id = $this->Auth->user('id');
 
-            if ($this->Actions->save($action)) {
+            if ($result=$this->Actions->save($action)) {
                 $this->Flash->success(__('The action has been saved.'));
+                $record_id=$result->id;
 
                 // Get all users of the current trip
                 $query = $this->Actions->Trips->find('all')
@@ -80,8 +82,7 @@ class ActionsController extends AppController
                     $this->Actions->Users->link($action, [$user]);
                 endforeach;
 
-
-                return $this->redirect(array('controller' => 'actions', 'action' => 'plan', $action->trip_id));
+                return $this->redirect(array('controller' => 'actions', 'action' => 'edit', $record_id));
             } else {
                 $this->Flash->error(__('The action could not be saved. Please, try again.'));
             }

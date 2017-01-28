@@ -59,18 +59,6 @@
                         <?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout'], array('class' => 'btn btn-default', 'type' => 'button')) ?>
                     </form>
                     <p class="navbar-text navbar-right">Welcome <?= $userSession['first_name'] ?></p>
-                <?php else: ?>
-                    <form class="navbar-form navbar-right" method="post" action="users/login" accept-charset="utf-8" _lpchecked="1">
-                        <div style="display:none;">
-                            <input type="hidden" name="_method" value="POST">
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
-                            <input type="password" name="password" class="form-control" id="password" placeholder="Password">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Login</button>&nbsp;
-                        <button type="button" class="btn btn-link pull-right" data-toggle="modal" data-target="#addUserModal">Register</button>
-                    </form>
                 <?php endif; ?>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

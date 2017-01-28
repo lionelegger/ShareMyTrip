@@ -25,7 +25,7 @@ $globalBalance = 0;
 <h3><?= $totalUsers ?> Users</h3>
 <?php if (!empty($actions)):
 
-    echo "<table class='table table-hover table-striped'>";
+    echo "<table class='table table-hover table-striped table-responsive'>";
     echo "    <tr>";
     echo "      <th>";
     echo "          <h3>Action</h3>";

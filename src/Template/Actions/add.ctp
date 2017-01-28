@@ -3,7 +3,7 @@
 <? $this->Html->addCrumb('Add') ?>
 
 <?php include_once("include/form.ctp"); ?>
-<?php include_once("include/participants.ctp"); ?>
+
 
 <!--
 <hr/>

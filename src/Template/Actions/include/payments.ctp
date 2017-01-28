@@ -1,5 +1,5 @@
 <div class="box col-md-5">
-    <h4>Payments <small>STATUS : {{action.status}}</small></h4>
+    <h3>Payments <small>STATUS : {{action.status}}</small></h3>
     <div class="payment-list">
         <ul class="list-unstyled">
             <li ng-repeat="payment in action.payments">
@@ -13,6 +13,9 @@
     </div>
     <!-- Button trigger modal -->
     <hr/>
+    <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
+        <span class="glyphicon glyphicon-ok"></span> All paid by me !
+    </button>
     <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
         <span class="glyphicon glyphicon-plus"></span> Register payment
     </button>
