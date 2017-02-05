@@ -1,4 +1,4 @@
-<div class="box col-md-5">
+<div class="box">
     <h3>Payments <small>STATUS : {{action.status}}</small></h3>
     <div class="payment-list">
         <ul class="list-unstyled">
@@ -76,7 +76,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionAddPayment(<?= $action->id ?>,<?= $userSession['id'] ?>);actionListPayments(<?= $action->id ?>)"">Save</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionAddPayment(<?= $action->id ?>,<?= $userSession['id'] ?>);actionListPayments(<?= $action->id ?>)">Save</button>
                 </div>
             </div>
         </div>

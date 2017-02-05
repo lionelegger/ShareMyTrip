@@ -134,6 +134,10 @@ class ActionsTable extends Table
             ->decimal('end_lat')
             ->allowEmpty('end_lat');
 
+        $validator
+            ->boolean('private')
+            ->allowEmpty('private');
+
         return $validator;
     }
 

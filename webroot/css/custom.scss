@@ -1,0 +1,179 @@
+@import "map-icons.css";
+
+body {
+    background-color: #f6f6f6;
+    padding-top: 70px;
+}
+
+button.btn-primary a {
+    color: #f2f2f2;
+}
+button.btn-primary a:hover {
+    color: #FFF;
+    text-decoration: none;
+}
+
+a.glyphicon-btn {
+    display: inline-block;
+    cursor: pointer;
+    cursor: hand;
+}
+
+@media only screen and (max-width: 768px) {
+
+    nav form.form-inline {
+        margin-top: 12px;
+    }
+    nav form.form-inline .col-lg-12  {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+.map-icon {
+    font-size: 18px;
+}
+
+
+/* ICON TYPES */
+// Unknown
+.map-icon-type-0:before {
+    content: "?";
+    padding: 4px;
+    font-family: "Consolas", "Menlo", "Courier", monospace;
+}
+// flight (map-icon-airport)
+.map-icon-type-1:before {
+    content: "\e802";
+}
+// train (map-icon-train-station)
+.map-icon-type-2:before {
+    content: "\e89d";
+}
+// taxi (map-icon-taxi-stand)
+.map-icon-type-3:before {
+    content: "\e899";
+}
+// car (map-icon-car-rental)
+.map-icon-type-4:before {
+    content: "\e81c";
+}
+// boat (map-icon-boat-tour)
+.map-icon-type-5:before {
+    content: "\e812";
+}
+// bicycle (map-icon-motobike-trail)
+.map-icon-type-6:before {
+    content: "\e860";
+}
+// walking (map-icon-walking)
+.map-icon-type-7:before {
+    content: "\e8a5";
+}
+// other transportation
+.map-icon-type-8:before {
+    content: "T";
+    padding: 4px;
+    font-family: "Consolas", "Menlo", "Courier", monospace;
+}
+// hotel (lodging)
+.map-icon-type-9:before {
+    content: "\e85a";
+}
+// B&B (roofing-contractor)
+.map-icon-type-10:before {
+    content: "\e87b";
+}
+// camping (map-icon-campground)
+.map-icon-type-11:before {
+    content: "\e819";
+}
+// Other lodging
+.map-icon-type-12:before {
+    content: "L";
+    padding: 4px;
+    font-family: "Consolas", "Menlo", "Courier", monospace;
+}
+// restaurant (map-icon-restaurant)
+.map-icon-type-13:before {
+    content: "\e85a";
+}
+// restaurant (map-icon-shopping-mall)
+.map-icon-type-14:before {
+    content: "\e884";
+}
+// museum (map-icon-museum)
+.map-icon-type-15:before {
+    content: "\e864";
+}
+// tour (map-icon-florist)
+.map-icon-type-16:before {
+    content: "\e83b";
+}
+// concert/theater (map-icon-movie-theater)
+.map-icon-type-17:before {
+    content: "\e862";
+}
+// other activity
+.map-icon-type-18:before {
+    content: "A";
+}
+// Bank Withdrawal (map-icon-finance)
+.map-icon-type-19:before {
+    content: "\e836";
+}
+// Other
+.map-icon-type-20:before {
+    content: "?";
+    padding: 4px;
+    font-family: "Consolas", "Menlo", "Courier", monospace;
+}
+
+
+.map-icon-status {
+    padding: 5px;
+    border-radius: 28px;
+}
+
+.status-0 {
+    background-color: #666666;
+    color: white;
+}
+.status-1 {
+    background-color: #264f9b;
+    color: white;
+}
+.status-2 {
+    background-color: #9b1003;
+    color: white;
+}
+.status-3 {
+    background-color: #ed984c;
+    color: white;
+}
+.status-4 {
+    background-color: #2e753f;
+    color: white;
+}
+
+.message {
+    background-color: #00b3ee;
+    color: #ffffff;
+    line-height: 3em;
+    width: 100%;
+    text-align: center;
+}
+
+.box {
+    padding: 15px 15px 0 15px;
+    margin-bottom: 15px;
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(179,179,179,0.2);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(179,179,179,0.2);
+    box-shadow: 0px 0px 3px 0px rgba(179,179,179,0.2);
+}
+
+
+

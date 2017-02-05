@@ -1,11 +1,22 @@
 <?php include_once("include/breadcrumb.ctp"); ?>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBsahp0E7FSU4WE0dY73LyvTyY6-CWxgI&libraries=places"></script>
+<?= $this->Html->script('map-icons.js') ?>
+
 <!--TODO: Get Trip name instead of id -->
 <? $this->Html->addCrumb($action->trip_id) ?>
 <? $this->Html->addCrumb($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) ?>
 <div ng-init="tripId=<?=$action->trip_id ?>;actionId=<?=$action->id?>;actionListPayments(<?= $action->id ?>)" ng-controller="ActionCtrl">
     <?php include_once("include/form.ctp"); ?>
-    <?php include_once("include/payments.ctp"); ?>
-    <?php include_once("include/participants.ctp"); ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?php include_once("include/participants.ctp"); ?>
+        </div>
+        <div class="col-md-8">
+            <?php include_once("include/payments.ctp"); ?>
+        </div>
+    </div>
 </div>
 <br/>
 <hr/>

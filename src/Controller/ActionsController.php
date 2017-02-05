@@ -2,6 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
+use Cake\Utility\Hash;
+
 
 /**
  * Actions Controller
@@ -10,7 +13,6 @@ use App\Controller\AppController;
  */
 class ActionsController extends AppController
 {
-
     /**
      * Index method
      *
@@ -167,14 +169,14 @@ class ActionsController extends AppController
         $queryActions->matching('Users', function ($q) {
             return $q->where(['users.id' => $this->Auth->user('id')]);
         });
-        $actions = $this->paginate($queryActions);
+        $actions = $queryActions->all();
 
         // $tripUsers is an array with all users of the given trip
         $queryTrip = $this->Actions->Trips->find()
             ->contain('Users')
             ->where(['Trips.id' => $trip_id]);
 
-        $trip = $this->paginate($queryTrip)->first();
+        $trip = $queryTrip->first();
         $tripUsers = $trip->users;
 
         // we pass the variables to the view
@@ -208,14 +210,14 @@ class ActionsController extends AppController
         $queryActions->matching('Users', function ($q) {
             return $q->where(['users.id' => $this->Auth->user('id')]);
         });
-        $actions = $this->paginate($queryActions);
+        $actions = $queryActions->all();
 
         // $tripUsers is an array with all users of the given trip
         $queryTrip = $this->Actions->Trips->find()
             ->contain('Users')
             ->where(['Trips.id' => $trip_id]);
 
-        $trip = $this->paginate($queryTrip)->first();
+        $trip = $queryTrip->first();
         $tripUsers = $trip->users;
 
         // we pass the variables to the view
@@ -237,6 +239,10 @@ class ActionsController extends AppController
      */
     public function plan($trip_id = null) {
 
+        /**
+         * The following block to allow only the participant of an action to see the action
+         */
+        /*
         // $actions is an array that contains all the following tables
         $queryActions = $this->Actions->find('all',[
             'contain' => ['Users', 'Trips', 'Types', 'Payments']
@@ -247,16 +253,81 @@ class ActionsController extends AppController
         });
         // Choose only actions where the authentified user is participating
         $queryActions->matching('Users', function ($q) {
-            return $q->where(['users.id' => $this->Auth->user('id')]);
+            return $q->where([
+                'users.id' => $this->Auth->user('id'),
+            ]);
         });
-        $actions = $this->paginate($queryActions);
+        */
+
+
+        /**
+         * The following block is not working...
+         */
+        /*
+        $currentUserId = $this->Auth->user('id');
+        $queryActions->matching('Users', function($q) use ($currentUserId) {
+            $q->where([
+                'Users.id' => $currentUserId,
+                'AND' => ['private' => 1]
+            ]);
+//            $q->orWhere([
+            $q->where([
+                'private' => 0
+            ]);
+            return $q;
+        });*/
+
+
+
+        /**
+         * GET ALL PRIVATE ACTIONS THAT INVOLVE ME (private=1)
+         */
+        // $queryActionsP1 is an array that contains all the following tables
+        $queryActionsP1 = $this->Actions->find('all',[
+            'contain' => ['Users', 'Trips', 'Types', 'Payments']
+        ]);
+        // Select only actions related to the specified trip ($trip_id)
+        $queryActionsP1->matching('Trips', function ($q) use ($trip_id) {
+            $q->where(['Trips.id' => $trip_id]);
+            return $q;
+        });
+        // Select private actions where the authorized user is involved in
+        $currentUserId = $this->Auth->user('id');
+        $queryActionsP1->matching('Users', function($q) use ($currentUserId) {
+            $q->where([
+                'Users.id' => $currentUserId,
+                'AND' => ['private' => 1]
+            ]);
+            return $q;
+        });
+
+        $actionsP1 = $queryActionsP1->toArray();
+
+        /**
+         * GET ALL PUBLIC ACTIONS (private=0)
+         */
+        // $queryActionsP0 is an array that contains all the following tables
+        $queryActionsP0 = $this->Actions->find('all',[
+            'contain' => ['Users', 'Trips', 'Types', 'Payments']
+        ]);
+        // Select only actions related to the specified trip ($trip_id)
+        $queryActionsP0->matching('Trips', function ($q) use ($trip_id) {
+            $q->where(['Trips.id' => $trip_id]);
+            return $q;
+        });
+        // Select all public actions (private=0)
+        $queryActionsP0->where(['private' => 0]);
+        $actionsP0 = $queryActionsP0->toArray();
+
+        // Merge the two actionsP1 and actionsP0 arrays and sort them by start_date
+        $actions = Hash::merge($actionsP1, $actionsP0);
+        $actions = Hash::sort($actions, '{n}.start_date', 'asc');
 
         // $tripUsers is an array with all users of the given trip
         $queryTrip = $this->Actions->Trips->find()
             ->contain('Users')
             ->where(['Trips.id' => $trip_id]);
-
-        $trip = $this->paginate($queryTrip)->first();
+        $trip = $queryTrip->first();
         $tripUsers = $trip->users;
 
         // we pass the variables to the view

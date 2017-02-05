@@ -66,32 +66,47 @@
 
 </style>
 <br><br>
+
 <?php
 // Initialize the values if edit mode
 $start_name_value = '';
 $end_name_value = '';
-if ($action->start_name) { $start_name_value = 'value="'.$action->start_name.'"'; }
-if ($action->end_name) { $end_name_value = 'value="'.$action->end_name.'"'; }
+if ($action->start_name) {
+    $start_name_value = 'value="' . $action->start_name . '"';
+}
+if ($action->end_name) {
+    $end_name_value = 'value="' . $action->end_name . '"';
+}
 ?>
 <div class="row">
     <div class="col-md-12">
-        <input id="pac-input-start" class="controls" type="text" <?=$start_name_value?> placeholder="Enter a departure point">
-        <input id="pac-input-end" class="controls" type="text" <?=$end_name_value?> placeholder="Enter an arrival point">
+        <input id="pac-input-start" class="controls" type="text" <?= $start_name_value ?> placeholder="Enter a departure point">
+        <input id="pac-input-end" class="controls" type="text" <?= $end_name_value ?> placeholder="Enter an arrival point">
         <div id="map"></div>
     </div>
 </div>
 
 <?php
+
+// set pills colors
 $statusColor = '#666666'; // undefined (gray)
-switch($action->status) {
-    case 1: $statusColor = '#ed984c'; break; // warning (orange)
-    case 2: $statusColor = '#9b1003'; break; // danger (red)
-    case 3: $statusColor = '#2e753f'; break; // success (green)
+switch ($action->status) {
+    case 1:
+        $statusColor = '#264f9b';
+        break; // primary (blue)
+    case 2:
+        $statusColor = '#9b1003';
+        break; // danger (red)
+    case 3:
+        $statusColor = '#ed984c';
+        break; // warning (orange)
+    case 4:
+        $statusColor = '#2e753f';
+        break; // success (green)
 }
 ?>
 
 <script>
-
     var actionType = 0; // by default
     function updateTypeId() {
         actionType = $('#type-id option:selected').val();
@@ -109,10 +124,14 @@ switch($action->status) {
     function initAutocomplete() {
 
 //      TODO: make that we can pick a specific point when google found many
-//      TODO: make that when we edit an action, the map loads the prefilled localisations
+//      TODO: BUG => When we edit an action already geolocalised and we change the start or end location, the old path is not cleaned
 
+//      Initialize values
         var LatLngStart = '';
         var LatLngEnd = '';
+        var markersStart = [];
+        var markersEnd = [];
+        var actionPath = [];
 
         var map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 46.2043907, lng: 6.143157699999961},
@@ -136,33 +155,147 @@ switch($action->status) {
             searchBoxEnd.setBounds(map.getBounds());
         });
 
-        var markersStart = [];
-        var markersEnd = [];
-        var actionPath = [];
-        var lineSymbol = {
-            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+        // -------------------------------------------------
+        // Put the markers if they already exist in the DB
+        // -------------------------------------------------
+
+        <?php
+        if ($action->start_lat && $action->start_lng) {
+            echo("var LatLngStart = {lat:" . $action->start_lat . ",lng:" . $action->start_lng . "}; ");
         };
+        if ($action->end_lat && $action->end_lng) {
+            echo("var LatLngEnd = {lat:" . $action->end_lat . ",lng:" . $action->end_lng . "};\n");
+        };
+        ?>
+
+        // Render Start Marker (if it exists)
+        if (!LatLngEnd && LatLngStart) {
+
+            console.log("no LatLngEnd....");
+
+            var markerIcon = new Marker({
+                map: map,
+                position: LatLngStart,
+                icon: {
+                    path: SQUARE_ROUNDED,
+                    fillColor: '<?=$statusColor?>',
+                    fillOpacity: 1,
+                    strokeColor: '',
+                    strokeWeight: 0,
+                    scale: 0.68, //pixels
+                    anchor: new google.maps.Point(0, 12)
+                },
+                map_icon_label: '<span class="map-icon map-icon-type-<?=$action->type_id?>"></span>'
+            });
+
+            var markerPoint = new google.maps.Marker({
+                map: map,
+                position: LatLngStart,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    fillOpacity: 1,
+                    fillColor: '#FFFFFF',
+                    strokeColor: '<?=$statusColor?>',
+                    strokeWeight: 2,
+                    scale: 5 //pixels
+                }
+            });
+
+        };
+
+        // Render End Marker (if it exists)
+        if (LatLngEnd) {
+
+            actionPath = new google.maps.Polyline({
+                path: [LatLngStart, LatLngEnd],
+                icons: [{
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillOpacity: 1,
+                        fillColor: '#FFFFFF',
+                        strokeColor: '<?=$statusColor?>',
+                        strokeWeight: 2,
+                        scale: 5 //pixels
+                    },
+                    offset: '0%'
+                }, {
+                    icon: {
+                        path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+                        fillOpacity: 1,
+                        fillColor: '<?=$statusColor?>',
+                        strokeColor: '<?=$statusColor?>',
+                        strokeWeight: 1,
+                        scale: 2 //pixels
+                    },
+                    offset: '99%'
+                }, {
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillOpacity: 1,
+                        fillColor: '#FFFFFF',
+                        strokeColor: '<?=$statusColor?>',
+                        strokeWeight: 2,
+                        scale: 5 //pixels
+                    },
+                    offset: '100%'
+                }],
+                geodesic: false,
+                strokeColor: '<?=$statusColor?>',
+                strokeOpacity: 1,
+                strokeWeight: 2
+            });
+
+            var bounds = new google.maps.LatLngBounds();
+            bounds.extend(LatLngStart);
+            bounds.extend(LatLngEnd);
+
+            var actionCenter = bounds.getCenter();
+            map.fitBounds(bounds);
+
+            var markerIcon = new Marker({
+                map: map,
+                position: actionCenter,
+                icon: {
+                    path: SQUARE_ROUNDED,
+                    fillColor: '<?=$statusColor?>',
+                    fillOpacity: 1,
+                    strokeColor: '',
+                    strokeWeight: 0,
+                    scale: 0.68, //pixels
+                    anchor: new google.maps.Point(0, 12)
+                },
+                map_icon_label: '<span class="map-icon map-icon-type-<?=$action->type_id?>"></span>'
+            });
+
+            actionPath.setMap(map);
+        }
+
+        // -------------------------------------------------
+        // Put the markers when start input is changed
+        // -------------------------------------------------
 
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBoxStart.addListener('places_changed', function () {
 
             actionType = updateTypeId();
-
             var places = searchBoxStart.getPlaces();
-
             if (places.length == 0) {
                 return;
             }
-
             // Clear out the old markers.
             markersStart.forEach(function (marker) {
                 marker.setMap(null);
-                // clear oiut old lines
-                if (actionPath.setMap){
+                // clear out old lines
+                if (actionPath.setMap) {
                     actionPath.setMap(null);
                 }
+                // clear out old icons
+                if (markerIcon.setMap) {
+                    markerIcon.setMap(null);
+                }
             });
+
 
             markersStart = [];
 
@@ -174,40 +307,17 @@ switch($action->status) {
                     return;
                 }
 
-                console.log('actionType = ' + actionType);
-                var planeStart = {
-                    url: 'img/iconMap-'+actionType+'.png',
-                    // This marker is 20 pixels wide by 32 pixels high.
-                    size: new google.maps.Size(20, 20),
-                    // The origin for this image is (0, 0).
-                    origin: new google.maps.Point(0, 0),
-                    // The anchor for this image is the base of the flagpole at (0, 32).
-                    anchor: new google.maps.Point(10, 10)
-                };
-
-                // Create a marker for the status pill.
                 markersStart.push(new google.maps.Marker({
                     map: map,
                     position: place.geometry.location,
-                    zIndex: 1,
-                    optimized: false,
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
                         fillOpacity: 1,
-                        fillColor: '<?=$statusColor?>',
+                        fillColor: '#FFFFFF',
                         strokeColor: '<?=$statusColor?>',
-                        strokeWeight: 1.0,
-                        scale: 10 //pixels
+                        strokeWeight: 2,
+                        scale: 4 //pixels
                     }
-                }));
-                // Create a marker for the icon (on top).
-                markersStart.push(new google.maps.Marker({
-                    map: map,
-                    icon: planeStart,
-                    title: place.name,
-                    position: place.geometry.location,
-                    optimized: false,
-                    zIndex: 20
                 }));
 
                 LatLngStart = place.geometry.location;
@@ -221,21 +331,65 @@ switch($action->status) {
 
                 // draw the line between start and end
                 if (LatLngEnd) {
-                    var actionCoordinates = [
-                        LatLngStart,
-                        LatLngEnd
-                    ];
                     actionPath = new google.maps.Polyline({
+                        path: [LatLngStart, LatLngEnd],
                         icons: [{
-                            icon: lineSymbol,
-                            offset: '50%'
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                fillOpacity: 1,
+                                fillColor: '#FFFFFF',
+                                strokeColor: '<?=$statusColor?>',
+                                strokeWeight: 2,
+                                scale: 5 //pixels
+                            },
+                            offset: '0%'
+                        }, {
+                            icon: {
+                                path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+                                fillOpacity: 1,
+                                fillColor: '<?=$statusColor?>',
+                                strokeColor: '<?=$statusColor?>',
+                                strokeWeight: 2,
+                                scale: 2 //pixels
+                            },
+                            offset: '99%'
+                        }, {
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                fillOpacity: 1,
+                                fillColor: '#FFFFFF',
+                                strokeColor: '<?=$statusColor?>',
+                                strokeWeight: 1,
+                                scale: 5 //pixels
+                            },
+                            offset: '100%'
                         }],
-                        path: actionCoordinates,
-                        geodesic: true,
+                        geodesic: false,
                         strokeColor: '<?=$statusColor?>',
                         strokeOpacity: 1,
                         strokeWeight: 2
                     });
+
+                    var bounds = new google.maps.LatLngBounds();
+                    bounds.extend(LatLngStart);
+                    bounds.extend(LatLngEnd);
+                    var actionCenter = bounds.getCenter();
+
+                    markerIcon = new Marker({
+                        map: map,
+                        position: actionCenter,
+                        icon: {
+                            path: SQUARE_ROUNDED,
+                            fillColor: '<?=$statusColor?>',
+                            fillOpacity: 1,
+                            strokeColor: '',
+                            strokeWeight: 0,
+                            scale: 0.68, //pixels
+                            anchor: new google.maps.Point(0, 12)
+                        },
+                        map_icon_label: '<span class="map-icon map-icon-type-' + actionType + '"></span>'
+                    });
+
                     actionPath.setMap(map);
                 }
 
@@ -246,16 +400,19 @@ switch($action->status) {
             $('#start-lng').val(markersStart[0].position.lng());
 
             if (LatLngEnd) {
-                boundsEnd.extend(LatLngEnd);
+                boundsStart.extend(LatLngEnd);
             }
             map.fitBounds(boundsStart);
 
         });
 
+        // UPDATE MARKERS when SEARCH BOX END is modified
         searchBoxEnd.addListener('places_changed', function () {
 
-          actionType = updateTypeId();
-          var places = searchBoxEnd.getPlaces();
+            console.log("End point has been modified...");
+
+            actionType = updateTypeId();
+            var places = searchBoxEnd.getPlaces();
 
             if (places.length == 0) {
                 return;
@@ -263,10 +420,17 @@ switch($action->status) {
 
             // Clear out the old markers.
             markersEnd.forEach(function (marker) {
+                console.log("Clear the markerEnd....");
                 marker.setMap(null);
-                // clear oiut old lines
-                if (actionPath.setMap){
+                // clear out old lines
+                if (actionPath.setMap) {
+                    console.log("we need to clear the actionPath....");
                     actionPath.setMap(null);
+                }
+                // clear out old icons
+                if (markerIcon.setMap) {
+                    console.log("we need to clear the markerIcon....");
+                    markerIcon.setMap(null);
                 }
             });
 
@@ -280,39 +444,17 @@ switch($action->status) {
                     return;
                 }
 
-                var image = {
-                    url: 'img/iconMap-'+actionType+'.png',
-                    // This marker is 20 pixels wide by 32 pixels high.
-                    size: new google.maps.Size(20, 20),
-                    // The origin for this image is (0, 0).
-                    origin: new google.maps.Point(0, 0),
-                    // The anchor for this image is the base of the flagpole at (0, 32).
-                    anchor: new google.maps.Point(10, 10)
-                };
-
-                // Create a marker for the status pill.
                 markersEnd.push(new google.maps.Marker({
                     map: map,
                     position: place.geometry.location,
-                    zIndex: 1,
-                    optimized: false,
                     icon: {
                         path: google.maps.SymbolPath.CIRCLE,
                         fillOpacity: 1,
-                        fillColor: '<?=$statusColor?>',
+                        fillColor: '#FFFFFF',
                         strokeColor: '<?=$statusColor?>',
-                        strokeWeight: 1.0,
-                        scale: 10 //pixels
+                        strokeWeight: 2,
+                        scale: 4 //pixels
                     }
-                }));
-                // Create a marker for the icon (on top).
-                markersEnd.push(new google.maps.Marker({
-                    map: map,
-                    icon: image,
-                    title: place.name,
-                    position: place.geometry.location,
-                    optimized: false,
-                    zIndex: 20
                 }));
 
                 if (place.geometry.viewport) {
@@ -324,29 +466,73 @@ switch($action->status) {
 
                 LatLngEnd = place.geometry.location;
 
-                // draw the line between start and end
-                var actionCoordinates = [
-                    LatLngStart,
-                    LatLngEnd
-                ];
-
                 actionPath = new google.maps.Polyline({
+                    path: [LatLngStart, LatLngEnd],
                     icons: [{
-                        icon: lineSymbol,
+                        icon: {
+                            path: google.maps.SymbolPath.CIRCLE,
+                            fillOpacity: 1,
+                            fillColor: '#FFFFFF',
+                            strokeColor: '<?=$statusColor?>',
+                            strokeWeight: 2,
+                            scale: 4 //pixels
+                        },
+                        offset: '0%'
+                    }, {
+                        icon: {
+                            path: google.maps.SymbolPath.CIRCLE,
+                            fillOpacity: 1,
+                            fillColor: '<?=$statusColor?>',
+                            strokeColor: '<?=$statusColor?>',
+                            strokeWeight: 1,
+                            scale: 2 //pixels
+                        },
                         offset: '50%'
+                    }, {
+                        icon: {
+                            path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+                            fillOpacity: 1,
+                            fillColor: '<?=$statusColor?>',
+                            strokeColor: '<?=$statusColor?>',
+                            strokeWeight: 1,
+                            scale: 2 //pixels
+                        },
+                        offset: '100%'
                     }],
-                    path: actionCoordinates,
-                    geodesic: true,
+                    geodesic: false,
                     strokeColor: '<?=$statusColor?>',
                     strokeOpacity: 1,
                     strokeWeight: 2
                 });
+
+                var bounds = new google.maps.LatLngBounds();
+                bounds.extend(LatLngStart);
+                bounds.extend(LatLngEnd);
+//                map.fitBounds(bounds);
+                var actionCenter = bounds.getCenter();
+
+                markerIcon = new Marker({
+                    map: map,
+                    position: actionCenter,
+                    icon: {
+                        path: SQUARE_ROUNDED,
+                        fillColor: '<?=$statusColor?>',
+                        fillOpacity: 1,
+                        strokeColor: '',
+                        strokeWeight: 0,
+                        scale: 0.68, //pixels
+                        anchor: new google.maps.Point(0, 12)
+                    },
+                    map_icon_label: '<span class="map-icon map-icon-type-' + actionType + '"></span>'
+                });
+
                 actionPath.setMap(map);
             });
 
             $('#end-name').val(places[0].name);
             $('#end-lat').val(markersEnd[0].position.lat());
             $('#end-lng').val(markersEnd[0].position.lng());
+
 
             if (LatLngStart) {
                 boundsEnd.extend(LatLngStart);
@@ -356,6 +542,7 @@ switch($action->status) {
         });
 
     }
+    google.maps.event.addDomListener(window, 'load', initAutocomplete);
 
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBsahp0E7FSU4WE0dY73LyvTyY6-CWxgI&libraries=places&callback=initAutocomplete"></script>
+

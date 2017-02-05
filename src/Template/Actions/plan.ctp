@@ -45,6 +45,8 @@
             echo '<h4>' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</h4>';
             echo $start_time . ' ' . $action->start_name;
             echo ' &#8594; ';
+            echo "<span class='map-icon map-icon-type-".$action->type_id." map-icon-status status-".$action->status."'></span>";
+            echo ' &#8594; ';
             echo $end_time . ' ' . $action->end_name;
             echo "    </div>";
         $lastDate = $start_date;

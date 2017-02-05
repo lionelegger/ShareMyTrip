@@ -343,37 +343,44 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
                     $scope.action.payments.totalAll += payment.amount;
                 });
 
-                // Update the status of the action: 0=not defined / 1 = nothing paid / 2 = partially paid / 3 = All paid / 4 = overpaid
+                $scope.updateStatus($actionId);
 
-                $scope.action.status = 0;
-                console.log ("TOTAL = " + $scope.action.payments.totalAll);
-                console.log ("PRICE = " + $scope.price);
-                if($scope.action.payments.totalAll == 0) {
-                    $scope.action.status = 1;
-                } else if ($scope.action.payments.totalAll == $scope.action.price) {
-                    $scope.action.status = 3;
-                } else if ($scope.action.payments.totalAll > $scope.action.price) {
-                    $scope.action.status = 4;
-                } else {
-                    $scope.action.status = 2;
-                }
-
-                $scope.actionStatusUpdate = {
-                    status : $scope.action.status
-                };
-                $http
-                    .post('actions/edit/'+$actionId+'.json', $scope.actionStatusUpdate)
-                    .success(function() {
-                        console.log("Status updated successfully");
-                        $scope.actionStatusUpdate = {};
-                    }).error(function() {
-                    console.log("Something went wrong during update status");
-                });
                 // $scope.action.payments.balance = $scope.action.price - $scope.action.payments.total;
             }).error(function() {
             console.log("Something went wrong during load Payments");
         });
+    };
 
+    // Update the status of the action: 0=not defined / 1 = nothing paid / 2 = partially paid / 3 = All paid / 4 = overpaid
+    $scope.updateStatus = function ($actionId) {
+        $scope.action.status = 0;
+        console.log ("TOTAL = " + $scope.action.payments.totalAll);
+        console.log ("PRICE = " + $scope.action.price);
+        if($scope.action.payments.totalAll == 0) {
+            $scope.action.status = 1;
+        } else if ($scope.action.payments.totalAll == $scope.action.price) {
+            $scope.action.status = 3;
+        } else if ($scope.action.payments.totalAll > $scope.action.price) {
+            $scope.action.status = 4;
+        } else {
+            $scope.action.status = 2;
+        }
+        if ($scope.action.price == null) {
+            $scope.action.status = 0;
+        }
+
+        $scope.actionStatusUpdate = {
+            status : $scope.action.status
+        };
+
+        $http
+            .post('actions/edit/'+$actionId+'.json', $scope.actionStatusUpdate)
+            .success(function() {
+                console.log("Status updated successfully");
+                $scope.actionStatusUpdate = {};
+            }).error(function() {
+            console.log("Something went wrong during update status");
+        });
     };
 
     $scope.actionDeletePayment = function($paymentId, $actionId) {

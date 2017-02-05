@@ -14,10 +14,12 @@
     <!--  Bootstrap -->
     <?= $this->Html->css('bootstrap.min.css') ?>
     <?= $this->Html->css('bootstrap-datetimepicker.min.css') ?>
+    <?= $this->Html->css('map-icons.min.css') ?>
     <?= $this->Html->css('custom.css') ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <?= $this->Html->script('jquery.min.js') ?>
+
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -82,6 +84,7 @@
     <?= $this->Html->script('bootstrap-datetimepicker.min.js') ?>
     <?= $this->Html->script('app.js') ?>
     <?= $this->Html->script('controllers.js') ?>
+
     <script>window.onload = initialize;</script>
 </body>
 </html>
