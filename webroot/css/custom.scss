@@ -76,6 +76,9 @@ a.glyphicon-btn {
         &.status-4 {
             border-color: #2e753f;
         }
+        &.status-5 {
+            border-color: #0e693a;
+        }
     }
     .start {
         float: left;
@@ -247,6 +250,10 @@ a.glyphicon-btn {
 }
 .status-4 {
     background-color: #2e753f;
+    color: white;
+}
+.status-5 {
+    background-color: #0e693a;
     color: white;
 }
 

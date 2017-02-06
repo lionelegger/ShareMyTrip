@@ -357,16 +357,16 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         console.log ("TOTAL = " + $scope.action.payments.totalAll);
         console.log ("PRICE = " + $scope.action.price);
         if($scope.action.payments.totalAll == 0) {
-            $scope.action.status = 1;
+            $scope.action.status = 2; /* nothing paid (red) */
         } else if ($scope.action.payments.totalAll == $scope.action.price) {
-            $scope.action.status = 3;
+            $scope.action.status = 4;  /* All paid (green) */
         } else if ($scope.action.payments.totalAll > $scope.action.price) {
-            $scope.action.status = 4;
+            $scope.action.status = 5; /* Over paid (green) */
         } else {
-            $scope.action.status = 2;
+            $scope.action.status = 3; /* Partially paid (orange) */
         }
         if ($scope.action.price == null) {
-            $scope.action.status = 0;
+            $scope.action.status = 1; /* not defined (blue) */
         }
 
         $scope.actionStatusUpdate = {
