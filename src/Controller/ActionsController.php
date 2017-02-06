@@ -159,11 +159,13 @@ class ActionsController extends AppController
 
         // $actions is an array that contains all the following tables
         $queryActions = $this->Actions->find('all',[
-            'contain' => ['Users', 'Trips', 'Types', 'Payments']
+            'contain' => ['Users', 'Trips', 'Types', 'Payments'],
+            'order' => ['start_date' => 'ASC']
         ]);
         // Choose only actions related to the specified trip ($trip_id)
         $queryActions->matching('Trips', function ($q) use ($trip_id) {
-            return $q->where(['Trips.id' => $trip_id]);
+            return $q
+                ->where(['Trips.id' => $trip_id]);
         });
         // Choose only actions where the authentified user is participating
         $queryActions->matching('Users', function ($q) {
@@ -200,7 +202,8 @@ class ActionsController extends AppController
 
         // $actions is an array that contains all the following tables
         $queryActions = $this->Actions->find('all',[
-            'contain' => ['Users', 'Trips', 'Types', 'Payments']
+            'contain' => ['Users', 'Trips', 'Types', 'Payments'],
+            'order' => ['start_date' => 'ASC']
         ]);
         // Choose only actions related to the specified trip ($trip_id)
         $queryActions->matching('Trips', function ($q) use ($trip_id) {
@@ -242,46 +245,54 @@ class ActionsController extends AppController
         /**
          * The following block to allow only the participant of an action to see the action
          */
-        /*
+
         // $actions is an array that contains all the following tables
         $queryActions = $this->Actions->find('all',[
-            'contain' => ['Users', 'Trips', 'Types', 'Payments']
+            'contain' => ['Users', 'Trips', 'Types', 'Payments'],
+            'order' => ['start_date' => 'ASC']
         ]);
         // Choose only actions related to the specified trip ($trip_id)
         $queryActions->matching('Trips', function ($q) use ($trip_id) {
-            return $q->where(['Trips.id' => $trip_id]);
+            return $q
+                ->where(['Trips.id' => $trip_id]);
         });
         // Choose only actions where the authentified user is participating
         $queryActions->matching('Users', function ($q) {
-            return $q->where([
-                'users.id' => $this->Auth->user('id'),
-            ]);
+            return $q
+                ->where(['users.id' => $this->Auth->user('id')]);
         });
-        */
+        $actions = $queryActions->all();
 
+        // $tripUsers is an array with all users of the given trip
+        $queryTrip = $this->Actions->Trips->find()
+            ->contain('Users')
+            ->where(['Trips.id' => $trip_id]);
+        $trip = $queryTrip->first();
+        $tripUsers = $trip->users;
+
+        // we pass the variables to the view
+        $this->set([
+            'actions' => $actions,
+            'trip' => $trip,
+            'tripUsers' => $tripUsers
+        ]);
+        $this->set(compact('actions', 'trip', 'tripUsers'));
+        $this->set('_serialize', ['actions', 'users', 'tripUsers']);
+    }
+
+
+    /*
+    TODO: The following function is for version 2 (not used):
+    Plan, Map and Budget show all trip actions except when private and not participating in the action
+    */
+    public function private($trip_id = null) {
 
         /**
-         * The following block is not working...
+         * SHOW ALL TRIP ACTIONS EXCEPT THE PRIVATE ONES WHEN AUTHENTIFIED USER IS INVOLVED
          */
-        /*
-        $currentUserId = $this->Auth->user('id');
-        $queryActions->matching('Users', function($q) use ($currentUserId) {
-            $q->where([
-                'Users.id' => $currentUserId,
-                'AND' => ['private' => 1]
-            ]);
-//            $q->orWhere([
-            $q->where([
-                'private' => 0
-            ]);
-            return $q;
-        });*/
 
-
-
-        /**
-         * GET ALL PRIVATE ACTIONS THAT INVOLVE ME (private=1)
-         */
+        /* GET ALL PRIVATE ACTIONS THAT INVOLVE ME (private=1) */
+        /* ----------------------------------------------------*/
         // $queryActionsP1 is an array that contains all the following tables
         $queryActionsP1 = $this->Actions->find('all',[
             'contain' => ['Users', 'Trips', 'Types', 'Payments']
@@ -303,9 +314,14 @@ class ActionsController extends AppController
 
         $actionsP1 = $queryActionsP1->toArray();
 
-        /**
-         * GET ALL PUBLIC ACTIONS (private=0)
-         */
+        // Set 'participating' value to true to fade when not participating
+        // TODO: do the same for non private actions (but how?)
+        foreach($actionsP1 as $action) {
+            $action['participating'] = true;
+        };
+
+        /* GET ALL PUBLIC ACTIONS (private=0) */
+        /* -----------------------------------*/
         // $queryActionsP0 is an array that contains all the following tables
         $queryActionsP0 = $this->Actions->find('all',[
             'contain' => ['Users', 'Trips', 'Types', 'Payments']
@@ -322,6 +338,7 @@ class ActionsController extends AppController
         // Merge the two actionsP1 and actionsP0 arrays and sort them by start_date
         $actions = Hash::merge($actionsP1, $actionsP0);
         $actions = Hash::sort($actions, '{n}.start_date', 'asc');
+
 
         // $tripUsers is an array with all users of the given trip
         $queryTrip = $this->Actions->Trips->find()

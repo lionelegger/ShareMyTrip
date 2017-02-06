@@ -3,6 +3,7 @@
 body {
     background-color: #f6f6f6;
     padding-top: 70px;
+    font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
 }
 
 button.btn-primary a {
@@ -33,6 +34,99 @@ a.glyphicon-btn {
 .map-icon {
     font-size: 18px;
 }
+
+
+
+/* PLAN : Actions */
+.actions {
+    .actions-day {
+        border-top: 1px solid #CCCCCC;
+        .actions-date {
+            margin-top: 15px;
+            font-size: 20px;
+            color: #777777;
+        }
+    }
+}
+
+.action {
+    line-height: 1em;
+    margin: 15px 0;
+
+    .dotIcon {
+        width: 11px;
+        height: 11px;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        border: 2px solid #666666;
+        background: #FFF;
+        display: block;
+        margin: 3px auto;
+        z-index: 2;
+        &.status-1 {
+            border-color: #264f9b;
+        }
+        &.status-2 {
+            border-color: #9b1003;
+        }
+        &.status-3 {
+            border-color: #ed984c;
+        }
+        &.status-4 {
+            border-color: #2e753f;
+        }
+    }
+    .start {
+        float: left;
+    }
+    .end {
+        float: right;
+    }
+
+    .time {
+        color: gray;
+        font-size: smaller;
+        min-height: 15px;
+    }
+    .icon {
+
+    }
+    .name {
+        font-size: small;
+        min-height: 15px;
+    }
+
+    .line {
+        position: absolute;
+        height: 2px;
+        margin: 8px 15%;
+        width: 70%;
+        z-index: -1;
+    }
+
+    .time, .icons, .name {
+        line-height: 15px;
+        position: relative;
+    }
+    .map-icon {
+        position: absolute;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        margin-top: -12px;
+        font-size: 32px;
+        width: 42px;
+    }
+
+    .start, .end {
+        text-align: center;
+        width: 30%;
+        font-size: 15px;
+    }
+}
+
+
 
 
 /* ICON TYPES */
@@ -132,7 +226,7 @@ a.glyphicon-btn {
 
 .map-icon-status {
     padding: 5px;
-    border-radius: 28px;
+    border-radius: 6px;
 }
 
 .status-0 {

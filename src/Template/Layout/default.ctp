@@ -10,6 +10,7 @@
     <?= $this->Html->meta('icon') ?>
 
     <base href="http://127.0.0.1:8888/UNIGE/Projects/ShareMyTrip/"/>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700" rel="stylesheet" type="text/css">
 
     <!--  Bootstrap -->
     <?= $this->Html->css('bootstrap.min.css') ?>
