@@ -13,8 +13,9 @@
     <button class="btn btn-primary" role="button">Plan</button>
     <button class="btn btn-default" role="button"><?= $this->Html->link(__('Map'), ['controller' => 'actions', 'action' => 'map', $trip->id]) ?></button>
     <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) ?></button>
-
 </nav>
+
+
 
 <h1><?= $trip->name ?>
     <small>with
@@ -23,6 +24,7 @@
         <?php endforeach; ?>
     </small>
 </h1>
+
 
 <?php $lastDate = '' ?>
 <div class="actions">
@@ -43,7 +45,6 @@
         }
             echo "    <div class='col-md-3'>";
             echo "        <div class='action'>";
-
             echo "            <div class='time clearfix'>";
             echo "                <div class='start'>".$start_time."</div>";
             echo "                <div class='end'>".$end_time."</div>";
@@ -56,18 +57,11 @@
             echo "                  </a>";
             echo "                <div class='end'><span class='dotIcon status-".$action->status."'></span></div>";
             echo "            </div>";
-
-//            echo ' &#8594; ';
-//            echo ' &#8594; ';
-
             echo "            <div class='name clearfix'>";
             echo "                <div class='start'>".$action->start_name."</div>";
             echo "                <div class='end'>".$action->end_name."</div>";
             echo "            </div>";
-
-            echo '<h4 class="text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</h4>';
-
-
+            echo '            <h4 class="text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</h4>';
             echo "        </div>";
             echo "    </div>";
         $lastDate = $start_date;

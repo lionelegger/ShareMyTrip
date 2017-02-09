@@ -3,7 +3,7 @@
     <div class="payment-list">
         <ul class="list-unstyled">
             <li ng-repeat="payment in action.payments">
-                {{payment.user.first_name}} paid {{payment.amount}} {{payment.currency}}
+                {{payment.user.first_name}} paid {{payment.amount}} {{payment.currency}} [Date: {{payment.date}} | Method: {{payment.method_id}}]
                 <span ng-if="payment.user_id==currentUserId"><a ng-click="actionDeletePayment(payment.id, action.id)">[Delete]</a></span>
             </li>
         </ul>

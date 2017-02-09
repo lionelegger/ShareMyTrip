@@ -54,8 +54,8 @@ a.glyphicon-btn {
     margin: 15px 0;
 
     .dotIcon {
-        width: 11px;
-        height: 11px;
+        width: 12px;
+        height: 12px;
         -moz-border-radius: 50%;
         -webkit-border-radius: 50%;
         border-radius: 50%;
@@ -64,6 +64,8 @@ a.glyphicon-btn {
         display: block;
         margin: 3px auto;
         z-index: 2;
+        position: relative;
+
         &.status-1 {
             border-color: #264f9b;
         }
@@ -105,7 +107,7 @@ a.glyphicon-btn {
         height: 2px;
         margin: 8px 15%;
         width: 70%;
-        z-index: -1;
+        z-index: 0;
     }
 
     .time, .icons, .name {
@@ -129,15 +131,24 @@ a.glyphicon-btn {
     }
 }
 
+// Budget page
+.table-budget {
+    th, td {
+        text-align: center;
+    }
 
+}
 
 
 /* ICON TYPES */
 // Unknown
 .map-icon-type-0:before {
     content: "?";
-    padding: 4px;
-    font-family: "Consolas", "Menlo", "Courier", monospace;
+    padding: 0 6px;
+    font-weight: bold;
+    font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    line-height: 24px;
 }
 // flight (map-icon-airport)
 .map-icon-type-1:before {
@@ -155,75 +166,96 @@ a.glyphicon-btn {
 .map-icon-type-4:before {
     content: "\e81c";
 }
-// boat (map-icon-boat-tour)
+// bus (map-icon-bus-station)
 .map-icon-type-5:before {
+    content: "\e817";
+}
+// boat (map-icon-boat-tour)
+.map-icon-type-6:before {
     content: "\e812";
 }
 // bicycle (map-icon-motobike-trail)
-.map-icon-type-6:before {
+.map-icon-type-7:before {
     content: "\e860";
 }
 // walking (map-icon-walking)
-.map-icon-type-7:before {
+.map-icon-type-8:before {
     content: "\e8a5";
 }
 // other transportation
-.map-icon-type-8:before {
+.map-icon-type-9:before {
     content: "T";
-    padding: 4px;
-    font-family: "Consolas", "Menlo", "Courier", monospace;
+    padding: 0 6px;
+    font-weight: bold;
+    font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    line-height: 24px;
 }
 // hotel (lodging)
-.map-icon-type-9:before {
+.map-icon-type-10:before {
     content: "\e85a";
 }
 // B&B (roofing-contractor)
-.map-icon-type-10:before {
+.map-icon-type-11:before {
     content: "\e87b";
 }
 // camping (map-icon-campground)
-.map-icon-type-11:before {
+.map-icon-type-12:before {
     content: "\e819";
 }
 // Other lodging
-.map-icon-type-12:before {
+.map-icon-type-13:before {
     content: "L";
-    padding: 4px;
-    font-family: "Consolas", "Menlo", "Courier", monospace;
+    padding: 0 8px;
+    font-weight: bold;
+    font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    line-height: 24px;
 }
 // restaurant (map-icon-restaurant)
-.map-icon-type-13:before {
-    content: "\e85a";
+.map-icon-type-20:before {
+    content: "\e87a";
 }
-// restaurant (map-icon-shopping-mall)
-.map-icon-type-14:before {
+// drinks (map-icon-night-club)
+.map-icon-type-21:before {
+    content: "\e866";
+}
+// Shopping (map-icon-shopping-mall)
+.map-icon-type-22:before {
     content: "\e884";
 }
 // museum (map-icon-museum)
-.map-icon-type-15:before {
+.map-icon-type-23:before {
     content: "\e864";
 }
 // tour (map-icon-florist)
-.map-icon-type-16:before {
+.map-icon-type-24:before {
     content: "\e83b";
 }
 // concert/theater (map-icon-movie-theater)
-.map-icon-type-17:before {
+.map-icon-type-25:before {
     content: "\e862";
 }
 // other activity
-.map-icon-type-18:before {
+.map-icon-type-26:before {
     content: "A";
+    padding: 0 5px;
+    font-weight: bold;
+    font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    line-height: 24px;
 }
-// Bank Withdrawal (map-icon-finance)
-.map-icon-type-19:before {
-    content: "\e836";
+// Bank (map-icon-finance)
+.map-icon-type-30:before {
+    content: "\e80b";
+}
+// ATM (map-icon-atm)
+.map-icon-type-31:before {
+    content: "\e808";
 }
 // Other
-.map-icon-type-20:before {
-    content: "?";
-    padding: 4px;
-    font-family: "Consolas", "Menlo", "Courier", monospace;
+.map-icon-type-32:before {
+    content: "\e877";
 }
 
 
@@ -232,28 +264,57 @@ a.glyphicon-btn {
     border-radius: 6px;
 }
 
+.map-icon-button {
+    margin: 10px 3px;
+    float: left;
+    width: 50px;
+
+
+    .map-icon-name {
+        margin-top: 5px;
+        line-height: 15px;
+    }
+    .map-icon {
+        font-size: 30px;
+    }
+    &:hover {
+        cursor: pointer;
+        cursor: hand;
+        .map-icon {
+            background-color: #264f9b;
+        }
+    }
+}
+
+.map-icon-btn {
+    list-style: none;
+    li {
+        display: initial;
+    }
+}
+
 .status-0 {
-    background-color: #666666;
+    background-color: #666666; // not defined
     color: white;
 }
-.status-1 {
-    background-color: #264f9b;
+.status-1, .active {
+    background-color: #264f9b; // not priced
     color: white;
 }
 .status-2 {
-    background-color: #9b1003;
+    background-color: #9b1003; // nothing paid
     color: white;
 }
 .status-3 {
-    background-color: #ed984c;
+    background-color: #ed984c; // partially paid
     color: white;
 }
 .status-4 {
-    background-color: #2e753f;
+    background-color: #2e753f; // all paid
     color: white;
 }
 .status-5 {
-    background-color: #0e693a;
+    background-color: #000000; // overpaid
     color: white;
 }
 
@@ -276,5 +337,83 @@ a.glyphicon-btn {
     box-shadow: 0px 0px 3px 0px rgba(179,179,179,0.2);
 }
 
+div.tipPayment {
+    font-size: 11px;
+    border-bottom: 1px solid #222222;
+    padding: 1px 0;
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+// Responsive tables (<767px)
+@media only screen and (max-width: 768px) {
+
+    // Force table to not be like tables anymore
+    .responsive-table,
+    .responsive-table thead,
+    .responsive-table tbody,
+    .responsive-table th,
+    .responsive-table td,
+    .responsive-table tr {
+        display: block;
+    }
+
+    // Hide table headers (but not display: none;, for accessibility)
+    .responsive-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .responsive-table tr {
+        border-bottom: 1px solid #ddd;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+
+    .responsive-table,
+    .responsive-table th,
+    .responsive-table td,
+    .responsive-table tr:last-child {
+        border: none !important;
+    }
+
+    .responsive-table td {
+        position: relative;
+        padding-left: 35% !important;
+        white-space: normal;
+        text-align: left;
+    }
+
+    .responsive-table td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 30%;
+        padding-right: 10px;
+        overflow: hidden;
+        text-align: right;
+        font-weight: bold;
+        content: attr(data-title);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .responsive-table input,
+    .responsive-table select {
+        max-width: 80px;
+    }
+
+    .responsive-table > thead > tr > th,
+    .responsive-table > thead > tr > td,
+    .responsive-table > tbody > tr > th,
+    .responsive-table > tbody > tr > td,
+    .responsive-table > tfoot > tr > th,
+    .responsive-table > tfoot > tr > td {
+        padding: 6px;
+    }
+
+}
 
 

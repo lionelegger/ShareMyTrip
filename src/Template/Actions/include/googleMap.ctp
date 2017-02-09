@@ -107,9 +107,16 @@ switch ($action->status) {
 ?>
 
 <script>
+
+    // To get the Action type from the selected
     var actionType = 0; // by default
     function updateTypeId() {
-        actionType = $('#type-id option:selected').val();
+        actionType = $('ul.map-icon-btn li.map-icon.active').val();
+        console.log("actionType = " + actionType);
+        // add the .active class when an actionType already exists in the DB
+        $("ul.map-icon-btn li.map-icon-type-" + actionType).addClass("active");
+        // fill the hidden select/option with the right value
+        $("#type-id option").val(actionType);
         return actionType;
     }
 

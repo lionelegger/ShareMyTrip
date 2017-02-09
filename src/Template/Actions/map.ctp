@@ -61,6 +61,7 @@
                 case 2: $statusColor = '#9b1003'; break; // danger (red)
                 case 3: $statusColor = '#ed984c'; break; // warning (orange)
                 case 4: $statusColor = '#2e753f'; break; // success (green)
+                case 5: $statusColor = '#000000'; break; // success (green)
             }
             ?>
 

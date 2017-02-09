@@ -39,4 +39,13 @@ function initialize() {
         }
     }
 
+    $(".map-icon").click(function() {
+        $(".map-icon.status-0").removeClass('active');
+        $(".map-icon.status-0").removeAttr('selected');
+        $(this).addClass('active');
+        $(this).attr('selected', 'selected');
+        updateTypeId();
+    });
+
+
 }

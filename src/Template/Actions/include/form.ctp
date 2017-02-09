@@ -1,7 +1,55 @@
-
 <div class="actions form">
     <?= $this->Form->create($action) ?>
     <fieldset>
+        <div class="row">
+            <div class="col-md-6 text-center col-md-offset-3">
+                <div class="clearfix">
+                    <?php
+                    if ($edit) {
+                        $initCat = $action->type->category_id;
+                    } else {
+                        $initCat = 1;
+                    }
+                    ?>
+                    <div class="btn-group" role="group" data-toggle="buttons" ng-init='category=<?=$initCat?>'>
+                        <?php
+                        $status = '';
+                        foreach ($allCategories as $category):
+                            if ($edit) {
+                                if ($action->type->category_id == $category->id) {$status = ' active';}
+                            }
+                            echo ("<label class='btn btn-default ".$status."' ng-click='category=".$category->id."'>");
+                            echo (  "<input type='radio' name='categories' autocomplete='off' ".$status.">".$category->name);
+                            echo ("</label>");
+                            $status = '';
+                        endforeach;
+                        ?>
+                    </div>
+                </div>
+                <br/>
+                <div class="clearfix">
+                    <ul class="btn-group map-icon-btn" name="type_id" id="type-id">
+                        <?php
+                            $active = '';
+                            foreach ($allTypes as $type):
+                                if ($action->type_id == $type->id) {$active = 'active';}
+                                $status = 'status-0';
+                                if ($action->type_id == $type->id) {$status = 'status-'.$action->status;}
+                                echo "<div class='map-icon-button' ng-show='category==".$type->category_id."'>";
+                                echo "  <li class='map-icon map-icon-type-".$type->id." map-icon-status ".$status." ".$active."' value='".$type->id."'></li>";
+                                echo "  <div class='map-icon-name'>".$type->name."</div>";
+                                echo "</div>";
+                                $active = '';
+                            endforeach;
+                        ?>
+                        <select class="hidden" id="type-id" name="type_id"><option></option></select>
+                    </ul>
+                </div>
+                <br/>
+
+                <?php //echo $this->Form->input('type_id', ['onchange' => "updateTypeId()"], ['options' => $types]); ?>
+            </div>
+        </div>
         <div class="row text-right">
             <div class="col-md-3">
                 <?php
@@ -17,13 +65,8 @@
                     </span>
                 </div>
             </div>
-            <div class="col-md-6 text-center">
-                <span class="map-icon map-icon-type-<?=$action->type_id?> icon-stage-0"></span>
-                <?php
-                echo $this->Form->input('type_id', ['onchange' => "updateTypeId()"], ['options' => $types]);
-                ?>
-            </div>
-            <div class="col-md-3 pull-right">
+
+            <div class="col-md-3 pull-right col-md-9">
                 <?php
                 $end_datetime = '';
                 if ($action->end_date) {

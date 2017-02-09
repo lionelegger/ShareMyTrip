@@ -93,11 +93,20 @@ class ActionsController extends AppController
         $types = $this->Actions->Types->find('list', ['limit' => 200]);
         $users = $this->Actions->Users->find('list', ['limit' => 200]);
 
-        $trip = $this->Actions->Trips->get($trip_id);
-        $this->set(compact('trip'));
+        // $allTypes is an array with all available types
+        $queryTypes = $this->Actions->Types->find('all')
+            ->contain(['Categories']);
+        $allTypes = $queryTypes->all();
 
-        $this->set(compact('action', 'trips', 'types', 'users'));
-        $this->set('_serialize', ['action', 'trips']);
+        // $allCategory is an array with all available categories
+        $queryCategories = $this->Actions->Types->Categories->find();
+        $allCategories = $queryCategories->all();
+
+        $trip = $this->Actions->Trips->get($trip_id);
+        $this->set(compact('trip', 'allTypes', 'allCategories'));
+
+        $this->set(compact('action', 'trips', 'types', 'users', 'allTypes', 'allCategories'));
+        $this->set('_serialize', ['trip', 'allTypes', 'allCategories']);
     }
 
     /**
@@ -110,7 +119,7 @@ class ActionsController extends AppController
     public function edit($id = null)
     {
         $action = $this->Actions->get($id, [
-            'contain' => ['Trips','Users']
+            'contain' => ['Trips','Users', 'Types']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $action = $this->Actions->patchEntity($action, $this->request->data);
@@ -124,8 +133,18 @@ class ActionsController extends AppController
         $trips = $this->Actions->Trips->find('list', ['limit' => 200]);
         $types = $this->Actions->Types->find('list', ['limit' => 200]);
         $users = $this->Actions->Users->find('list', ['limit' => 200]);
-        $this->set(compact('action', 'trips', 'types', 'users'));
-        $this->set('_serialize', ['action']);
+
+        // $allTypes is an array with all available types
+        $queryTypes = $this->Actions->Types->find('all')
+            ->contain(['Categories']);
+        $allTypes = $queryTypes->all();
+
+        // $allCategory is an array with all available categories
+        $queryCategories = $this->Actions->Types->Categories->find();
+        $allCategories = $queryCategories->all();
+
+        $this->set(compact('action', 'trips', 'types', 'users', 'allTypes', 'allCategories'));
+        $this->set('_serialize', ['action', 'allTypes', 'allCategories']);
     }
 
     /**
