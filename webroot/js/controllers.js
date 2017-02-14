@@ -6,7 +6,7 @@ as.controller('MainCtrl', function($scope, $http, $location, $window) {
     // to get the current user
     $http.get('users/current.json')
         .success(function(data) {
-            if (undefined != data.user) {
+            if (undefined !== data.user) {
                 $scope.currentUserId = data.user.id;
                 $scope.currentUserEmail = data.user.email;
                 $scope.currentUserFirstname = data.user.first_name;
@@ -71,13 +71,13 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     };
 
     // adds a trip (and the logged user as a participant with cakephp3)
-
     $scope.addTrip = function() {
         console.log('call addTrip');
         $http
             .post('Trips/add.json', $scope.trip)
             .success(function(data) {
                 // $scope.loadTrips();
+                console.log(data.trip);
                 $scope.trip = data.trip;
                 console.log("Trip " + data.trip.id + " added...");
                 $scope.getTripUsers(data.trip.id);
@@ -101,7 +101,6 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         }
     };
 
-
     // $scope.trip = {};
     $scope.saveTrip = function(tripId) {
         console.log('call saveTrip with trip ' + tripId);
@@ -118,7 +117,7 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     // Deletes a trip (and the logged user as a participant with cakephp3)
     $scope.deleteTrip = function(tripId) {
         $http
-            .delete('Trips/delete/' + tripId + '.json')
+            .delete('Trips/delete/' + tripId)
             .success(function() {
                 console.log("Delete trip " + tripId);
                 $scope.loadTrips();
@@ -213,6 +212,118 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
 as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     console.log('call ActionCtrl');
 
+    $scope.addAction = function($trip_id) {
+        console.log('call addAction');
+
+        $scope.action.type_id = $("ul#type-id li.active").val();
+        $scope.action.status = 1;
+        if ($("#start_time").val()) {
+            $startTime = " " + $("#start_time").val() + ":00";
+        } else {
+            $startTime = " 00:00:00";
+        }
+        if ($("#end_time").val()) {
+            $endTime = " " + $("#end_time").val() + ":00";
+        } else {
+            $endTime = " 00:00:00";
+        }
+        $scope.action.start_date = $("#start_date").val() + $startTime;
+        $scope.action.end_date = $("#end_date").val() + $endTime;
+        $scope.action.start_name = $("#start-name").val();
+        $scope.action.start_lng = $("#start-lng").val();
+        $scope.action.start_lat = $("#start-lat").val();
+        $scope.action.end_name = $("#end-name").val();
+        $scope.action.end_lng = $("#end-lng").val();
+        $scope.action.end_lat = $("#end-lat").val();
+        $http
+            .post('Actions/add/'+$trip_id, $scope.action)
+            .success(function() {
+                console.log($scope.action);
+                // $scope.action = data.action;
+                console.log("Action " + $scope.action.id + " added...");
+                document.location = 'actions/plan/' + $trip_id;
+
+            }).error(function() {
+            console.log("Something went wrong during add Action");
+        });
+    };
+
+
+    $scope.editAction = function($trip_id,$action_id) {
+        console.log('call editAction for action '+ $action_id + ' and trip ' + $trip_id);
+        // var participants = $("#participants :checked").val();
+
+        // Add the participants that are checked and not isParticipating (added participants)
+        $('#participants input:not(.isParticipating):checked').each(function () {
+            var participant_id = (this.checked ? $(this).val() : "");
+            console.log("It will add participation_id = "+participant_id);
+            $scope.actionAddUser($trip_id, $action_id, participant_id);
+        });
+
+        // delete all participants that are not checked but are isParticipating (removed participants)
+        $('#participants input:not(:checked).isParticipating').each(function () {
+            var participation_id = $(this).attr('data-participant');
+            console.log("It will delete participation_id = "+participation_id);
+            $scope.actionDeleteUser(participation_id);
+        });
+
+        $scope.action.type_id = $("ul#type-id li.active").val();
+        if ($("#start_time").val()) {
+            $startTime = " " + $("#start_time").val() + ":00";
+        } else {
+            $startTime = " 00:00:00";
+        }
+        if ($("#end_time").val()) {
+            $endTime = " " + $("#end_time").val() + ":00";
+        } else {
+            $endTime = " 00:00:00";
+        }
+        $scope.action.start_date = $("#start_date").val() + $startTime;
+        $scope.action.end_date = $("#end_date").val() + $endTime;
+        $scope.action.start_name = $("#start-name").val();
+        $scope.action.start_lng = $("#start-lng").val();
+        $scope.action.start_lat = $("#start-lat").val();
+        $scope.action.end_name = $("#end-name").val();
+        $scope.action.end_lng = $("#end-lng").val();
+        $scope.action.end_lat = $("#end-lat").val();
+        $scope.action.users = ''; // reset users
+
+        // TODO: It does not update the fields... Why?
+        $http
+            .post('Actions/edit/' + $action_id, $scope.action)
+            .success(function() {
+                console.log($scope.action);
+                console.log("Action "+$action_id+" saved!");
+                document.location = 'actions/plan/' + $trip_id;
+            }).error(function() {
+            console.log("Something went wrong during edit Action");
+        });
+
+    };
+
+    // Deletes an action (and the participants of this action with cakephp3)
+    $scope.deleteAction = function($trip_id,action_id) {
+        $http
+            .delete('Actions/delete/' + action_id)
+            .success(function() {
+                console.log("Delete Action " + action_id);
+                document.location = 'actions/plan/' + $trip_id;
+            }).error(function() {
+            console.log("Something went wrong during delete Action");
+        });
+    };
+
+    $scope.actionDeleteUser = function($participation_id) {
+        console.log('call deleteActionUser for: user ' + $participation_id);
+        $http
+            .delete('actions-users/delete/'+$participation_id)
+            .success(function() {
+                console.log("Participant "+$participation_id+" has been removed!");
+            }).error(function() {
+            console.log("Something went wrong during delete action for User " + $participation_id);
+        });
+    };
+
     // Add a user to an action
     // TODO: do not allow to add a user twice
     $scope.actionAddUser = function($tripId, $actionId, $userId) {
@@ -221,27 +332,16 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             action_id : $actionId,
             user_id : $userId
         };
-        if ($("#user-"+$userId).hasClass('btn-success')) {
-            $deleteId = $("#user-"+$userId).attr('deleteId');
-            $http
-                .delete('actions-users/delete/'+$deleteId+'.json')
-                .success(function() {
-                    $scope.actionListParticipants($tripId, $actionId);
-                    $("#user-"+$userId).removeClass("btn-success");
-                    console.log("Participant has been removed!");
-                }).error(function() {
-                console.log("Something went wrong during add action for User " + id);
-            });
-        } else {
-            $http
-                .post('actions-users/add.json', $scope.actionUserToAdd)
-                .success(function() {
-                    $scope.actionUserToAdd = {};
-                    $scope.actionListParticipants($tripId, $actionId);
-                }).error(function() {
-                console.log("Something went wrong during add action for User " + id);
-            });
-        }
+
+        $http
+            .post('actions-users/add.json', $scope.actionUserToAdd)
+            .success(function() {
+                $scope.actionUserToAdd = {};
+                // $scope.actionListParticipants($tripId, $actionId);
+            }).error(function() {
+            console.log("Something went wrong during add action for User " + $userId);
+        });
+
     };
 
     // Delete all participants of the current trip (except authentified user)
@@ -300,6 +400,8 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         });
     };
 
+
+
     // Check if a user is participating to an action
     $scope.actionListParticipants = function($tripId, $actionId) {
         console.log('call actionListParticipants for action ' + $actionId + ' and trip ' + $tripId);
@@ -356,7 +458,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.action.status = 0;
         console.log ("TOTAL = " + $scope.action.payments.totalAll);
         console.log ("PRICE = " + $scope.action.price);
-        if($scope.action.payments.totalAll == 0) {
+        if($scope.action.payments.totalAll === 0) {
             $scope.action.status = 2; /* nothing paid (red) */
         } else if ($scope.action.payments.totalAll == $scope.action.price) {
             $scope.action.status = 4;  /* All paid (green) */
@@ -365,7 +467,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         } else {
             $scope.action.status = 3; /* Partially paid (orange) */
         }
-        if ($scope.action.price == null) {
+        if ($scope.action.price === null) {
             $scope.action.status = 1; /* not defined (blue) */
         }
 
@@ -396,7 +498,6 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     };
 
 
-
     // Add a user to a trip
     // TODO: do not allow to pay more than the total?
     $scope.actionPaymentToAdd = {};
@@ -416,174 +517,4 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
 
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ----------------------------------------------------------------------------------------------------
-// ----------------------------------------- NOT USED BELOW -------------------------------------------
-// ----------------------------------------------------------------------------------------------------
-
-// Ctrl for the trip details (partials/trip.html)
-/*
-
-
-as.controller('TripCtrl', function($scope, $rootScope, $http, $routeParams) {
-    console.log("call tripCtrl");
-
-    // Load the list of actions corresponding to a specific trip
-    $scope.loadActions = function() {
-        console.log('call loadActions for trip '  + $routeParams['id']);
-        $http.get('trips/' + $routeParams['id'] +'.json')
-            .success(function(data) {
-                $scope.trip = data.trip;
-                console.log('Trip ' + $routeParams['id'] +' and corresponding actions loaded!');
-            }).error(function(data) {
-            console.log("Could not load the actions corresponding to trip " + $routeParams['id']);
-        });
-    };
-    $scope.loadActions();
-});
-
-as.controller('ActionCtrl', function($scope, $rootScope, $http, $routeParams, $window, NgMap) {
-    console.log("call ActionCtrl");
-
-    // load date picker start
-    // TODO: not working with angularJS: ng-model does not get the date ....
-    $(function () {
-        $('#start_datetimepicker').datetimepicker({
-            format: 'YYYY-MM-DD hh:mm'
-        });
-        $('#end_datetimepicker').datetimepicker({
-            format: 'YYYY-MM-DD hh:mm'
-        });
-
-        //$('#start_datetimepicker').datetimepicker();
-        $('#end_datetimepicker').datetimepicker({
-            useCurrent: false //Important! See issue #1075
-        });
-        $("#start_datetimepicker").on("dp.change", function (e) {
-            $('#end_datetimepicker').data("DateTimePicker").minDate(e.date);
-        });
-        $("#end_datetimepicker").on("dp.change", function (e) {
-            $('#start_datetimepicker').data("DateTimePicker").maxDate(e.date);
-        });
-    });
-
-    // gets the action information (to update)
-    $scope.getAction = function($id) {
-        $http
-            .get('actions/view/' + $id + '.json')
-            .success(function(data) {
-                console.log(data.action);
-                $scope.action = data.action;
-            }).error(function() {
-            console.log("Something went wrong during get Action");
-        });
-    };
-
-    // gets the action types
-    $scope.getActionTypes = function() {
-        $http
-            .get('types.json')
-            .success(function(data) {
-                $scope.types = data.types;
-            }).error(function() {
-            console.log("Something went wrong during get Action");
-        });
-    };
-
-    // if an parameter is passed in the url (#trips/1/action/2), then we want to update the action and we get the values of action 2 (:up)
-    if($routeParams['up']) {
-        console.log("Update action " + $routeParams['up']);
-        $scope.getAction($routeParams['up']);
-    }
-
-    // adds an action
-    $scope.action = {};
-    $scope.action.trip_id = $routeParams['id'];
-    //console.log($scope.trip_id);
-    $scope.addAction = function() {
-        $http
-            .post('Actions/add', $scope.action)
-            .success(function() {
-                console.log($scope.action);
-                $scope.action = {};
-                $window.location.href = '#/trips/' + $routeParams['id'];
-            }).error(function() {
-            console.log("Something went wrong during save Action");
-        });
-    };
-
-    // update an action
-    // TODO: BUG => When there is a date, the action does not update ... to investigate
-    // TODO: I could use angular material for datepicker: https://material.angularjs.org/latest/demo/datepicker
-
-    $scope.actiontoUpdate = {};
-    //console.log($scope.trip_id);
-    $scope.updateAction = function($up) {
-
-        // fields to update
-        // TODO: I dont' know why it's only working by redefining the fields in a 'actiontoUpdate' variable instead of just 'action'
-        $scope.actiontoUpdate.trip_id = $routeParams['id'];
-        $scope.actiontoUpdate.id = $routeParams['up'];
-        $scope.actiontoUpdate.name = $scope.action.name;
-        $scope.actiontoUpdate.type_id = $scope.action.type_id;
-        $scope.actiontoUpdate.company = $scope.action.company;
-        $scope.actiontoUpdate.identifier = $scope.action.identifier;
-        $scope.actiontoUpdate.reservation = $scope.action.reservation;
-        $scope.actiontoUpdate.note = $scope.action.note;
-        $scope.actiontoUpdate.price = $scope.action.price;
-        $scope.actiontoUpdate.currency = $scope.action.currency;
-        $scope.actiontoUpdate.start_date = $scope.action.start_date;
-        $scope.actiontoUpdate.start_name = $scope.action.start_name;
-        $scope.actiontoUpdate.start_long = $scope.action.start_long;
-        $scope.actiontoUpdate.start_lat = $scope.action.start_lat;
-        $scope.actiontoUpdate.end_date = $scope.action.end_date;
-        $scope.actiontoUpdate.end_name = $scope.action.end_name;
-        $scope.actiontoUpdate.end_long = $scope.action.end_long;
-        $scope.actiontoUpdate.end_lat = $scope.action.end_lat;
-
-        $http
-            .post('actions/edit/'+ $up, $scope.actiontoUpdate)
-            .success(function() {
-                console.log("call updateAction with action " + $up);
-                console.log($scope.actiontoUpdate);
-                $scope.actiontoUpdate = {};
-                $window.location.href = '#/trips/' + $routeParams['id'];
-            }).error(function() {
-            console.log("Something went wrong during edit Action");
-        });
-    };
-
-    $scope.loadTripDetails = function() {
-        $http
-            .get('trips/'+ $routeParams['id'] +'.json')
-            .success(function(data) {
-                $scope.trip = data.trip;
-            }).error(function() {
-            console.log("Something went wrong during save Action");
-        });
-    };
-
-
-});
-
-
-
-*/
 

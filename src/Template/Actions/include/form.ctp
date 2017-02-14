@@ -1,8 +1,9 @@
-<div class="actions form">
-    <?= $this->Form->create($action) ?>
+<form class="actions form" method="post" accept-charset="utf-8">
+    <? use Cake\I18n\Time; ?>
     <fieldset>
         <div class="row">
             <div class="col-md-6 text-center col-md-offset-3">
+                <!-- CATEGORY -->
                 <div class="clearfix">
                     <?php
                     if ($edit) {
@@ -27,8 +28,9 @@
                     </div>
                 </div>
                 <br/>
+                <!-- TYPE_ID -->
                 <div class="clearfix">
-                    <ul class="btn-group map-icon-btn" name="type_id" id="type-id">
+                    <ul class="btn-group map-icon-btn" name="type_id" id="type-id" ng-model='action.type_id'>
                         <?php
                             $active = '';
                             foreach ($allTypes as $type):
@@ -42,61 +44,91 @@
                                 $active = '';
                             endforeach;
                         ?>
-                        <select class="hidden" id="type-id" name="type_id"><option></option></select>
                     </ul>
                 </div>
-                <br/>
-
-                <?php //echo $this->Form->input('type_id', ['onchange' => "updateTypeId()"], ['options' => $types]); ?>
             </div>
         </div>
+        <!-- START_DATE -->
         <div class="row text-right">
-            <div class="col-md-3">
+            <div class="col-md-4 col-md-8">
                 <?php
-                $start_datetime = '';
+                $start_date = '';
+                $start_time = '';
                 if ($action->start_date) {
-                    $start_datetime = $action->start_date->i18nFormat('yyyy-MM-dd HH:mm');
+                    $start_date = $action->start_date->i18nFormat('yyyy-MM-dd');
+                    $start_time = $action->start_date->i18nFormat('HH:mm');
                 }
                 ?>
-                <div class='input-group date' id='datetimepickerStart'>
-                    <input type='text' class='form-control' id='start_date' name='start_date' placeholder='Enter starting date' value='<?=$start_datetime?>' />
-                    <span class='input-group-addon'>
-                        <span class='glyphicon glyphicon-calendar'></span>
-                    </span>
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class='input-group' id='datepickerStart'>
+                            <input type='text' class='form-control' id='start_date' name='start_date' placeholder='YYYY-MM-DD' value='<?=$start_date?>'/>
+                            <span class='input-group-addon'>
+                            <span class='glyphicon glyphicon-calendar'></span>
+                        </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class='input-group' id='timepickerStart'>
+                            <input type='text' class='form-control' id='start_time' name='start_time' placeholder='HH:MM' value='<?=$start_time?>'/>
+                            <span class='input-group-addon'>
+                            <span class='glyphicon glyphicon-time'></span>
+                        </span>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="col-md-3 pull-right col-md-9">
+            <!-- END_DATE -->
+            <div class="col-md-4 pull-right col-md-8">
                 <?php
-                $end_datetime = '';
+                $end_date = '';
+                $end_time = '';
                 if ($action->end_date) {
-                    $end_datetime = $action->end_date->i18nFormat('yyyy-MM-dd HH:mm');
+                    $end_date = $action->end_date->i18nFormat('yyyy-MM-dd');
+                    $end_time = $action->end_date->i18nFormat('HH:mm');
                 }
                 ?>
-                <div class='input-group date' id='datetimepickerEnd'>
-                    <input type='text' class='form-control' id='end_date' name='end_date' placeholder='Enter ending date' value='<?=$end_datetime?>' />
-                    <span class='input-group-addon'>
-                        <span class='glyphicon glyphicon-calendar'></span>
-                    </span>
+                <div class="row">
+                    <div class="col-md-7">
+                        <div class='input-group' id='datepickerEnd'>
+                            <input type='text' class='form-control' id='end_date' name='end_date' placeholder='YYYY-MM-DD' value='<?=$end_date?>'/>
+                            <span class='input-group-addon'>
+                            <span class='glyphicon glyphicon-calendar'></span>
+                        </span>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class='input-group' id='timepickerEnd'>
+                            <input type='text' class='form-control' id='end_time' name='end_time' placeholder='HH:MM' value='<?=$end_time?>'/>
+                            <span class='input-group-addon'>
+                            <span class='glyphicon glyphicon-time'></span>
+                        </span>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
 
         <script type="text/javascript">
             $(function () {
-                $('#datetimepickerStart').datetimepicker({
-                    format: 'YYYY-MM-DD hh:mm'
+                $('#datepickerStart').datetimepicker({
+                    format: 'YYYY-MM-DD'
                 });
-                $('#datetimepickerEnd').datetimepicker({
-                    format: 'YYYY-MM-DD hh:mm',
+                $('#timepickerStart').datetimepicker({
+                    format: 'HH:mm'
+                });
+                $('#datepickerEnd').datetimepicker({
+                    format: 'YYYY-MM-DD',
                     useCurrent: false //Important! See issue #1075
                 });
-                $("#datetimepickerStart").on("dp.change", function (e) {
-                    $('#datetimepickerEnd').data("DateTimePicker").minDate(e.date);
+                $('#timepickerEnd').datetimepicker({
+                    format: 'HH:mm'
                 });
-                $("#datetimepickerEnd").on("dp.change", function (e) {
-                    $('#datetimepickerStart').data("DateTimePicker").maxDate(e.date);
+                $("#datetimepickerStart").on("dp.change", function (e) {
+                    $('#datepickerEnd').data("DateTimePicker").minDate(e.date);
+                });
+                $("#datepickerEnd").on("dp.change", function (e) {
+                    $('#datepickerStart').data("DateTimePicker").maxDate(e.date);
                 });
             });
         </script>
@@ -108,62 +140,81 @@
         </div>
 
         <div class="clearfix"><br/></div>
+        <div class="clearfix"><br/></div>
 
         <div class="row">
-            <div class="col-md-4">
-                <?php
-                echo $this->Form->input('name');
-                echo $this->Form->input('company');
-                echo $this->Form->input('reservation');
-                echo $this->Form->input('identifier');
-                ?>
-            </div>
-            <div class="col-md-8">
-                <?php
-                $this->Form->input('trip_id', ['value' => '$trip_id', 'class' => 'hidden', 'label' => false]);
-                // echo $this->Form->input('owner_id'); don't need since we add the authUser as the owner_id in ActionsController
-                // echo $this->Form->input('status'); don't need since it will be calculated automatically depending of the payments and price
-                echo $this->Form->input('note', ['class' => 'col-md-12']);
-                ?>
+            <div class="col-md-12 form-horizontal">
+                <div class="form-group">
+                    <label for="name" class="col-sm-1 control-label">Name</label>
+                    <div class="col-sm-11">
+                        <input type="text" class="form-control" id="name" placeholder="Action name" ng-model="action.name">
+                    </div>
+                </div>
             </div>
         </div>
+        <p>&nbsp;</p>
+        <div class="row">
+            <div class="col-md-4 form-horizontal">
+                <div class="form-group">
+                    <label for="name" class="col-sm-4 control-label">Company</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="company" placeholder="" ng-model="action.company">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-4 control-label">Reservation</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="reservation" placeholder="" ng-model="action.reservation">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-sm-4 control-label">Identifier</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="identifier" placeholder="" ng-model="action.identifier">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 col-md-offset-1 form-horizontal">
+                <div class="form-group">
+                    <label for="note" class="col-sm-1 control-label">Notes</label>
+                    <div class="col-sm-11">
+                        <textarea class="form-control" id="note" rows="6" ng-model="action.note"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
         <?php
-        echo "<div class='box col-md-4'>";
+/*        echo "<div class='box col-md-4'>";
             echo "<h4>Price</h4>";
             echo "<p class='help-block'>Please fill the total price for all participants</p>";
             echo $this->Form->input('price', ['ng-model' => 'action.price']);
-            echo $this->Form->input('currency');
-            echo $this->Form->checkbox('private');
+            echo $this->Form->input('currency', ['ng-model' => 'action.currency']);
+            echo $this->Form->checkbox('private', ['ng-model' => 'action.private']);
             echo " Private";
         echo "<div class='clearfix'>&nbsp;</div></div";
-        ?>
+        */?>
     </fieldset>
 
-
-
-    <hr><hr>
-    <div class="debug PUT_hidden">
+    <!--<hr><hr>-->
+    <div class="debug NOT_hidden">
         <?php
-        echo $this->Form->input('start_name');
-//        echo $this->Form->input('start_date', ['ng-model' => 'action.start_date']);
-        echo $this->Form->input('start_lng');
-        echo $this->Form->input('start_lat');
-        echo $this->Form->input('end_name');
-//        echo $this->Form->input('end_date', ['ng-model' => 'action.end_date']);
-        echo $this->Form->input('end_lng');
-        echo $this->Form->input('end_lat');
+        echo $this->Form->input('start_name', ['ng-model' => 'action.start_name']);
+        echo $this->Form->input('start_lng', ['ng-model' => 'action.start_lng']);
+        echo $this->Form->input('start_lat', ['ng-model' => 'action.start_lat']);
+        echo $this->Form->input('end_name', ['ng-model' => 'action.end_name']);
+        echo $this->Form->input('end_lng', ['ng-model' => 'action.end_lng']);
+        echo $this->Form->input('end_lat', ['ng-model' => 'action.end_lat']);
         ?>
     </div>
-    <hr><hr>
 
-    <?= $this->Form->button(__('Submit Action'),
-        [
-            'class' => 'btn btn-lg btn-primary pull-right',
-            'ng-click' => 'updateStatus('.$action->id.')'
-        ]
-    ) ?>
-    <?= $this->Form->end() ?>
-</div>
+
+</form>
 
 
 

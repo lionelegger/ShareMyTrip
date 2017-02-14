@@ -63,12 +63,10 @@ class ActionsController extends AppController
             $action = $this->Actions->patchEntity($action, $this->request->data);
             $action->trip_id = $trip_id;
 
-
             // Add the authorized User as the owner of the action
             $action->owner_id = $this->Auth->user('id');
 
             if ($result=$this->Actions->save($action)) {
-                $this->Flash->success(__('The action has been saved.'));
                 $record_id=$result->id;
 
                 // Get all users of the current trip
@@ -84,11 +82,13 @@ class ActionsController extends AppController
                     $this->Actions->Users->link($action, [$user]);
                 endforeach;
 
-                return $this->redirect(array('controller' => 'actions', 'action' => 'edit', $record_id));
+                $this->Flash->success(__('The action has been saved with ID = ') . $record_id);
+//                return $this->redirect(array('controller' => 'actions', 'action' => 'edit', $record_id));
             } else {
                 $this->Flash->error(__('The action could not be saved. Please, try again.'));
             }
         }
+
         $trips = $this->Actions->Trips->find('list', ['limit' => 200]);
         $types = $this->Actions->Types->find('list', ['limit' => 200]);
         $users = $this->Actions->Users->find('list', ['limit' => 200]);
@@ -103,10 +103,9 @@ class ActionsController extends AppController
         $allCategories = $queryCategories->all();
 
         $trip = $this->Actions->Trips->get($trip_id);
-        $this->set(compact('trip', 'allTypes', 'allCategories'));
 
-        $this->set(compact('action', 'trips', 'types', 'users', 'allTypes', 'allCategories'));
-        $this->set('_serialize', ['trip', 'allTypes', 'allCategories']);
+        $this->set(compact('trip', 'action', 'trips', 'types', 'users', 'allTypes', 'allCategories', 'record_id'));
+        $this->set('_serialize', ['trip'], ['action'], 'allTypes', 'allCategories', 'record_id');
     }
 
     /**
@@ -119,7 +118,7 @@ class ActionsController extends AppController
     public function edit($id = null)
     {
         $action = $this->Actions->get($id, [
-            'contain' => ['Trips','Users', 'Types']
+            'contain' => ['Trips' => ['Users'], 'Users', 'Types']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $action = $this->Actions->patchEntity($action, $this->request->data);
@@ -166,6 +165,41 @@ class ActionsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+
+    /**
+     * deleteAllParticipants method
+     *
+     * @param string|null $action_id Action id.
+     * @return \Cake\Network\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function deleteAllParticipants($action_id = null)
+    {
+//        $this->request->allowMethod(['post', 'delete']);
+        $action = $this->Actions->get($action_id, [
+            'contain' => ['Users']
+        ]);
+
+//        $topicsPost = $this->TopicPost->deleteAll(array(
+//            'TopicsPost.post_id' => $postId
+//        ), false);
+
+//        $participants = $action->users;
+//        debug($participants);
+
+        if ($this->Actions->Users->deleteAll(array(
+            'ActionsUser.action_id' => $action_id
+        ), false)) {
+            $this->Flash->success(__('All participants have been deleted.'));
+        } else {
+            $this->Flash->error(__('The participants of the action could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
+
+
 
     /**
      * Budget method

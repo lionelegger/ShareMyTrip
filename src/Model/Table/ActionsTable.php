@@ -112,11 +112,12 @@ class ActionsTable extends Table
             ->allowEmpty('start_date');
 
         $validator
-            ->decimal('start_lng')
+//            Google maps gives very precise lng, thus we don't validate decimal that requires
+//            ->decimal('start_lng')
             ->allowEmpty('start_lng');
 
         $validator
-            ->decimal('start_lat')
+//            ->decimal('start_lat')
             ->allowEmpty('start_lat');
 
         $validator
@@ -127,11 +128,11 @@ class ActionsTable extends Table
             ->allowEmpty('end_date');
 
         $validator
-            ->decimal('end_lng')
+//            ->decimal('end_lng')
             ->allowEmpty('end_lng');
 
         $validator
-            ->decimal('end_lat')
+//            ->decimal('end_lat')
             ->allowEmpty('end_lat');
 
         $validator

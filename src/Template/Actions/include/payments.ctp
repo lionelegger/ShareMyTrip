@@ -1,4 +1,4 @@
-<div class="box">
+
     <h3>Payments <small>STATUS : {{action.status}}</small></h3>
     <div class="payment-list">
         <ul class="list-unstyled">
@@ -82,7 +82,7 @@
         </div>
     </div>
     <div class="clearfix">&nbsp;</div>
-</div>
+
 <!--TODO: BUG => Date is not saved because cakephp does not take the YYYY-MM-DD format (how to change that?) -->
 <script type="text/javascript">
     $(function () {
