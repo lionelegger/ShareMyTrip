@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Datasource\ConnectionManager;
+use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 
 
@@ -60,6 +61,7 @@ class ActionsController extends AppController
         $action = $this->Actions->newEntity();
 
         if ($this->request->is('post')) {
+
             $action = $this->Actions->patchEntity($action, $this->request->data);
             $action->trip_id = $trip_id;
 
@@ -69,29 +71,19 @@ class ActionsController extends AppController
             if ($result=$this->Actions->save($action)) {
                 $record_id=$result->id;
 
-                // Get all users of the current trip
-                $query = $this->Actions->Trips->find('all')
-                    ->where([ 'Trips.id' => $trip_id ])
-                    ->contain('Users');
-                $results = $query->all();
-                $data = $results->toArray();
-
-                // Add all trip users as participants of the action (by default when add an action)
-                foreach ($data[0]['users'] as $user):
-                    $user->_joinData = $this->Actions->Users->newEntity();
+                // Add each user in the associated table
+                foreach( $action->action_users as $userId ){
+                    $user = $this->Actions->Users->get($userId);
                     $this->Actions->Users->link($action, [$user]);
-                endforeach;
+                }
 
                 $this->Flash->success(__('The action has been saved with ID = ') . $record_id);
-//                return $this->redirect(array('controller' => 'actions', 'action' => 'edit', $record_id));
+
             } else {
                 $this->Flash->error(__('The action could not be saved. Please, try again.'));
             }
         }
-
-        $trips = $this->Actions->Trips->find('list', ['limit' => 200]);
-        $types = $this->Actions->Types->find('list', ['limit' => 200]);
-        $users = $this->Actions->Users->find('list', ['limit' => 200]);
+        $types = $this->Actions->Types->find('all');
 
         // $allTypes is an array with all available types
         $queryTypes = $this->Actions->Types->find('all')
@@ -102,9 +94,12 @@ class ActionsController extends AppController
         $queryCategories = $this->Actions->Types->Categories->find();
         $allCategories = $queryCategories->all();
 
-        $trip = $this->Actions->Trips->get($trip_id);
+        // $trip contains the trip information with all its users
+        $trip = $this->Actions->Trips->get($trip_id, [
+            'contain' => ['Users']
+        ]);
 
-        $this->set(compact('trip', 'action', 'trips', 'types', 'users', 'allTypes', 'allCategories', 'record_id'));
+        $this->set(compact('trip', 'action', 'types', 'users', 'allTypes', 'allCategories', 'record_id'));
         $this->set('_serialize', ['trip'], ['action'], 'allTypes', 'allCategories', 'record_id');
     }
 
@@ -117,21 +112,27 @@ class ActionsController extends AppController
      */
     public function edit($id = null)
     {
-        $action = $this->Actions->get($id, [
-            'contain' => ['Trips' => ['Users'], 'Users', 'Types']
-        ]);
+        $actionToSave = $this->Actions->get($id);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $action = $this->Actions->patchEntity($action, $this->request->data);
-            if ($this->Actions->save($action)) {
-                $this->Flash->success(__('The action has been saved.'));
-                return $this->redirect(array('controller' => 'actions', 'action' => 'plan', $action->trip_id));
+
+            $actionToSave = $this->Actions->patchEntity($actionToSave, $this->request->data);
+
+            if ($result = $this->Actions->save($actionToSave)) {
+
+                $this->Flash->success(__('The action has been updated'));
+
             } else {
                 $this->Flash->error(__('The action could not be saved. Please, try again.'));
             }
         }
-        $trips = $this->Actions->Trips->find('list', ['limit' => 200]);
-        $types = $this->Actions->Types->find('list', ['limit' => 200]);
-        $users = $this->Actions->Users->find('list', ['limit' => 200]);
+
+        $action = $this->Actions->get($id, [
+            'contain' => ['Trips' => ['Users'], 'Users', 'Types']
+        ]);
+
+        $types = $this->Actions->Types->find('all');
+        $users = $this->Actions->Users->find('all');
 
         // $allTypes is an array with all available types
         $queryTypes = $this->Actions->Types->find('all')
@@ -142,7 +143,12 @@ class ActionsController extends AppController
         $queryCategories = $this->Actions->Types->Categories->find();
         $allCategories = $queryCategories->all();
 
-        $this->set(compact('action', 'trips', 'types', 'users', 'allTypes', 'allCategories'));
+        // $trip contains the trip information with all its users
+        $trip = $this->Actions->Trips->get($action->trip_id, [
+            'contain' => ['Users']
+        ]);
+
+        $this->set(compact('action', 'trip', 'types', 'users', 'allTypes', 'allCategories'));
         $this->set('_serialize', ['action', 'allTypes', 'allCategories']);
     }
 

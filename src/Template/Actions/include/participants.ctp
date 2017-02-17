@@ -4,36 +4,50 @@
             <h2>Share</h2>
             <p class="help-block">Participants that share this action</p>
             <div class="col-md-6">
-                <div class="checkbox" ng-model="action.participants" id="participants">
+                <div class="checkbox" id="participants">
+
                     <?php
-                    $participants = array();
-                    foreach ($action->trip->users as $tripUser):
-                        $participatingId = false;
-                        echo ("<label class='col-md-12'>");
-                        foreach ($action->users as $user):
-                            if ($user['id'] == $tripUser['id']) {
-                                $participatingId = $user->_joinData->id;
+
+                    if(!$edit):
+                        foreach($trip->users as $user) {
+                            echo ("<label class='col-md-12'>");
+                                echo ("<input type='checkbox' ng-model='users[".$user->id."]'>");
+                                echo($user->first_name);
+                            echo ("</label>");
+                        };
+                    endif;
+
+                    if($edit):
+                        foreach ($action->trip->users as $tripUser):
+                            $participatingId = false;
+                            echo ("<label class='col-md-12'>");
+                            foreach ($action->users as $user):
+                                if ($user['id'] == $tripUser['id']) {
+                                    $participatingId = $user->_joinData->id;
+//                                    $participatingId = true;
+                                }
+                            endforeach;
+                            if ($participatingId) {
+                                echo ("<input type='checkbox' class='isParticipating' ng-checked='".$participatingId."' value='".$tripUser->id."' data-participant='".$participatingId."' ng-model='users[".$tripUser->id."]'>");
+                            } else {
+                                echo ("<input type='checkbox' value='".$tripUser->id."' ng-model='users[".$tripUser->id."]'>");
                             }
+                            echo ($tripUser->first_name);
+                            echo ("</label>");
                         endforeach;
-                        if ($participatingId) {
-                            echo ("<input type='checkbox' class='isParticipating' checked='checked' value='".$tripUser->id."' data-participant='".$participatingId."'>");
-                        } else {
-                            echo ("<input type='checkbox' value='".$tripUser->id."'>");
-                        }
-                        echo ($tripUser->first_name);
-                        echo ("</label>");
-                    endforeach;
+                    endif;
                     ?>
                 </div>
             </div>
             <div class="col-md-6">
-                <button class="btn btn-default" ng-click="actionAddAllUsers(actionId)">Add all</button>
-                <button class="btn btn-default" ng-click="actionDeleteAllUsers(actionId)">Only me</button>
-                <div class="checkbox">
+<!--                <button class="btn btn-default" ng-click="actionAddAllUsers(actionId)">Select all</button>-->
+                <button class="btn btn-default" id="selectAllParticipants">Select all</button>
+                <button class="btn btn-default" id="selectOnlyMe">Only me</button>
+               <!-- <div class="checkbox">
                     <label class="col-md-12">
                         <input type="checkbox" ng-model="private"> Private
                     </label>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
@@ -63,7 +77,7 @@
 
                 </div>
                 <div class="col-md-6 col-md-offset-1">
-                    <?php include_once("payments.ctp") ?>
+<!--                    --><?php //include_once("payments.ctp") ?>
                 </div>
             </div>
         </div>

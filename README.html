@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+</head>
+<body>
+<h1 id="sharemytrip">ShareMyTrip</h1>
+
+<p>made by <a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#x6c;&#x69;&#111;&#x6e;&#x65;&#x6c;&#x65;&#103;&#103;&#101;&#114;&#64;&#103;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x4c;&#105;&#x6f;&#x6e;&#101;&#108; &#69;&#x47;&#71;&#x45;&#x52;</a></p>
+
+<h2 id="serverphp">Server PHP</h2>
+
+<p>Installation of MAMP with phpMyAdmin (that administrates mySQL)
+NB: Be sure that environment variable points to the the right MAMP version</p>
+
+<h2 id="creationofcakephpapplicationskeleton">Creation of CakePHP Application Skeleton</h2>
+
+<p>A skeleton for creating applications with <a href="http://cakephp.org">CakePHP</a> 3.x.
+The framework source code can be found here: <a href="https://github.com/cakephp/cakephp">cakephp/cakephp</a>.</p>
+
+<h3 id="installation">Installation</h3>
+
+<ol>
+<li>Download <a href="http://getcomposer.org/doc/00-intro.md">Composer</a> or update <code>composer self-update</code>:
+A. In shell, go to the directory where you want to install composer
+B. run the following instructions:
+<code>sql
+php -r &quot;copy('https://getcomposer.org/installer', 'composer-setup.php');&quot;
+php -r &quot;if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;&quot;
+php composer-setup.php
+php -r &quot;unlink('composer-setup.php');&quot;
+</code></li>
+<li>Run <code>php composer.phar create-project --prefer-dist cakephp/app ShareMyTrip</code>.</li>
+</ol>
+
+<p>You should now be able to visit the path to where you installed the app and see the setup traffic lights.</p>
+
+<h3 id="configuration">Configuration</h3>
+
+<p>Edition of <code>config/app.php</code> and setup the &#8216;Datasources&#8217; and any other configuration relevant for the application:
+- username: ‘root’
+- password: ‘root’
+- database: ‘ShareMyTrip’</p>
+
+<h2 id="creationofsharemytripdatabase">creation of ShareMyTrip DATABASE</h2>
+
+<p>Creation of a DATABASE called &#8216;ShareMyTrip&#8217; in phpMyAdmin
+The relational design of the ShareMyTrip database has been created with <a href="http://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>:
+- <a href="/db/ShareMyTrip.mwb">mwb</a> contains the whole database made with MySQL Workbench program (editable file)
+- <a href="/db/ShareMyTrip.sql">sql</a> contains the sql code to create the database in PhpMyAdmin (copy/paste)
+- <a href="/db/ShareMyTrip.pdf">pdf</a> contains a static image of the database</p>
+
+<p>Once the database created in phpMyAdmin by copy/pasting the sql requests, all traffic lights are green when accessing the <a href="http://localhost:8888/">http://localhost:8888</a>.</p>
+
+<p>The categories, types and methods entries can be inserted with:
+``<code>sql
+INSERT INTO</code>categories<code>(</code>id<code>,</code>name`)
+VALUES (1, &#8216;Travel&#8217;),
+ (2, &#8216;Lodging&#8217;),
+ (3, &#8216;Activity&#8217;),
+ (4, &#8216;Other&#8217;);</p>
+
+<p>INSERT INTO <code>types</code> (<code>id</code>, <code>name</code>, <code>category_id</code>)
+ VALUES (0, &#8216;Select an action&#8217;, &#8216;4&#8217;),
+ (1, &#8216;Plane&#8217;, &#8216;1&#8217;),
+ (2, &#8216;Train&#8217;, &#8216;1&#8217;),
+ (3, &#8216;Taxi&#8217;, &#8216;1&#8217;),
+ (4, &#8216;Car&#8217;, &#8216;1&#8217;),
+ (5, &#8216;Bus&#8217;, &#8216;1&#8217;),
+ (6, &#8216;Boat&#8217;, &#8216;1&#8217;),
+ (7, &#8216;Bicycle&#8217;, &#8216;1&#8217;),
+ (8, &#8216;Foot&#8217;, &#8216;1&#8217;),
+ (9, &#8216;Transport&#8217;, &#8216;1&#8217;),
+ (10, &#8216;Hotel&#8217;, &#8216;2&#8217;),
+ (11, &#8216;B&amp;B&#8217;, &#8216;2&#8217;),
+ (12, &#8216;Camping&#8217;, &#8216;2&#8217;),
+ (13, &#8216;Lodging&#8217;, &#8216;2&#8217;),
+ (20, &#8216;Restaurant&#8217;, &#8216;3&#8217;),
+ (21, &#8216;Drinks&#8217;, &#8216;3&#8217;),
+ (22, &#8216;Shopping&#8217;, &#8216;3&#8217;),
+ (23, &#8216;Museum&#8217;, &#8216;3&#8217;),
+ (24, &#8216;Tour&#8217;, &#8216;3&#8217;),
+ (25, &#8216;Concert&#8217;, &#8216;3&#8217;),
+ (26, &#8216;Activity&#8217;, &#8216;3&#8217;),
+ (30, &#8216;Bank&#8217;, &#8216;4&#8217;),
+ (31, &#8216;ATM&#8217;, &#8216;4&#8217;),
+ (32, &#8216;Other&#8217;, &#8216;4&#8217;);
+INSERT INTO <code>methods</code> (<code>id</code>, <code>name</code>)
+VALUES (1, &#8216;Cash&#8217;),
+ (2, &#8216;Bank transfert&#8217;),
+ (3, &#8216;Credit card&#8217;),
+ (4, &#8216;ATM&#8217;),
+ (5, &#8216;Paypal&#8217;);
+```</p>
+
+<h2 id="cakephp3">CAKEPHP 3</h2>
+
+<h3 id="generationofalltableswithcakephp">Generation of all tables with CakePhp</h3>
+
+<p>Before using bake command, install it with Composer (run where composer has been installed):
+<code>sh
+composer require --dev cakephp/bake:~1.0
+</code></p>
+
+<p>Then, in shell, run the following instructions.
+<code>sh
+bin/cake bake all Users
+bin/cake bake all Trips
+bin/cake bake all Categories
+bin/cake bake all Types
+bin/cake bake all Trips
+bin/cake bake all Methods
+bin/cake bake all Payments
+bin/cake bake all Actions
+</code></p>
+
+<h3 id="creatingrestfulroutes">Creating RESTful Routes</h3>
+
+<p><a href="http://book.cakephp.org/3.0/en/development/routing.html#resource-routes">CAKEPHP documentation</a></p>
+
+<p>In <em>config/routes.php</em>:
+<code>php
+Router::scope('/', function ($routes) {
+    $routes-&gt;extensions(['json']);
+});
+</code></p>
+
+<h3 id="cakephpuserscontroller:">CakePHP <a href="/src/Controller/Component/UsersController.php">USERS controller</a>:</h3>
+
+<ul>
+<li>function login() : Log in a user and redirects to homepage</li>
+<li>function logout() : Log out a user and redirects to homepage</li>
+<li>function current() : Gets the current user logged</li>
+</ul>
+
+</body>
+</html>

@@ -14,7 +14,7 @@ as.config(function($routeProvider) {
 
 
 function initialize() {
-    //console.log ("inside initialize");
+    // console.log ("inside initialize");
     'use strict';
 
     function updateStatus() {
@@ -38,6 +38,15 @@ function initialize() {
             $scope.action.status = 0;
         }
     }
+
+    document.getElementById("selectAllParticipants").onclick = function selectAllParticipants() {
+        console.log("Select all users as participants...");
+        $('#participants input').prop('checked', true);
+    };
+
+    document.getElementById("selectOnlyMe").onclick = function selectOnlyMe() {
+        $('#participants input').prop('checked', false);
+    };
 
     $(".map-icon").click(function() {
         $(".map-icon.status-0").removeClass('active');

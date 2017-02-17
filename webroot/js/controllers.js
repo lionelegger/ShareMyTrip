@@ -215,16 +215,29 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     $scope.addAction = function($trip_id) {
         console.log('call addAction');
 
+        var participants = [];
+        for (var key in $scope.users) {
+            var action_users = {};
+            if ($scope.users[key] == true) {
+                action_users.id = key;
+                participants.push(action_users);
+            }
+        }
+        // console.log(participants);
+        // return false;
+
         $scope.action.type_id = $("ul#type-id li.active").val();
         $scope.action.status = 1;
+        var $startTime = '';
+        var $endTime = '';
         if ($("#start_time").val()) {
             $startTime = " " + $("#start_time").val() + ":00";
-        } else {
+        } else if ($("#start_date").val()) {
             $startTime = " 00:00:00";
         }
         if ($("#end_time").val()) {
             $endTime = " " + $("#end_time").val() + ":00";
-        } else {
+        } else if ($("#start_date").val()) {
             $endTime = " 00:00:00";
         }
         $scope.action.start_date = $("#start_date").val() + $startTime;
@@ -235,12 +248,14 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.action.end_name = $("#end-name").val();
         $scope.action.end_lng = $("#end-lng").val();
         $scope.action.end_lat = $("#end-lat").val();
+        $scope.action.action_users = participants;
+
         $http
             .post('Actions/add/'+$trip_id, $scope.action)
             .success(function() {
                 console.log($scope.action);
-                // $scope.action = data.action;
-                console.log("Action " + $scope.action.id + " added...");
+
+                console.log("Action " + $scope.action.name + " added...");
                 document.location = 'actions/plan/' + $trip_id;
 
             }).error(function() {
@@ -268,14 +283,16 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         });
 
         $scope.action.type_id = $("ul#type-id li.active").val();
+        var $startTime = '';
+        var $endTime = '';
         if ($("#start_time").val()) {
             $startTime = " " + $("#start_time").val() + ":00";
-        } else {
+        } else if ($("#start_date").val()) {
             $startTime = " 00:00:00";
         }
         if ($("#end_time").val()) {
             $endTime = " " + $("#end_time").val() + ":00";
-        } else {
+        } else if ($("#start_date").val()) {
             $endTime = " 00:00:00";
         }
         $scope.action.start_date = $("#start_date").val() + $startTime;
@@ -286,7 +303,12 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.action.end_name = $("#end-name").val();
         $scope.action.end_lng = $("#end-lng").val();
         $scope.action.end_lat = $("#end-lat").val();
-        $scope.action.users = ''; // reset users
+        $scope.action.trip = ''; // reset users (we don't want to update the trip)
+        $scope.action.type = ''; // reset type (otherwise it deletes all users of the current trip)
+        $scope.action.users = ''; // reset users (otherwise it deletes all users of the current trip)
+
+        console.log("----");
+        console.log($scope.action.users);
 
         // TODO: It does not update the fields... Why?
         $http
@@ -399,8 +421,6 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             console.log("Something went wrong during add all users for the current action");
         });
     };
-
-
 
     // Check if a user is participating to an action
     $scope.actionListParticipants = function($tripId, $actionId) {

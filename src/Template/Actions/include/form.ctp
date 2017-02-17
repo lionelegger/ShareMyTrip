@@ -202,7 +202,7 @@
     </fieldset>
 
     <!--<hr><hr>-->
-    <div class="debug NOT_hidden">
+    <div class="debug hidden">
         <?php
         echo $this->Form->input('start_name', ['ng-model' => 'action.start_name']);
         echo $this->Form->input('start_lng', ['ng-model' => 'action.start_lng']);
@@ -213,6 +213,7 @@
         ?>
     </div>
 
+    <?php include_once("participants.ctp"); ?>
 
 </form>
 

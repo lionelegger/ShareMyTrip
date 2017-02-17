@@ -12,7 +12,6 @@
 
     <?php $edit=true;?>
     <?php include_once("include/form.ctp"); ?>
-    <?php include_once("include/participants.ctp"); ?>
 
     <div class="row">
         <div class="col-md-6">

@@ -21,7 +21,6 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <?= $this->Html->script('jquery.min.js') ?>
 
-
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
