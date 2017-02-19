@@ -25,7 +25,7 @@ function initialize() {
         $scope.action.status = 0;
         console.log ("TOTAL = " + $scope.action.payments.totalAll);
         console.log ("PRICE = " + $scope.action.price);
-        if($scope.action.payments.totalAll == 0) {
+        if($scope.action.payments.totalAll === 0) {
             $scope.action.status = 1;
         } else if ($scope.action.payments.totalAll == $scope.action.price) {
             $scope.action.status = 3;
@@ -34,7 +34,7 @@ function initialize() {
         } else {
             $scope.action.status = 2;
         }
-        if ($scope.action.price == null) {
+        if ($scope.action.price === null) {
             $scope.action.status = 0;
         }
     }
@@ -46,6 +46,34 @@ function initialize() {
         $(this).attr('selected', 'selected');
         updateTypeId();
     });
+
+
+    // For currency buttons at the right of an input
+    $(".input-group-btn > .dropdown-menu li a").click(function(){
+        var selText = $(this).html();
+        $('.input-group-btn .btn:first-child').html(selText+'<i class="arrow down"></i>');
+    });
+
+
+        $('#datepickerStart').datetimepicker({
+            format: 'YYYY-MM-DD'
+        });
+        $('#timepickerStart').datetimepicker({
+            format: 'HH:mm'
+        });
+        $('#datepickerEnd').datetimepicker({
+            format: 'YYYY-MM-DD',
+            useCurrent: false //Important! See issue #1075
+        });
+        $('#timepickerEnd').datetimepicker({
+            format: 'HH:mm'
+        });
+        $("#datetimepickerStart").on("dp.change", function (e) {
+            $('#datepickerEnd').data("DateTimePicker").minDate(e.date);
+        });
+        $("#datepickerEnd").on("dp.change", function (e) {
+            $('#datepickerStart').data("DateTimePicker").maxDate(e.date);
+        });
 
 
 }

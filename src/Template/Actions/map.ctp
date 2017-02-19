@@ -3,13 +3,15 @@
 <? $this->Html->addCrumb($trip->name, ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?>
 <? $this->Html->addCrumb('Map') ?>
 
-<nav class="tripNav pull-right">
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Plan'), ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?></button>
-    <button class="btn btn-primary" role="button">Map</button>
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) ?></button>
-</nav>
+<div class="container clearfix">
+    <nav class="tripNav pull-right">
+        <button class="btn btn-default" role="button"><?= $this->Html->link(__('Plan'), ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?></button>
+        <button class="btn btn-primary" role="button">Map</button>
+        <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) ?></button>
+    </nav>
+<!--    <h1>--><?//= $trip->name ?><!--</h1>-->
+</div>
 
-<h1><?= $trip->name ?> map</h1>
 
 <style>
     #map {
@@ -19,6 +21,7 @@
         top: 50px;
         left: 0;
         z-index: -1;
+        margin-bottom: -60px;
     }
 
 </style>
@@ -36,7 +39,15 @@
         var map = new google.maps.Map(document.getElementById('map'), {
             zoom: 4,
             mapTypeId: 'roadmap',
-            center: geneva
+            center: geneva,
+            disableDefaultUI: false,
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: true,
+            streetViewControl: false,
+            rotateControl: false,
+            fullscreenControl: true,
+            scrollwheel: true
         });
 
         // set the icon size
@@ -103,6 +114,7 @@
                             anchor: new google.maps.Point(0, 12)
                         },
                         map_icon_label: '<span class="map-icon map-icon-type-<?=$action->type_id?>"></span>'
+                        url: 'actions/edit/<?=$action->id?>'
                     });
 
                 <?php endif ?>
@@ -171,13 +183,18 @@
                         scale: 0.6, //pixels
                         anchor: new google.maps.Point(0,17)
                     },
-                    map_icon_label: '<span class="map-icon map-icon-type-<?=$action->type_id?>"></span>'
+                    map_icon_label: '<span class="map-icon map-icon-type-<?=$action->type_id?>"></span>',
+                    url: 'actions/edit/<?=$action->id?>'
                 });
 
                 bounds.extend(latLngEnd);
 
                 actionPath.setMap(map);
             <?php endif ?>
+
+            google.maps.event.addListener(markerIcon, 'click', function() {
+                window.location.href = this.url;
+            });
 
         <?php endforeach; ?>
 

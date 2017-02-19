@@ -259,39 +259,90 @@ a.glyphicon-btn {
 }
 
 
+.col-arrow {
+    position: relative;
+
+    @media only screen and (max-width: 768px) {
+        display: none;
+    }
+
+    .arrow-line {
+        border-bottom: 2px solid #666;
+        margin-top: 15px;
+        i.arrow.right {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+        }
+    }
+}
+
+.input-group-btn {
+    i.arrow {
+        border-width: 0 1px 1px 0;
+        padding: 2px;
+        margin: 2px 0px 3px 8px;
+    }
+}
+
+i.arrow {
+    border: solid #666;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+
+    &.right {
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+    }
+    &.left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+    }
+    &.up {
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+    }
+    &.down {
+        transform: rotate(45deg);
+    }
+}
+
 .map-icon-status {
     padding: 5px;
     border-radius: 6px;
 }
 
-.map-icon-button {
-    margin: 10px 3px;
-    float: left;
-    width: 50px;
+.map-icon-btn {
+    padding: 0;
+    text-align: center;
+    .map-icon-button {
+        margin: 10px 3px;
+        float: left;
+        width: 50px;
 
-
-    .map-icon-name {
-        margin-top: 5px;
-        line-height: 15px;
-    }
-    .map-icon {
-        font-size: 30px;
-    }
-    &:hover {
-        cursor: pointer;
-        cursor: hand;
+        .map-icon-name {
+            margin-top: 5px;
+            line-height: 15px;
+        }
         .map-icon {
-            background-color: #264f9b;
+            font-size: 30px;
+        }
+        &:hover {
+            cursor: pointer;
+            cursor: hand;
+            .map-icon {
+                background-color: #264f9b;
+            }
+        }
+
+        li {
+            display: initial;
         }
     }
 }
 
-.map-icon-btn {
-    list-style: none;
-    li {
-        display: initial;
-    }
-}
+
 
 .status-0 {
     background-color: #666666; // not defined
@@ -318,12 +369,30 @@ a.glyphicon-btn {
     color: white;
 }
 
+.navigation {
+    color: lightgray;
+    > a {
+        color: white;
+        display: inline-block;
+    }
+}
+
 .message {
     background-color: #00b3ee;
     color: #ffffff;
     line-height: 3em;
     width: 100%;
     text-align: center;
+}
+
+
+.dropdown-caret:before {
+    content: ">";
+    display: inline-block;
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+    transform: rotate(90deg);
+    margin-left: 0.4em;
 }
 
 .box {
@@ -343,6 +412,19 @@ div.tipPayment {
     padding: 1px 0;
     &:last-child {
         border-bottom: none;
+    }
+}
+
+.table {
+    > tbody,
+    > tfoot,
+    > thead {
+        > tr {
+            > td,
+            > th {
+                vertical-align: middle;
+            }
+        }
     }
 }
 
@@ -384,6 +466,9 @@ div.tipPayment {
         padding-left: 35% !important;
         white-space: normal;
         text-align: left;
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
     }
 
     .responsive-table td:before {
@@ -416,4 +501,26 @@ div.tipPayment {
 
 }
 
+
+footer {
+    position: absolute;
+    background-color: lightgrey;
+    color: grey;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 20px;
+    padding: 3px;
+    border-top: 1px solid darken(lightgrey, 5%);
+    a {
+        color: grey;
+        &:hover {
+            color: black;
+            text-decoration: none;
+        }
+    }
+}
 

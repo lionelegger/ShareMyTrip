@@ -1,5 +1,5 @@
 <? $this->Html->addCrumb('Trips'); ?>
-<div ng-controller="TripsCtrl">
+<div ng-controller="TripsCtrl" class="container clearfix">
 
     <h1>My trips
         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" ng-click="editTrip(0)" data-target="#tripEdit">

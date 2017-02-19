@@ -70,14 +70,15 @@
                     <div class="input-group">
                         <input type="text" class="form-control" aria-label="..." id="price" ng-model="action.price">
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CHF <span class="caret"></span></button>
+                            <button type="button" id="actionCurrency" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{action.currency}}<i class="arrow down"></i></button>
                             <!-- TODO: Currency is not working -->
-                            <ul class="dropdown-menu dropdown-menu-right" ng-model="action.currency">
-                                <li><a href="#">USD</a></li>
-                                <li><a href="#">EUR</a></li>
+                            <ul class="dropdown-menu dropdown-menu-right" >
+                                <li><a href="javascript:void(0)">CHF</a></li>
+                                <li><a href="javascript:void(0)">USD</a></li>
+                                <li><a href="javascript:void(0)">EUR</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">XXX</a></li>
-                                <li><a href="#">YYY</a></li>
+                                <li><a href="javascript:void(0)">XXX</a></li>
+                                <li><a href="javascript:void(0)">YYY</a></li>
                             </ul>
                         </div><!-- /btn-group -->
                     </div><!-- /input-group -->
@@ -92,7 +93,9 @@
     </div>
 </div>
 
+<script>
 
+</script>
 
 
 <!--TODO: Use a cakePHP ActionsCtrl controller that build the list of participants to an action-->

@@ -40,17 +40,17 @@
                 </button>
 
                 <a class="navbar-brand">
-
                     <!-- TODO: Make a logo and add the logo image below
                     <img alt="Brand" src="...">
                     -->
                     <span class="glyphicon glyphicon-globe"></span>
                 </a>
-                <?php if($userSession): ?>
-                    <?= $this->Html->link(__('ShareMyTrip'), ['controller' => 'Trips', 'action' => 'index'], array('class' => 'navbar-brand')) ?>
-                <?php else: ?>
-                    <?= $this->Html->link(__('ShareMyTrip'), ['controller' => '/'], array('class' => 'navbar-brand')) ?>
-                <?php endif; ?>
+                <div class="navigation navbar-brand">
+                    <?= $this->Html->getCrumbs(' > '); ?>
+                    <?php if(!$userSession): ?>
+                        <?= $this->Html->link(__('ShareMyTrip'), ['controller' => '/']) ?>
+                    <?php endif; ?>
+                </div>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -64,15 +64,14 @@
                 <?php endif; ?>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
+        <?= $this->Flash->render() ?>
     </nav>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <div class="breadcrumb">
-            <?= $this->Html->getCrumbs(' > '); ?>
-        </div>
+
+<!--    <div class="container clearfix">-->
         <?= $this->fetch('content') ?>
-    </div>
+<!--    </div>-->
     <footer>
+        © <a href="http://wwww.lionelegger.com">lionelegger.com</a>
     </footer>
 
     <!-- AngularJS -->

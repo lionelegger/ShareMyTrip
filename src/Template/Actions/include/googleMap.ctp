@@ -4,9 +4,9 @@
            * element that contains the map. */
 
     #map {
-        height: 400px;
+        height: 500px;
         width: 100%;
-        border: 5px solid red;
+        border: 1px solid darkgray;
     }
 
     .controls {
@@ -65,7 +65,7 @@
     }
 
 </style>
-<br><br>
+<br/>
 
 <?php
 // Initialize the values if edit mode
@@ -78,13 +78,11 @@ if ($action->end_name) {
     $end_name_value = 'value="' . $action->end_name . '"';
 }
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <input id="pac-input-start" class="controls" type="text" <?= $start_name_value ?> placeholder="Enter a departure point">
-        <input id="pac-input-end" class="controls" type="text" <?= $end_name_value ?> placeholder="Enter an arrival point">
-        <div id="map"></div>
-    </div>
-</div>
+
+<input id="pac-input-start" class="controls" type="text" <?= $start_name_value ?> placeholder="Enter a departure point">
+<input id="pac-input-end" class="controls" type="text" <?= $end_name_value ?> placeholder="Enter an arrival point">
+
+<div id="map"></div>
 
 <?php
 
@@ -144,7 +142,14 @@ switch ($action->status) {
             center: {lat: 46.2043907, lng: 6.143157699999961},
             zoom: 4,
             mapTypeId: 'roadmap',
-            disableDefaultUI: true
+            disableDefaultUI: false,
+            zoomControl: true,
+            mapTypeControl: false,
+            scaleControl: true,
+            streetViewControl: false,
+            rotateControl: false,
+            fullscreenControl: true,
+            scrollwheel: false
         });
 
         // Create the search box and link it to the UI element.

@@ -8,14 +8,11 @@
             </li>
         </ul>
         <hr>
-        <p>TOTAL paid : {{action.payments.totalAll}} {{action.currency}} <?php if($edit):?>(from which {{action.payments.totalAuth}} {{action.currency}} by me)<?php endif ?></p>
+        <h4>TOTAL paid : {{action.payments.totalAll}} {{action.currency}} <?php if($edit):?>(from which {{action.payments.totalAuth}} {{action.currency}} by me)<?php endif ?></h4>
         <p class="help-block">{{action.price - action.payments.totalAll}} {{action.currency}} still needs to be paid to reach the total of {{action.price}} {{action.currency}}</p>
     </div>
     <!-- Button trigger modal -->
     <hr/>
-    <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
-        <span class="glyphicon glyphicon-ok"></span> All paid by me !
-    </button>
     <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
         <span class="glyphicon glyphicon-plus"></span> Register payment
     </button>
@@ -79,8 +76,8 @@
                     <?php if (!$edit) { ?>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionAddTempPayment(<?= $userSession['id'] ?>);">Save</button>
                     <?php } else {?>
+                        <button type="button" class="btn btn-danger" ng-if="actionPaymentToAdd.payment_id" ng-click="actionDeletePayment(actionPaymentToAdd.payment_id,<?= $action->id ?>)" data-dismiss="modal">Delete</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionSavePayment(<?= $action->id ?>,<?= $userSession['id'] ?>,actionPaymentToAdd.payment_id)">Save</button>
-<!--                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionSavePayment(--><?//= $action->id ?><!--,--><?//= $userSession['id'] ?><!--)">Save</button>-->
                     <?php } ?>
                 </div>
             </div>

@@ -6,25 +6,22 @@
 <? $this->Html->addCrumb($trip->name, ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?>
 <? $this->Html->addCrumb('Plan') ?>
 
+<div class="container clearfix">
+    <?= $this->Html->link(__('Add Action'), ['controller' => 'Actions', 'action' => 'add', $trip->id], ['class' => 'btn btn-lg btn-danger']) ?>
 
-<?= $this->Html->link(__('Add Action'), ['controller' => 'Actions', 'action' => 'add', $trip->id], ['class' => 'btn btn-lg btn-danger']) ?>
-
-<nav class="tripNav pull-right">
-    <button class="btn btn-primary" role="button">Plan</button>
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Map'), ['controller' => 'actions', 'action' => 'map', $trip->id]) ?></button>
-    <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) ?></button>
-</nav>
-
-
-
-<h1><?= $trip->name ?>
-    <small>with
-        <?php foreach ($trip->users as $users): ?>
-            <?= h($users->first_name) ?>
-        <?php endforeach; ?>
-    </small>
-</h1>
-
+    <nav class="tripNav pull-right">
+        <button class="btn btn-primary" role="button">Plan</button>
+        <button class="btn btn-default" role="button"><?= $this->Html->link(__('Map'), ['controller' => 'actions', 'action' => 'map', $trip->id]) ?></button>
+        <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) ?></button>
+    </nav>
+    <h1><?= $trip->name ?>
+        <small>with
+            <?php foreach ($trip->users as $users): ?>
+                <?= h($users->first_name) ?>
+            <?php endforeach; ?>
+        </small>
+    </h1>
+</div>
 
 <?php $lastDate = '' ?>
 <div class="actions">

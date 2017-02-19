@@ -1,7 +1,7 @@
 <? $userSession = $this->request->session()->read('Auth.User'); ?>
 <form class="actions form" method="post" accept-charset="utf-8">
     <? use Cake\I18n\Time; ?>
-    <fieldset>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 text-center col-md-offset-3">
                 <!-- CATEGORY -->
@@ -51,7 +51,7 @@
         </div>
         <!-- START_DATE -->
         <div class="row text-right">
-            <div class="col-md-4 col-md-8">
+            <div class="col-sm-5 col-md-4 col-lg-3">
                 <?php
                 $start_date = '';
                 $start_time = '';
@@ -61,7 +61,7 @@
                 }
                 ?>
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-xs-7 col-sm-7 col-md-7">
                         <div class='input-group' id='datepickerStart'>
                             <input type='text' class='form-control' id='start_date' name='start_date' placeholder='YYYY-MM-DD' value='<?=$start_date?>'/>
                             <span class='input-group-addon'>
@@ -69,7 +69,7 @@
                         </span>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-xs-5 col-sm-5 col-md-5">
                         <div class='input-group' id='timepickerStart'>
                             <input type='text' class='form-control' id='start_time' name='start_time' placeholder='HH:MM' value='<?=$start_time?>'/>
                             <span class='input-group-addon'>
@@ -79,8 +79,14 @@
                     </div>
                 </div>
             </div>
+            <br class="visible-xs-block">
+            <div class="col-sm-2 col-md-4 col-lg-6 col-arrow">
+                <div class="arrow-line">
+                    <i class="arrow right"></i>
+                </div>
+            </div>
             <!-- END_DATE -->
-            <div class="col-md-4 pull-right col-md-8">
+            <div class="col-sm-5 col-md-4 col-lg-3 pull-right">
                 <?php
                 $end_date = '';
                 $end_time = '';
@@ -90,7 +96,7 @@
                 }
                 ?>
                 <div class="row">
-                    <div class="col-md-7">
+                    <div class="col-xs-7 col-sm-7 col-md-7">
                         <div class='input-group' id='datepickerEnd'>
                             <input type='text' class='form-control' id='end_date' name='end_date' placeholder='YYYY-MM-DD' value='<?=$end_date?>'/>
                             <span class='input-group-addon'>
@@ -98,7 +104,7 @@
                         </span>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-xs-5 col-sm-5 col-md-5">
                         <div class='input-group' id='timepickerEnd'>
                             <input type='text' class='form-control' id='end_time' name='end_time' placeholder='HH:MM' value='<?=$end_time?>'/>
                             <span class='input-group-addon'>
@@ -109,36 +115,11 @@
                 </div>
             </div>
         </div>
+    </div>
 
-        <script type="text/javascript">
-            $(function () {
-                $('#datepickerStart').datetimepicker({
-                    format: 'YYYY-MM-DD'
-                });
-                $('#timepickerStart').datetimepicker({
-                    format: 'HH:mm'
-                });
-                $('#datepickerEnd').datetimepicker({
-                    format: 'YYYY-MM-DD',
-                    useCurrent: false //Important! See issue #1075
-                });
-                $('#timepickerEnd').datetimepicker({
-                    format: 'HH:mm'
-                });
-                $("#datetimepickerStart").on("dp.change", function (e) {
-                    $('#datepickerEnd').data("DateTimePicker").minDate(e.date);
-                });
-                $("#datepickerEnd").on("dp.change", function (e) {
-                    $('#datepickerStart').data("DateTimePicker").maxDate(e.date);
-                });
-            });
-        </script>
+    <?php include_once("googleMap.ctp"); ?>
 
-        <div class="row">
-            <div class="col-md-12">
-                <?php include_once("googleMap.ctp"); ?>
-            </div>
-        </div>
+    <div class="container clearfix">
 
         <div class="clearfix"><br/></div>
         <div class="clearfix"><br/></div>
@@ -184,22 +165,22 @@
                 </div>
             </div>
         </div>
-    </fieldset>
 
-    <div class="debug hidden">
-        <?php
-        echo $this->Form->input('start_name', ['ng-model' => 'action.start_name']);
-        echo $this->Form->input('start_lng', ['ng-model' => 'action.start_lng']);
-        echo $this->Form->input('start_lat', ['ng-model' => 'action.start_lat']);
-        echo $this->Form->input('end_name', ['ng-model' => 'action.end_name']);
-        echo $this->Form->input('end_lng', ['ng-model' => 'action.end_lng']);
-        echo $this->Form->input('end_lat', ['ng-model' => 'action.end_lat']);
-        ?>
+        <div class="debug hidden">
+            <?php
+            echo $this->Form->input('start_name', ['ng-model' => 'action.start_name']);
+            echo $this->Form->input('start_lng', ['ng-model' => 'action.start_lng']);
+            echo $this->Form->input('start_lat', ['ng-model' => 'action.start_lat']);
+            echo $this->Form->input('end_name', ['ng-model' => 'action.end_name']);
+            echo $this->Form->input('end_lng', ['ng-model' => 'action.end_lng']);
+            echo $this->Form->input('end_lat', ['ng-model' => 'action.end_lat']);
+            ?>
+        </div>
+        <?php include_once("participants.ctp"); ?>
     </div>
-
-    <?php include_once("participants.ctp"); ?>
-
 </form>
+
+
 
 
 

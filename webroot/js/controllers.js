@@ -220,8 +220,6 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             participants.push($(this).attr('data-id'));
         });
 
-        $scope.action.type_id = $("ul#type-id li.active").val();
-        $scope.action.status = 1;
         var $startTime = '';
         var $endTime = '';
         if ($("#start_time").val()) {
@@ -231,9 +229,12 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         }
         if ($("#end_time").val()) {
             $endTime = " " + $("#end_time").val() + ":00";
-        } else if ($("#start_date").val()) {
+        } else if ($("#end_date").val()) {
             $endTime = " 00:00:00";
         }
+
+        $scope.action.status = 1;
+        $scope.action.type_id = $("ul#type-id li.active").val();
         $scope.action.start_date = $("#start_date").val() + $startTime;
         $scope.action.end_date = $("#end_date").val() + $endTime;
         $scope.action.start_name = $("#start-name").val();
@@ -242,7 +243,9 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.action.end_name = $("#end-name").val();
         $scope.action.end_lng = $("#end-lng").val();
         $scope.action.end_lat = $("#end-lat").val();
+        $scope.action.currency = $("#actionCurrency").text();
         $scope.action.action_users = participants;
+        // $scope.action.payments = '';
 
         $http
             .post('Actions/add/'+$trip_id, $scope.action)
@@ -276,7 +279,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             $scope.actionDeleteUser(participation_id);
         });
 
-        $scope.action.type_id = $("ul#type-id li.active").val();
+
         var $startTime = '';
         var $endTime = '';
         if ($("#start_time").val()) {
@@ -286,9 +289,10 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         }
         if ($("#end_time").val()) {
             $endTime = " " + $("#end_time").val() + ":00";
-        } else if ($("#start_date").val()) {
+        } else if ($("#end_date").val()) {
             $endTime = " 00:00:00";
         }
+        $scope.action.type_id = $("ul#type-id li.active").val();
         $scope.action.start_date = $("#start_date").val() + $startTime;
         $scope.action.end_date = $("#end_date").val() + $endTime;
         $scope.action.start_name = $("#start-name").val();
@@ -297,6 +301,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.action.end_name = $("#end-name").val();
         $scope.action.end_lng = $("#end-lng").val();
         $scope.action.end_lat = $("#end-lat").val();
+        $scope.action.currency = $("#actionCurrency").text();
         $scope.action.trip = ''; // reset users (we don't want to update the trip)
         $scope.action.type = ''; // reset type (otherwise it deletes all users of the current trip)
         $scope.action.users = ''; // reset users (otherwise it deletes all users of the current trip)
