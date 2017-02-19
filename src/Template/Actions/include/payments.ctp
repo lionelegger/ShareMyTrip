@@ -1,14 +1,14 @@
-
+<div id="payments">
     <h3>Payments <small>STATUS : {{action.status}}</small></h3>
     <div class="payment-list">
         <ul class="list-unstyled">
             <li ng-repeat="payment in action.payments">
                 {{payment.user.first_name}} paid {{payment.amount}} {{payment.currency}} [Date: {{payment.date}} | Method: {{payment.method_id}}]
-                <span ng-if="payment.user_id==currentUserId"><a ng-click="actionDeletePayment(payment.id, action.id)">[Delete]</a></span>
+                <span ng-if="payment.user_id==currentUserId"><a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment">[Edit]</a></span>
             </li>
         </ul>
         <hr>
-        <p>TOTAL paid : {{action.payments.totalAll}} {{action.currency}} (from which {{action.payments.totalAuth}} {{action.currency}} by me)</p>
+        <p>TOTAL paid : {{action.payments.totalAll}} {{action.currency}} <?php if($edit):?>(from which {{action.payments.totalAuth}} {{action.currency}} by me)<?php endif ?></p>
         <p class="help-block">{{action.price - action.payments.totalAll}} {{action.currency}} still needs to be paid to reach the total of {{action.price}} {{action.currency}}</p>
     </div>
     <!-- Button trigger modal -->
@@ -76,12 +76,18 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionAddPayment(<?= $action->id ?>,<?= $userSession['id'] ?>);actionListPayments(<?= $action->id ?>)">Save</button>
+                    <?php if (!$edit) { ?>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionAddTempPayment(<?= $userSession['id'] ?>);">Save</button>
+                    <?php } else {?>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionSavePayment(<?= $action->id ?>,<?= $userSession['id'] ?>,actionPaymentToAdd.payment_id)">Save</button>
+<!--                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionSavePayment(--><?//= $action->id ?><!--,--><?//= $userSession['id'] ?><!--)">Save</button>-->
+                    <?php } ?>
                 </div>
             </div>
         </div>
     </div>
     <div class="clearfix">&nbsp;</div>
+</div>
 
 <!--TODO: BUG => Date is not saved because cakephp does not take the YYYY-MM-DD format (how to change that?) -->
 <script type="text/javascript">

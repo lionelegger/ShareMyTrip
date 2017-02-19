@@ -1,3 +1,4 @@
+<? $userSession = $this->request->session()->read('Auth.User'); ?>
 <form class="actions form" method="post" accept-charset="utf-8">
     <? use Cake\I18n\Time; ?>
     <fieldset>
@@ -183,25 +184,8 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-        <?php
-/*        echo "<div class='box col-md-4'>";
-            echo "<h4>Price</h4>";
-            echo "<p class='help-block'>Please fill the total price for all participants</p>";
-            echo $this->Form->input('price', ['ng-model' => 'action.price']);
-            echo $this->Form->input('currency', ['ng-model' => 'action.currency']);
-            echo $this->Form->checkbox('private', ['ng-model' => 'action.private']);
-            echo " Private";
-        echo "<div class='clearfix'>&nbsp;</div></div";
-        */?>
     </fieldset>
 
-    <!--<hr><hr>-->
     <div class="debug hidden">
         <?php
         echo $this->Form->input('start_name', ['ng-model' => 'action.start_name']);

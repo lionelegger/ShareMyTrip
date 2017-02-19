@@ -216,15 +216,9 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         console.log('call addAction');
 
         var participants = [];
-        for (var key in $scope.users) {
-            var action_users = {};
-            if ($scope.users[key] == true) {
-                action_users.id = key;
-                participants.push(action_users);
-            }
-        }
-        // console.log(participants);
-        // return false;
+        $("#participants input[type='checkbox']:checked").each(function() {
+            participants.push($(this).attr('data-id'));
+        });
 
         $scope.action.type_id = $("ul#type-id li.active").val();
         $scope.action.status = 1;
@@ -306,11 +300,11 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.action.trip = ''; // reset users (we don't want to update the trip)
         $scope.action.type = ''; // reset type (otherwise it deletes all users of the current trip)
         $scope.action.users = ''; // reset users (otherwise it deletes all users of the current trip)
+        $scope.action.payments = ''; // reset users (otherwise it deletes all users of the current trip)
 
         console.log("----");
         console.log($scope.action.users);
 
-        // TODO: It does not update the fields... Why?
         $http
             .post('Actions/edit/' + $action_id, $scope.action)
             .success(function() {
@@ -393,6 +387,17 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             console.log("Something went wrong during add all users for the current action");
         });
     };
+
+    $scope.selectAllUsers = function() {
+        console.log("Select all users as participants...");
+        $('#participants input').prop('checked', true);
+    };
+
+    $scope.selectOnlyMe = function() {
+        console.log("Deselect all users except me...");
+        $('#participants label:not(.hidden) input').prop('checked', false);
+    };
+
 
     // Add all participants of the current trip (included authentified user)
     $scope.actionAddAllUsers = function($actionId) {
@@ -495,14 +500,17 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             status : $scope.action.status
         };
 
-        $http
-            .post('actions/edit/'+$actionId+'.json', $scope.actionStatusUpdate)
-            .success(function() {
-                console.log("Status updated successfully");
-                $scope.actionStatusUpdate = {};
-            }).error(function() {
-            console.log("Something went wrong during update status");
-        });
+        if ($actionId) {
+            $http
+                .post('actions/edit/'+$actionId+'.json', $scope.actionStatusUpdate)
+                .success(function() {
+                    console.log("Status updated successfully");
+                    $scope.actionStatusUpdate = {};
+                }).error(function() {
+                console.log("Something went wrong during update status");
+            });
+        }
+
     };
 
     $scope.actionDeletePayment = function($paymentId, $actionId) {
@@ -517,8 +525,33 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         });
     };
 
+    var tempPayments = [];
+    $scope.actionPaymentToAdd = {};
+    $scope.actionAddTempPayment = function($userId) {
+        console.log('call actionAddPayment for user ' + $userId);
+        var tempPayment = {
+            user_id: $userId,
+            amount: $scope.actionPaymentToAdd.amount,
+            currency: $scope.actionPaymentToAdd.currency,
+            method_id: $scope.actionPaymentToAdd.method_id,
+            date: $scope.actionPaymentToAdd.date
+        };
 
-    // Add a user to a trip
+        tempPayments.push(tempPayment);
+        $scope.action.payments = tempPayments;
+        console.log($scope.action.payments);
+
+        $scope.action.payments.totalAll=0;
+        $scope.action.payments.forEach(function(payment) {
+            $scope.action.payments.totalAll += payment.amount;
+        });
+
+        $scope.updateStatus();
+
+    };
+
+
+    // Delete payment within an action
     // TODO: do not allow to pay more than the total?
     $scope.actionPaymentToAdd = {};
     $scope.actionAddPayment = function($actionId, $userId) {
@@ -530,8 +563,54 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             .success(function() {
                 console.log($scope.actionPaymentToAdd);
                 $scope.actionPaymentToAdd = {};
+                $scope.actionListPayments($actionId);
             }).error(function() {
             console.log("Something went wrong during add payment to action " + $actionId);
+        });
+    };
+
+    // Update payment within an action (Update payment)
+    $scope.actionPaymentToEdit = {};
+    $scope.actionSavePayment = function($actionId, $userId, $paymentId) {
+        console.log('call actionSavePayment with payment ' + $paymentId);
+        if ($paymentId){
+            console.log("UPDATE PAYMENT IN DB");
+            $scope.actionUpdatePayment($actionId,$paymentId);
+        } else {
+            $scope.action.payments={};
+            $scope.actionAddPayment($actionId,$userId);
+        }
+    };
+
+    $scope.actionEditPayment = function($paymentId) {
+        console.log('call actionEditPayment for payment ' + $paymentId);
+
+        $http.get('Payments/view/'+$paymentId+'.json')
+            .success(function(data) {
+                $scope.actionPaymentToAdd = data.payment;
+                $scope.actionPaymentToAdd.payment_id = $paymentId;
+                console.log($scope.actionPaymentToAdd);
+            }).error(function() {
+            console.log("Something went wrong Edit Payment");
+        });
+    };
+
+
+    $scope.actionUpdatePayment = function($actionId,$paymentId) {
+        console.log('call actionUpdatePayment for payment ' + $paymentId);
+        // Clean actionPaymentToAdd, otherwise it does not save:
+        $scope.actionPaymentToAdd.user = '';
+        $scope.actionPaymentToAdd.action = '';
+        $scope.actionPaymentToAdd.payment_id = '';
+        $http
+            .post('Payments/edit/'+$paymentId, $scope.actionPaymentToAdd)
+            .success(function() {
+                console.log ($scope.actionPaymentToAdd);
+                $scope.actionListPayments($actionId);
+                $scope.updateStatus();
+
+            }).error(function() {
+            console.log("Something went wrong during update Payment");
         });
     };
 

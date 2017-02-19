@@ -65,6 +65,8 @@ class ActionsController extends AppController
             $action = $this->Actions->patchEntity($action, $this->request->data);
             $action->trip_id = $trip_id;
 
+//            debug($action);
+
             // Add the authorized User as the owner of the action
             $action->owner_id = $this->Auth->user('id');
 
@@ -72,9 +74,20 @@ class ActionsController extends AppController
                 $record_id=$result->id;
 
                 // Add each user in the associated table
-                foreach( $action->action_users as $userId ){
+                foreach($action->action_users as $userId){
                     $user = $this->Actions->Users->get($userId);
                     $this->Actions->Users->link($action, [$user]);
+                }
+
+                // Add each payment in the associated table
+                foreach($action->action_payments as $payment){
+                    $entry = $this->Actions->Payments->newEntity();
+                    $entry->user_id = $payment['user_id'];
+                    $entry->amount = $payment['amount'];
+                    $entry->currency = $payment['currency'];
+                    $entry->method_id = $payment['method_id'];
+                    $entry->date = $payment['date'];
+                    $this->Actions->Payments->link($action, [$entry]);
                 }
 
                 $this->Flash->success(__('The action has been saved with ID = ') . $record_id);

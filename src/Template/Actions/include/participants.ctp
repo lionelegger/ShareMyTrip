@@ -2,7 +2,7 @@
     <div class="col-md-4">
         <div class="box clearfix">
             <h2>Share</h2>
-            <p class="help-block">Participants that share this action</p>
+            <p class="help-block">Other participants that share this action with me</p>
             <div class="col-md-6">
                 <div class="checkbox" id="participants">
 
@@ -10,9 +10,14 @@
 
                     if(!$edit):
                         foreach($trip->users as $user) {
-                            echo ("<label class='col-md-12'>");
-                                echo ("<input type='checkbox' ng-model='users[".$user->id."]'>");
-                                echo($user->first_name);
+                            if ($user->id == $userSession['id']) {
+                                echo ("<label class='col-md-12 hidden'>");
+                            } else {
+                                echo ("<label class='col-md-12'>");
+                            }
+
+                            echo ("<input type='checkbox' ng-checked='true' data-id='".$user->id."'>");
+                            echo($user->first_name);
                             echo ("</label>");
                         };
                     endif;
@@ -20,7 +25,11 @@
                     if($edit):
                         foreach ($action->trip->users as $tripUser):
                             $participatingId = false;
-                            echo ("<label class='col-md-12'>");
+                            if ($tripUser->id == $userSession['id']) {
+                                echo ("<label class='col-md-12 hidden'>");
+                            } else {
+                                echo ("<label class='col-md-12'>");
+                            }
                             foreach ($action->users as $user):
                                 if ($user['id'] == $tripUser['id']) {
                                     $participatingId = $user->_joinData->id;
@@ -40,9 +49,8 @@
                 </div>
             </div>
             <div class="col-md-6">
-<!--                <button class="btn btn-default" ng-click="actionAddAllUsers(actionId)">Select all</button>-->
-                <button class="btn btn-default" id="selectAllParticipants">Select all</button>
-                <button class="btn btn-default" id="selectOnlyMe">Only me</button>
+                <button class="btn btn-default" id="selectAllUsers" ng-click="selectAllUsers()">Select all</button>
+                <button class="btn btn-default" id="selectOnlyMe" ng-click="selectOnlyMe()">Only me</button>
                <!-- <div class="checkbox">
                     <label class="col-md-12">
                         <input type="checkbox" ng-model="private"> Private
@@ -77,7 +85,7 @@
 
                 </div>
                 <div class="col-md-6 col-md-offset-1">
-<!--                    --><?php //include_once("payments.ctp") ?>
+                    <?php include_once("payments.ctp") ?>
                 </div>
             </div>
         </div>

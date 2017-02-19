@@ -77,11 +77,10 @@ class PaymentsController extends AppController
      */
     public function edit($id = null)
     {
-        $payment = $this->Payments->get($id, [
-            'contain' => []
-        ]);
+        $payment = $this->Payments->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $payment = $this->Payments->patchEntity($payment, $this->request->data);
+//            debug($payment);
             if ($this->Payments->save($payment)) {
                 $this->Flash->success(__('The payment has been saved.'));
                 return $this->redirect(['action' => 'index']);
