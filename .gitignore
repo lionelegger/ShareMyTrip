@@ -1,5 +1,6 @@
 /vendor/*
 /config/app.php
+/config/app.lionelegger.com.php
 /tmp/*
 /logs/*
 /.idea/*
@@ -9,3 +10,4 @@
 
 /bower_components/
 /config.codekit
+

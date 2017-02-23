@@ -1,8 +1,27 @@
 @import url(map-icons.css);
 body {
   background-color: #f6f6f6;
+  margin: 0;
+  font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
+  height: 100%;
   padding-top: 70px;
-  font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif; }
+  padding-bottom: 50px; }
+
+.navbar-fixed-bottom {
+  background-color: lightgrey;
+  color: grey;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 60px;
+  margin-bottom: -26px;
+  padding: 3px;
+  border-top: 1px solid #c6c6c6;
+  height: 24px !important; }
+  .navbar-fixed-bottom a {
+    color: grey; }
+    .navbar-fixed-bottom a:hover {
+      color: black;
+      text-decoration: none; }
 
 button.btn-primary a {
   color: #f2f2f2; }
@@ -376,21 +395,3 @@ div.tipPayment {
   .responsive-table > tfoot > tr > th,
   .responsive-table > tfoot > tr > td {
     padding: 6px; } }
-footer {
-  position: absolute;
-  background-color: lightgrey;
-  color: grey;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 12px;
-  margin-top: 20px;
-  padding: 3px;
-  border-top: 1px solid #c6c6c6; }
-  footer a {
-    color: grey; }
-    footer a:hover {
-      color: black;
-      text-decoration: none; }

@@ -2,9 +2,32 @@
 
 body {
     background-color: #f6f6f6;
-    padding-top: 70px;
+    margin: 0;
     font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
+    height: 100%;
+    padding-top: 70px;
+    padding-bottom: 50px;
 }
+
+.navbar-fixed-bottom {
+    background-color: lightgrey;
+    color: grey;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 60px;
+    margin-bottom: -26px;
+    padding: 3px;
+    border-top: 1px solid darken(lightgrey, 5%);
+    height: 24px !important;
+    a {
+        color: grey;
+        &:hover {
+            color: black;
+            text-decoration: none;
+        }
+    }
+}
+
 
 button.btn-primary a {
     color: #f2f2f2;
@@ -501,26 +524,4 @@ div.tipPayment {
 
 }
 
-
-footer {
-    position: absolute;
-    background-color: lightgrey;
-    color: grey;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 12px;
-    margin-top: 20px;
-    padding: 3px;
-    border-top: 1px solid darken(lightgrey, 5%);
-    a {
-        color: grey;
-        &:hover {
-            color: black;
-            text-decoration: none;
-        }
-    }
-}
 

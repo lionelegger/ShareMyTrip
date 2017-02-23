@@ -241,7 +241,7 @@ class ActionsController extends AppController
         });
         // Choose only actions where the authentified user is participating
         $queryActions->matching('Users', function ($q) {
-            return $q->where(['users.id' => $this->Auth->user('id')]);
+            return $q->where(['Users.id' => $this->Auth->user('id')]);
         });
         $actions = $queryActions->all();
 
@@ -283,7 +283,7 @@ class ActionsController extends AppController
         });
         // Choose only actions where the authentified user is participating
         $queryActions->matching('Users', function ($q) {
-            return $q->where(['users.id' => $this->Auth->user('id')]);
+            return $q->where(['Users.id' => $this->Auth->user('id')]);
         });
         $actions = $queryActions->all();
 
@@ -331,7 +331,7 @@ class ActionsController extends AppController
         // Choose only actions where the authentified user is participating
         $queryActions->matching('Users', function ($q) {
             return $q
-                ->where(['users.id' => $this->Auth->user('id')]);
+                ->where(['Users.id' => $this->Auth->user('id')]);
         });
         $actions = $queryActions->all();
 

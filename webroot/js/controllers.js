@@ -4,17 +4,21 @@
 as.controller('MainCtrl', function($scope, $http, $location, $window) {
     console.log('call MainCtrl');
     // to get the current user
-    $http.get('users/current.json')
-        .success(function(data) {
-            if (undefined !== data.user) {
-                $scope.currentUserId = data.user.id;
-                $scope.currentUserEmail = data.user.email;
-                $scope.currentUserFirstname = data.user.first_name;
-                $scope.currentUserLastname = data.user.last_name;
-            }
-        }).error(function(data) {
-        $scope.currentUserId = 'user undefined';
-    });
+    $scope.getCurrentUser = function() {
+        $http.get('users/current.json')
+            .success(function (data) {
+                if (undefined !== data.user) {
+                    $scope.currentUserId = data.user.id;
+                    $scope.currentUserEmail = data.user.email;
+                    $scope.currentUserPassword = data.user.password;
+                    $scope.currentUserFirstname = data.user.first_name;
+                    $scope.currentUserLastname = data.user.last_name;
+                }
+            }).error(function (data) {
+            $scope.currentUserId = 'user undefined';
+        });
+    };
+    $scope.getCurrentUser();
 
     // to logout
     $scope.logout = function(){
@@ -23,18 +27,41 @@ as.controller('MainCtrl', function($scope, $http, $location, $window) {
     };
 
     // Add user (Registration)
-    $scope.newUserToAdd = {};
-    $scope.addNewUser = function() {
+    $scope.userToAdd = {};
+    $scope.addUser = function() {
         $http
-            .post('Users/add', $scope.newUserToAdd)
+            .post('Users/add', $scope.userToAdd)
             .success(function() {
-                console.log($scope.newUserToAdd);
+                console.log($scope.userToAdd);
                 //$scope.loadTrips();
-                $scope.newUserToAdd = {};
-                $window.location.reload();
+                $scope.userToAdd = {};
+                // $window.location.reload();
+                document.location = 'trips';
             }).error(function() {
-                console.log($scope.newUserToAdd);
+                console.log($scope.userToAdd);
             console.log("Something went wrong during user registration");
+        });
+    };
+
+    // Edit user (with image)
+
+    $scope.loadUser = function() {
+        $scope.currentUser = {};
+        console.log("ID= " + $scope.currentUserId);
+        $scope.currentUser.email = $scope.currentUserEmail;
+        $scope.currentUser.first_name = $scope.currentUserFirstname;
+        $scope.currentUser.last_name = $scope.currentUserLastname;
+    };
+
+    $scope.editUser = function() {
+        $http
+            .post('Users/edit/' + $scope.currentUserId, $scope.currentUser)
+            .success(function() {
+                console.log($scope.currentUser);
+                $scope.currentUser = {};
+                // $window.location.reload();
+            }).error(function() {
+            console.log("Something went wrong during user edition");
         });
     };
 });
