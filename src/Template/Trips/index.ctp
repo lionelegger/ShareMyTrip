@@ -75,7 +75,12 @@
                     <h2 class="trip-title"><a href="actions/plan/{{trip.id}}">{{trip.name}}</a></h2>
 
                     <ul class="list-inline pull-right">
-                        <li ng-repeat="user in trip.users" ng-hide="currentUserId == user.id"><span class="label label-default" >{{user.first_name}}</span></li>
+                        <li ng-repeat="user in trip.users" ng-hide="currentUserId == user.id">
+                            <div class="user label-bottom">
+                                <img src="{{user.photo_dir}}{{user.photo}}" class="avatar"/>
+                                <div class="label label-default" >{{user.first_name}} {{user.last_name}}</div>
+                            </div>
+                        </li>
                     </ul>
                     <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tripEdit" ng-click="editTrip(trip.id)">
                         <span class="glyphicon glyphicon-cog"></span> Trip settings

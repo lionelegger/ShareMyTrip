@@ -1,4 +1,4 @@
-as = angular.module('myApp', ['ngRoute']);
+as = angular.module('myApp', ['ngRoute', 'ngImgCrop']);
 as.config(function($routeProvider) {
     $routeProvider
         .when('/trips', {templateUrl: 'partials/trips.html', controller: 'TripsCtrl'})

@@ -60,7 +60,7 @@ class UsersTable extends Table
                     'size' => 'photo_size', // defaults to `size`
                     'type' => 'photo_type', // defaults to `type`
                 ],
-                'path' => 'files{DS}{model}{DS}{primaryKey}'
+//                'path' => '{ROOT}webroot{DS}files{DS}upload{DS}{model}{DS}{field}{DS}',
             ],
         ]);
     }
@@ -94,7 +94,10 @@ class UsersTable extends Table
             ->notEmpty('password');
 
         $validator
-            ->allowEmpty('picture');
+            ->allowEmpty('photo');
+
+        $validator
+            ->allowEmpty('avatar');
 
         return $validator;
     }

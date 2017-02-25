@@ -36,6 +36,10 @@
             <th scope="row"><?= __('Id') ?></th>
             <td><?= $this->Number->format($user->id) ?></td>
         </tr>
+        <tr>
+            <th scope="row"><?= __('photo') ?></th>
+            <td><?= h($user->photo) ?></td>
+        </tr>
     </table>
     <div class="related">
         <h4><?= __('Related Payments') ?></h4>
