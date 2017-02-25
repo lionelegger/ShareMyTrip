@@ -77,7 +77,7 @@
                     <ul class="list-inline pull-right">
                         <li ng-repeat="user in trip.users" ng-hide="currentUserId == user.id">
                             <div class="user label-bottom">
-                                <img src="{{user.photo_dir}}{{user.photo}}" class="avatar"/>
+                                <img ng-src="{{user.photo_dir}}{{user.photo}}" class="avatar"/>
                                 <div class="label label-default" >{{user.first_name}} {{user.last_name}}</div>
                             </div>
                         </li>

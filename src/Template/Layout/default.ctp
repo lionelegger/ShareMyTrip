@@ -65,7 +65,6 @@
                                 'controller' => 'Users',
                                     'action' => 'edit', $userSession['id']
                                 ]) ?></li>
-<!--                            <li><a data-target="#editUserModal" data-toggle="modal">--><?//=$userSession['first_name']?><!-- --><?//=$userSession['last_name']?><!--</a></li>-->
                             <?
                             if ($userSession['photo']) {
                                 echo $this->Html->image('/' . $userSession['photo_dir'] . '/' . $userSession['photo'], [
@@ -98,50 +97,6 @@
     <?= $this->Html->script('ng-img-crop.js') ?>
 
     <script>window.onload = initialize;</script>
-
-
-<!--    --><?php //if($userSession): ?>
-<!--        <div class="modal fade" tabindex="-1" role="dialog" id="editUserModal">-->
-<!--            <div class="modal-dialog">-->
-<!--                <div class="modal-content">-->
-<!--                    <div class="modal-header">-->
-<!--                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
-<!--                        <h4 class="modal-title">Edit my details</h4>-->
-<!--                    </div>-->
-<!--                    <form method="post" accept-charset="utf-8" _lpchecked="1" enctype="multipart/form-data">-->
-<!--                        <div class="modal-body">-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="email">Email</label>-->
-<!--                                <input type="email" name="email" class="form-control" id="email" placeholder="Email" ng-model="currentUser.email">-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="password">Password</label>-->
-<!--                                <input type="password" name="password" class="form-control" id="password" placeholder="Password (leave empty if you don't want to modify your password)" ng-model="currentUser.password">-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="name">First Name</label>-->
-<!--                                <input name="name" type="text" class="form-control" id="first_name" placeholder="First name" ng-model="currentUser.first_name">-->
-<!--                            </div>-->
-<!--                            <div class="form-group">-->
-<!--                                <label for="name">First Name</label>-->
-<!--                                <input name="name" type="text" class="form-control" id="last_name" placeholder="Last name" ng-model="currentUser.last_name">-->
-<!--                            </div>
-<!--                            <div>Select an image file: <input type="file" id="fileInput" ng-file="currentUser.photo"/></div>-->
-<!--                            <div class="cropArea">-->
-<!--                                <img-crop image="myImage" result-image="myCroppedImage"></img-crop>-->
-<!--                            </div>-->
-<!--                            <div>Cropped Image:</div>-->
-<!--                            <div><img id="avatar" ng-model="currentUser.photo" ng-src="{{myCroppedImage}}" /></div>-->
-<!--                        </div>-->
-<!--                        <div class="modal-footer">-->
-<!--                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>-->
-<!--                            <button type="submit" class="btn btn-primary" id="editUser" ng-click="editUser()" data-dismiss="modal">Save</button>-->
-<!--                        </div>-->
-<!--                    </form>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    --><?php //endif; ?>
 
 </body>
 </html>

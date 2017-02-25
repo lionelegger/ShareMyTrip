@@ -54,38 +54,6 @@ as.controller('MainCtrl', function($scope, $http, $location, $window) {
         $scope.currentUser.last_name = $scope.currentUserLastname;
     };
 
-    // upload an avatar
-    $scope.myImage='';
-    $scope.myCroppedImage='';
-
-    var handleFileSelect=function(evt) {
-        var file=evt.currentTarget.files[0];
-        var reader = new FileReader();
-        reader.onload = function (evt) {
-            $scope.$apply(function($scope){
-                $scope.myImage=evt.target.result;
-            });
-        };
-        reader.readAsDataURL(file);
-    };
-    angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
-
-    // Edit a user (with image)
-    $scope.editUser = function() {
-
-        console.log($scope.currentUser.photo);
-
-        $http
-            .post('Users/edit/' + $scope.currentUserId, $scope.currentUser)
-            .success(function() {
-                console.log("current user updated!");
-                console.log($scope.currentUser);
-                $scope.currentUser = {};
-                // $window.location.reload();
-            }).error(function() {
-            console.log("Something went wrong during user edition");
-        });
-    };
 
 });
 
