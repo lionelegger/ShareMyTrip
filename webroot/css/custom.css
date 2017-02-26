@@ -36,16 +36,142 @@ button.btn-primary a:hover {
   color: #FFF;
   text-decoration: none; }
 
-.user.label-bottom {
-  width: 60px;
+.row-no-padding > .col-md-12 {
+  padding-right: 0;
+  padding-left: 0; }
+
+.glyphicon {
+  top: 2px; }
+
+.close {
+  font-size: 32px;
+  font-weight: normal;
+  line-height: 15px; }
+
+.box {
+  position: relative;
+  padding: 0 15px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #e7e7e7;
+  border-radius: 5px;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(179, 179, 179, 0.2);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(179, 179, 179, 0.2);
+  box-shadow: 0px 0px 3px 0px rgba(179, 179, 179, 0.2); }
+  .box .box-header {
+    background-color: #337ab7;
+    margin: 0px -15px 15px -15px;
+    padding: 15px;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px; }
+    .box .box-header .h2.box-title,
+    .box .box-header h2.box-title {
+      text-align: left;
+      margin: 15px 0 15px 0; }
+      .box .box-header .h2.box-title a,
+      .box .box-header h2.box-title a {
+        font-size: 36px;
+        color: #9fc4e4;
+        font-weight: bold; }
+        .box .box-header .h2.box-title a:hover,
+        .box .box-header h2.box-title a:hover {
+          color: white; }
+        .box .box-header .h2.box-title a:hover, .box .box-header .h2.box-title a:visited, .box .box-header .h2.box-title a:active, .box .box-header .h2.box-title a:focus, .box .box-header .h2.box-title a:visited,
+        .box .box-header h2.box-title a:hover,
+        .box .box-header h2.box-title a:visited,
+        .box .box-header h2.box-title a:active,
+        .box .box-header h2.box-title a:focus,
+        .box .box-header h2.box-title a:visited {
+          text-decoration: none; }
+    .box .box-header .btn.btn-link {
+      color: white; }
+    .box .box-header .btn.top-right {
+      position: absolute;
+      top: 0;
+      right: 0; }
+  .box .users {
+    position: absolute;
+    right: 0;
+    bottom: 50px; }
+  .box .box-footer {
+    margin: 0 -15px -15px -15px;
+    padding: 15px;
+    background-color: #f8f8f8;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px; }
+    @media only screen and (max-width: 992px) {
+      .box .box-footer {
+        border-top: 1px solid #e7e7e7; } }
+
+.avatar-list .col-md-12 {
+  padding: 5px 0px;
+  border-bottom: 1px solid #e7e7e7; }
+  @media only screen and (max-width: 992px) {
+    .avatar-list .col-md-12 {
+      border-bottom: none; } }
+  .avatar-list .col-md-12 .btn {
+    margin-top: 3px; }
+  .avatar-list .col-md-12.checkbox-inside {
+    padding-left: 30px; }
+
+.avatar.label-bottom {
+  width: 50px;
   padding: 0 5px;
   text-align: center; }
-  .user.label-bottom .avatar {
+  .avatar.label-bottom .avatar-img {
     width: 40px; }
-  .user.label-bottom .label {
-    width: 100%; }
+  .avatar.label-bottom .avatar-name {
+    width: 100%;
+    font-weight: bold; }
+  .avatar.label-bottom input[type='checkbox'] {
+    width: 100%;
+    margin-left: 10px;
+    margin-top: -10px; }
+  .avatar.label-bottom .label {
+    margin-top: 3px;
+    display: inherit;
+    max-width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #333; }
+.avatar.label-right {
+  width: 100%;
+  padding: 0 5px;
+  text-align: center; }
+  .avatar.label-right .avatar-img {
+    margin-top: 0;
+    float: left;
+    width: 40px; }
+  .avatar.label-right .avatar-name {
+    float: left;
+    margin: 10px; }
+  .avatar.label-right input[type='checkbox'] {
+    left: 35px;
+    top: 16px; }
+.avatar .avatar-add {
+  border: 2px dotted #285f8f;
+  height: 35px !important;
+  width: 35px !important;
+  margin: 0px auto 3px;
+  border-radius: 20px;
+  background-color: white; }
+  .avatar .avatar-add:before {
+    content: "+";
+    font-size: 22px;
+    color: #285f8f;
+    font-weight: bold; }
+.avatar input[type=checkbox] + .avatar-img {
+  opacity: 0.3; }
+  .avatar input[type=checkbox] + .avatar-img + .avatar-name {
+    color: #c4c4c4; }
+.avatar input[type=checkbox]:checked + .avatar-img {
+  opacity: 1; }
+  .avatar input[type=checkbox]:checked + .avatar-img + .avatar-name {
+    color: #333;
+    font-weight: bold; }
 
-.avatar {
+.avatar-img {
   width: 40px;
   border-radius: 20px;
   margin-top: 5px; }
@@ -333,16 +459,6 @@ i.arrow {
   transform: rotate(90deg);
   margin-left: 0.4em; }
 
-.box {
-  padding: 0 15px 15px;
-  margin-bottom: 15px;
-  border: 1px solid #e7e7e7;
-  border-radius: 5px;
-  background-color: #f8f8f8;
-  -webkit-box-shadow: 0px 0px 3px 0px rgba(179, 179, 179, 0.2);
-  -moz-box-shadow: 0px 0px 3px 0px rgba(179, 179, 179, 0.2);
-  box-shadow: 0px 0px 3px 0px rgba(179, 179, 179, 0.2); }
-
 div.tipPayment {
   font-size: 11px;
   border-bottom: 1px solid #222222;
@@ -415,3 +531,65 @@ div.tipPayment {
   .responsive-table > tfoot > tr > th,
   .responsive-table > tfoot > tr > td {
     padding: 6px; } }
+/*FOR GOOGLE MAP*/
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+  height: 500px;
+  width: 100%;
+  border: 1px solid darkgray; }
+
+.controls {
+  margin-top: 10px;
+  font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
+  border-radius: 4px;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid transparent; }
+
+#pac-input-start {
+  background-color: #fff;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+  position: relative; }
+
+#pac-input-end {
+  background-color: #fff;
+  font-size: 15px;
+  font-weight: 300;
+  margin-right: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+  position: relative; }
+  @media only screen and (max-width: 768px) {
+    #pac-input-end {
+      position: absolute;
+      bottom: 10px; } }
+
+#pac-input:focus {
+  border-color: #4d90fe; }
+
+.pac-container {
+  font-family: Roboto; }
+
+#type-selector {
+  color: #fff;
+  background-color: #4d90fe;
+  padding: 5px 11px 0px 11px; }
+
+#type-selector label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300; }

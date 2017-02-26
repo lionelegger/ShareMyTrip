@@ -34,15 +34,20 @@ $globalBalance = 0;
 
     foreach ($tripUsers as $user):
         echo "<th>";
+        echo "<div class='avatar'>";
+        echo "  <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img' />";
+        echo "  <div class='avatar-name'>";
+        echo $user->first_name." ".$user->last_name;
+        echo "  </div>";
+        echo "</div>";
+
         if ($user->id == $userSession['id']) {
             echo("<h3 class='text-danger'>");
         } else {
             echo("<h3>");
         }
-        echo $user->first_name;
-        if ($user->id == $userSession['id']) {
-            echo("</h3>");
-        }
+        echo("</h3>");
+
         echo "</th>";
     endforeach;
 

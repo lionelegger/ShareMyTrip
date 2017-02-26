@@ -132,6 +132,21 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         });
     };
 
+    $scope.buttonTxt = "Delete";
+    // Confirmation to the deletion of a trip
+    $scope.deleteConfirm = function(tripId) {
+        if( $scope.btnPressed ){
+            $scope.btnPressed = false;
+            $('.modal').modal('toggle');
+            $scope.deleteTrip(tripId);
+            $scope.buttonTxt = "Delete";
+        } else {
+            $scope.btnPressed = true;
+            $scope.buttonTxt = "Sure?";
+            console.log("confirmation required...");
+        }
+    };
+
     // Deletes a trip (and the logged user as a participant with cakephp3)
     $scope.deleteTrip = function(tripId) {
         $http

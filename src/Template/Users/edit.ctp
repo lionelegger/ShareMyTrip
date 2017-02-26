@@ -1,3 +1,4 @@
+<? $this->Html->addCrumb("Trips", ['controller' => 'Trips', 'action' => 'index']) ?>
 <? $this->Html->addCrumb($user->first_name, ['controller' => 'Users', 'action' => 'edit', $user->id]) ?>
 <? $this->Html->addCrumb('Profile') ?>
 

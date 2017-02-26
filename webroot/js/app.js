@@ -54,26 +54,24 @@ function initialize() {
         $('.input-group-btn .btn:first-child').html(selText+'<i class="arrow down"></i>');
     });
 
-
-        $('#datepickerStart').datetimepicker({
-            format: 'YYYY-MM-DD'
-        });
-        $('#timepickerStart').datetimepicker({
-            format: 'HH:mm'
-        });
-        $('#datepickerEnd').datetimepicker({
-            format: 'YYYY-MM-DD',
-            useCurrent: false //Important! See issue #1075
-        });
-        $('#timepickerEnd').datetimepicker({
-            format: 'HH:mm'
-        });
-        $("#datetimepickerStart").on("dp.change", function (e) {
-            $('#datepickerEnd').data("DateTimePicker").minDate(e.date);
-        });
-        $("#datepickerEnd").on("dp.change", function (e) {
-            $('#datepickerStart').data("DateTimePicker").maxDate(e.date);
-        });
-
+    $('#datepickerStart').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+    $('#timepickerStart').datetimepicker({
+        format: 'HH:mm'
+    });
+    $('#datepickerEnd').datetimepicker({
+        format: 'YYYY-MM-DD',
+        useCurrent: false //Important! See issue #1075
+    });
+    $('#timepickerEnd').datetimepicker({
+        format: 'HH:mm'
+    });
+    $("#datetimepickerStart").on("dp.change", function (e) {
+        $('#datepickerEnd').data("DateTimePicker").minDate(e.date);
+    });
+    $("#datepickerEnd").on("dp.change", function (e) {
+        $('#datepickerStart').data("DateTimePicker").maxDate(e.date);
+    });
 
 }

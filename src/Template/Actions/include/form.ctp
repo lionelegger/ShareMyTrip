@@ -116,7 +116,7 @@
             </div>
         </div>
     </div>
-
+    <br/>
     <?php include_once("googleMap.ctp"); ?>
 
     <div class="container clearfix">

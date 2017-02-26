@@ -1,5 +1,15 @@
 @import "map-icons.css";
 
+// mixins
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+
 body {
     background-color: #f6f6f6;
     margin: 0;
@@ -43,21 +53,198 @@ button.btn-primary a:hover {
     text-decoration: none;
 }
 
-.user {
-    &.label-bottom {
-        width: 60px;
-        padding: 0 5px;
-        text-align: center;
-        .avatar {
-            width: 40px;
+
+.row-no-padding {
+    & > .col-md-12 {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+// adapation of the font
+.glyphicon {
+    top: 2px;
+}
+.close {
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 15px;
+}
+
+
+// Box
+.box {
+    position: relative;
+    padding: 0 15px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 3px 0px rgba(179,179,179,0.2);
+    -moz-box-shadow: 0px 0px 3px 0px rgba(179,179,179,0.2);
+    box-shadow: 0px 0px 3px 0px rgba(179,179,179,0.2);
+
+    .box-header {
+        background-color: #337ab7;
+        margin: 0px -15px 15px -15px;
+        padding: 15px;
+        border-top-right-radius: 4px;
+        border-top-left-radius: 4px;
+
+        .h2.box-title,
+        h2.box-title {
+            text-align: left;
+            margin: 15px 0 15px 0;
+
+            a {
+                font-size: 36px;
+                color: lighten(#337ab7, 30%);
+                font-weight: bold;
+                &:hover {
+                    color: white;
+                }
+                &:hover,
+                &:visited,
+                &:active,
+                &:focus,
+                &:visited {
+                    text-decoration: none;
+                }
+            }
         }
-        .label {
-            width: 100%;
+        .btn {
+            &.btn-link {
+                color: white;
+            }
+            &.top-right {
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        }
+    }
+    .users {
+        position: absolute;
+        right: 0;
+        bottom: 50px;
+    }
+
+    .box-footer {
+        margin: 0 -15px -15px -15px;
+        padding: 15px;
+        background-color: #f8f8f8;
+        border-bottom-right-radius: 4px;
+        border-bottom-left-radius: 4px;
+        @media only screen and (max-width: 992px) {
+            border-top: 1px solid #e7e7e7;
+        }
+    }
+
+}
+
+
+// Avatar (Users)
+
+.avatar-list {
+    .col-md-12 {
+        padding: 5px 0px;
+        border-bottom: 1px solid #e7e7e7;
+        @media only screen and (max-width: 992px) {
+            border-bottom: none;
+        }
+        .btn {margin-top: 3px;}
+        &.checkbox-inside {
+            padding-left: 30px;
         }
     }
 }
 
 .avatar {
+    &.label-bottom {
+        width: 50px;
+        padding: 0 5px;
+        text-align: center;
+        .avatar-img {
+            width: 40px;
+        }
+        .avatar-name {
+            width: 100%;
+            font-weight: bold;
+        }
+        input[type='checkbox'] {
+            width: 100%;
+            margin-left: 10px;
+            margin-top: -10px;
+        }
+        .label {
+            margin-top: 3px;
+            display: inherit;
+            max-width: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #333;
+        }
+    }
+    &.label-right {
+        width: 100%;
+        padding: 0 5px;
+        text-align: center;
+        .avatar-img {
+            margin-top: 0;
+            float: left;
+            width: 40px;
+        }
+        .avatar-name {
+            float: left;
+            margin: 10px;
+        }
+        input[type='checkbox'] {
+            left: 35px;
+            top: 16px;
+        }
+
+    }
+
+    .avatar-add {
+        border: 2px dotted darken(#337ab7, 10%);
+        height: 35px !important;
+        width: 35px !important;
+        margin: 0px auto 3px;
+        border-radius: 20px;
+        background-color: white;
+        //opacity: 0.8;
+        &:before {
+            content: "+";
+            font-size: 22px;
+            color: darken(#337ab7, 10%);
+            font-weight: bold;
+        }
+    }
+
+    input[type=checkbox] {
+        + .avatar-img {
+            opacity: 0.3;
+            + .avatar-name {
+                color: #c4c4c4;
+            }
+        }
+    }
+
+    input[type=checkbox]:checked {
+        + .avatar-img {
+            opacity: 1;
+            + .avatar-name {
+                color: #333;
+                font-weight: bold;
+            }
+        }
+
+    }
+
+}
+
+.avatar-img {
     width: 40px;
     border-radius: 20px;
     margin-top: 5px;
@@ -83,8 +270,6 @@ a.glyphicon-btn {
 .map-icon {
     font-size: 18px;
 }
-
-
 
 /* PLAN : Actions */
 .actions {
@@ -391,8 +576,6 @@ i.arrow {
     }
 }
 
-
-
 .status-0 {
     background-color: #666666; // not defined
     color: white;
@@ -434,7 +617,6 @@ i.arrow {
     text-align: center;
 }
 
-
 .dropdown-caret:before {
     content: ">";
     display: inline-block;
@@ -442,17 +624,6 @@ i.arrow {
     -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
     transform: rotate(90deg);
     margin-left: 0.4em;
-}
-
-.box {
-    padding: 0 15px 15px;
-    margin-bottom: 15px;
-    border: 1px solid #e7e7e7;
-    border-radius: 5px;
-    background-color: #f8f8f8;
-    -webkit-box-shadow: 0px 0px 3px 0px rgba(179,179,179,0.2);
-    -moz-box-shadow: 0px 0px 3px 0px rgba(179,179,179,0.2);
-    box-shadow: 0px 0px 3px 0px rgba(179,179,179,0.2);
 }
 
 div.tipPayment {
@@ -550,4 +721,78 @@ div.tipPayment {
 
 }
 
+
+// Google maps
+/*FOR GOOGLE MAP*/
+/* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+#map {
+    height: 500px;
+    width: 100%;
+    border: 1px solid darkgray;
+}
+
+.controls {
+    margin-top: 10px;
+    font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
+    border-radius: 4px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    border: 1px solid transparent;
+    //border: 1px solid #ccc;
+}
+
+#pac-input-start {
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+    position: relative;
+}
+
+#pac-input-end {
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: 300;
+    margin-right: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 300px;
+    position: relative;
+    @media only screen and (max-width: 768px) {
+        position: absolute;
+        bottom: 10px;
+    }
+}
+
+#pac-input:focus {
+    border-color: #4d90fe;
+}
+
+.pac-container {
+    font-family: Roboto;
+}
+
+#type-selector {
+    color: #fff;
+    background-color: #4d90fe;
+    padding: 5px 11px 0px 11px;
+}
+
+#type-selector label {
+    font-family: Roboto;
+    font-size: 13px;
+    font-weight: 300;
+}
 

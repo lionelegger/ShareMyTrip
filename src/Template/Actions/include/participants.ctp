@@ -3,59 +3,64 @@
         <div class="box clearfix">
             <h2>Share</h2>
             <p class="help-block">Other participants that share this action with me</p>
-            <div class="col-md-6">
-                <div class="checkbox" id="participants">
+            <div class="row row-no-padding">
+                <div class="col-md-12">
+                    <div class="checkbox avatar-list" id="participants">
+                        <?php
 
-                    <?php
+                        if(!$edit):
+                            foreach($trip->users as $user) {
 
-                    if(!$edit):
-                        foreach($trip->users as $user) {
-                            if ($user->id == $userSession['id']) {
-                                echo ("<label class='col-md-12 hidden'>");
-                            } else {
-                                echo ("<label class='col-md-12'>");
-                            }
-
-                            echo ("<input type='checkbox' ng-checked='true' data-id='".$user->id."'>");
-                            echo($user->first_name);
-                            echo ("</label>");
-                        };
-                    endif;
-
-                    if($edit):
-                        foreach ($action->trip->users as $tripUser):
-                            $participatingId = false;
-                            if ($tripUser->id == $userSession['id']) {
-                                echo ("<label class='col-md-12 hidden'>");
-                            } else {
-                                echo ("<label class='col-md-12'>");
-                            }
-                            foreach ($action->users as $user):
-                                if ($user['id'] == $tripUser['id']) {
-                                    $participatingId = $user->_joinData->id;
-//                                    $participatingId = true;
+                                if ($user->id == $userSession['id']) {
+                                    echo ("<label class='col-md-12 hidden checkbox-inside'>");
+                                } else {
+                                    echo ("<label class='col-md-12 checkbox-inside'>");
                                 }
+                                echo ("<div class='avatar label-right clearfix'>");
+                                echo ("     <input type='checkbox' ng-checked='true' data-id='".$user->id."'>");
+                                echo ("    <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img'/>");
+                                echo ("    <div class='avatar-name'>".$user->first_name." ".$user->last_name."</div>");
+                                echo ("</div>");
+                                echo ("</label>");
+                            };
+                        endif;
+
+                        if($edit):
+                            foreach ($action->trip->users as $tripUser):
+                                $participatingId = false;
+                                if ($tripUser->id == $userSession['id']) {
+                                    echo ("<label class='col-md-12 hidden checkbox-inside'>");
+                                } else {
+                                    echo ("<label class='col-md-12 checkbox-inside'>");
+                                }
+                                foreach ($action->users as $user):
+                                    if ($user['id'] == $tripUser['id']) {
+                                        $participatingId = $user->_joinData->id;
+                                    }
+                                endforeach;
+
+                                echo ("<div class='avatar label-right clearfix'>");
+                                if ($participatingId) {
+                                    echo ("<input type='checkbox' class='isParticipating' ng-checked='".$participatingId."' value='".$tripUser->id."' data-participant='".$participatingId."' ng-model='users[".$tripUser->id."]'>");
+                                } else {
+                                    echo ("<input type='checkbox' value='".$tripUser->id."' ng-model='users[".$tripUser->id."]'>");
+                                }
+                                echo ("    <img src='".$tripUser->photo_dir."/".$tripUser->photo."' class='avatar-img'/>");
+                                echo ("    <div class='avatar-name'>".$tripUser->first_name." ".$tripUser->last_name."</div>");
+                                echo ("</div>");
+
+
+    //                            echo ($tripUser->first_name);
+                                echo ("</label>");
                             endforeach;
-                            if ($participatingId) {
-                                echo ("<input type='checkbox' class='isParticipating' ng-checked='".$participatingId."' value='".$tripUser->id."' data-participant='".$participatingId."' ng-model='users[".$tripUser->id."]'>");
-                            } else {
-                                echo ("<input type='checkbox' value='".$tripUser->id."' ng-model='users[".$tripUser->id."]'>");
-                            }
-                            echo ($tripUser->first_name);
-                            echo ("</label>");
-                        endforeach;
-                    endif;
-                    ?>
+                        endif;
+                        ?>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="box-footer text-right">
                 <button class="btn btn-default" id="selectAllUsers" ng-click="selectAllUsers()">Select all</button>
                 <button class="btn btn-default" id="selectOnlyMe" ng-click="selectOnlyMe()">Only me</button>
-               <!-- <div class="checkbox">
-                    <label class="col-md-12">
-                        <input type="checkbox" ng-model="private"> Private
-                    </label>
-                </div>-->
             </div>
         </div>
     </div>

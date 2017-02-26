@@ -1,72 +1,3 @@
-<style>
-    /*FOR GOOGLE MAP*/
-    /* Always set the map height explicitly to define the size of the div
-           * element that contains the map. */
-
-    #map {
-        height: 500px;
-        width: 100%;
-        border: 1px solid darkgray;
-    }
-
-    .controls {
-        margin-top: 10px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    #pac-input-start {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 300px;
-        position: relative;
-    }
-
-    #pac-input-end {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-right: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 300px;
-        position: relative;
-    }
-
-    #pac-input:focus {
-        border-color: #4d90fe;
-    }
-
-    .pac-container {
-        font-family: Roboto;
-    }
-
-    #type-selector {
-        color: #fff;
-        background-color: #4d90fe;
-        padding: 5px 11px 0px 11px;
-    }
-
-    #type-selector label {
-        font-family: Roboto;
-        font-size: 13px;
-        font-weight: 300;
-    }
-
-</style>
-<br/>
-
 <?php
 // Initialize the values if edit mode
 $start_name_value = '';
@@ -144,6 +75,9 @@ switch ($action->status) {
             mapTypeId: 'roadmap',
             disableDefaultUI: false,
             zoomControl: true,
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.RIGHT_CENTER
+            },
             mapTypeControl: false,
             scaleControl: true,
             streetViewControl: false,
@@ -156,6 +90,7 @@ switch ($action->status) {
         var inputStart = document.getElementById('pac-input-start');
         var searchBoxStart = new google.maps.places.SearchBox(inputStart);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(inputStart);
+
 
         var inputEnd = document.getElementById('pac-input-end');
         var searchBoxEnd = new google.maps.places.SearchBox(inputEnd);
@@ -297,6 +232,9 @@ switch ($action->status) {
             }
             // Clear out the old markers.
             markersStart.forEach(function (marker) {
+
+                console.log("---------> CLEAR MARKERS !!!!!!!!!!!")
+
                 marker.setMap(null);
                 // clear out old lines
                 if (actionPath.setMap) {

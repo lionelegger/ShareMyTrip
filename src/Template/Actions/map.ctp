@@ -14,7 +14,7 @@
 
 
 <style>
-    #map {
+    #map-full {
         height: 100%;
         width: 100%;
         position: absolute;
@@ -23,9 +23,8 @@
         z-index: -1;
         margin-bottom: -60px;
     }
-
 </style>
-<div id="map"></div>
+<div id="map-full"></div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBsahp0E7FSU4WE0dY73LyvTyY6-CWxgI"></script>
 <?= $this->Html->script('map-icons.js') ?>
@@ -36,7 +35,7 @@
 
 
         var geneva = {lat: 46.2043907, lng: 6.143157699999961};
-        var map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google.maps.Map(document.getElementById('map-full'), {
             zoom: 4,
             mapTypeId: 'roadmap',
             center: geneva,
@@ -113,7 +112,7 @@
                             scale: 0.68, //pixels
                             anchor: new google.maps.Point(0, 12)
                         },
-                        map_icon_label: '<span class="map-icon map-icon-type-<?=$action->type_id?>"></span>'
+                        map_icon_label: '<span class="map-icon map-icon-type-<?=$action->type_id?>"></span>',
                         url: 'actions/edit/<?=$action->id?>'
                     });
 
