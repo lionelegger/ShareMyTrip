@@ -4,7 +4,7 @@ $color-primary: #337ab7;
 $color-warning: #ed984c;
 $color-danger: #9b1003;
 $color-success: #2e753f;
-$color-grey: #666666;
+$color-grey: #999999;
 
 // mixins
 
@@ -607,7 +607,7 @@ i.arrow {
             cursor: pointer;
             cursor: hand;
             .map-icon {
-                background-color: #264f9b;
+                background-color: darken($color-primary,5%);
             }
         }
 
@@ -818,7 +818,7 @@ div.tipPayment {
 }
 
 #pac-input:focus {
-    border-color: #4d90fe;
+    border-color: $color-primary;
 }
 
 .pac-container {
@@ -827,7 +827,7 @@ div.tipPayment {
 
 #type-selector {
     color: #fff;
-    background-color: #4d90fe;
+    background-color: $color-primary;
     padding: 5px 11px 0px 11px;
 }
 

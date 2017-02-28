@@ -107,13 +107,17 @@ class ActionsController extends AppController
         $queryCategories = $this->Actions->Types->Categories->find();
         $allCategories = $queryCategories->all();
 
+        // $allMethods is an array with all available methods
+        $queryMethods = $this->Actions->Payments->Methods->find();
+        $allMethods = $queryMethods->all();
+
         // $trip contains the trip information with all its users
         $trip = $this->Actions->Trips->get($trip_id, [
             'contain' => ['Users']
         ]);
 
-        $this->set(compact('trip', 'action', 'types', 'users', 'allTypes', 'allCategories', 'record_id'));
-        $this->set('_serialize', ['trip'], ['action'], 'allTypes', 'allCategories', 'record_id');
+        $this->set(compact('trip', 'action', 'types', 'users', 'allTypes', 'allCategories', 'allMethods', 'record_id'));
+        $this->set('_serialize', ['trip'], ['action'], 'allTypes', 'allCategories', 'allMethods', 'record_id');
     }
 
     /**
@@ -156,13 +160,17 @@ class ActionsController extends AppController
         $queryCategories = $this->Actions->Types->Categories->find();
         $allCategories = $queryCategories->all();
 
+        // $allMethods is an array with all available methods
+        $queryMethods = $this->Actions->Payments->Methods->find();
+        $allMethods = $queryMethods->all();
+
         // $trip contains the trip information with all its users
         $trip = $this->Actions->Trips->get($action->trip_id, [
             'contain' => ['Users']
         ]);
 
-        $this->set(compact('action', 'trip', 'types', 'users', 'allTypes', 'allCategories'));
-        $this->set('_serialize', ['action', 'allTypes', 'allCategories']);
+        $this->set(compact('action', 'trip', 'types', 'users', 'allTypes', 'allCategories', 'allMethods'));
+        $this->set('_serialize', ['action', 'allTypes', 'allCategories', 'allMethods']);
     }
 
     /**

@@ -63,15 +63,17 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-horizontal">
                             <div class="form-group">
                                 <label for="date" class="col-sm-5 control-label">Method</label>
                                 <div class="form-group col-sm-7">
                                     <select class="form-control" id="method_id" ng-model="actionPaymentToAdd.method_id">
-                                        <option value="1">Paypal</option>
-                                        <option value="2">Credit card</option>
-                                        <option value="3">Cash</option>
-                                        <option>...</option>
+                                        <?php
+                                        foreach ($allMethods as $method) {
+                                            echo ("<option value='".$method->id."' ng-selected='actionPaymentToAdd.method_id == ".$method->id."'>".$method->name."</option>");
+                                        }
+                                        ?>
                                     </select>
                                 </div>
                             </div>

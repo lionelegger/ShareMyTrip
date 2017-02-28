@@ -646,13 +646,19 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.actionPaymentToAdd.user = '';
         $scope.actionPaymentToAdd.action = '';
         $scope.actionPaymentToAdd.payment_id = '';
+        $scope.actionPaymentToAdd.method = '';
+        $scope.actionPaymentToAdd.method_id = $("#method_id option:selected").val();
+        $scope.actionPaymentToAdd.currency = $('#paymentCurrency').text();
+        if ($('#datePayment').val()) {
+            $scope.actionPaymentToAdd.date = $('#datePayment').val()+' 12:00:00';
+        }
+        console.log("DATE="+$scope.actionPaymentToAdd.date);
         $http
             .post('Payments/edit/'+$paymentId, $scope.actionPaymentToAdd)
             .success(function() {
                 console.log ($scope.actionPaymentToAdd);
                 $scope.actionListPayments($actionId);
                 $scope.updateStatus();
-
             }).error(function() {
             console.log("Something went wrong during update Payment");
         });

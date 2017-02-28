@@ -112,10 +112,12 @@ $globalBalance = 0;
                                 $detailPayment = '';
                                 if (!empty($payment->date) OR !empty($payment->method_id)) {
                                     $detailPayment = " [";
-                                    if (!empty($payment->date)) {
-                                        $detailPayment .= $payment->date;
+                                    $payment_date = $payment->date->i18nFormat('yyyy-MM-dd');
+
+                                    if (!empty($payment_date)) {
+                                        $detailPayment .= $payment_date;
                                     }
-                                    if (!empty($payment->date) AND !empty($payment->method)) {
+                                    if (!empty($payment_date) AND !empty($payment->method_id)) {
                                         $detailPayment .= " | ";
                                     }
                                     if (!empty($payment->method_id)) {

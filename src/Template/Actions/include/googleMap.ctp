@@ -34,7 +34,6 @@ switch ($action->status) {
         break; // success (green)
 }
 ?>
-
 <script>
 
     // To get the Action type from the selected
@@ -230,6 +229,11 @@ switch ($action->status) {
             if (places.length == 0) {
                 return;
             }
+
+            // Clear out loaded markers
+            markerIcon.setMap(null);
+            actionPath.setMap(null);
+
             // Clear out the old markers.
             markersStart.forEach(function (marker) {
 
@@ -245,8 +249,6 @@ switch ($action->status) {
                     markerIcon.setMap(null);
                 }
             });
-
-
             markersStart = [];
 
             // For each place, get the icon, name and location.
@@ -368,10 +370,15 @@ switch ($action->status) {
                 return;
             }
 
+            // Clear out loaded markers
+            markerIcon.setMap(null);
+            actionPath.setMap(null);
+
             // Clear out the old markers.
             markersEnd.forEach(function (marker) {
                 console.log("Clear the markerEnd....");
                 marker.setMap(null);
+
                 // clear out old lines
                 if (actionPath.setMap) {
                     console.log("we need to clear the actionPath....");
@@ -493,6 +500,9 @@ switch ($action->status) {
 
     }
     google.maps.event.addDomListener(window, 'load', initAutocomplete);
+
+    // for category 2, hide the Google arrival point
+    $("#pac-input-end").attr('ng-hide', 'category==2');
 
 </script>
 

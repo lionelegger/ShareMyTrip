@@ -65,13 +65,13 @@
         <?php foreach ($actions as $action): ?>
 
             <?php
-            $statusColor = '#666666'; // undefined (gray)
+            $statusColor = '#999999'; // undefined (gray)
             switch($action->status) {
-                case 1: $statusColor = '#264f9b'; break; // primary (blue)
+                case 1: $statusColor = '#337ab7'; break; // primary (blue)
                 case 2: $statusColor = '#9b1003'; break; // danger (red)
                 case 3: $statusColor = '#ed984c'; break; // warning (orange)
                 case 4: $statusColor = '#2e753f'; break; // success (green)
-                case 5: $statusColor = '#000000'; break; // success (green)
+                case 5: $statusColor = '#000000'; break; // overpaid (black)
             }
             ?>
 
