@@ -3,7 +3,7 @@
     <div class="payment-list">
         <ul class="list-unstyled">
             <li ng-repeat="payment in action.payments">
-                {{payment.user.first_name}} paid {{payment.amount}} {{payment.currency}} [Date: {{payment.date}} | Method: {{payment.method_id}}]
+                {{payment.user.first_name}} paid {{payment.amount}} {{payment.currency}} [{{payment.date | date:"yyyy-MM-dd"}} | Method: {{payment.method_id}}]
                 <span ng-if="payment.user_id==currentUserId"><a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment">[Edit]</a></span>
             </li>
         </ul>
@@ -19,12 +19,12 @@
     <div class="clearfix">&nbsp;</div>
     <!-- Modal -->
     <div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="Payment">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Payment confirmation</h4>
-                    <p class="help-block">The amount that is still to pay is {{action.price - action.payments.totalAll}} CHF</p>
+                    <h2 class="modal-title" id="myModalLabel">Payment confirmation</h2>
+                    <h4 class="help-block">The amount that is still to pay is {{action.price - action.payments.totalAll}} CHF</h4>
                 </div>
                 <div class="modal-body">
                     <form id="payment" method="post" accept-charset="utf-8">
@@ -33,33 +33,40 @@
                         <input class="hidden" ng-model="action_id" value="<?= $action->id ?>">
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <label for="amount" class="col-sm-4 control-label">Amount I paid</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" id="amount" ng-model="actionPaymentToAdd.amount" placeholder="{{action.price - action.payments.totalAll}}">
-                                </div>
-                                <div class="form-group col-sm-2">
-                                    <select class="form-control" id="currency" ng-model="actionPaymentToAdd.currency">
-                                        <option>CHF</option>
-                                        <option>USD</option>
-                                        <option>THB</option>
-                                        <option>...</option>
-                                    </select>
-                                </div>
+                                <label for="amount" class="col-sm-5 control-label">Amount</label>
+                                <div class="input-group col-sm-6">
+                                    <input type="text" class="form-control" id="price" ng-model="actionPaymentToAdd.amount" placeholder="{{action.price - action.payments.totalAll}}">
+                                    <div class="input-group-btn">
+                                        <button type="button" id="paymentCurrency" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{action.currency}}<i class="arrow down"></i></button>
+                                        <!-- TODO: Currency is not working -->
+                                        <ul class="dropdown-menu dropdown-menu-right" >
+                                            <li><a href="javascript:void(0)">CHF</a></li>
+                                            <li><a href="javascript:void(0)">USD</a></li>
+                                            <li><a href="javascript:void(0)">EUR</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a href="javascript:void(0)">XXX</a></li>
+                                            <li><a href="javascript:void(0)">YYY</a></li>
+                                        </ul>
+                                    </div><!-- /btn-group -->
+                                </div><!-- /input-group -->
+
                             </div>
                         </div>
+
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <label for="date" class="col-sm-4 control-label">Payment date</label>
-                                <div class="input-group col-sm-7">
-                                    <input type="text" class="form-control" id="datePayment" name="datePayment" ng-model="actionPaymentToAdd.date" placeholder="Insert date">
+                                <!-- TODO: Date is not working -->
+                                <label for="date" class="col-sm-5 control-label">Date</label>
+                                <div class="input-group col-sm-6">
+                                    <input type="text" class="form-control" id="datePayment" name="datePayment" ng-init="date=(actionPaymentToAdd.date)" ng-model="actionPaymentToAdd.date" placeholder="Insert date">
                                     <div class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></div>
                                 </div>
                             </div>
                         </div>
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <label for="date" class="col-sm-4 control-label">Payment method</label>
-                                <div class="form-group col-sm-8">
+                                <label for="date" class="col-sm-5 control-label">Method</label>
+                                <div class="form-group col-sm-7">
                                     <select class="form-control" id="method_id" ng-model="actionPaymentToAdd.method_id">
                                         <option value="1">Paypal</option>
                                         <option value="2">Credit card</option>
@@ -90,12 +97,33 @@
 <script type="text/javascript">
     $(function () {
         $('#datePayment').datetimepicker({
-            format: 'YYYY-MM-DD hh:mm',
+            format: 'YYYY-MM-DD',
             widgetPositioning: {
                 horizontal: 'left',
                 vertical: 'bottom'
             }
 
         });
+
+
     });
+    var dateTimePicker = function() {
+        return {
+            restrict: "A",
+            require: "ngModel",
+            link: function (scope, element, attrs, ngModelCtrl) {
+                var parent = $(element).parent();
+                var dtp = parent.datetimepicker({
+                    format: "LL",
+                    showTodayButton: true
+                });
+                dtp.on("dp.change", function (e) {
+                    ngModelCtrl.$setViewValue(moment(e.date).format("LL"));
+                    scope.$apply();
+                });
+            }
+        };
+    };
+
+
 </script>

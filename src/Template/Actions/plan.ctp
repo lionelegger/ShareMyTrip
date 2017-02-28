@@ -11,7 +11,9 @@
 
     <nav class="tripNav pull-right">
         <button class="btn btn-primary" role="button">Plan</button>
+        <!-- TODO: Render this button only when map  -->
         <button class="btn btn-default" role="button"><?= $this->Html->link(__('Map'), ['controller' => 'actions', 'action' => 'map', $trip->id]) ?></button>
+        <!-- TODO: Render this button only when cost  -->
         <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) ?></button>
     </nav>
     <h1><?= $trip->name ?>

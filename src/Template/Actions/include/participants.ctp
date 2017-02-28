@@ -1,8 +1,10 @@
 <div class="row">
     <div class="col-md-4">
         <div class="box clearfix">
-            <h2>Share</h2>
-            <p class="help-block">Other participants that share this action with me</p>
+            <div class="box-header color-lightgrey">
+                <h2 class="modal-title">Share</h2>
+                <p class="help-block">Other participants that share this action with me</p>
+            </div>
             <div class="row row-no-padding">
                 <div class="col-md-12">
                     <div class="checkbox avatar-list" id="participants">
@@ -66,10 +68,11 @@
     </div>
     <div class="col-md-8">
         <div class="box">
+            <div class="box-header color-lightgrey">
+                <h2 class="modal-title">Budget</h2>
+                <p class="help-block">Other participants that share this action with me</p>
+            </div>
             <div class="row">
-                <div class="col-md-12">
-                    <h2>Budget</h2>
-                </div>
                 <div class="col-md-5">
                     <h3>Price</h3>
                     <div class="input-group">

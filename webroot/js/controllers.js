@@ -105,6 +105,8 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     };
 
     $scope.editTrip = function(tripId) {
+        $scope.btnPressed=false;
+        $scope.buttonTxt = "Delete trip";
         console.log('call editTrip with trip ' + tripId);
         $('.modal .form-message').empty();
         if (tripId > 0){
@@ -135,15 +137,14 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     $scope.buttonTxt = "Delete";
     // Confirmation to the deletion of a trip
     $scope.deleteConfirm = function(tripId) {
-        if( $scope.btnPressed ){
+        if($scope.btnPressed){
             $scope.btnPressed = false;
             $('.modal').modal('toggle');
             $scope.deleteTrip(tripId);
-            $scope.buttonTxt = "Delete";
+            $scope.buttonTxt = "Delete trip";
         } else {
             $scope.btnPressed = true;
-            $scope.buttonTxt = "Sure?";
-            console.log("confirmation required...");
+            $scope.buttonTxt = "Are you sure?";
         }
     };
 
@@ -593,6 +594,11 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     // TODO: do not allow to pay more than the total?
     $scope.actionPaymentToAdd = {};
     $scope.actionAddPayment = function($actionId, $userId) {
+        $scope.actionPaymentToAdd.currency = $('#paymentCurrency').text();
+        if ($('#datePayment').val()) {
+            $scope.actionPaymentToAdd.date = $('#datePayment').val()+' 12:00:00';
+        }
+        console.log("DATE="+$scope.actionPaymentToAdd.date);
         $scope.actionPaymentToAdd.action_id = $actionId;
         $scope.actionPaymentToAdd.user_id = $userId;
         console.log('call actionAddPayment for action ' + $actionId + ' and user ' + $userId);

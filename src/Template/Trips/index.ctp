@@ -12,7 +12,7 @@
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
                 <form class="form-horizontal" method="post" accept-charset="utf-8">
-                    <div class="modal-header">
+                    <div class="modal-header color-primary">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h2 class="modal-title" ng-if="!trip.id">Add a trip</h2>
                         <h2 class="modal-title" ng-if="trip.id">Edit {{trip.name}}</h2>
@@ -36,7 +36,6 @@
                             <div id="tripParticipants-{{trip.id}}">
                                 <div class="hidden" id="tripId">{{trip.id}}</div>
                                 <h3 class="modal-title">Friends that share this trip</h3>
-                                <br/>
                                 <form class="form" method="post" accept-charset="utf-8">
                                     <div class="row row-no-padding">
                                         <div class="avatar-list">
@@ -65,13 +64,13 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <p class="form-message col-md-offset-1 text-info"></p>
+                                        <div class="col-md-11 form-message col-md-offset-1 text-danger"></div>
                                     </div><!-- /.row -->
                                 </form>
                             </div><!-- /.collapse -->
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-danger" id="deleteTrip" ng-init="btnPressed=false" ng-click="deleteConfirm(trip.id)">{{buttonTxt}}</button>
+                            <button class="btn btn-danger pull-left" id="deleteTrip" ng-init="btnPressed=false" ng-click="deleteConfirm(trip.id)">{{buttonTxt}}</button>
                             <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary" ng-click="saveTrip(trip.id)" data-dismiss="modal">Save</button>
                         </div>
@@ -87,7 +86,7 @@
             <div class="box">
                 <div class="row">
                     <div class="col-md-12 trip clearfix">
-                        <div class="box-header clearfix">
+                        <div class="box-header color-primary clearfix">
                             <h2 class="box-title col-md-12"><a href="actions/plan/{{trip.id}}">{{trip.name}}</a></h2>
                             <div class="users col-md-12">
                                 <ul class="list-inline pull-right">
@@ -107,7 +106,7 @@
                                     -->
                                 </ul>
                             </div>
-                            <button type="button" class="btn btn-link top-right" data-toggle="modal" data-target="#tripEdit" ng-click="editTrip(trip.id)">
+                            <button type="button" class="btn btn-link top-right" ng-if="currentUserId == trip.owner_id" data-toggle="modal" data-target="#tripEdit" ng-click="editTrip(trip.id)">
                                 <span class="glyphicon glyphicon-cog"></span> Edit
                             </button>
                         </div>
