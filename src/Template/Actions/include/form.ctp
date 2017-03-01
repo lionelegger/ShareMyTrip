@@ -36,8 +36,8 @@
                             $active = '';
                             foreach ($allTypes as $type):
                                 if ($action->type_id == $type->id) {$active = 'active';}
-                                $status = 'status-0';
-                                if ($action->type_id == $type->id) {$status = 'status-'.$action->status;}
+                                $status = 'status-'.$action->status;
+//                                if ($action->type_id == $type->id) {$status = 'status-'.$action->status;}
                                 echo "<div class='map-icon-button' ng-show='category==".$type->category_id."'>";
                                 echo "  <li class='map-icon map-icon-type-".$type->id." map-icon-status ".$status." ".$active."' value='".$type->id."'></li>";
                                 echo "  <div class='map-icon-name'>".$type->name."</div>";

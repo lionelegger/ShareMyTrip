@@ -18,10 +18,10 @@ if ($action->end_name) {
 <?php
 
 // set pills colors
-$statusColor = '#666666'; // undefined (gray)
+$statusColor = '#999999'; // undefined (gray)
 switch ($action->status) {
     case 1:
-        $statusColor = '#264f9b';
+        $statusColor = '#337ab7';
         break; // primary (blue)
     case 2:
         $statusColor = '#9b1003';
@@ -231,13 +231,14 @@ switch ($action->status) {
             }
 
             // Clear out loaded markers
-            markerIcon.setMap(null);
-            actionPath.setMap(null);
+            if(markerIcon) {
+                markerIcon.setMap(null);
+                actionPath.setMap(null);
+            }
+
 
             // Clear out the old markers.
             markersStart.forEach(function (marker) {
-
-                console.log("---------> CLEAR MARKERS !!!!!!!!!!!")
 
                 marker.setMap(null);
                 // clear out old lines
@@ -371,8 +372,10 @@ switch ($action->status) {
             }
 
             // Clear out loaded markers
-            markerIcon.setMap(null);
-            actionPath.setMap(null);
+            if(markerIcon) {
+                markerIcon.setMap(null);
+                actionPath.setMap(null);
+            }
 
             // Clear out the old markers.
             markersEnd.forEach(function (marker) {

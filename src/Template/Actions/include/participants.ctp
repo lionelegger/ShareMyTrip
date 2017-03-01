@@ -68,9 +68,20 @@
     </div>
     <div class="col-md-8">
         <div class="box">
-            <div class="box-header color-lightgrey">
-                <h2 class="modal-title">Budget</h2>
-                <p class="help-block">Other participants that share this action with me</p>
+            <div class="box-header color-lightgrey clearfix">
+                <h2 class="modal-title pull-left">Expenses</h2>
+                <span ng-if="action.status == 2">
+                    <h4 class="pull-right text-danger"><span class="glyphicon glyphicon-ban-circle"></span> <strong>Nothing paid!</strong></h4>
+                </span>
+                <span ng-if="action.status == 3">
+                    <h4 class="pull-right text-warning"><span class="glyphicon glyphicon-remove-circle"></span> <strong>Partially paid!</strong></h4>
+                </span>
+                <span ng-if="action.status == 4">
+                    <h4 class="pull-right text-success"><span class="glyphicon glyphicon-ok-circle"></span> <strong>All paid!</strong></h4>
+                </span>
+                <span ng-if="action.status == 5">
+                    <h4 class="pull-right"><span class="glyphicon glyphicon-exclamation-sign"></span> <strong>Overpaid!</strong></h4>
+                </span>
             </div>
             <div class="row">
                 <div class="col-md-5">
@@ -97,6 +108,11 @@
                     <?php include_once("payments.ctp") ?>
                 </div>
             </div>
+            <!--
+            <div class="box-footer status-{{action.status}} text-center">
+                <h3>{{action.price - action.payments.totalAll}} {{action.currency}} still needs to be paid to reach the total of {{action.price}} {{action.currency}}</h3>
+            </div>
+            -->
         </div>
     </div>
 </div>
@@ -106,24 +122,5 @@
 </script>
 
 
-<!--TODO: Use a cakePHP ActionsCtrl controller that build the list of participants to an action-->
-<!--<div class="box" ng-init="actionListParticipants(tripId, actionId);">
-    <h4>Participants to this action</h4>
-    <div class="row">
-        <div class="col-md-9">
-            <div class="btn-toolbar">
-                <div ng-repeat="user in trips.trip.users">
-                    <button style="margin-right: 6px;" role="button" id="user-{{user.id}}" class="btn btn-default" ng-click="actionAddUser(tripId,actionId,user.id)">{{user.first_name}}</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <button role="button" class="btn btn-primary" ng-click="actionAddAllUsers(actionId)">Add all</button>
-            <button role="button" class="btn btn-danger" ng-click="actionDeleteAllUsers(actionId)">Only me</button>
-        </div>
-    </div>
-    <div class="clearfix">&nbsp;</div>
-</div>
--->
 
 

@@ -15,6 +15,7 @@
 <?php $total = [];
 $globalPaid = 0;
 $globalBalance = 0;
+$lastDate = '';
 ?>
 <?php
     $totalUsers = count($tripUsers);
@@ -28,7 +29,7 @@ $globalBalance = 0;
     echo "<table class='table table-hover table-striped responsive-table table-budget'>";
     echo "<thead>";
     echo "    <tr>";
-    echo "      <th style='width:200px'>";
+    echo "      <th style='min-width:300px'>";
     echo "          <h3>Actions</h3>";
     echo "      </th>";
 
@@ -65,8 +66,11 @@ $globalBalance = 0;
         $end_time = $this->Time->format($action->end_date, 'HH:mm');
         $nbParticipationsAction = count($action->users);
 
+        if ($start_date != $lastDate || $start_date == '') {
+            echo "    <tr class='date-separation'><td class='no-padding-sm date' colspan='".($totalUsers + 2)."'>".$start_date."</td></tr>";
+        }
         echo "    <tr>";
-        echo "        <td data-title='Action'>";
+        echo "        <td class='no-padding-sm'>";
         echo "        <div class='action short'>";
         echo "            <div class='time clearfix'>";
         echo "                <div class='start'>" . $start_time . "</div>";
@@ -165,6 +169,8 @@ $globalBalance = 0;
         echo "        <h3>" . $action->price . " " . $action->currency . "</h3>[" . $nbParticipationsAction . " part.]";
         echo "      </td>";
         echo "    </tr>";
+
+        $lastDate = $start_date;
 
     }
 

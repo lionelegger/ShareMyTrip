@@ -1,21 +1,19 @@
 <div id="payments">
-    <h3>Payments <small>STATUS : {{action.status}}</small></h3>
+    <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#payment">
+        Register payment
+    </button>
+    <h3>Payments</h3>
     <div class="payment-list">
-        <ul class="list-unstyled">
+        <ul class="refine">
             <li ng-repeat="payment in action.payments">
-                {{payment.user.first_name}} paid {{payment.amount}} {{payment.currency}} [{{payment.date | date:"yyyy-MM-dd"}} | Method: {{payment.method_id}}]
-                <span ng-if="payment.user_id==currentUserId"><a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment">[Edit]</a></span>
+                <strong>{{payment.amount}} {{payment.currency}}</strong> [<span ng-if="payment.user.id != <?= $userSession['id'] ?>">Paid by {{payment.user.first_name}}</span><span ng-if="payment.date">on {{payment.date | date:"yyyy-MM-dd"}}</span><span ng-if="payment.method_id"> | {{payment.method_id}}</span>]
+                <span ng-if="payment.user_id==currentUserId" class="pull-right"><a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment">[Edit]</a></span>
             </li>
         </ul>
-        <hr>
-        <h4>TOTAL paid : {{action.payments.totalAll}} {{action.currency}} <?php if($edit):?>(from which {{action.payments.totalAuth}} {{action.currency}} by me)<?php endif ?></h4>
-        <p class="help-block">{{action.price - action.payments.totalAll}} {{action.currency}} still needs to be paid to reach the total of {{action.price}} {{action.currency}}</p>
+        <h4><strong>{{action.payments.totalAll}} {{action.currency}}</strong> <?php if($edit):?><small>from which {{action.payments.totalAuth}} {{action.currency}} paid by me</small><?php endif ?></h4>
     </div>
     <!-- Button trigger modal -->
-    <hr/>
-    <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
-        <span class="glyphicon glyphicon-plus"></span> Register payment
-    </button>
+
     <div class="clearfix">&nbsp;</div>
     <!-- Modal -->
     <div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="Payment">
@@ -92,7 +90,6 @@
             </div>
         </div>
     </div>
-    <div class="clearfix">&nbsp;</div>
 </div>
 
 <!--TODO: BUG => Date is not saved because cakephp does not take the YYYY-MM-DD format (how to change that?) -->
@@ -109,6 +106,8 @@
 
 
     });
+
+    // TODO: Not working below....
     var dateTimePicker = function() {
         return {
             restrict: "A",

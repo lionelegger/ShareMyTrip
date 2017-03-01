@@ -313,7 +313,6 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             $scope.actionDeleteUser(participation_id);
         });
 
-
         var $startTime = '';
         var $endTime = '';
         if ($("#start_time").val()) {
@@ -341,15 +340,19 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.action.users = ''; // reset users (otherwise it deletes all users of the current trip)
         $scope.action.payments = ''; // reset users (otherwise it deletes all users of the current trip)
 
-        console.log("----");
-        console.log($scope.action.users);
+        console.log("--ID--");
+        console.log($scope.action.type_id);
 
         $http
             .post('Actions/edit/' + $action_id, $scope.action)
             .success(function() {
                 console.log($scope.action);
                 console.log("Action "+$action_id+" saved!");
-                document.location = 'actions/plan/' + $trip_id;
+                $scope.actionListPayments($action_id)
+                .then(function() {
+                    document.location = 'actions/plan/' + $trip_id;
+                });
+
             }).error(function() {
             console.log("Something went wrong during edit Action");
         });
@@ -495,7 +498,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
 
     $scope.actionListPayments = function($actionId) {
         console.log('call actionListPayments for action ' + $actionId);
-        $http
+        return $http
             .get('actions/view/'+$actionId+'.json')
             .success(function(data) {
                 console.log(data);
@@ -520,8 +523,8 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     // Update the status of the action: 0=not defined / 1 = nothing paid / 2 = partially paid / 3 = All paid / 4 = overpaid
     $scope.updateStatus = function ($actionId) {
         $scope.action.status = 0;
-        console.log ("TOTAL = " + $scope.action.payments.totalAll);
-        console.log ("PRICE = " + $scope.action.price);
+        console.log ("TOTAL => " + $scope.action.payments.totalAll);
+        console.log ("PRICE => " + $scope.action.price);
         if($scope.action.payments.totalAll === 0) {
             $scope.action.status = 2; /* nothing paid (red) */
         } else if ($scope.action.payments.totalAll == $scope.action.price) {

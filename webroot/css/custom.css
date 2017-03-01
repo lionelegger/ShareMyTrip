@@ -84,6 +84,7 @@ button.btn-primary a:hover {
     bottom: 40px; }
   .box .box-footer {
     margin: 0 -15px -15px -15px;
+    border-top: 1px solid #e7e7e7;
     padding: 15px;
     background-color: #f8f8f8;
     border-bottom-right-radius: 4px;
@@ -91,6 +92,18 @@ button.btn-primary a:hover {
     @media only screen and (max-width: 992px) {
       .box .box-footer {
         border-top: 1px solid #e7e7e7; } }
+    .box .box-footer h3 {
+      margin: 0; }
+    .box .box-footer.status-1 {
+      color: #337ab7; }
+    .box .box-footer.status-2 {
+      color: #9b1003; }
+    .box .box-footer.status-3 {
+      color: #ed984c; }
+    .box .box-footer.status-4 {
+      color: #2e753f; }
+    .box .box-footer.status-5 {
+      color: #000000; }
 
 .color-primary {
   color: white;
@@ -126,9 +139,14 @@ button.btn-primary a:hover {
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px; }
 
+.payment-list ul.refine > li:last-child {
+  border-bottom-width: 2px; }
+
 .avatar-list .col-md-12 {
   padding: 5px 0px;
   border-bottom: 1px solid #e7e7e7; }
+  .avatar-list .col-md-12:last-child {
+    border-bottom: none; }
   @media only screen and (max-width: 992px) {
     .avatar-list .col-md-12 {
       border-bottom: none; } }
@@ -219,7 +237,7 @@ a.glyphicon-btn {
   border-top: 1px solid #CCCCCC; }
   .actions .actions-day .actions-date {
     margin-top: 15px;
-    font-size: 20px;
+    font-size: 32px;
     color: #777777; }
 
 .action {
@@ -246,7 +264,7 @@ a.glyphicon-btn {
     .action .dotIcon.status-4 {
       border-color: #2e753f; }
     .action .dotIcon.status-5 {
-      border-color: #999999; }
+      border-color: #b3b3b3; }
   .action .start {
     float: left; }
   .action .end {
@@ -394,6 +412,13 @@ a.glyphicon-btn {
   padding: 2px;
   margin: 2px 0px 3px 8px; }
 
+ul.refine {
+  padding-left: 0; }
+  ul.refine > li {
+    padding: 5px 0px;
+    border-bottom: 1px solid #e7e7e7;
+    list-style-type: none; }
+
 i.arrow {
   border: solid #666;
   border-width: 0 2px 2px 0;
@@ -426,20 +451,30 @@ i.arrow {
       margin-top: 5px;
       line-height: 15px; }
     .map-icon-btn .map-icon-button .map-icon {
-      font-size: 30px; }
+      font-size: 30px;
+      background-color: #b3b3b3;
+      color: white; }
+      .map-icon-btn .map-icon-button .map-icon.status-.active, .map-icon-btn .map-icon-button .map-icon.status-:hover, .map-icon-btn .map-icon-button .map-icon.status-0.active, .map-icon-btn .map-icon-button .map-icon.status-0:hover, .map-icon-btn .map-icon-button .map-icon.status-1.active, .map-icon-btn .map-icon-button .map-icon.status-1:hover {
+        background-color: #337ab7; }
+      .map-icon-btn .map-icon-button .map-icon.status-2.active, .map-icon-btn .map-icon-button .map-icon.status-2:hover {
+        background-color: #9b1003; }
+      .map-icon-btn .map-icon-button .map-icon.status-3.active, .map-icon-btn .map-icon-button .map-icon.status-3:hover {
+        background-color: #ed984c; }
+      .map-icon-btn .map-icon-button .map-icon.status-4.active, .map-icon-btn .map-icon-button .map-icon.status-4:hover {
+        background-color: #2e753f; }
+      .map-icon-btn .map-icon-button .map-icon.status-5.active, .map-icon-btn .map-icon-button .map-icon.status-5:hover {
+        background-color: #000000; }
     .map-icon-btn .map-icon-button:hover {
       cursor: pointer;
       cursor: hand; }
-      .map-icon-btn .map-icon-button:hover .map-icon {
-        background-color: #2d6da3; }
     .map-icon-btn .map-icon-button li {
       display: initial; }
 
 .status-0 {
-  background-color: #999999;
+  background-color: #b3b3b3;
   color: white; }
 
-.status-1, .active {
+.status-1 {
   background-color: #337ab7;
   color: white; }
 
@@ -496,6 +531,11 @@ div.tipPayment {
 .table > thead > tr > td,
 .table > thead > tr > th {
   vertical-align: middle; }
+.table tr.date-separation > td {
+  background-color: #e2e2e2;
+  color: #818181;
+  font-size: larger;
+  padding: 2px; }
 
 @media only screen and (max-width: 768px) {
   .responsive-table,
@@ -513,8 +553,11 @@ div.tipPayment {
 
   .responsive-table tr {
     border-bottom: 1px solid #ddd;
-    margin-bottom: 10px;
-    padding-bottom: 10px; }
+    padding-top: 15px;
+    padding-bottom: 15px; }
+    .responsive-table tr.date-separation {
+      padding-top: 0px;
+      padding-bottom: 0px; }
 
   .responsive-table,
   .responsive-table th,
@@ -527,6 +570,11 @@ div.tipPayment {
     padding-left: 35% !important;
     white-space: normal;
     text-align: left; }
+    .responsive-table td.no-padding-sm {
+      padding-left: 6px !important;
+      text-align: center; }
+      .responsive-table td.no-padding-sm.date {
+        font-size: 20px; }
     .responsive-table td h1, .responsive-table td h2, .responsive-table td h3, .responsive-table td h4, .responsive-table td h5, .responsive-table td h6 {
       margin: 0; }
 

@@ -7,6 +7,11 @@
         </button>
     </h1>
 
+    <?php
+        if(iterator_count($trips)==0) {
+            echo ("<h1>Write a welcome message with explanations</h1>");
+        }
+    ?>
     <!-- START MODAL -->
     <div class="modal fade" tabindex="-1" role="dialog" id="tripEdit">
         <div class="modal-dialog modal-sm" role="document">

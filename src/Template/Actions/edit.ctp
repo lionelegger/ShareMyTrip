@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="col-md-6 text-right">
-                <button type="submit" class="btn btn-primary" ng-click="editAction(<?=$action->trip->id?>,<?=$action->id?>);updateStatus(<?=$action->id?>)" data-toggle="collapse" href="#collapseParticipation" aria-expanded="false" aria-controls="collapseExample">Save</button>
+                <button type="submit" class="btn btn-primary" ng-click="editAction(<?=$action->trip->id?>,<?=$action->id?>);" data-toggle="collapse" href="#collapseParticipation" aria-expanded="false" aria-controls="collapseExample">Save</button>
                 &nbsp;<a href="actions/plan/<?=$action->trip->id?>" class="btn btn-default pull-right">Cancel</a>
             </div>
         </div>

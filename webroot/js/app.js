@@ -17,33 +17,34 @@ function initialize() {
     // console.log ("inside initialize");
     'use strict';
 
+    /*
     function updateStatus() {
-        // Update the status of the action: 0=not defined / 1 = nothing paid / 2 = partially paid / 3 = All paid / 4 = overpaid
-
+        // Update the status of the action: 0=not defined / 1=price not defined / 2 = nothing paid / 3 = partially paid / 4 = All paid / 5 = overpaid
         alert("Update status!");
-
-        $scope.action.status = 0;
+        $scope.action.status = 0; // initialize status to 0 (grey)
         console.log ("TOTAL = " + $scope.action.payments.totalAll);
         console.log ("PRICE = " + $scope.action.price);
         if($scope.action.payments.totalAll === 0) {
-            $scope.action.status = 1;
+            $scope.action.status = 2; // Nothing paid (danger)
         } else if ($scope.action.payments.totalAll == $scope.action.price) {
-            $scope.action.status = 3;
+            $scope.action.status = 4; // All paid (success)
         } else if ($scope.action.payments.totalAll > $scope.action.price) {
-            $scope.action.status = 4;
+            $scope.action.status = 5; // Overpaid (black)
         } else {
-            $scope.action.status = 2;
+            $scope.action.status = 3; // Partially paid (warning)
         }
         if ($scope.action.price === null) {
-            $scope.action.status = 0;
+            $scope.action.status = 1; // Price not defined (primary)
         }
     }
+    */
 
-    $(".map-icon").click(function() {
-        $(".map-icon.status-0").removeClass('active');
-        $(".map-icon.status-0").removeAttr('selected');
+    // buttons action-id in actions form
+    $(".map-icon.map-icon-status").click(function() {
+        $(".map-icon.map-icon-status").removeClass('active');
+        // $(".map-icon.status-0").removeAttr('selected');
         $(this).addClass('active');
-        $(this).attr('selected', 'selected');
+        // $(this).attr('selected', 'selected');
         updateTypeId();
     });
 
