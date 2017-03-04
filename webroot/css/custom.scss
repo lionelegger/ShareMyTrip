@@ -15,14 +15,17 @@ $color-grey: #b3b3b3;
     border-radius: $radius;
 }
 
+html, body {
+    background-color: #eeeeee;
+}
 
 body {
-    background-color: #f6f6f6;
+    //background-color: #f6f6f6;
     margin: 0;
     font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
     height: 100%;
     padding-top: 70px;
-    padding-bottom: 50px;
+    //padding-bottom: 50px;
 }
 
 .navbar-fixed-bottom {
@@ -44,6 +47,55 @@ body {
     }
 }
 
+.header-container {
+    &.color-primary {
+        background-color: $color-primary;
+        color: #FFFFFF;
+        .small,
+        small {
+            color: lighten($color-primary, 20%);
+        }
+    }
+    &.color-lightgrey {
+        background-color: #d3d3d3;
+        color: #333;
+        .small,
+        small {
+            color: lighten($color-primary, 20%);
+        }
+    }
+
+    margin-top: -20px;
+    padding: 15px 0 0 0;
+
+
+    @media only screen and (max-width: 768px) {
+        text-align: center;
+        .text-right {
+            text-align: center !important;
+        }
+    }
+
+    .header-title {
+        margin: 0;
+        font-size: 36px;
+        font-weight: bold;
+
+        ul.list-inline {
+            vertical-align: text-top;
+            display: inline-block;
+            text-align:left;
+            margin-bottom: 0;
+            > li.avatar.label-bottom .label {
+                color: #FFFFFF;
+                font-size: 12px;
+                font-weight: normal;
+                display: block;
+            }
+        }
+    }
+}
+
 .cropArea {
     background: #E4E4E4;
     overflow: hidden;
@@ -57,6 +109,53 @@ button.btn-primary a {
 button.btn-primary a:hover {
     color: #FFF;
     text-decoration: none;
+}
+
+.btn-calltoaction {
+    margin: 5px 0 15px 0;
+    border-radius: 25px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(79,79,79,0.65);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(79,79,79,0.65);
+    box-shadow: 0px 0px 10px 0px rgba(79,79,79,0.65);
+    transition: all 0.3s ease;
+    z-index: 99;
+
+    &:hover {
+        .glyphicon {
+            opacity: 1;
+            transition: all 0.3s ease;
+        }
+    }
+
+    .glyphicon {
+        color: #FFFFFF;
+        opacity: 0.5;
+        top: 1px;
+    }
+    .btn-text {
+        border-left: 1px solid rgba(255, 255, 255, 0.25);
+        padding-left: 10px;
+        margin-left: 5px;
+        font-size: 20px;
+        color: #FFFFFF;
+    }
+
+    &.btn-default {
+        .glyphicon {
+            color: #333;
+        }
+        .btn-text {
+            border-left: 1px solid rgba(145, 145, 145, 0.25);
+            color: #666;
+        }
+    }
+
+    //@media only screen and (max-width: 768px) {
+    //    position: fixed;
+    //    bottom: 30px;
+    //    right: 20px;
+    //}
+
 }
 
 
@@ -104,12 +203,14 @@ button.btn-primary a:hover {
             a {
                 font-size: 36px;
                 font-weight: bold;
+                transition: all 0.3s ease;
                 &:hover,
                 &:visited,
                 &:active,
                 &:focus,
                 &:visited {
                     text-decoration: none;
+
                 }
             }
         }
@@ -178,8 +279,6 @@ button.btn-primary a:hover {
     background-color: #f8f8f8;
     border-bottom: 1px solid #e7e7e7;
 }
-
-
 
 .top-right {
     position: absolute;
@@ -349,16 +448,16 @@ a.glyphicon-btn {
     .actions-day {
         border-top: 1px solid #CCCCCC;
         .actions-date {
-            margin-top: 15px;
+            margin-top: 40px;
             font-size: 32px;
-            color: #777777;
+            color: #a3a3a3;
         }
     }
 }
 
 .action {
     line-height: 1em;
-    margin: 15px 0;
+    margin: 40px 0 15px 0;
 
     .dotIcon {
         width: 12px;
@@ -415,6 +514,38 @@ a.glyphicon-btn {
         margin: 8px 15%;
         width: 70%;
         z-index: 0;
+        .cut {
+            width: 8px;
+            height: 16px;
+            border-left-width: 2px;
+            border-right-width: 2px;
+            border-left-style: solid;
+            border-right-style: solid;
+            background-color: #eeeeee;
+            position: absolute;
+            top: -7px;
+            left: 75%;
+        }
+        &.status-1 .cut {
+            border-left-color: $color-primary;
+            border-right-color: $color-primary;
+        }
+        &.status-2 .cut {
+            border-left-color: $color-danger;
+            border-right-color: $color-danger;
+        }
+        &.status-3 .cut {
+            border-left-color: $color-warning;
+            border-right-color: $color-warning;
+        }
+        &.status-4 .cut {
+            border-left-color: $color-success;
+            border-right-color: $color-success;
+        }
+        &.status-5 .cut {
+            border-left-color: #000;
+            border-right-color: #000;
+        }
     }
 
     .time, .icons, .name {
@@ -426,7 +557,7 @@ a.glyphicon-btn {
         left: 50%;
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
-        margin-top: -12px;
+        margin-top: -40px;
         font-size: 32px;
         width: 42px;
     }
@@ -455,6 +586,8 @@ a.glyphicon-btn {
     font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
     font-size: 36px;
     line-height: 24px;
+    letter-spacing: 2px;
+    padding-left: 7px;
 }
 // flight (map-icon-airport)
 .map-icon-type-1:before {
@@ -496,6 +629,8 @@ a.glyphicon-btn {
     font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
     font-size: 36px;
     line-height: 24px;
+    letter-spacing: 2px;
+    padding-left: 7px;
 }
 // hotel (lodging)
 .map-icon-type-10:before {
@@ -554,6 +689,8 @@ a.glyphicon-btn {
 // Bank (map-icon-finance)
 .map-icon-type-30:before {
     content: "\e80b";
+    position:relative;
+    left: 2px;
 }
 // ATM (map-icon-atm)
 .map-icon-type-31:before {
@@ -633,6 +770,7 @@ i.arrow {
 .map-icon-btn {
     padding: 0;
     text-align: center;
+    margin-bottom: 0;
 
     .map-icon-button {
         margin: 10px 3px;

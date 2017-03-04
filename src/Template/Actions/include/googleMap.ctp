@@ -18,7 +18,7 @@ if ($action->end_name) {
 <?php
 
 // set pills colors
-$statusColor = '#999999'; // undefined (gray)
+$statusColor = '#337ab7'; // primary by default
 switch ($action->status) {
     case 1:
         $statusColor = '#337ab7';
@@ -217,29 +217,35 @@ switch ($action->status) {
         }
 
         // -------------------------------------------------
-        // Put the markers when start input is changed
+        // Update map when START input is changed
         // -------------------------------------------------
 
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBoxStart.addListener('places_changed', function () {
 
+            markersStart = [];
             actionType = updateTypeId();
             var places = searchBoxStart.getPlaces();
             if (places.length == 0) {
                 return;
             }
 
-            // Clear out loaded markers
-            if(markerIcon) {
+            // clear out old icons
+            if (markerIcon && LatLngStart) {
+                console.log("clean start icon");
                 markerIcon.setMap(null);
+            }
+            // Clear out the old line
+            if (actionPath && LatLngStart && LatLngEnd) {
+                console.log("clean start line");
                 actionPath.setMap(null);
             }
 
 
             // Clear out the old markers.
+            /*
             markersStart.forEach(function (marker) {
-
                 marker.setMap(null);
                 // clear out old lines
                 if (actionPath.setMap) {
@@ -250,7 +256,9 @@ switch ($action->status) {
                     markerIcon.setMap(null);
                 }
             });
-            markersStart = [];
+            */
+
+
 
             // For each place, get the icon, name and location.
             var boundsStart = new google.maps.LatLngBounds();
@@ -282,7 +290,7 @@ switch ($action->status) {
                     boundsStart.extend(place.geometry.location);
                 }
 
-                // draw the line between start and end
+                // if there is an end point, draw the line between start and end
                 if (LatLngEnd) {
                     actionPath = new google.maps.Polyline({
                         path: [LatLngStart, LatLngEnd],
@@ -326,25 +334,32 @@ switch ($action->status) {
                     var bounds = new google.maps.LatLngBounds();
                     bounds.extend(LatLngStart);
                     bounds.extend(LatLngEnd);
+
+                    // if there is an END, actionCenter is the middle of LatLngStart and LatLngEnd
                     var actionCenter = bounds.getCenter();
 
-                    markerIcon = new Marker({
-                        map: map,
-                        position: actionCenter,
-                        icon: {
-                            path: SQUARE_ROUNDED,
-                            fillColor: '<?=$statusColor?>',
-                            fillOpacity: 1,
-                            strokeColor: '',
-                            strokeWeight: 0,
-                            scale: 0.68, //pixels
-                            anchor: new google.maps.Point(0, 12)
-                        },
-                        map_icon_label: '<span class="map-icon map-icon-type-' + actionType + '"></span>'
-                    });
-
                     actionPath.setMap(map);
+
+                } else {
+                    // Otherwise (only START), actionCenter is the LatLngStart
+                    var actionCenter = LatLngStart;
                 }
+
+                // ICON start
+                markerIcon = new Marker({
+                    map: map,
+                    position: actionCenter,
+                    icon: {
+                        path: SQUARE_ROUNDED,
+                        fillColor: '<?=$statusColor?>',
+                        fillOpacity: 1,
+                        strokeColor: '',
+                        strokeWeight: 0,
+                        scale: 0.68, //pixels
+                        anchor: new google.maps.Point(0, 12)
+                    },
+                    map_icon_label: '<span class="map-icon map-icon-type-' + actionType + '"></span>'
+                });
 
             });
 
@@ -355,9 +370,14 @@ switch ($action->status) {
             if (LatLngEnd) {
                 boundsStart.extend(LatLngEnd);
             }
+
             map.fitBounds(boundsStart);
 
         });
+
+        // -------------------------------------------------
+        // Update map when END input is changed
+        // -------------------------------------------------
 
         // UPDATE MARKERS when SEARCH BOX END is modified
         searchBoxEnd.addListener('places_changed', function () {
@@ -371,13 +391,20 @@ switch ($action->status) {
                 return;
             }
 
-            // Clear out loaded markers
-            if(markerIcon) {
+
+            // clear out old icons
+            if (markerIcon) {
+                console.log("clean end icon");
                 markerIcon.setMap(null);
+            }
+            // Clear out the old line
+            if (actionPath && LatLngStart && LatLngEnd) {
+                console.log("clean end line");
                 actionPath.setMap(null);
             }
 
             // Clear out the old markers.
+            /*
             markersEnd.forEach(function (marker) {
                 console.log("Clear the markerEnd....");
                 marker.setMap(null);
@@ -393,6 +420,7 @@ switch ($action->status) {
                     markerIcon.setMap(null);
                 }
             });
+            */
 
             markersEnd = [];
 
@@ -440,16 +468,6 @@ switch ($action->status) {
                         offset: '0%'
                     }, {
                         icon: {
-                            path: google.maps.SymbolPath.CIRCLE,
-                            fillOpacity: 1,
-                            fillColor: '<?=$statusColor?>',
-                            strokeColor: '<?=$statusColor?>',
-                            strokeWeight: 1,
-                            scale: 2 //pixels
-                        },
-                        offset: '50%'
-                    }, {
-                        icon: {
                             path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
                             fillOpacity: 1,
                             fillColor: '<?=$statusColor?>',
@@ -486,7 +504,10 @@ switch ($action->status) {
                     map_icon_label: '<span class="map-icon map-icon-type-' + actionType + '"></span>'
                 });
 
-                actionPath.setMap(map);
+                if (LatLngStart && LatLngEnd) {
+                    actionPath.setMap(map);
+                }
+
             });
 
             $('#end-name').val(places[0].name);
@@ -502,6 +523,7 @@ switch ($action->status) {
         });
 
     }
+
     google.maps.event.addDomListener(window, 'load', initAutocomplete);
 
     // for category 2, hide the Google arrival point

@@ -1,72 +1,80 @@
 <div class="row">
-    <div class="col-md-4">
-        <div class="box clearfix">
-            <div class="box-header color-lightgrey">
-                <h2 class="modal-title">Share</h2>
-                <p class="help-block">Other participants that share this action with me</p>
-            </div>
-            <div class="row row-no-padding">
-                <div class="col-md-12">
-                    <div class="checkbox avatar-list" id="participants">
-                        <?php
+    <?php if (count($trip->users) >= 2) :?>
+        <div class="col-md-4">
+            <div class="box clearfix">
+                <div class="box-header color-lightgrey">
+                    <h2 class="modal-title">Share</h2>
+                    <p class="help-block">Other participants that share this action with me</p>
+                </div>
+                <div class="row row-no-padding">
+                    <div class="col-md-12">
+                        <div class="checkbox avatar-list" id="participants">
+                            <?php
 
-                        if(!$edit):
-                            foreach($trip->users as $user) {
+                            if(!$edit):
+                                foreach($trip->users as $user) {
 
-                                if ($user->id == $userSession['id']) {
-                                    echo ("<label class='col-md-12 hidden checkbox-inside'>");
-                                } else {
-                                    echo ("<label class='col-md-12 checkbox-inside'>");
-                                }
-                                echo ("<div class='avatar label-right clearfix'>");
-                                echo ("     <input type='checkbox' ng-checked='true' data-id='".$user->id."'>");
-                                echo ("    <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img'/>");
-                                echo ("    <div class='avatar-name'>".$user->first_name." ".$user->last_name."</div>");
-                                echo ("</div>");
-                                echo ("</label>");
-                            };
-                        endif;
-
-                        if($edit):
-                            foreach ($action->trip->users as $tripUser):
-                                $participatingId = false;
-                                if ($tripUser->id == $userSession['id']) {
-                                    echo ("<label class='col-md-12 hidden checkbox-inside'>");
-                                } else {
-                                    echo ("<label class='col-md-12 checkbox-inside'>");
-                                }
-                                foreach ($action->users as $user):
-                                    if ($user['id'] == $tripUser['id']) {
-                                        $participatingId = $user->_joinData->id;
+                                    if ($user->id == $userSession['id']) {
+                                        echo ("<label class='col-md-12 hidden checkbox-inside'>");
+                                    } else {
+                                        echo ("<label class='col-md-12 checkbox-inside'>");
                                     }
+                                    echo ("<div class='avatar label-right clearfix'>");
+                                    echo ("     <input type='checkbox' ng-checked='true' data-id='".$user->id."'>");
+                                    echo ("    <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img'/>");
+                                    echo ("    <div class='avatar-name'>".$user->first_name." ".$user->last_name."</div>");
+                                    echo ("</div>");
+                                    echo ("</label>");
+                                };
+                            endif;
+
+                            if($edit):
+                                foreach ($action->trip->users as $tripUser):
+                                    $participatingId = false;
+                                    if ($tripUser->id == $userSession['id']) {
+                                        echo ("<label class='col-md-12 hidden checkbox-inside'>");
+                                    } else {
+                                        echo ("<label class='col-md-12 checkbox-inside'>");
+                                    }
+                                    foreach ($action->users as $user):
+                                        if ($user['id'] == $tripUser['id']) {
+                                            $participatingId = $user->_joinData->id;
+                                        }
+                                    endforeach;
+
+                                    echo ("<div class='avatar label-right clearfix'>");
+                                    if ($participatingId) {
+                                        echo ("<input type='checkbox' class='isParticipating' ng-checked='".$participatingId."' value='".$tripUser->id."' data-participant='".$participatingId."' ng-model='users[".$tripUser->id."]'>");
+                                    } else {
+                                        echo ("<input type='checkbox' value='".$tripUser->id."' ng-model='users[".$tripUser->id."]'>");
+                                    }
+                                    echo ("    <img src='".$tripUser->photo_dir."/".$tripUser->photo."' class='avatar-img'/>");
+                                    echo ("    <div class='avatar-name'>".$tripUser->first_name." ".$tripUser->last_name."</div>");
+                                    echo ("</div>");
+
+
+        //                            echo ($tripUser->first_name);
+                                    echo ("</label>");
                                 endforeach;
-
-                                echo ("<div class='avatar label-right clearfix'>");
-                                if ($participatingId) {
-                                    echo ("<input type='checkbox' class='isParticipating' ng-checked='".$participatingId."' value='".$tripUser->id."' data-participant='".$participatingId."' ng-model='users[".$tripUser->id."]'>");
-                                } else {
-                                    echo ("<input type='checkbox' value='".$tripUser->id."' ng-model='users[".$tripUser->id."]'>");
-                                }
-                                echo ("    <img src='".$tripUser->photo_dir."/".$tripUser->photo."' class='avatar-img'/>");
-                                echo ("    <div class='avatar-name'>".$tripUser->first_name." ".$tripUser->last_name."</div>");
-                                echo ("</div>");
-
-
-    //                            echo ($tripUser->first_name);
-                                echo ("</label>");
-                            endforeach;
-                        endif;
-                        ?>
+                            endif;
+                            ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="box-footer text-right">
-                <button class="btn btn-default" id="selectAllUsers" ng-click="selectAllUsers()">Select all</button>
-                <button class="btn btn-default" id="selectOnlyMe" ng-click="selectOnlyMe()">Only me</button>
+                <div class="box-footer text-right">
+                    <button class="btn btn-default" id="selectAllUsers" ng-click="selectAllUsers()">Select all</button>
+                    <button class="btn btn-default" id="selectOnlyMe" ng-click="selectOnlyMe()">Only me</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-8">
+    <?php endif ?>
+    <?php
+        if (count($trip->users) >= 2) {
+            echo ("<div class='col-md-8'>");
+        } else {
+            echo ("<div class='col-md-12'>");
+        }
+    ?>
         <div class="box">
             <div class="box-header color-lightgrey clearfix">
                 <h2 class="modal-title pull-left">Expenses</h2>

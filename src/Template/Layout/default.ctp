@@ -41,26 +41,23 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-
-                    <a class="navbar-brand">
-                        <!-- TODO: Make a logo and add the logo image below
-                        <img alt="Brand" src="...">
-                        -->
-                        <span class="glyphicon glyphicon-globe"></span>
-                    </a>
-                    <div class="navigation navbar-brand">
-                        <?= $this->Html->getCrumbs(' > '); ?>
-                        <?php if(!$userSession): ?>
-                            <?= $this->Html->link(__('ShareMyTrip'), ['controller' => '/']) ?>
-                        <?php endif; ?>
-                    </div>
+                    <!-- TODO: Make a logo and add the logo image below -->
+                    <!-- <a class="navbar-brand"><img alt="Share my trip" src="webroot/img/briefcase.png" height="20" width="20"></a> -->
+                    <div class="navigation navbar-brand">Share my trip</div>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <?php if($userSession): ?>
                         <span class="hidden" id="userId" data-id="<?= $userSession['id'] ?>"></span>
-                        <ul class="nav navbar-nav navbar-right">
+
+                        <?php if ($this->fetch('navigation')): ?>
+                            <ul class="nav navbar-nav">
+                                <?= $this->fetch('navigation') ?>
+                            </ul>
+                        <?php endif; ?>
+
+                        <ul class="nav navbar-nav navbar-right hidden-xs">
                             <li><?= $this->Html->link($userSession['first_name']." ".$userSession['last_name'], [
                                 'controller' => 'Users',
                                     'action' => 'edit', $userSession['id']
@@ -80,10 +77,18 @@
             </div><!-- /.container-fluid -->
             <?= $this->Flash->render() ?>
         </nav>
-
         <?= $this->fetch('content') ?>
     </div>
-    <div class="navbar navbar-default navbar-fixed-bottom">© <a href="http://wwww.lionelegger.com">lionelegger.com</a></div>
+    <div class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container clearfix">
+            <div class="pull-left">
+                <?= $this->Html->getCrumbs(' > '); ?>
+            </div>
+            <div class="pull-right">
+                © <a href="http://wwww.lionelegger.com">lionelegger.com</a>
+            </div>
+        </div>
+    </div>
 
     <!-- AngularJS -->
     <?= $this->Html->script('angular.min.js') ?>

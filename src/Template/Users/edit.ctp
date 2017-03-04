@@ -1,6 +1,23 @@
-<? $this->Html->addCrumb("Trips", ['controller' => 'Trips', 'action' => 'index']) ?>
-<? $this->Html->addCrumb($user->first_name, ['controller' => 'Users', 'action' => 'edit', $user->id]) ?>
-<? $this->Html->addCrumb('Profile') ?>
+<?php
+$userSession = $this->request->session()->read('Auth.User');
+
+// Breadcrumb
+$this->Html->addCrumb("Trips", ['controller' => 'Trips', 'action' => 'index']);
+$this->Html->addCrumb($user->first_name, ['controller' => 'Users', 'action' => 'edit', $user->id]);
+$this->Html->addCrumb('Profile');
+
+// Navigation
+$this->start('navigation');
+echo $this->element('Layout/navigation', [
+    "active_user" => true,
+    "disabled_map" => true,
+    "disabled_budget" => true,
+    "disabled_plan" => true
+]);
+echo $this->fetch('navigation');
+$this->end();
+
+?>
 
 <div class="container clearfix">
     <div class="row">

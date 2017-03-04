@@ -1,11 +1,12 @@
 @import url(map-icons.css);
+html, body {
+  background-color: #eeeeee; }
+
 body {
-  background-color: #f6f6f6;
   margin: 0;
   font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
   height: 100%;
-  padding-top: 70px;
-  padding-bottom: 50px; }
+  padding-top: 70px; }
 
 .navbar-fixed-bottom {
   background-color: lightgrey;
@@ -23,6 +24,41 @@ body {
       color: black;
       text-decoration: none; }
 
+.header-container {
+  margin-top: -20px;
+  padding: 15px 0 0 0; }
+  .header-container.color-primary {
+    background-color: #337ab7;
+    color: #FFFFFF; }
+    .header-container.color-primary .small,
+    .header-container.color-primary small {
+      color: #77acd9; }
+  .header-container.color-lightgrey {
+    background-color: #d3d3d3;
+    color: #333; }
+    .header-container.color-lightgrey .small,
+    .header-container.color-lightgrey small {
+      color: #77acd9; }
+  @media only screen and (max-width: 768px) {
+    .header-container {
+      text-align: center; }
+      .header-container .text-right {
+        text-align: center !important; } }
+  .header-container .header-title {
+    margin: 0;
+    font-size: 36px;
+    font-weight: bold; }
+    .header-container .header-title ul.list-inline {
+      vertical-align: text-top;
+      display: inline-block;
+      text-align: left;
+      margin-bottom: 0; }
+      .header-container .header-title ul.list-inline > li.avatar.label-bottom .label {
+        color: #FFFFFF;
+        font-size: 12px;
+        font-weight: normal;
+        display: block; }
+
 .cropArea {
   background: #E4E4E4;
   overflow: hidden;
@@ -35,6 +71,33 @@ button.btn-primary a {
 button.btn-primary a:hover {
   color: #FFF;
   text-decoration: none; }
+
+.btn-calltoaction {
+  margin: 5px 0 15px 0;
+  border-radius: 25px;
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(79, 79, 79, 0.65);
+  -moz-box-shadow: 0px 0px 10px 0px rgba(79, 79, 79, 0.65);
+  box-shadow: 0px 0px 10px 0px rgba(79, 79, 79, 0.65);
+  transition: all 0.3s ease;
+  z-index: 99; }
+  .btn-calltoaction:hover .glyphicon {
+    opacity: 1;
+    transition: all 0.3s ease; }
+  .btn-calltoaction .glyphicon {
+    color: #FFFFFF;
+    opacity: 0.5;
+    top: 1px; }
+  .btn-calltoaction .btn-text {
+    border-left: 1px solid rgba(255, 255, 255, 0.25);
+    padding-left: 10px;
+    margin-left: 5px;
+    font-size: 20px;
+    color: #FFFFFF; }
+  .btn-calltoaction.btn-default .glyphicon {
+    color: #333; }
+  .btn-calltoaction.btn-default .btn-text {
+    border-left: 1px solid rgba(145, 145, 145, 0.25);
+    color: #666; }
 
 .row-no-padding > .col-md-12 {
   padding-right: 0;
@@ -70,7 +133,8 @@ button.btn-primary a:hover {
       .box .box-header .h2.box-title a,
       .box .box-header h2.box-title a {
         font-size: 36px;
-        font-weight: bold; }
+        font-weight: bold;
+        transition: all 0.3s ease; }
         .box .box-header .h2.box-title a:hover, .box .box-header .h2.box-title a:visited, .box .box-header .h2.box-title a:active, .box .box-header .h2.box-title a:focus, .box .box-header .h2.box-title a:visited,
         .box .box-header h2.box-title a:hover,
         .box .box-header h2.box-title a:visited,
@@ -236,13 +300,13 @@ a.glyphicon-btn {
 .actions .actions-day {
   border-top: 1px solid #CCCCCC; }
   .actions .actions-day .actions-date {
-    margin-top: 15px;
+    margin-top: 40px;
     font-size: 32px;
-    color: #777777; }
+    color: #a3a3a3; }
 
 .action {
   line-height: 1em;
-  margin: 15px 0; }
+  margin: 40px 0 15px 0; }
   .action .dotIcon {
     width: 12px;
     height: 12px;
@@ -282,6 +346,32 @@ a.glyphicon-btn {
     margin: 8px 15%;
     width: 70%;
     z-index: 0; }
+    .action .line .cut {
+      width: 8px;
+      height: 16px;
+      border-left-width: 2px;
+      border-right-width: 2px;
+      border-left-style: solid;
+      border-right-style: solid;
+      background-color: #eeeeee;
+      position: absolute;
+      top: -7px;
+      left: 75%; }
+    .action .line.status-1 .cut {
+      border-left-color: #337ab7;
+      border-right-color: #337ab7; }
+    .action .line.status-2 .cut {
+      border-left-color: #9b1003;
+      border-right-color: #9b1003; }
+    .action .line.status-3 .cut {
+      border-left-color: #ed984c;
+      border-right-color: #ed984c; }
+    .action .line.status-4 .cut {
+      border-left-color: #2e753f;
+      border-right-color: #2e753f; }
+    .action .line.status-5 .cut {
+      border-left-color: #000;
+      border-right-color: #000; }
   .action .time, .action .icons, .action .name {
     line-height: 15px;
     position: relative; }
@@ -290,7 +380,7 @@ a.glyphicon-btn {
     left: 50%;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
-    margin-top: -12px;
+    margin-top: -40px;
     font-size: 32px;
     width: 42px; }
   .action .start, .action .end {
@@ -308,7 +398,9 @@ a.glyphicon-btn {
   font-weight: bold;
   font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
   font-size: 36px;
-  line-height: 24px; }
+  line-height: 24px;
+  letter-spacing: 2px;
+  padding-left: 7px; }
 
 .map-icon-type-1:before {
   content: "\e802"; }
@@ -340,7 +432,9 @@ a.glyphicon-btn {
   font-weight: bold;
   font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
   font-size: 36px;
-  line-height: 24px; }
+  line-height: 24px;
+  letter-spacing: 2px;
+  padding-left: 7px; }
 
 .map-icon-type-10:before {
   content: "\e85a"; }
@@ -386,7 +480,9 @@ a.glyphicon-btn {
   line-height: 24px; }
 
 .map-icon-type-30:before {
-  content: "\e80b"; }
+  content: "\e80b";
+  position: relative;
+  left: 2px; }
 
 .map-icon-type-31:before {
   content: "\e808"; }
@@ -442,7 +538,8 @@ i.arrow {
 
 .map-icon-btn {
   padding: 0;
-  text-align: center; }
+  text-align: center;
+  margin-bottom: 0; }
   .map-icon-btn .map-icon-button {
     margin: 10px 3px;
     float: left;

@@ -1,16 +1,38 @@
 <!-- TODO: MAP should only show the actions in which the logged user is participating -->
-<? $this->Html->addCrumb('Trips', ['controller' => 'Trips', 'action' => 'index']) ?>
-<? $this->Html->addCrumb($trip->name, ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?>
-<? $this->Html->addCrumb('Map') ?>
 
+<?php
+
+// Breadcrumb
+$this->Html->addCrumb('Trips', ['controller' => 'Trips', 'action' => 'index']);
+$this->Html->addCrumb($trip->name, ['controller' => 'actions', 'action' => 'plan', $trip->id]);
+$this->Html->addCrumb('Map');
+
+// Navigation
+$this->start('navigation');
+echo $this->element('Layout/navigation', [
+    "trip_id" => $trip->id,
+    "active_map" => true
+]);
+echo $this->fetch('navigation');
+$this->end();
+
+include_once ('include/header.ctp');
+
+?>
+
+
+
+<!--
 <div class="container clearfix">
     <nav class="tripNav pull-right">
-        <button class="btn btn-default" role="button"><?= $this->Html->link(__('Plan'), ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?></button>
+        <button class="btn btn-default" role="button"><?/*= $this->Html->link(__('Plan'), ['controller' => 'actions', 'action' => 'plan', $trip->id]) */?></button>
         <button class="btn btn-primary" role="button">Map</button>
-        <button class="btn btn-default" role="button"><?= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) ?></button>
+        <button class="btn btn-default" role="button"><?/*= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) */?></button>
     </nav>
-<!--    <h1>--><?//= $trip->name ?><!--</h1>-->
 </div>
+-->
+<!--<h1 class="text-center">--><?//= $trip->name ?><!--</h1>-->
+<?//= $this->Html->link('<span class="glyphicon glyphicon-plus"></span><span class="btn-text"><strong>'.__('Add Action').'</strong></span>', ['controller' => 'Actions', 'action' => 'add', $trip->id], ['class' => 'btn btn-danger btn-lg btn-calltoaction fixed-bottom', 'escape' => false]); ?>
 
 
 <style>

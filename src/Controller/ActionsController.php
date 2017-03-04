@@ -135,7 +135,7 @@ class ActionsController extends AppController
 
             $actionToSave = $this->Actions->patchEntity($actionToSave, $this->request->data);
 
-            if ($result = $this->Actions->save($actionToSave)) {
+            if ($this->Actions->save($actionToSave)) {
 
                 $this->Flash->success(__('The action has been updated'));
 

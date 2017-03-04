@@ -17,10 +17,8 @@
                         <?php
                         $status = '';
                         foreach ($allCategories as $category):
-                            if ($edit) {
-                                if ($action->type->category_id == $category->id) {$status = ' active';}
-                            }
-                            echo ("<label class='btn btn-default ".$status."' ng-click='category=".$category->id."'>");
+                            if ($initCat == $category->id) {$status = ' active';}
+                            echo ("<label class='btn btn-default".$status."' ng-click='category=".$category->id."'>");
                             echo (  "<input type='radio' name='categories' autocomplete='off' ".$status.">".$category->name);
                             echo ("</label>");
                             $status = '';

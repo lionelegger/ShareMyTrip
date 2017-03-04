@@ -1,11 +1,36 @@
 <? $this->Html->addCrumb('Trips'); ?>
+
+<?php // Navigation
+$this->start('navigation');
+echo $this->element('Layout/navigation', [
+    "active_trips" => true,
+    "disabled_plan" => true,
+    "disabled_map" => true,
+    "disabled_budget" => true
+]);
+echo $this->fetch('navigation');
+$this->end();
+?>
+
+<div class="header-container color-lightgrey">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1 class="header-title">My trips</small></h1>
+            </div>
+            <div class="col-sm-4 text-right">
+                <button type="button" class="btn btn-primary btn-lg btn-calltoaction" data-toggle="modal" ng-click="editTrip(0)" data-target="#tripEdit">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="btn-text"><strong>NEW trip</strong></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
 <div ng-controller="TripsCtrl" class="container clearfix">
 
-    <h1>My trips
-        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" ng-click="editTrip(0)" data-target="#tripEdit">
-            <span class="glyphicon glyphicon-plus"></span> Add a trip
-        </button>
-    </h1>
+
 
     <?php
         if(iterator_count($trips)==0) {

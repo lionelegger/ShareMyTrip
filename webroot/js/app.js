@@ -56,7 +56,11 @@ function initialize() {
     });
 
     $('#datepickerStart').datetimepicker({
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        widgetPositioning: {
+            horizontal: 'left',
+            vertical: 'bottom'
+        }
     });
     $('#timepickerStart').datetimepicker({
         format: 'HH:mm'
@@ -73,6 +77,22 @@ function initialize() {
     });
     $("#datepickerEnd").on("dp.change", function (e) {
         $('#datepickerStart').data("DateTimePicker").maxDate(e.date);
+    });
+
+    // Payment date
+    $(function () {
+        $('#datePayment').datetimepicker({
+            format: 'YYYY-MM-DD',
+            widgetPositioning: {
+                horizontal: 'left',
+                vertical: 'bottom'
+            }
+        });
+    });
+    // bad trick to update the picker format when we edit a payment
+    $('#payment').on('shown.bs.modal', function () {
+        $("#datePayment").data("DateTimePicker").show();
+        $("#datePayment").data("DateTimePicker").hide();
     });
 
 }

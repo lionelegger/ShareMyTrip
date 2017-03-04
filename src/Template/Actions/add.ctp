@@ -1,7 +1,19 @@
+<?php
+$this->Html->addCrumb('Trips', ['controller' => 'Trips', 'action' => 'index']);
+$this->Html->addCrumb($trip->name, ['controller' => 'actions', 'action' => 'plan', $trip->id]);
+$this->Html->addCrumb('Add');
 
-<? $this->Html->addCrumb('Trips', ['controller' => 'Trips', 'action' => 'index']) ?>
-<? $this->Html->addCrumb($trip->name, ['controller' => 'actions', 'action' => 'plan', $trip->id]) ?>
-<? $this->Html->addCrumb('Add') ?>
+// Navigation
+$this->start('navigation');
+echo $this->element('Layout/navigation', [
+"trip_id" => $trip->id,
+"active_plan" => true
+]);
+echo $this->fetch('navigation');
+$this->end();
+include_once ('include/header.ctp');
+?>
+<p>&nbsp;</p>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBsahp0E7FSU4WE0dY73LyvTyY6-CWxgI&libraries=places"></script>
 <?= $this->Html->script('map-icons.js') ?>
@@ -18,6 +30,8 @@
         </div>
     </div>
 </div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 

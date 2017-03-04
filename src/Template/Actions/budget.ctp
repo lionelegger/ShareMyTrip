@@ -2,29 +2,30 @@
 <? $this->Html->addCrumb($actions->first()->trip->name, ['controller' => 'actions', 'action' => 'plan', $actions->first()->trip->id]) ?>
 <? $this->Html->addCrumb('Budget') ?>
 
+<?php // Navigation
+$this->start('navigation');
+echo $this->element('Layout/navigation', [
+    "trip_id" => $actions->first()->trip->id,
+    "active_budget" => true
+]);
+echo $this->fetch('navigation');
+$this->end();
 
-<?php $userSession = $this->request->session()->read('Auth.User') ?>
-<div class="container clearfix">
-    <nav class="tripNav pull-right">
-        <button class="btn btn-default" role="button"><?= $this->Html->link(__('Plan'), ['controller' => 'actions', 'action' => 'plan', $actions->first()->trip->id]) ?></button>
-        <button class="btn btn-default" role="button"><?= $this->Html->link(__('Map'), ['controller' => 'actions', 'action' => 'map', $actions->first()->trip->id]) ?></button>
-        <button class="btn btn-primary" role="button">Budget</button>
-    </nav>
-    <h1><?= $actions->first()->trip->name ?> Budget</h1>
-</div>
-<?php $total = [];
+
+include_once ('include/header.ctp');
+
+$total = [];
 $globalPaid = 0;
 $globalBalance = 0;
 $lastDate = '';
-?>
-<?php
-    $totalUsers = count($tripUsers);
-    foreach ($tripUsers as $user):
-        $totalPaid[$user->id] = 0;
-        $totalBalance[$user->id] = 0;
-    endforeach;
-?>
-<?php if (!empty($actions)) {
+
+$totalUsers = count($tripUsers);
+foreach ($tripUsers as $user):
+    $totalPaid[$user->id] = 0;
+    $totalBalance[$user->id] = 0;
+endforeach;
+
+if (!empty($actions)) {
 
     echo "<table class='table table-hover table-striped responsive-table table-budget'>";
     echo "<thead>";
@@ -69,6 +70,7 @@ $lastDate = '';
         if ($start_date != $lastDate || $start_date == '') {
             echo "    <tr class='date-separation'><td class='no-padding-sm date' colspan='".($totalUsers + 2)."'>".$start_date."</td></tr>";
         }
+
         echo "    <tr>";
         echo "        <td class='no-padding-sm'>";
         echo "        <div class='action short'>";
@@ -78,7 +80,11 @@ $lastDate = '';
         echo "            </div>";
         echo "            <div class='icons clearfix'>";
         echo "                <div class='start'><span class='dotIcon status-" . $action->status . "'></span></div>";
-        echo "                <div class='line status-" . $action->status . "'></div>";
+        echo "                <div class='line status-" . $action->status . "'>";
+        if ($start_date != $end_date) {
+            echo "                <div class='cut'></div>";
+        }
+        echo "                </div>";
         echo "                  <a href='actions/edit/" . $action->id . "'>";
         echo "                      <span class='map-icon map-icon-type-" . $action->type_id . " map-icon-status status-" . $action->status . "'></span>";
         echo "                  </a>";
@@ -87,8 +93,8 @@ $lastDate = '';
         echo "            <div class='name clearfix'>";
         echo "                <div class='start'>" . $action->start_name . "</div>";
         echo "                <div class='end'>" . $action->end_name . "</div>";
+        echo '                <h4 class="text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</h4>';
         echo "            </div>";
-//        echo '            <h4 class="text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</h4>';
         echo "        </div>";
         echo "        </td>";
 
