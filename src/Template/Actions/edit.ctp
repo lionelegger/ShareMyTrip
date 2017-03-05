@@ -13,6 +13,7 @@ echo $this->element('Layout/navigation', [
 echo $this->fetch('navigation');
 $this->end();
 
+$edit=true;
 include_once ('include/header.ctp');
 
 ?>
@@ -23,7 +24,6 @@ include_once ('include/header.ctp');
 
 <div ng-init="tripId=<?=$action->trip_id ?>;actionId=<?=$action->id?>;actionListPayments(<?=$action->id?>)" ng-controller="ActionCtrl">
 
-    <?php $edit=true;?>
     <?php include_once("include/form.ctp"); ?>
 
     <div class="container clearfix">

@@ -21,9 +21,12 @@
                     ?>
                 </h1>
             </div>
+            <!--  Hide the Add action button when "add/edit action" page -->
+            <?php if (!isset($edit)): ?>
             <div class="col-sm-4 text-right">
                 <?= $this->Html->link('<span class="glyphicon glyphicon-plus"></span><span class="btn-text"><strong>'.__('Add Action').'</strong></span>', ['controller' => 'Actions', 'action' => 'add', $trip->id], ['class' => 'btn btn-default btn-lg btn-calltoaction', 'escape' => false]); ?>
             </div>
+            <?php endif ?>
         </div>
     </div>
 </div>

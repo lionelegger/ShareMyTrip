@@ -11,6 +11,8 @@ echo $this->element('Layout/navigation', [
 ]);
 echo $this->fetch('navigation');
 $this->end();
+
+$edit=false;
 include_once ('include/header.ctp');
 ?>
 <p>&nbsp;</p>
@@ -19,7 +21,6 @@ include_once ('include/header.ctp');
 <?= $this->Html->script('map-icons.js') ?>
 
 <div ng-init="tripId=<?=$trip->id ?>;" ng-controller="ActionCtrl">
-    <?php $edit=false;?>
     <?php include_once("include/form.ctp"); ?>
     <div class="container clearfix">
         <div class="row">

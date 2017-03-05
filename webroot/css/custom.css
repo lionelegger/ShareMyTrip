@@ -98,6 +98,11 @@ button.btn-primary a:hover {
   .btn-calltoaction.btn-default .btn-text {
     border-left: 1px solid rgba(145, 145, 145, 0.25);
     color: #666; }
+  @media only screen and (max-width: 768px) {
+    .btn-calltoaction {
+      position: fixed;
+      bottom: 30px;
+      right: 20px; } }
 
 .row-no-padding > .col-md-12 {
   padding-right: 0;
@@ -776,8 +781,7 @@ div.tipPayment {
   position: relative; }
   @media only screen and (max-width: 768px) {
     #pac-input-end {
-      position: absolute;
-      bottom: 10px; } }
+      margin-top: 50px !important; } }
 
 #pac-input:focus {
   border-color: #337ab7; }

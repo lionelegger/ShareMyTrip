@@ -150,11 +150,11 @@ button.btn-primary a:hover {
         }
     }
 
-    //@media only screen and (max-width: 768px) {
-    //    position: fixed;
-    //    bottom: 30px;
-    //    right: 20px;
-    //}
+    @media only screen and (max-width: 768px) {
+        position: fixed;
+        bottom: 30px;
+        right: 20px;
+    }
 
 }
 
@@ -1062,6 +1062,7 @@ div.tipPayment {
     text-overflow: ellipsis;
     width: 300px;
     position: relative;
+
 }
 
 #pac-input-end {
@@ -1074,8 +1075,7 @@ div.tipPayment {
     width: 300px;
     position: relative;
     @media only screen and (max-width: 768px) {
-        position: absolute;
-        bottom: 10px;
+        margin-top: 50px !important;
     }
 }
 
