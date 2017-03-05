@@ -14,7 +14,7 @@ echo ("</li>");
 // MENU PLAN
 if (isset($active_plan)) {
     echo ("<li class='active'>");
-    echo ("<a href='javascript:void(0)'><span class='glyphicon glyphicon-calendar'></span> Plan</a>");
+    echo $this->Html->link('<span class="glyphicon glyphicon-calendar"></span> Plan', ['controller' => 'Actions', 'action' => 'plan', $trip_id], ['escape' => false]);
 } elseif (isset($disabled_plan)) {
     echo ("<li class='disabled'>");
     echo ("<a href='javascript:void(0)'><span class='glyphicon glyphicon-calendar'></span> Plan</a>");

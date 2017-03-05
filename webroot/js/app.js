@@ -1,43 +1,6 @@
-as = angular.module('myApp', ['ngRoute', 'ngImgCrop']);
-as.config(function($routeProvider) {
-    $routeProvider
-        .when('/trips', {templateUrl: 'partials/trips.html', controller: 'TripsCtrl'})
-        .when('/trips/:id', {templateUrl: 'partials/trip.html', controller: 'TripCtrl'})
-        .when('/trips/:id/action', {templateUrl: 'partials/action.html', controller: 'ActionCtrl'})
-        .when('/trips/:id/action/:up', {templateUrl: 'partials/action.html', controller: 'ActionCtrl'})
-        .when('/plan', {templateUrl: 'partials/plan.html', controller: 'PlanCtrl'})
-        .when('/map', {templateUrl: 'partials/map.html', controller: 'MapCtrl as vm'})
-        .when('/cost', {templateUrl: 'partials/cost.html'})
-        .when('/me', {templateUrl: 'partials/me.html'})
-        .otherwise({redirectTo: '/home'});
-});
-
-
 function initialize() {
     // console.log ("inside initialize");
     'use strict';
-
-    /*
-    function updateStatus() {
-        // Update the status of the action: 0=not defined / 1=price not defined / 2 = nothing paid / 3 = partially paid / 4 = All paid / 5 = overpaid
-        alert("Update status!");
-        $scope.action.status = 0; // initialize status to 0 (grey)
-        console.log ("TOTAL = " + $scope.action.payments.totalAll);
-        console.log ("PRICE = " + $scope.action.price);
-        if($scope.action.payments.totalAll === 0) {
-            $scope.action.status = 2; // Nothing paid (danger)
-        } else if ($scope.action.payments.totalAll == $scope.action.price) {
-            $scope.action.status = 4; // All paid (success)
-        } else if ($scope.action.payments.totalAll > $scope.action.price) {
-            $scope.action.status = 5; // Overpaid (black)
-        } else {
-            $scope.action.status = 3; // Partially paid (warning)
-        }
-        if ($scope.action.price === null) {
-            $scope.action.status = 1; // Price not defined (primary)
-        }
-    }
-    */
 
     // buttons action-id in actions form
     $(".map-icon.map-icon-status").click(function() {
@@ -56,11 +19,7 @@ function initialize() {
     });
 
     $('#datepickerStart').datetimepicker({
-        format: 'YYYY-MM-DD',
-        widgetPositioning: {
-            horizontal: 'left',
-            vertical: 'bottom'
-        }
+        format: 'YYYY-MM-DD'
     });
     $('#timepickerStart').datetimepicker({
         format: 'HH:mm'
@@ -72,7 +31,7 @@ function initialize() {
     $('#timepickerEnd').datetimepicker({
         format: 'HH:mm'
     });
-    $("#datetimepickerStart").on("dp.change", function (e) {
+    $("#datepickerStart").on("dp.change", function (e) {
         $('#datepickerEnd').data("DateTimePicker").minDate(e.date);
     });
     $("#datepickerEnd").on("dp.change", function (e) {

@@ -490,15 +490,17 @@ a.glyphicon-btn {
     }
     .start {
         float: left;
+        padding: 0 5px;
     }
     .end {
         float: right;
+        padding: 0 5px;
     }
 
     .time {
         color: gray;
         font-size: smaller;
-        min-height: 15px;
+        height: 20px;
     }
     .icon {
 
@@ -515,7 +517,6 @@ a.glyphicon-btn {
         width: 70%;
         z-index: 0;
         .cut {
-            width: 8px;
             height: 16px;
             border-left-width: 2px;
             border-right-width: 2px;
@@ -524,25 +525,32 @@ a.glyphicon-btn {
             background-color: #eeeeee;
             position: absolute;
             top: -7px;
-            left: 75%;
+            left: 70%;
+            text-align: center;
+            padding: 0 3px;
         }
         &.status-1 .cut {
+            color: $color-primary;
             border-left-color: $color-primary;
             border-right-color: $color-primary;
         }
         &.status-2 .cut {
+            color: $color-danger;
             border-left-color: $color-danger;
             border-right-color: $color-danger;
         }
         &.status-3 .cut {
+            color: $color-warning;
             border-left-color: $color-warning;
             border-right-color: $color-warning;
         }
         &.status-4 .cut {
+            color: $color-success;
             border-left-color: $color-success;
             border-right-color: $color-success;
         }
         &.status-5 .cut {
+            color: #000;
             border-left-color: #000;
             border-right-color: #000;
         }
@@ -557,7 +565,7 @@ a.glyphicon-btn {
         left: 50%;
         -webkit-transform: translateX(-50%);
         transform: translateX(-50%);
-        margin-top: -40px;
+        margin-top: -42px;
         font-size: 32px;
         width: 42px;
     }
@@ -566,7 +574,30 @@ a.glyphicon-btn {
         text-align: center;
         width: 30%;
         font-size: 15px;
+        margin-bottom: 5px;
     }
+    &.start-end {
+        .start, .end {
+            width: 100%;
+        }
+        .time .start {
+            margin-left: -42px;
+            margin-top: -9px
+        }
+        .name .start {
+            margin-top: -52px;
+            width: 50%;
+            text-align: left;
+            margin-left: 50%;
+            padding-left: 28px;
+        }
+
+    }
+    .action-name {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
 }
 
 // Budget page
@@ -579,7 +610,7 @@ a.glyphicon-btn {
 
 /* ICON TYPES */
 // Unknown
-.map-icon-type-0:before {
+.map-icon-type-99:before {
     content: "?";
     padding: 0 6px;
     font-weight: bold;
@@ -587,7 +618,7 @@ a.glyphicon-btn {
     font-size: 36px;
     line-height: 24px;
     letter-spacing: 2px;
-    padding-left: 7px;
+    padding-left: 9px;
 }
 // flight (map-icon-airport)
 .map-icon-type-1:before {
@@ -898,6 +929,9 @@ div.tipPayment {
         font-size: larger;
         padding: 2px;
     }
+    tr.sum {
+        border-top: 3px solid $color-grey;
+    }
 }
 
 // Responsive tables (<767px)
@@ -939,14 +973,13 @@ div.tipPayment {
 
     .responsive-table td {
         position: relative;
-        padding-left: 35% !important;
+        padding-left: 50% !important;
         &.no-padding-sm {
             padding-left: 6px !important;
             text-align: center;
             &.date {
                 font-size: 20px;
             }
-
         }
         white-space: normal;
         text-align: left;
@@ -958,9 +991,9 @@ div.tipPayment {
     .responsive-table td:before {
         position: absolute;
         top: 6px;
-        left: 6px;
-        width: 30%;
-        padding-right: 10px;
+        left: 0px;
+        width: 50%;
+        padding-right: 15px;
         overflow: hidden;
         text-align: right;
         font-weight: bold;
@@ -981,6 +1014,11 @@ div.tipPayment {
     .responsive-table > tfoot > tr > th,
     .responsive-table > tfoot > tr > td {
         padding: 6px;
+        //display: table;
+        &:before {
+            display: table-cell;
+            vertical-align: middle;
+        }
     }
 
 }

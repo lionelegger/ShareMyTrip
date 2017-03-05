@@ -1,13 +1,13 @@
 <div id="payments">
-    <button type="button" class="btn btn-default btn-sm pull-right" data-toggle="modal" data-target="#payment">
+    <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
         Register payment
     </button>
     <h3>Payments</h3>
     <div class="payment-list">
         <ul class="refine">
             <li ng-repeat="payment in action.payments">
-                <strong>{{payment.amount}} {{payment.currency}}</strong> [<span ng-if="payment.user.id != <?= $userSession['id'] ?>">Paid by {{payment.user.first_name}}</span><span ng-if="payment.date">on {{payment.date | date:"yyyy-MM-dd"}}</span><span ng-if="payment.method_id"> | {{payment.method_id}}</span>]
-                <span ng-if="payment.user_id==currentUserId" class="pull-right"><a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment">[Edit]</a></span>
+                <strong>{{payment.amount}} {{payment.currency}}</strong> <span ng-if="payment.date" class="text-muted small">[{{payment.date | date:"yyyy-MM-dd"}}]</span>
+                <span ng-if="payment.user.id != <?= $userSession['id'] ?>" class="pull-right">Paid by {{payment.user.first_name}}</span><span ng-if="payment.user_id==currentUserId" class="pull-right"><a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment">Paid by me</a></span>
             </li>
         </ul>
         <h4><strong>{{action.payments.totalAll}} {{action.currency}}</strong> <?php if($edit):?><small>from which {{action.payments.totalAuth}} {{action.currency}} paid by me</small><?php endif ?></h4>

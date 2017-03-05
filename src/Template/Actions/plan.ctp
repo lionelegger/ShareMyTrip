@@ -36,17 +36,47 @@ include_once ('include/header.ctp');
 <?php if (!empty($actions)):
     $firstRow=true;
     foreach ($actions as $action):
-        $tomorrow = new Date();
-        $tomorrow = $tomorrow->modify('+1 days');
-        $tomorrow = $this->Time->format($tomorrow, 'YYYY-MM-dd');
-        $start_date = $this->Time->format($action->start_date, 'YYYY-MM-dd');
-        $start_time = $this->Time->format($action->start_date, 'HH:mm');
-        $end_date = $this->Time->format($action->end_date, 'YYYY-MM-dd');
-        $end_time = $this->Time->format($action->end_date, 'HH:mm');
-
-//        echo ("start_date=".$start_date." / end_date=".$end_date);
-        $current_date = $start_date;
+//        $tomorrow = new Date();
+//        $tomorrow = $tomorrow->modify('+1 days');
+//        $tomorrow = $this->Time->format($tomorrow, 'YYYY-MM-dd');
 //        echo (" / Tomorrow=".$tomorrow);
+//        echo ("start_date=".$start_date." / end_date=".$end_date);
+
+
+        $start_year = $this->Time->format($action->start_date, 'YYYY');
+        $start_date = $this->Time->format($action->start_date, 'd MMM');
+        // if start_time is 12:00:01, we don't show the time
+        $start_time = $this->Time->format($action->start_date, 'HH:mm:ss');
+        if($start_time == '12:00:01') {
+            $start_time = '';
+        } else {
+            $start_time = $this->Time->format($action->start_date, 'HH:mm');
+        }
+
+        $end_date = $this->Time->format($action->end_date, 'YYYY-MM-dd');
+        $end_date_short = $this->Time->format($action->end_date, 'MM-dd');
+        // if end_time is 12:00:01, we don't show the time
+        $end_time = $this->Time->format($action->end_date, 'HH:mm:ss');
+        if($end_time == '12:00:01') {
+            $end_time = '';
+        } else {
+            $end_time = $this->Time->format($action->end_date, 'HH:mm');
+        }
+
+
+        $current_date = $start_date;
+
+        // When no end_name and no end_time, then action with only 1 dot
+        $startIsEnd = false;
+        if ($action->end_name=='' && $end_time=='') {
+            $startIsEnd = true;
+        }
+
+        // When end_date is not same day as start_date, then make a break in the line
+        $isSameDay = true;
+        if ($start_date != $end_date && $end_date != '') {
+            $isSameDay=false;
+        }
 
 
         if ($start_date != $lastDate || $start_date == '') {
@@ -57,28 +87,34 @@ include_once ('include/header.ctp');
             echo "    </div>";
             $firstRow=false;
         }
-            echo "    <div class='col-md-3'>";
-            echo "        <div class='action'>";
+            if (!$startIsEnd) {echo "<div class='col-md-3'>";} else {echo "<div class='col-md-2'>";}
+            if ($startIsEnd) {
+                echo "        <div class='action start-end'>";
+            } else {
+                echo "        <div class='action'>";
+            }
             echo "            <div class='time clearfix'>";
-            echo "                <div class='start'>".$start_time."</div>";
-            echo "                <div class='end'>".$end_time."</div>";
+            if ($start_time) { echo "                <div class='start'>".$start_time."</div>"; }
+            if ($end_time) { echo "<div class='end'>".$end_time."</div>"; }
             echo "            </div>";
             echo "            <div class='icons clearfix'>";
             echo "                <div class='start'><span class='dotIcon status-".$action->status."'></span></div>";
-            echo "                <div class='line status-" . $action->status . "'>";
-            if ($start_date != $end_date) {
-                echo "                <div class='cut'></div>";
+            if (!$startIsEnd) {
+                echo "<div class='line status-" . $action->status . "'>";
+                if (!$isSameDay) {
+                    echo "<div class='cut'>".$end_date_short."</div>";
+                }
+                echo "</div>";
             }
-            echo "                </div>";
             echo "                  <a href='actions/edit/".$action->id."'>";
             echo "                      <span class='map-icon map-icon-type-".$action->type_id." map-icon-status status-".$action->status."'></span>";
             echo "                  </a>";
-            echo "                <div class='end'><span class='dotIcon status-".$action->status."'></span></div>";
+            if (!$startIsEnd) {echo "                <div class='end'><span class='dotIcon status-".$action->status."'></span></div>";}
             echo "            </div>";
             echo "            <div class='name clearfix'>";
-            echo "                <div class='start'>".$action->start_name."</div>";
-            echo "                <div class='end'>".$action->end_name."</div>";
-            echo '                <h4 class="text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</h4>';
+            if ($action->start_name) { echo "                <div class='start'>".$action->start_name."</div>"; }
+            if ($action->end_name || $action->start_name) {echo "<div class='end'>".$action->end_name."</div>";}
+            echo '                <div class="action-name text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</div>';
             echo "            </div>";
             echo "        </div>";
             echo "    </div>";
@@ -87,6 +123,8 @@ include_once ('include/header.ctp');
     echo "</div>";
 endif; ?>
 </div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
 

@@ -1,6 +1,8 @@
 // ---------------
 // Main Ctrl
 // ---------------
+as = angular.module('myApp', ['ngRoute']);
+
 as.controller('MainCtrl', function($scope, $http, $location, $window) {
 
     console.log('call MainCtrl');
@@ -256,21 +258,33 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
 
         var $startTime = '';
         var $endTime = '';
+        // Start time
         if ($("#start_time").val()) {
+            // if time is set, we add the seconds in order to save it in the correct format in cake HH:mm:ss
             $startTime = " " + $("#start_time").val() + ":00";
         } else if ($("#start_date").val()) {
-            $startTime = " 00:00:00";
+            // if time is not set, we define it at 12:00:01
+            $startTime = " 12:00:01";
         }
+        // End time
         if ($("#end_time").val()) {
             $endTime = " " + $("#end_time").val() + ":00";
         } else if ($("#end_date").val()) {
-            $endTime = " 00:00:00";
+            // if time is not set, we define it at 12:00:01
+            $endTime = " 12:00:01";
         }
 
         $scope.action.status = 1;
         $scope.action.type_id = $("ul#type-id li.active").val();
         $scope.action.start_date = $("#start_date").val() + $startTime;
-        $scope.action.end_date = $("#end_date").val() + $endTime;
+
+        // If there is a start_date and an end_time, we suppose that it's the same day and the start_day
+        if (!$("#end_date").val() && $("#end_time").val()) {
+            $scope.action.end_date = $("#start_date").val() + $endTime;
+        } else {
+            $scope.action.end_date = $("#end_date").val() + $endTime;
+        }
+
         $scope.action.start_name = $("#start-name").val();
         $scope.action.start_lng = $("#start-lng").val();
         $scope.action.start_lat = $("#start-lat").val();
@@ -318,16 +332,23 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         if ($("#start_time").val()) {
             $startTime = " " + $("#start_time").val() + ":00";
         } else if ($("#start_date").val()) {
-            $startTime = " 00:00:00";
+            $startTime = " 12:00:01";
         }
         if ($("#end_time").val()) {
             $endTime = " " + $("#end_time").val() + ":00";
         } else if ($("#end_date").val()) {
-            $endTime = " 00:00:00";
+            $endTime = " 12:00:01";
         }
         $scope.action.type_id = $("ul#type-id li.active").val();
         $scope.action.start_date = $("#start_date").val() + $startTime;
-        $scope.action.end_date = $("#end_date").val() + $endTime;
+
+        // If there is a start_date and an end_time, we suppose that it's the same day and the start_day
+        if (!$("#end_date").val() && $("#end_time").val()) {
+            $scope.action.end_date = $("#start_date").val() + $endTime;
+        } else {
+            $scope.action.end_date = $("#end_date").val() + $endTime;
+        }
+
         $scope.action.start_name = $("#start-name").val();
         $scope.action.start_lng = $("#start-lng").val();
         $scope.action.start_lat = $("#start-lat").val();

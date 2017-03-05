@@ -330,13 +330,15 @@ a.glyphicon-btn {
     .action .dotIcon.status-5 {
       border-color: #b3b3b3; }
   .action .start {
-    float: left; }
+    float: left;
+    padding: 0 5px; }
   .action .end {
-    float: right; }
+    float: right;
+    padding: 0 5px; }
   .action .time {
     color: gray;
     font-size: smaller;
-    min-height: 15px; }
+    height: 20px; }
   .action .name {
     font-size: small;
     min-height: 15px; }
@@ -347,7 +349,6 @@ a.glyphicon-btn {
     width: 70%;
     z-index: 0; }
     .action .line .cut {
-      width: 8px;
       height: 16px;
       border-left-width: 2px;
       border-right-width: 2px;
@@ -356,20 +357,27 @@ a.glyphicon-btn {
       background-color: #eeeeee;
       position: absolute;
       top: -7px;
-      left: 75%; }
+      left: 70%;
+      text-align: center;
+      padding: 0 3px; }
     .action .line.status-1 .cut {
+      color: #337ab7;
       border-left-color: #337ab7;
       border-right-color: #337ab7; }
     .action .line.status-2 .cut {
+      color: #9b1003;
       border-left-color: #9b1003;
       border-right-color: #9b1003; }
     .action .line.status-3 .cut {
+      color: #ed984c;
       border-left-color: #ed984c;
       border-right-color: #ed984c; }
     .action .line.status-4 .cut {
+      color: #2e753f;
       border-left-color: #2e753f;
       border-right-color: #2e753f; }
     .action .line.status-5 .cut {
+      color: #000;
       border-left-color: #000;
       border-right-color: #000; }
   .action .time, .action .icons, .action .name {
@@ -380,19 +388,34 @@ a.glyphicon-btn {
     left: 50%;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
-    margin-top: -40px;
+    margin-top: -42px;
     font-size: 32px;
     width: 42px; }
   .action .start, .action .end {
     text-align: center;
     width: 30%;
-    font-size: 15px; }
+    font-size: 15px;
+    margin-bottom: 5px; }
+  .action.start-end .start, .action.start-end .end {
+    width: 100%; }
+  .action.start-end .time .start {
+    margin-left: -42px;
+    margin-top: -9px; }
+  .action.start-end .name .start {
+    margin-top: -52px;
+    width: 50%;
+    text-align: left;
+    margin-left: 50%;
+    padding-left: 28px; }
+  .action .action-name {
+    font-size: 16px;
+    font-weight: bold; }
 
 .table-budget th, .table-budget td {
   text-align: center; }
 
 /* ICON TYPES */
-.map-icon-type-0:before {
+.map-icon-type-99:before {
   content: "?";
   padding: 0 6px;
   font-weight: bold;
@@ -400,7 +423,7 @@ a.glyphicon-btn {
   font-size: 36px;
   line-height: 24px;
   letter-spacing: 2px;
-  padding-left: 7px; }
+  padding-left: 9px; }
 
 .map-icon-type-1:before {
   content: "\e802"; }
@@ -633,6 +656,8 @@ div.tipPayment {
   color: #818181;
   font-size: larger;
   padding: 2px; }
+.table tr.sum {
+  border-top: 3px solid #b3b3b3; }
 
 @media only screen and (max-width: 768px) {
   .responsive-table,
@@ -664,7 +689,7 @@ div.tipPayment {
 
   .responsive-table td {
     position: relative;
-    padding-left: 35% !important;
+    padding-left: 50% !important;
     white-space: normal;
     text-align: left; }
     .responsive-table td.no-padding-sm {
@@ -678,9 +703,9 @@ div.tipPayment {
   .responsive-table td:before {
     position: absolute;
     top: 6px;
-    left: 6px;
-    width: 30%;
-    padding-right: 10px;
+    left: 0px;
+    width: 50%;
+    padding-right: 15px;
     overflow: hidden;
     text-align: right;
     font-weight: bold;
@@ -698,7 +723,15 @@ div.tipPayment {
   .responsive-table > tbody > tr > td,
   .responsive-table > tfoot > tr > th,
   .responsive-table > tfoot > tr > td {
-    padding: 6px; } }
+    padding: 6px; }
+    .responsive-table > thead > tr > th:before,
+    .responsive-table > thead > tr > td:before,
+    .responsive-table > tbody > tr > th:before,
+    .responsive-table > tbody > tr > td:before,
+    .responsive-table > tfoot > tr > th:before,
+    .responsive-table > tfoot > tr > td:before {
+      display: table-cell;
+      vertical-align: middle; } }
 /*FOR GOOGLE MAP*/
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */

@@ -37,7 +37,7 @@ switch ($action->status) {
 <script>
 
     // To get the Action type from the selected
-    var actionType = 0; // by default
+    var actionType = 99; // by default
     function updateTypeId() {
         actionType = $('ul.map-icon-btn li.map-icon.active').val();
         console.log("actionType = " + actionType);

@@ -55,7 +55,12 @@
                 $start_time = '';
                 if ($action->start_date) {
                     $start_date = $action->start_date->i18nFormat('yyyy-MM-dd');
-                    $start_time = $action->start_date->i18nFormat('HH:mm');
+                    $start_time = $action->start_date->i18nFormat('HH:mm:ss');
+                    if($start_time == '12:00:01') {
+                        $start_time = '';
+                    } else {
+                        $start_time = $this->Time->format($action->start_date, 'HH:mm');
+                    }
                 }
                 ?>
                 <div class="row">
@@ -90,7 +95,12 @@
                 $end_time = '';
                 if ($action->end_date) {
                     $end_date = $action->end_date->i18nFormat('yyyy-MM-dd');
-                    $end_time = $action->end_date->i18nFormat('HH:mm');
+                    $end_time = $action->end_date->i18nFormat('HH:mm:ss');
+                    if($end_time == '12:00:01') {
+                        $end_time = '';
+                    } else {
+                        $end_time = $this->Time->format($action->end_date, 'HH:mm');
+                    }
                 }
                 ?>
                 <div class="row">

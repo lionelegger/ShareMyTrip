@@ -82,7 +82,7 @@
                     <h4 class="pull-right text-danger"><span class="glyphicon glyphicon-ban-circle"></span> <strong>Nothing paid!</strong></h4>
                 </span>
                 <span ng-if="action.status == 3">
-                    <h4 class="pull-right text-warning"><span class="glyphicon glyphicon-remove-circle"></span> <strong>Partially paid!</strong></h4>
+                    <h4 class="pull-right text-warning"><span class="glyphicon glyphicon-record"></span> <strong>Partially paid!</strong></h4>
                 </span>
                 <span ng-if="action.status == 4">
                     <h4 class="pull-right text-success"><span class="glyphicon glyphicon-ok-circle"></span> <strong>All paid!</strong></h4>

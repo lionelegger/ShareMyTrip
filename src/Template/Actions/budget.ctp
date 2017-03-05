@@ -18,6 +18,7 @@ $total = [];
 $globalPaid = 0;
 $globalBalance = 0;
 $lastDate = '';
+$totalTrip = 0;
 
 $totalUsers = count($tripUsers);
 foreach ($tripUsers as $user):
@@ -61,39 +62,80 @@ if (!empty($actions)) {
     echo "<tbody>";
 
     foreach ($actions as $action) {
-        $start_date = $this->Time->format($action->start_date, 'YYYY-MM-dd');
-        $start_time = $this->Time->format($action->start_date, 'HH:mm');
+
+        $start_date = $this->Time->format($action->start_date, 'd MMMM');
+        // if start_time is 12:00:01, we don't show the time
+        $start_time = $this->Time->format($action->start_date, 'HH:mm:ss');
+        if($start_time == '12:00:01') {
+            $start_time = '';
+        } else {
+            $start_time = $this->Time->format($action->start_date, 'HH:mm');
+        }
+
         $end_date = $this->Time->format($action->end_date, 'YYYY-MM-dd');
-        $end_time = $this->Time->format($action->end_date, 'HH:mm');
+        $end_date_short = $this->Time->format($action->end_date, 'd MMM');
+        // if end_time is 12:00:01, we don't show the time
+        $end_time = $this->Time->format($action->end_date, 'HH:mm:ss');
+        if($end_time == '12:00:01') {
+            $end_time = '';
+        } else {
+            $end_time = $this->Time->format($action->end_date, 'HH:mm');
+        }
+
+        // When no end_name and no end_time, then action with only 1 dot
+        $startIsEnd = false;
+        if ($action->end_name=='' && $end_time=='') {
+            $startIsEnd = true;
+        }
+
+        // When end_date is not same day as start_date, then make a break in the line
+        $isSameDay = true;
+        if ($start_date != $end_date && $end_date != '') {
+            $isSameDay=false;
+        }
+
         $nbParticipationsAction = count($action->users);
 
         if ($start_date != $lastDate || $start_date == '') {
-            echo "    <tr class='date-separation'><td class='no-padding-sm date' colspan='".($totalUsers + 2)."'>".$start_date."</td></tr>";
+//            echo "    <tr class='date-separation'><td class='no-padding-sm date' colspan='".($totalUsers + 2)."'>".$start_date."</td></tr>";
+            echo "    <tr class='date-separation'>";
+            echo "        <td class='no-padding-sm date'>".$start_date."</td>";
+            foreach ($tripUsers as $user) {
+                echo "<td class='hidden-xs'></td>";
+            }
+            echo "<td class='hidden-xs'></td>";
+            echo "</tr>";
         }
 
         echo "    <tr>";
         echo "        <td class='no-padding-sm'>";
-        echo "        <div class='action short'>";
+        if ($startIsEnd) {
+            echo "        <div class='action start-end'>";
+        } else {
+            echo "        <div class='action'>";
+        }
         echo "            <div class='time clearfix'>";
-        echo "                <div class='start'>" . $start_time . "</div>";
-        echo "                <div class='end'>" . $end_time . "</div>";
+        if ($start_time) { echo "<div class='start'>".$start_time."</div>"; }
+        if ($end_time) { echo "<div class='end'>".$end_time."</div>"; }
         echo "            </div>";
         echo "            <div class='icons clearfix'>";
         echo "                <div class='start'><span class='dotIcon status-" . $action->status . "'></span></div>";
-        echo "                <div class='line status-" . $action->status . "'>";
-        if ($start_date != $end_date) {
-            echo "                <div class='cut'></div>";
+        if (!$startIsEnd) {
+            echo "<div class='line status-" . $action->status . "'>";
+            if (!$isSameDay) {
+                echo "<div class='cut'>".$end_date_short."</div>";
+            }
+            echo "</div>";
         }
-        echo "                </div>";
         echo "                  <a href='actions/edit/" . $action->id . "'>";
         echo "                      <span class='map-icon map-icon-type-" . $action->type_id . " map-icon-status status-" . $action->status . "'></span>";
         echo "                  </a>";
-        echo "                <div class='end'><span class='dotIcon status-" . $action->status . "'></span></div>";
+        if (!$startIsEnd) {echo "<div class='end'><span class='dotIcon status-" . $action->status . "'></span></div>";}
         echo "            </div>";
         echo "            <div class='name clearfix'>";
-        echo "                <div class='start'>" . $action->start_name . "</div>";
-        echo "                <div class='end'>" . $action->end_name . "</div>";
-        echo '                <h4 class="text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</h4>';
+        if ($action->start_name) {echo "                <div class='start'>" . $action->start_name . "</div>";}
+        if ($action->end_name || $action->start_name) {echo "                <div class='end'>" . $action->end_name . "</div>";}
+        echo '                <div class="action-name text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</div>';
         echo "            </div>";
         echo "        </div>";
         echo "        </td>";
@@ -103,7 +145,7 @@ if (!empty($actions)) {
         foreach ($tripUsers as $tripUser) {
             echo "<td data-title='" . $tripUser->first_name . "' valign='middle'>";
 
-            $cellEmpty = true;
+            $isParticipating = false;
             // The current user need to participate in the action
             foreach ($action->users as $user) {
                 if ($user->id == $tripUser->id) {
@@ -120,10 +162,11 @@ if (!empty($actions)) {
                             if ($payment->user_id == $user->id) {
                                 $totalCell = $totalCell + $payment->amount;
                                 $detailPayment = '';
+                                // Payment details hidden (because cannot get the payment method name)
+                                /*
                                 if (!empty($payment->date) OR !empty($payment->method_id)) {
                                     $detailPayment = " [";
-                                    $payment_date = $payment->date->i18nFormat('yyyy-MM-dd');
-
+                                    $payment_date = $payment->date->i18nFormat('d MMM');
                                     if (!empty($payment_date)) {
                                         $detailPayment .= $payment_date;
                                     }
@@ -135,6 +178,7 @@ if (!empty($actions)) {
                                     }
                                     $detailPayment .= "]";
                                 }
+                                */
                                 $tipPayment .= "<div class='tipPayment'>" . $payment->amount . ' ' . $payment->currency . $detailPayment . "</div>";
                                 $totalColumn = $totalPaid[$payment->user_id];
                                 $totalPaid[$payment->user_id] = $payment->amount + $totalColumn;
@@ -161,51 +205,86 @@ if (!empty($actions)) {
                         $totalBalance[$user->id] = $totalBalance[$user->id] + $balanceCell;
                         $totalBalance[$user->id] = round($totalBalance[$user->id], 2);
                     }
-                    $cellEmpty = false;
+                    $isParticipating = true;
                 }
             }
             // if not participating, add an space character to render well on small displays
-            if ($cellEmpty) {
-                echo ("&nbsp;");
+            if (!$isParticipating) {
+                echo ("<span class='glyphicon glyphicon-remove text-muted'></span>");
             }
             echo "</td>";
         }
 
         echo "      <td data-title='Total'>";
-        echo "        <h3>" . $action->price . " " . $action->currency . "</h3>[" . $nbParticipationsAction . " part.]";
+        echo "        <h3>" . $action->price . "&nbsp;" . $action->currency . "</h3>";
+        $totalTrip = $totalTrip + $action->price;
+//        echo "[" . $nbParticipationsAction . " participants]";
         echo "      </td>";
         echo "    </tr>";
 
         $lastDate = $start_date;
-
     }
 
-    echo "    <tr>";
+    // Balance calculation
+    foreach ($tripUsers as $user) {
+        $globalPaid = $globalPaid + $totalPaid[$user->id];
+        $globalBalance = $globalBalance + $totalBalance[$user->id];
+    }
+
+    echo "    <tr class='sum'>";
     echo "      <td>";
-    echo "          <h3>TOTAL</h3>";
+    echo "          <h3><strong>TOTAL paid</strong></h3>";
     echo "      </td>";
 
     foreach ($tripUsers as $user) {
         echo "<td data-title='".$user->first_name."'>";
         echo "<h3><strong>" . $totalPaid[$user->id] . "</strong></h3>";
-        echo "TOTAL balance for " . $user->first_name . " = <span class='badge'>" . $totalBalance[$user->id] . "</span>";
         echo "</td>";
     }
 
+
+
     echo "      <td data-title='ALL'>";
-    foreach ($tripUsers as $user) {
-        $globalPaid = $globalPaid + $totalPaid[$user->id];
-        $globalBalance = $globalBalance + $totalBalance[$user->id];
-    }
-    echo "<h2>" . $globalPaid . "</h2>";
-    echo "BIG TOTAL balance = <span class='badge'>" . $globalBalance . "</span>";
+    echo "<h2><strong>" . $globalPaid . "</strong> of ".$totalTrip."</h2>";
     echo "      </td>";
     echo "    </tr>";
+
+    // BALANCE
+    echo "<tr class='balance'>";
+    echo "    <td>";
+    echo "          <h3>Balance</h3>";
+    echo "    </td>";
+    foreach ($tripUsers as $user) {
+        echo "<td data-title='".$user->first_name."'>";
+        echo "<h2>";
+        if ($totalBalance[$user->id] >= 0) {
+            echo "<span class='label label-success'>".$totalBalance[$user->id]."</span>";
+        } else if ($totalPaid[$user->id] == 0) {
+            echo "<span class='label label-danger'>".$totalBalance[$user->id]."</span>";
+        } else {
+            echo "<span class='label label-warning'>".$totalBalance[$user->id]."</span>";
+        };
+        echo "</h2>";
+        echo "</td>";
+    }
+    echo "<td data-title='All Trip'><h1>";
+    if ($globalBalance < 0) {
+        echo "<span class='label label-warning'>".$globalBalance."</span>";
+    } else if ($globalBalance == 0) {
+        echo "<span class='label label-success'>".$globalBalance."</span>";
+    } else if ($globalBalance == $totalTrip) {
+        echo "<span class='label label-danger'>".$globalBalance."</span>";
+    } else {
+        echo "<span class='label label-default'>".$globalBalance."</span>";
+    }
+    echo "</h1></td>";
+    echo "</tr>";
     echo "</tbody>";
     echo "</table>";
 }
 ?>
-
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <script>
     $(function () {
         $("[data-toggle=tooltip]").tooltip();

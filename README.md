@@ -50,8 +50,7 @@ VALUES  (1, 'Travel'),
         (4, 'Other');
 
 INSERT INTO `types` (`id`, `name`, `category_id`) 
-    VALUES  (0, 'Select an action', '4'),
-            (1, 'Plane', '1'), 
+    VALUES  (1, 'Plane', '1'), 
             (2, 'Train', '1'), 
             (3, 'Taxi', '1'), 
             (4, 'Car', '1'), 
