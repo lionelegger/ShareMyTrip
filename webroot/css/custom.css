@@ -8,6 +8,9 @@ body {
   height: 100%;
   padding-top: 70px; }
 
+hr {
+  border-top: 1px solid lightgrey; }
+
 .navbar-fixed-bottom {
   background-color: lightgrey;
   color: grey;
@@ -283,13 +286,83 @@ button.btn-primary a:hover {
 
 .avatar-img {
   width: 40px;
-  border-radius: 20px;
   margin-top: 5px; }
+  .avatar-img.circle {
+    border-radius: 20px; }
 
-a.glyphicon-btn {
-  display: inline-block;
-  cursor: pointer;
-  cursor: hand; }
+label[for='avatar-1'] {
+  background: url("../files/Users/avatars/avatar-1.png"); }
+
+label[for='avatar-2'] {
+  background: url("../files/Users/avatars/avatar-2.png"); }
+
+label[for='avatar-3'] {
+  background: url("../files/Users/avatars/avatar-3.png"); }
+
+label[for='avatar-4'] {
+  background: url("../files/Users/avatars/avatar-4.png"); }
+
+label[for='avatar-5'] {
+  background: url("../files/Users/avatars/avatar-5.png"); }
+
+label[for='avatar-6'] {
+  background: url("../files/Users/avatars/avatar-6.png"); }
+
+label[for='avatar-7'] {
+  background: url("../files/Users/avatars/avatar-7.png"); }
+
+label[for='avatar-8'] {
+  background: url("../files/Users/avatars/avatar-8.png"); }
+
+label[for='avatar-9'] {
+  background: url("../files/Users/avatars/avatar-9.png"); }
+
+label[for='avatar-10'] {
+  background: url("../files/Users/avatars/avatar-10.png"); }
+
+label[for='avatar-11'] {
+  background: url("../files/Users/avatars/avatar-11.png"); }
+
+label[for='avatar-12'] {
+  background: url("../files/Users/avatars/avatar-12.png"); }
+
+label[for='avatar-13'] {
+  background: url("../files/Users/avatars/avatar-13.png"); }
+
+label[for='avatar-14'] {
+  background: url("../files/Users/avatars/avatar-14.png"); }
+
+label[for='avatar-15'] {
+  background: url("../files/Users/avatars/avatar-15.png"); }
+
+label[for='avatar-16'] {
+  background: url("../files/Users/avatars/avatar-16.png"); }
+
+label[for='avatar-17'] {
+  background: url("../files/Users/avatars/avatar-17.png"); }
+
+label[for='avatar-18'] {
+  background: url("../files/Users/avatars/avatar-18.png"); }
+
+label[for='avatar-19'] {
+  background: url("../files/Users/avatars/avatar-19.png"); }
+
+label[for='avatar-20'] {
+  background: url("../files/Users/avatars/avatar-20.png"); }
+
+label[for='avatar-21'] {
+  background: url("../files/Users/avatars/avatar-21.png"); }
+
+label[for='avatar-22'] {
+  background: url("../files/Users/avatars/avatar-22.png"); }
+
+label[for*='avatar-'] {
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  background-position: 5px 0; }
+
+input[type=radio].avatar {
+  margin: 45px 20px 5px 20px; }
 
 @media only screen and (max-width: 768px) {
   nav form.form-inline {
@@ -298,6 +371,11 @@ a.glyphicon-btn {
   nav form.form-inline .col-lg-12 {
     padding-right: 0;
     padding-left: 0; } }
+a.glyphicon-btn {
+  display: inline-block;
+  cursor: pointer;
+  cursor: hand; }
+
 .map-icon {
   font-size: 18px; }
 

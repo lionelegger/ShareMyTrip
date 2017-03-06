@@ -38,7 +38,12 @@ if (!empty($actions)) {
     foreach ($tripUsers as $user):
         echo "<th>";
         echo "<div class='avatar'>";
-        echo "  <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img' />";
+        if ($user->photo) {
+            echo "  <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img circle' />";
+        } else {
+            echo "  <img src='files/Users/avatars/avatar-".$user->avatar.".png' class='avatar-img' />";
+        }
+
         echo "  <div class='avatar-name'>";
         echo $user->first_name." ".$user->last_name;
         echo "  </div>";

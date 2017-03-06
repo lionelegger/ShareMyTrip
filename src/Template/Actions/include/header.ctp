@@ -12,7 +12,11 @@
                             foreach ($trip->users as $user):
                                 if ($user->id != $userSession['id']) {
                                     echo ("<li class='avatar label-bottom'>");
-                                    echo (" <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img'>");
+                                    if ($user->photo) {
+                                        echo (" <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img circle'>");
+                                    } else {
+                                        echo (" <img src='files/Users/avatars/avatar-".$user->avatar.".png' class='avatar-img'>");
+                                    }
                                     echo (" <div class='label avatar-name'>".$user->first_name."</div>");
                                     echo ("</li>");
                                 };

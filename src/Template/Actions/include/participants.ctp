@@ -48,7 +48,11 @@
                                     } else {
                                         echo ("<input type='checkbox' value='".$tripUser->id."' ng-model='users[".$tripUser->id."]'>");
                                     }
-                                    echo ("    <img src='".$tripUser->photo_dir."/".$tripUser->photo."' class='avatar-img'/>");
+                                    if ($tripUser->photo){
+                                        echo ("    <img src='".$tripUser->photo_dir."/".$tripUser->photo."' class='avatar-img circle'/>");
+                                    } else {
+                                        echo ("    <img src='files/Users/avatars/avatar-".$tripUser->avatar.".png' class='avatar-img'/>");
+                                    }
                                     echo ("    <div class='avatar-name'>".$tripUser->first_name." ".$tripUser->last_name."</div>");
                                     echo ("</div>");
 

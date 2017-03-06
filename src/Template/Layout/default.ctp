@@ -68,6 +68,12 @@
                             <?
                             if ($userSession['photo']) {
                                 echo $this->Html->image('/' . $userSession['photo_dir'] . '/' . $userSession['photo'], [
+                                    'class' => 'avatar-img circle',
+                                    "alt" => $userSession['first_name'] . ' ' . $userSession['last_name'],
+                                    "url" => ['controller' => 'Users', 'action' => 'edit', $userSession['id']]
+                                ]);
+                            } else {
+                                echo $this->Html->image('/files/Users/avatars/avatar-' . $userSession['avatar'].'.png', [
                                     'class' => 'avatar-img',
                                     "alt" => $userSession['first_name'] . ' ' . $userSession['last_name'],
                                     "url" => ['controller' => 'Users', 'action' => 'edit', $userSession['id']]

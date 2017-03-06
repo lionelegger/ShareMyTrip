@@ -75,7 +75,8 @@ $this->end();
                                                 </div>
                                                 <div class="col-xs-9">
                                                     <div class="avatar label-right clearfix">
-                                                        <img ng-src="{{user.photo_dir}}/{{user.photo}}" class="avatar-img">
+                                                        <img ng-if="!user.photo" ng-src="files/Users/avatars/avatar-{{user.avatar}}.png" class="avatar-img">
+                                                        <img ng-if="user.photo" ng-src="{{user.photo_dir}}/{{user.photo}}" class="avatar-img circle">
                                                         <div class="avatar-name">{{user.first_name}} {{user.last_name}}</div>
                                                     </div>
                                                 </div>
@@ -122,7 +123,8 @@ $this->end();
                                 <ul class="list-inline pull-right">
                                     <li ng-repeat="user in trip.users" ng-hide="currentUserId == user.id">
                                         <div class="avatar label-bottom">
-                                            <img ng-src="{{user.photo_dir}}{{user.photo}}" class="avatar-img"/>
+                                            <img ng-if="!user.photo" ng-src="files/Users/avatars/avatar-{{user.avatar}}.png" class="avatar-img">
+                                            <img ng-if="user.photo" ng-src="{{user.photo_dir}}{{user.photo}}" class="avatar-img circle"/>
                                             <div class="label avatar-name" >{{user.first_name}}</div>
                                         </div>
                                     </li>
