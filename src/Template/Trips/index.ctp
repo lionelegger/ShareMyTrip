@@ -28,15 +28,11 @@ $this->end();
     </div>
 </div>
 <br>
-<div ng-controller="TripsCtrl" class="container clearfix">
-
-
-
-    <?php
-        if(iterator_count($trips)==0) {
-            echo ("<h1>Write a welcome message with explanations</h1>");
-        }
-    ?>
+<div ng-controller="TripsCtrl" class="container clearfix" ng-init="welcomeMsg=true;">
+    <div class="welcome text-right" ng-if="welcomeMsg==true">
+        <h3>Welcome {{currentUserFirstname}} !</h3>
+        <p>Click on the above "New trip" button to create your first trip</p>
+    </div>
     <!-- START MODAL -->
     <div class="modal fade" tabindex="-1" role="dialog" id="tripEdit">
         <div class="modal-dialog modal-sm" role="document">

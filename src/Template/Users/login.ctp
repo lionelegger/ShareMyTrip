@@ -28,19 +28,19 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="Email" ng-model="userToAdd.email">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Email" ng-model="userToAdd.email" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" ng-model="userToAdd.password">
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" ng-model="userToAdd.password" required>
                     </div>
                     <div class="form-group">
                         <label for="name">First Name</label>
-                        <input name="name" type="text" class="form-control" id="first_name" placeholder="First name" ng-model="userToAdd.first_name">
+                        <input name="name" type="text" class="form-control" id="first_name" placeholder="First name" ng-model="userToAdd.first_name" required>
                     </div>
                     <div class="form-group">
                         <label for="name">Last Name</label>
-                        <input name="name" type="text" class="form-control" id="last_name" placeholder="Last name" ng-model="userToAdd.last_name">
+                        <input name="name" type="text" class="form-control" id="last_name" placeholder="Last name" ng-model="userToAdd.last_name" required>
                     </div>
                     <div class="form-group text-center" ng-init="userToAdd.avatar=16">
                         <input type="hidden" name="avatar" value="1" >

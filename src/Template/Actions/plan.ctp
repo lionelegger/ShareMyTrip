@@ -68,7 +68,7 @@ include_once ('include/header.ctp');
 
         // When no end_name and no end_time, then action with only 1 dot
         $startIsEnd = false;
-        if ($action->end_name=='' && $end_time=='') {
+        if (!$action->end_name && !$action->end_date) {
             $startIsEnd = true;
         }
 

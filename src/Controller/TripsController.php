@@ -29,7 +29,7 @@ class TripsController extends AppController
             ]);
         });
 
-        $trips = $this->paginate($query);
+        $trips = $query->all();
 
         $this->set('trips', $trips);
         $this->set('_serialize', ['trips']);

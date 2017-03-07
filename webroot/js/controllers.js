@@ -32,6 +32,7 @@ as.controller('MainCtrl', function($scope, $http, $location, $window) {
     // Add user (Registration)
     $scope.userToAdd = {};
     $scope.addUser = function() {
+
         $http
             .post('Users/add', $scope.userToAdd)
             .success(function() {
@@ -93,6 +94,7 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     // adds a trip (and the logged user as a participant with cakephp3)
     $scope.addTrip = function() {
         console.log('call addTrip');
+        $scope.welcomeMsg=false;
         $http
             .post('Trips/add.json', $scope.trip)
             .success(function(data) {

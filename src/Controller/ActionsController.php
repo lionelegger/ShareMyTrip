@@ -90,7 +90,7 @@ class ActionsController extends AppController
                     $this->Actions->Payments->link($action, [$entry]);
                 }
 
-                $this->Flash->success(__('The action has been saved with ID = ') . $record_id);
+//                $this->Flash->success(__('The action has been saved with ID = ') . $record_id);
 
             } else {
                 $this->Flash->error(__('The action could not be saved. Please, try again.'));
@@ -137,7 +137,7 @@ class ActionsController extends AppController
 
             if ($this->Actions->save($actionToSave)) {
 
-                $this->Flash->success(__('The action has been updated'));
+//                $this->Flash->success(__('The action has been updated'));
 
             } else {
                 $this->Flash->error(__('The action could not be saved. Please, try again.'));
@@ -207,13 +207,6 @@ class ActionsController extends AppController
         $action = $this->Actions->get($action_id, [
             'contain' => ['Users']
         ]);
-
-//        $topicsPost = $this->TopicPost->deleteAll(array(
-//            'TopicsPost.post_id' => $postId
-//        ), false);
-
-//        $participants = $action->users;
-//        debug($participants);
 
         if ($this->Actions->Users->deleteAll(array(
             'ActionsUser.action_id' => $action_id
