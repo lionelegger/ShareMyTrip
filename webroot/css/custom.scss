@@ -816,7 +816,6 @@ a.glyphicon-btn {
     content: "\e877";
 }
 
-
 .col-arrow {
     position: relative;
 
@@ -968,12 +967,33 @@ i.arrow {
     }
 }
 
+
 .message {
     background-color: $color-primary;
     color: #ffffff;
     line-height: 2em;
     width: 100%;
     text-align: center;
+}
+
+// Truncate the text after 3 lines
+.truncate-2lines {
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+// Truncate the text after 1 lines (width need to be defined)
+.truncate  {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.text-lightgrey {
+    color: lightgrey;
 }
 
 .dropdown-caret:before {
@@ -1102,8 +1122,8 @@ div.tipPayment {
             vertical-align: middle;
         }
     }
-
 }
+
 
 
 

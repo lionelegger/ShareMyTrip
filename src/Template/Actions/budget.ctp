@@ -215,7 +215,7 @@ if (!empty($actions)) {
             }
             // if not participating, add an space character to render well on small displays
             if (!$isParticipating) {
-                echo ("<span class='glyphicon glyphicon-remove text-muted'></span>");
+                echo ("<span class='glyphicon glyphicon-remove text-lightgrey'></span>");
             }
             echo "</td>";
         }

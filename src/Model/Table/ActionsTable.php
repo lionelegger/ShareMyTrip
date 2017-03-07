@@ -11,7 +11,6 @@ use Cake\Validation\Validator;
  *
  * @property \Cake\ORM\Association\BelongsTo $Trips
  * @property \Cake\ORM\Association\BelongsTo $Types
- * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\HasMany $Payments
  * @property \Cake\ORM\Association\BelongsToMany $Users
  *

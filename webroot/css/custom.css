@@ -710,6 +710,21 @@ i.arrow {
   width: 100%;
   text-align: center; }
 
+.truncate-2lines {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; }
+
+.truncate {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap; }
+
+.text-lightgrey {
+  color: lightgrey; }
+
 .dropdown-caret:before {
   content: ">";
   display: inline-block;

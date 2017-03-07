@@ -21,7 +21,11 @@
                                     }
                                     echo ("<div class='avatar label-right clearfix'>");
                                     echo ("     <input type='checkbox' ng-checked='true' data-id='".$user->id."'>");
-                                    echo ("    <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img'/>");
+                                    if ($user->photo){
+                                        echo ("    <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img circle'/>");
+                                    } else {
+                                        echo ("    <img src='files/Users/avatars/avatar-".$user->avatar.".png' class='avatar-img'/>");
+                                    }
                                     echo ("    <div class='avatar-name'>".$user->first_name." ".$user->last_name."</div>");
                                     echo ("</div>");
                                     echo ("</label>");

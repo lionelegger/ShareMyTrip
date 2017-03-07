@@ -25,12 +25,13 @@ include_once ('include/header.ctp');
 <div ng-init="tripId=<?=$action->trip_id ?>;actionId=<?=$action->id?>;actionListPayments(<?=$action->id?>)" ng-controller="ActionCtrl">
 
     <?php include_once("include/form.ctp"); ?>
-
+    <hr/>
     <div class="container clearfix">
+
         <div class="row">
             <div class="col-md-6">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                <button type="button" class="btn btn-danger pull-left" data-toggle="modal" data-target="#deleteModal">
                     Delete
                 </button>
 
@@ -40,7 +41,7 @@ include_once ('include/header.ctp');
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Action '<?=$action->name?>'</h4>
+                                <h4 class="modal-title" id="myModalLabel">Delete '<?=$action->name?>'</h4>
                             </div>
                             <div class="modal-body">
                                 Are you sure you want to delete this action ?
@@ -54,8 +55,8 @@ include_once ('include/header.ctp');
                 </div>
             </div>
             <div class="col-md-6 text-right">
-                <button type="submit" class="btn btn-primary" ng-click="editAction(<?=$action->trip->id?>,<?=$action->id?>);" data-toggle="collapse" href="#collapseParticipation" aria-expanded="false" aria-controls="collapseExample">Save</button>
-                &nbsp;<a href="actions/plan/<?=$action->trip->id?>" class="btn btn-default pull-right">Cancel</a>
+                <a href="actions/plan/<?=$action->trip->id?>" class="btn btn-default">Cancel</a>&nbsp;
+                <button type="submit" class="btn btn-primary pull-right" ng-click="editAction(<?=$action->trip->id?>,<?=$action->id?>);" data-toggle="collapse" href="#collapseParticipation" aria-expanded="false" aria-controls="collapseExample">Save</button>
             </div>
         </div>
     </div>
