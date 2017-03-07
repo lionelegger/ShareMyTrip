@@ -10,7 +10,7 @@
     <?= $this->Html->meta('icon') ?>
 
     <base href="http://127.0.0.1:8888/UNIGE/Projects/ShareMyTrip/"/>
-<!--    <base href="http://www.lionelegger.com/ShareMyTrip/"/>-->
+<!--    <base href="http://lionelegger.com/sharemytrip/"/>-->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700" rel="stylesheet" type="text/css">
 
     <!--  Bootstrap -->
