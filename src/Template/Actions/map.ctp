@@ -20,21 +20,6 @@ include_once ('include/header.ctp');
 
 ?>
 
-
-
-<!--
-<div class="container clearfix">
-    <nav class="tripNav pull-right">
-        <button class="btn btn-default" role="button"><?/*= $this->Html->link(__('Plan'), ['controller' => 'actions', 'action' => 'plan', $trip->id]) */?></button>
-        <button class="btn btn-primary" role="button">Map</button>
-        <button class="btn btn-default" role="button"><?/*= $this->Html->link(__('Budget'), ['controller' => 'actions', 'action' => 'budget', $trip->id]) */?></button>
-    </nav>
-</div>
--->
-<!--<h1 class="text-center">--><?//= $trip->name ?><!--</h1>-->
-<?//= $this->Html->link('<span class="glyphicon glyphicon-plus"></span><span class="btn-text"><strong>'.__('Add Action').'</strong></span>', ['controller' => 'Actions', 'action' => 'add', $trip->id], ['class' => 'btn btn-danger btn-lg btn-calltoaction fixed-bottom', 'escape' => false]); ?>
-
-
 <style>
     #map-full {
         height: 100%;
@@ -53,8 +38,6 @@ include_once ('include/header.ctp');
 
 
 <script>
-    //  TODO: Make that when we click on a specific action, we get to the detail of the action
-
 
         var geneva = {lat: 46.2043907, lng: 6.143157699999961};
         var map = new google.maps.Map(document.getElementById('map-full'), {
@@ -86,136 +69,139 @@ include_once ('include/header.ctp');
 
         <?php foreach ($actions as $action): ?>
 
-            <?php
-            $statusColor = '#999999'; // undefined (gray)
-            switch($action->status) {
-                case 1: $statusColor = '#337ab7'; break; // primary (blue)
-                case 2: $statusColor = '#9b1003'; break; // danger (red)
-                case 3: $statusColor = '#ed984c'; break; // warning (orange)
-                case 4: $statusColor = '#2e753f'; break; // success (green)
-                case 5: $statusColor = '#000000'; break; // overpaid (black)
-            }
-            ?>
+            <?php if($action->start_lat):?>
 
-            // set the icon types
-            var actionType = <?= h($action->type_id) ?>;
+                <?php
+                $statusColor = '#999999'; // undefined (gray)
+                switch($action->status) {
+                    case 1: $statusColor = '#337ab7'; break; // primary (blue)
+                    case 2: $statusColor = '#9b1003'; break; // danger (red)
+                    case 3: $statusColor = '#ed984c'; break; // warning (orange)
+                    case 4: $statusColor = '#2e753f'; break; // success (green)
+                    case 5: $statusColor = '#000000'; break; // overpaid (black)
+                }
+                ?>
 
-            icon.url = 'img/iconMap-<?= $action->type_id ?>.png';
+                // set the icon types
+                var actionType = <?= h($action->type_id) ?>;
 
-            /* START */
-            <?php if ($action->start_lat && $action->start_lng): ?>
-                var latLngStart = new google.maps.LatLng(<?= h($action->start_lat) ?>,<?= h($action->start_lng) ?>);
-                // Create a marker for the status pill.
+                icon.url = 'img/iconMap-<?= $action->type_id ?>.png';
 
-                <?php if (!$action->end_lat && !$action->end_lng): ?>
+                /* START */
+                <?php if ($action->start_lat && $action->start_lng): ?>
+                    var latLngStart = new google.maps.LatLng(<?= h($action->start_lat) ?>,<?= h($action->start_lng) ?>);
+                    // Create a marker for the status pill.
 
-                    markerPoint = new google.maps.Marker({
-                        map: map,
-                        position: latLngStart,
-                        icon: {
-                            path: google.maps.SymbolPath.CIRCLE,
-                            fillOpacity: 1,
-                            fillColor: '#FFFFFF',
-                            strokeColor: '<?=$statusColor?>',
-                            strokeWeight: 2,
-                            scale: 4 //pixels
-                        }
+                    <?php if (!$action->end_lat && !$action->end_lng): ?>
+
+                        markerPoint = new google.maps.Marker({
+                            map: map,
+                            position: latLngStart,
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                fillOpacity: 1,
+                                fillColor: '#FFFFFF',
+                                strokeColor: '<?=$statusColor?>',
+                                strokeWeight: 2,
+                                scale: 4 //pixels
+                            }
+                        });
+
+                        markerIcon = new Marker({
+                            map: map,
+                            position: latLngStart,
+                            icon: {
+                                path: SQUARE_ROUNDED,
+                                fillColor: '<?=$statusColor?>',
+                                fillOpacity: 1,
+                                strokeColor: '',
+                                strokeWeight: 0,
+                                scale: 0.68, //pixels
+                                anchor: new google.maps.Point(0, 12)
+                            },
+                            map_icon_label: '<span class="map-icon map-icon-type-<?=$action->type_id?>"></span>',
+                            url: 'actions/edit/<?=$action->id?>'
+                        });
+
+                    <?php endif ?>
+                    bounds.extend(latLngStart);
+
+                <?php endif ?>
+
+                /* END */
+                <?php if ($action->end_lat && $action->end_lng): ?>
+                    var latLngEnd = new google.maps.LatLng(<?= h($action->end_lat) ?>,<?= h($action->end_lng) ?>);
+
+                    actionPath = new google.maps.Polyline({
+                        path: [latLngStart, latLngEnd],
+                        icons: [{
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                fillOpacity: 1,
+                                fillColor: '#FFFFFF',
+                                strokeColor: '<?=$statusColor?>',
+                                strokeWeight: 2,
+                                scale: 5 //pixels
+                            },
+                            offset: '0%'
+                        }, {
+                            icon: {
+                                path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
+                                fillOpacity: 1,
+                                fillColor: '<?=$statusColor?>',
+                                strokeColor: '<?=$statusColor?>',
+                                strokeWeight: 1,
+                                scale: 2 //pixels
+                            },
+                            offset: '99%'
+                        }, {
+                            icon: {
+                                path: google.maps.SymbolPath.CIRCLE,
+                                fillOpacity: 1,
+                                fillColor: '#FFFFFF',
+                                strokeColor: '<?=$statusColor?>',
+                                strokeWeight: 2,
+                                scale: 5 //pixels
+                            },
+                            offset: '100%'
+                        }],
+                        geodesic: false,
+                        strokeColor: '<?=$statusColor?>',
+                        strokeOpacity: 1,
+                        strokeWeight: 2
                     });
 
-                    markerIcon = new Marker({
+                    var Pathbounds = new google.maps.LatLngBounds();
+                    Pathbounds.extend(latLngStart);
+                    Pathbounds.extend(latLngEnd);
+
+                    var actionCenter = Pathbounds.getCenter();
+
+                    var markerIcon = new Marker({
                         map: map,
-                        position: latLngStart,
+                        position: actionCenter,
                         icon: {
                             path: SQUARE_ROUNDED,
                             fillColor: '<?=$statusColor?>',
                             fillOpacity: 1,
                             strokeColor: '',
                             strokeWeight: 0,
-                            scale: 0.68, //pixels
-                            anchor: new google.maps.Point(0, 12)
+                            scale: 0.6, //pixels
+                            anchor: new google.maps.Point(0,17)
                         },
                         map_icon_label: '<span class="map-icon map-icon-type-<?=$action->type_id?>"></span>',
                         url: 'actions/edit/<?=$action->id?>'
                     });
 
+                    bounds.extend(latLngEnd);
+
+                    actionPath.setMap(map);
                 <?php endif ?>
-                bounds.extend(latLngStart);
 
-            <?php endif ?>
-
-            /* END */
-            <?php if ($action->end_lat && $action->end_lng): ?>
-                var latLngEnd = new google.maps.LatLng(<?= h($action->end_lat) ?>,<?= h($action->end_lng) ?>);
-
-                actionPath = new google.maps.Polyline({
-                    path: [latLngStart, latLngEnd],
-                    icons: [{
-                        icon: {
-                            path: google.maps.SymbolPath.CIRCLE,
-                            fillOpacity: 1,
-                            fillColor: '#FFFFFF',
-                            strokeColor: '<?=$statusColor?>',
-                            strokeWeight: 2,
-                            scale: 5 //pixels
-                        },
-                        offset: '0%'
-                    }, {
-                        icon: {
-                            path: google.maps.SymbolPath.FORWARD_OPEN_ARROW,
-                            fillOpacity: 1,
-                            fillColor: '<?=$statusColor?>',
-                            strokeColor: '<?=$statusColor?>',
-                            strokeWeight: 1,
-                            scale: 2 //pixels
-                        },
-                        offset: '99%'
-                    }, {
-                        icon: {
-                            path: google.maps.SymbolPath.CIRCLE,
-                            fillOpacity: 1,
-                            fillColor: '#FFFFFF',
-                            strokeColor: '<?=$statusColor?>',
-                            strokeWeight: 2,
-                            scale: 5 //pixels
-                        },
-                        offset: '100%'
-                    }],
-                    geodesic: false,
-                    strokeColor: '<?=$statusColor?>',
-                    strokeOpacity: 1,
-                    strokeWeight: 2
+                google.maps.event.addListener(markerIcon, 'click', function() {
+                    window.location.href = this.url;
                 });
-
-                var Pathbounds = new google.maps.LatLngBounds();
-                Pathbounds.extend(latLngStart);
-                Pathbounds.extend(latLngEnd);
-
-                var actionCenter = Pathbounds.getCenter();
-
-                var markerIcon = new Marker({
-                    map: map,
-                    position: actionCenter,
-                    icon: {
-                        path: SQUARE_ROUNDED,
-                        fillColor: '<?=$statusColor?>',
-                        fillOpacity: 1,
-                        strokeColor: '',
-                        strokeWeight: 0,
-                        scale: 0.6, //pixels
-                        anchor: new google.maps.Point(0,17)
-                    },
-                    map_icon_label: '<span class="map-icon map-icon-type-<?=$action->type_id?>"></span>',
-                    url: 'actions/edit/<?=$action->id?>'
-                });
-
-                bounds.extend(latLngEnd);
-
-                actionPath.setMap(map);
-            <?php endif ?>
-
-            google.maps.event.addListener(markerIcon, 'click', function() {
-                window.location.href = this.url;
-            });
+            <?php endif; ?>
 
         <?php endforeach; ?>
 

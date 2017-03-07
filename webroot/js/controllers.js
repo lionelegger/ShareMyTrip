@@ -108,7 +108,7 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
 
     $scope.editTrip = function(tripId) {
         $scope.btnPressed=false;
-        $scope.buttonTxt = "Delete trip";
+        $scope.buttonTxt = "Delete";
         console.log('call editTrip with trip ' + tripId);
         $('.modal .form-message').empty();
         if (tripId > 0){
@@ -251,6 +251,24 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     $scope.addAction = function($trip_id) {
         console.log('call addAction');
 
+        // Validation process:
+        // TYPE_ID
+        if (!$("ul#type-id li.active").val()){
+            $("html, body").animate({scrollTop: $("#chooseType").offset().top - 120}, "slow", function () {
+                $("#chooseType").addClass("alert alert-danger");
+            });
+            return false;
+        } else {
+            $("#chooseType").removeClass("alert alert-danger");
+        }
+        // NAME
+        if (!$("#name").val()){
+            $("html, body").animate({scrollTop: $("#name").offset().top - 120}, "slow", function () {
+                $("#name").parents(".form-group").addClass("has-error");
+            });
+            return false;
+        }
+
         var participants = [];
         $("#participants input[type='checkbox']:checked").each(function() {
             participants.push($(this).attr('data-id'));
@@ -311,6 +329,14 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
 
     $scope.editAction = function($trip_id,$action_id) {
         console.log('call editAction for action '+ $action_id + ' and trip ' + $trip_id);
+        // NAME
+        if (!$("#name").val()){
+            $("html, body").animate({scrollTop: $("#name").offset().top - 120}, "slow", function () {
+                $("#name").parents(".form-group").addClass("has-error");
+            });
+            return false;
+        }
+
         // var participants = $("#participants :checked").val();
 
         // Add the participants that are checked and not isParticipating (added participants)

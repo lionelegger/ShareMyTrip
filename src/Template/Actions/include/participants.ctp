@@ -57,7 +57,7 @@
                                     } else {
                                         echo ("    <img src='files/Users/avatars/avatar-".$tripUser->avatar.".png' class='avatar-img'/>");
                                     }
-                                    echo ("    <div class='avatar-name'>".$tripUser->first_name." ".$tripUser->last_name."</div>");
+                                    echo ("    <div class='avatar-name'>".$tripUser->first_name."</div>");
                                     echo ("</div>");
 
 

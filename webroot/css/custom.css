@@ -11,6 +11,13 @@ body {
 hr {
   border-top: 1px solid lightgrey; }
 
+.page-header {
+  text-align: center;
+  border-bottom: 1px solid lightgrey; }
+
+h1 {
+  font-weight: bold; }
+
 .navbar-fixed-bottom {
   background-color: lightgrey;
   color: grey;
@@ -27,6 +34,12 @@ hr {
       color: black;
       text-decoration: none; }
 
+.navbar-nav > li > a {
+  font-size: 16px; }
+
+@media (min-width: 768px) {
+  .navbar-right {
+    margin-right: 0; } }
 .header-container {
   margin-top: -20px;
   padding: 15px 0 0 0; }
@@ -51,11 +64,15 @@ hr {
     margin: 0;
     font-size: 36px;
     font-weight: bold; }
+    .header-container .header-title.no-avatar {
+      margin-top: 4px;
+      margin-bottom: 20px; }
     .header-container .header-title ul.list-inline {
       vertical-align: text-top;
       display: inline-block;
       text-align: left;
-      margin-bottom: 0; }
+      margin-bottom: 0;
+      margin-top: -5px; }
       .header-container .header-title ul.list-inline > li.avatar.label-bottom .label {
         color: #FFFFFF;
         font-size: 12px;
@@ -76,7 +93,7 @@ button.btn-primary a:hover {
   text-decoration: none; }
 
 .btn-calltoaction {
-  margin: 5px 0 15px 0;
+  margin: 3px 0 15px 0;
   border-radius: 25px;
   -webkit-box-shadow: 0px 0px 10px 0px rgba(79, 79, 79, 0.65);
   -moz-box-shadow: 0px 0px 10px 0px rgba(79, 79, 79, 0.65);
@@ -119,8 +136,35 @@ button.btn-primary a:hover {
   font-weight: normal;
   line-height: 15px; }
 
+.modal-title {
+  font-weight: bold; }
+
+.section-container {
+  -webkit-transition: opacity .5s ease-in-out;
+  -moz-transition: opacity .5s ease-in-out;
+  -ms-transition: opacity .5s ease-in-out;
+  -o-transition: opacity .5s ease-in-out;
+  transition: opacity .5s ease-in-out; }
+  .section-container:hover {
+    cursor: hand;
+    cursor: pointer; }
+    .section-container:hover .color-primary a {
+      color: #FFFFFF; }
+  .section-container > a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: #FFF;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0; }
+  .section-container .btn {
+    z-index: 10; }
+
 .box {
-  position: relative;
   padding: 0 15px 15px;
   margin-bottom: 15px;
   border: 1px solid #e7e7e7;
@@ -133,7 +177,8 @@ button.btn-primary a:hover {
     margin: 0px -15px 0px -15px;
     padding: 15px;
     border-top-right-radius: 4px;
-    border-top-left-radius: 4px; }
+    border-top-left-radius: 4px;
+    position: relative; }
     .box .box-header .h2.box-title,
     .box .box-header h2.box-title {
       text-align: left;
@@ -151,9 +196,9 @@ button.btn-primary a:hover {
         .box .box-header h2.box-title a:visited {
           text-decoration: none; }
   .box .users {
-    position: absolute;
-    right: 0;
-    bottom: 40px; }
+    margin-bottom: -60px; }
+  .box .mainContent {
+    margin-top: 60px; }
   .box .box-footer {
     margin: 0 -15px -15px -15px;
     border-top: 1px solid #e7e7e7;
@@ -226,6 +271,8 @@ button.btn-primary a:hover {
     margin-top: 3px; }
   .avatar-list .col-md-12.checkbox-inside {
     padding-left: 30px; }
+.avatar-list.checkbox {
+  margin-top: 0; }
 
 .avatar.label-bottom {
   width: 50px;
@@ -235,7 +282,8 @@ button.btn-primary a:hover {
     width: 40px; }
   .avatar.label-bottom .avatar-name {
     width: 100%;
-    font-weight: bold; }
+    font-weight: bold;
+    padding: 0.2em 0; }
   .avatar.label-bottom input[type='checkbox'] {
     width: 100%;
     margin-left: 10px;
@@ -266,7 +314,7 @@ button.btn-primary a:hover {
   border: 2px dotted #285f8f;
   height: 35px !important;
   width: 35px !important;
-  margin: 0px auto 3px;
+  margin: 0 auto 3px;
   border-radius: 20px;
   background-color: white; }
   .avatar .avatar-add:before {
@@ -709,6 +757,10 @@ i.arrow {
   line-height: 2em;
   width: 100%;
   text-align: center; }
+  .message.success {
+    background-color: #2e753f; }
+  .message.error {
+    background-color: #9b1003; }
 
 .truncate-2lines {
   overflow: hidden;

@@ -16,7 +16,7 @@ $this->end();
     <div class="container">
         <div class="row">
             <div class="col-sm-8">
-                <h1 class="header-title">My trips</small></h1>
+                <h1 class="header-title no-avatar">My trips</small></h1>
             </div>
             <div class="col-sm-4 text-right">
                 <button type="button" class="btn btn-primary btn-lg btn-calltoaction" data-toggle="modal" ng-click="editTrip(0)" data-target="#tripEdit">
@@ -44,7 +44,7 @@ $this->end();
                 <form class="form-horizontal" method="post" accept-charset="utf-8">
                     <div class="modal-header color-primary">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h2 class="modal-title" ng-if="!trip.id">Add a trip</h2>
+                        <h2 class="modal-title color-primary" ng-if="!trip.id">Add a trip</h2>
                         <h2 class="modal-title" ng-if="trip.id">Edit {{trip.name}}</h2>
                         <br/>
                         <div class="form-group">
@@ -114,13 +114,14 @@ $this->end();
 
     <div class="row">
         <div class="col-md-6" ng-repeat="trip in trips">
-            <div class="box">
+            <div class="box section-container">
+                <a href="actions/plan/{{trip.id}}"></a>
                 <div class="row">
                     <div class="col-md-12 trip clearfix">
                         <div class="box-header color-primary clearfix">
                             <h2 class="box-title col-md-12"><a href="actions/plan/{{trip.id}}">{{trip.name}}</a></h2>
-                            <div class="users col-md-12">
-                                <ul class="list-inline pull-right">
+                            <div class="users col-md-12 text-right">
+                                <ul class="list-inline">
                                     <li ng-repeat="user in trip.users" ng-hide="currentUserId == user.id">
                                         <div class="avatar label-bottom">
                                             <img ng-if="!user.photo" ng-src="files/Users/avatars/avatar-{{user.avatar}}.png" class="avatar-img">
@@ -143,9 +144,10 @@ $this->end();
                             </button>
                         </div>
                         <div class="mainContent">
-                            <h4>2017-10-12 to 2017-10-17</h4>
-                            <p>You still owe 234 CHF to Tata</p>
-                            <div class="clearfix">&nbsp;</div>
+                            <h3 class="text-muted">12 May - 16 May 2017</h3>
+                            <h4>This trip starts in 34 days...</h4>
+                            <p class="alert alert-danger"><strong>You still owe 234 CHF to Tata</strong></p>
+
                         </div>
                     </div>
                 </div>

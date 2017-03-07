@@ -54,4 +54,12 @@ function initialize() {
         $("#datePayment").data("DateTimePicker").hide();
     });
 
+    // opacity change of section-containers
+    $(".section-container").hover(function() {
+        $(".section-container").css("opacity","0.7");
+        $(".section-container:hover").css("opacity","1");
+    }, function(){
+        $(".section-container").css("opacity","1");
+    });
+
 }

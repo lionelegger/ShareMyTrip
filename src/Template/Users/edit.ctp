@@ -22,7 +22,7 @@ $this->end();
 <div class="container clearfix">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h1>My profile</h1>
+            <h1 class="page-header">My profile</h1>
             <?= $this->Form->create($user, ['type' => 'file', 'class' => 'form-horizontal']) ?>
             <fieldset>
                 <div class="form-group">
@@ -103,7 +103,7 @@ $this->end();
                     'action' => 'index'
                 ], ['class' => 'btn btn-default']);
                 echo ("&nbsp;");
-                echo $this->Form->button(__('Submit'), ['class' => 'btn btn-primary']);
+                echo $this->Form->button(__('Save'), ['class' => 'btn btn-primary']);
                 echo $this->Form->end();
                 ?>
             </div>

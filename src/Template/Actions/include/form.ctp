@@ -1,9 +1,9 @@
 <? $userSession = $this->request->session()->read('Auth.User'); ?>
-<form class="actions form" method="post" accept-charset="utf-8">
+<form class="actions form" method="post" accept-charset="utf-8" ng-init="validated=true;">
     <? use Cake\I18n\Time; ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 text-center col-md-offset-3">
+            <div class="col-md-6 text-center col-md-offset-3" id="chooseType">
                 <!-- CATEGORY -->
                 <div class="clearfix">
                     <?php
@@ -135,8 +135,8 @@
         <div class="row">
             <div class="col-md-12 form-horizontal">
                 <div class="form-group">
-                    <label for="name" class="col-sm-1 control-label">Name</label>
-                    <div class="col-sm-11">
+                    <label for="name" class="col-sm-2 control-label">Name (required)</label>
+                    <div class="col-sm-10">
                         <input type="text" class="form-control" id="name" placeholder="Action name" ng-model="action.name">
                     </div>
                 </div>

@@ -3,6 +3,7 @@
         Register payment
     </button>
     <h3>Payments</h3>
+    <br>
     <div class="payment-list">
         <ul class="refine">
             <li ng-repeat="payment in action.payments">
