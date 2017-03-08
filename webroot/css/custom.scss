@@ -62,15 +62,83 @@ h1 {
         }
     }
 }
-
-.navbar-nav > li > a {
-    font-size: 16px;
+.navbar-header {
+    float:left;
 }
+
 @media (min-width: 768px) {
     .navbar-right {
         margin-right: 0;
     }
 }
+
+.navbar-nav {
+    > li > a {
+        font-size: 16px;
+    }
+
+    // on very small screens
+    @media only screen and (max-width: 600px) {
+        .glyphicon {
+            top: -5px;
+            font-size: 20px;
+        }
+        span.menu-title {
+            margin-left: 0.5em;
+            font-size: 13px;
+            position: absolute;
+            top: 30px;
+            left: -7.5px;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}
+
+// Keep the navigation inline at small resolution
+@media only screen and (max-width: 768px) {
+    .no-collapse ul.navbar-nav {
+        float: right;
+        margin: 0 15px;
+        > li {
+            float: left;
+            a {
+                padding: 15px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 400px) {
+
+    .navbar-fixed-top .container {
+        padding: 0;
+        text-align: center;
+    }
+    .glyphicon {
+        margin: 0;
+    }
+    .navbar-header {
+        display: none;
+    }
+    ul.navbar-nav {
+        width: 100%;
+        margin: 0 !important;
+        > li {
+            width: 20%;
+        }
+    }
+    span.menu-title {
+        margin-left: 0;
+        //border: 1px solid red;
+    }
+}
+
+span.menu-title {
+    margin-left: 0.5em;
+}
+
+
 
 
 .header-container {

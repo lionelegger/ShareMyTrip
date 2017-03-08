@@ -52,42 +52,42 @@ $this->end();
                 </div>
                 -->
                 <p class="help-block">Select your avatar... </p>
-                <div class="form-group">
-                    <input type="hidden" name="avatar" value="1">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <?php
-                                echo $this->Form->radio(
-                                    'avatar',
-                                    [
-                                        ['value' => '1', 'text' => '', 'class' => 'avatar avatar-1'],
-                                        ['value' => '2', 'text' => '', 'class' => 'avatar avatar-2'],
-                                        ['value' => '3', 'text' => '', 'class' => 'avatar avatar-3'],
-                                        ['value' => '4', 'text' => '', 'class' => 'avatar avatar-4'],
-                                        ['value' => '5', 'text' => '', 'class' => 'avatar avatar-5'],
-                                        ['value' => '6', 'text' => '', 'class' => 'avatar avatar-6'],
-                                        ['value' => '7', 'text' => '', 'class' => 'avatar avatar-7'],
-                                        ['value' => '8', 'text' => '', 'class' => 'avatar avatar-8'],
-                                        ['value' => '9', 'text' => '', 'class' => 'avatar avatar-9'],
-                                        ['value' => '10', 'text' => '', 'class' => 'avatar avatar-10'],
-                                        ['value' => '11', 'text' => '', 'class' => 'avatar avatar-11'],
-                                        ['value' => '12', 'text' => '', 'class' => 'avatar avatar-12'],
-                                        ['value' => '13', 'text' => '', 'class' => 'avatar avatar-13'],
-                                        ['value' => '14', 'text' => '', 'class' => 'avatar avatar-14'],
-                                        ['value' => '15', 'text' => '', 'class' => 'avatar avatar-15'],
-                                        ['value' => '16', 'text' => '', 'class' => 'avatar avatar-16'],
-                                        ['value' => '17', 'text' => '', 'class' => 'avatar avatar-17'],
-                                        ['value' => '18', 'text' => '', 'class' => 'avatar avatar-18'],
-                                        ['value' => '19', 'text' => '', 'class' => 'avatar avatar-19'],
-                                        ['value' => '20', 'text' => '', 'class' => 'avatar avatar-20'],
-                                        ['value' => '21', 'text' => '', 'class' => 'avatar avatar-21'],
-                                        ['value' => '22', 'text' => '', 'class' => 'avatar avatar-22']
-                                    ]
-                                );
-                            ?>
-                        </div>
+
+                <input type="hidden" name="avatar" value="1">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <?php
+                            echo $this->Form->radio(
+                                'avatar',
+                                [
+                                    ['value' => '1', 'text' => '', 'class' => 'avatar avatar-1'],
+                                    ['value' => '2', 'text' => '', 'class' => 'avatar avatar-2'],
+                                    ['value' => '3', 'text' => '', 'class' => 'avatar avatar-3'],
+                                    ['value' => '4', 'text' => '', 'class' => 'avatar avatar-4'],
+                                    ['value' => '5', 'text' => '', 'class' => 'avatar avatar-5'],
+                                    ['value' => '6', 'text' => '', 'class' => 'avatar avatar-6'],
+                                    ['value' => '7', 'text' => '', 'class' => 'avatar avatar-7'],
+                                    ['value' => '8', 'text' => '', 'class' => 'avatar avatar-8'],
+                                    ['value' => '9', 'text' => '', 'class' => 'avatar avatar-9'],
+                                    ['value' => '10', 'text' => '', 'class' => 'avatar avatar-10'],
+                                    ['value' => '11', 'text' => '', 'class' => 'avatar avatar-11'],
+                                    ['value' => '12', 'text' => '', 'class' => 'avatar avatar-12'],
+                                    ['value' => '13', 'text' => '', 'class' => 'avatar avatar-13'],
+                                    ['value' => '14', 'text' => '', 'class' => 'avatar avatar-14'],
+                                    ['value' => '15', 'text' => '', 'class' => 'avatar avatar-15'],
+                                    ['value' => '16', 'text' => '', 'class' => 'avatar avatar-16'],
+                                    ['value' => '17', 'text' => '', 'class' => 'avatar avatar-17'],
+                                    ['value' => '18', 'text' => '', 'class' => 'avatar avatar-18'],
+                                    ['value' => '19', 'text' => '', 'class' => 'avatar avatar-19'],
+                                    ['value' => '20', 'text' => '', 'class' => 'avatar avatar-20']
+//                                    ['value' => '21', 'text' => '', 'class' => 'avatar avatar-21'],
+//                                    ['value' => '22', 'text' => '', 'class' => 'avatar avatar-22']
+                                ]
+                            );
+                        ?>
                     </div>
                 </div>
+
                 <p class="help-block">... or upload your own avatar </p>
                 <div class="form-group">
                     <div class="col-sm-12">

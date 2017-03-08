@@ -34,15 +34,6 @@
         <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <?php if($userSession): ?>
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <?php endif; ?>
-
                 <div class="navbar-header">
                     <!-- TODO: Make a logo and add the logo image below -->
                     <!-- <a class="navbar-brand"><img alt="Share my trip" src="webroot/img/briefcase.png" height="20" width="20"></a> -->
@@ -50,7 +41,7 @@
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="no-collapse" id="bs-example-navbar-collapse-1">
                     <?php if($userSession): ?>
                         <span class="hidden" id="userId" data-id="<?= $userSession['id'] ?>"></span>
 
