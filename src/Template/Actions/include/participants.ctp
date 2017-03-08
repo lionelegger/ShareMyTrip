@@ -105,7 +105,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" aria-label="..." id="price" ng-model="action.price">
                         <div class="input-group-btn">
-                            <button type="button" id="actionCurrency" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{action.currency}}<i class="arrow down"></i></button>
+                            <button type="button" id="actionCurrency" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-init="action.currency = '<?= $trip->currency ?>'">{{action.currency}}<i class="arrow down"></i></button>
                             <!-- TODO: Currency is not working -->
                             <ul class="dropdown-menu dropdown-menu-right" >
                                 <li><a href="javascript:void(0)">CHF</a></li>
@@ -133,9 +133,6 @@
     </div>
 </div>
 
-<script>
-
-</script>
 
 
 

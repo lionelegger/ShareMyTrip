@@ -20,10 +20,13 @@
         <legend><?= __('Edit Trip') ?></legend>
         <?php
             echo $this->Form->input('name');
+            echo $this->Form->input('date_start');
             echo $this->Form->input('owner_id');
             echo $this->Form->input('users._ids', ['options' => $users]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
+    <br>
+    <br>
 </div>

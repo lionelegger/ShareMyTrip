@@ -18,6 +18,7 @@ function initialize() {
         $('.input-group-btn .btn:first-child').html(selText+'<i class="arrow down"></i>');
     });
 
+    // ACTION date/time pickers
     $('#datepickerStart').datetimepicker({
         format: 'YYYY-MM-DD'
     });
@@ -48,10 +49,18 @@ function initialize() {
             }
         });
     });
+
     // bad trick to update the picker format when we edit a payment
     $('#payment').on('shown.bs.modal', function () {
         $("#datePayment").data("DateTimePicker").show();
         $("#datePayment").data("DateTimePicker").hide();
+    });
+    // bad trick to update the picker format when we edit a payment
+    $('#tripEdit').on('shown.bs.modal', function () {
+        $("#datepickerStart").data("DateTimePicker").show();
+        $("#datepickerStart").data("DateTimePicker").hide();
+        $("#datepickerEnd").data("DateTimePicker").show();
+        $("#datepickerEnd").data("DateTimePicker").hide();
     });
 
     // opacity change of section-containers

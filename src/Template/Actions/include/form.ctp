@@ -108,16 +108,16 @@
                         <div class='input-group' id='datepickerEnd'>
                             <input type='text' class='form-control' id='end_date' name='end_date' placeholder='YYYY-MM-DD' value='<?=$end_date?>'/>
                             <span class='input-group-addon'>
-                            <span class='glyphicon glyphicon-calendar'></span>
-                        </span>
+                                <span class='glyphicon glyphicon-calendar'></span>
+                            </span>
                         </div>
                     </div>
                     <div class="col-xs-5 col-sm-5 col-md-5">
                         <div class='input-group' id='timepickerEnd'>
                             <input type='text' class='form-control' id='end_time' name='end_time' placeholder='HH:MM' value='<?=$end_time?>'/>
                             <span class='input-group-addon'>
-                            <span class='glyphicon glyphicon-time'></span>
-                        </span>
+                                <span class='glyphicon glyphicon-time'></span>
+                            </span>
                         </div>
                     </div>
                 </div>

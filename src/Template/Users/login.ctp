@@ -40,7 +40,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Last Name</label>
-                        <input name="name" type="text" class="form-control" id="last_name" placeholder="Last name" ng-model="userToAdd.last_name" required>
+                        <input name="name" type="text" class="form-control" id="last_name" placeholder="Last name" ng-model="userToAdd.last_name">
                     </div>
                     <div class="form-group text-center" ng-init="userToAdd.avatar=16">
                         <input type="hidden" name="avatar" value="1" >

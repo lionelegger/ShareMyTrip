@@ -9,7 +9,6 @@ use Cake\Validation\Validator;
 /**
  * Trips Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\HasMany $Actions
  * @property \Cake\ORM\Association\BelongsToMany $Users
  *
@@ -70,6 +69,15 @@ class TripsTable extends Table
         $validator
             ->requirePresence('name', 'create')
             ->notEmpty('name');
+
+        $validator
+            ->allowEmpty('date_start');
+
+        $validator
+            ->allowEmpty('date_end');
+
+        $validator
+            ->allowEmpty('currency');
 
         return $validator;
     }

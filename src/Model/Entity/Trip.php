@@ -8,6 +8,9 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $name
+ * @property string $start_date
+ * @property string $end_date
+ * @property string $currency
  * @property int $owner_id
  *
  * @property \App\Model\Entity\Action[] $actions

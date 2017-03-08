@@ -289,11 +289,10 @@ button.btn-primary a:hover {
         }
     }
     .users {
-        margin-bottom: -60px;
-
+        height: 15px;
     }
     .mainContent {
-        margin-top: 60px;
+        margin-top: 35px;
     }
 
     .box-footer {
@@ -330,6 +329,9 @@ button.btn-primary a:hover {
 
 // color-primary
 .color-primary {
+    .bootstrap-datetimepicker-widget {
+        color: initial;
+    }
     color: white;
     background-color: $color-primary;
     a {

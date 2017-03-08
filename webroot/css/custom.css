@@ -196,9 +196,9 @@ button.btn-primary a:hover {
         .box .box-header h2.box-title a:visited {
           text-decoration: none; }
   .box .users {
-    margin-bottom: -60px; }
+    height: 15px; }
   .box .mainContent {
-    margin-top: 60px; }
+    margin-top: 35px; }
   .box .box-footer {
     margin: 0 -15px -15px -15px;
     border-top: 1px solid #e7e7e7;
@@ -225,6 +225,8 @@ button.btn-primary a:hover {
 .color-primary {
   color: white;
   background-color: #337ab7; }
+  .color-primary .bootstrap-datetimepicker-widget {
+    color: initial; }
   .color-primary a {
     color: #9fc4e4; }
     .color-primary a:hover {

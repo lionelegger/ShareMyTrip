@@ -11,7 +11,8 @@
                 <span ng-if="payment.user.id != <?= $userSession['id'] ?>" class="pull-right">Paid by {{payment.user.first_name}}</span><span ng-if="payment.user_id==currentUserId" class="pull-right"><a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment">Paid by me</a></span>
             </li>
         </ul>
-        <h4><strong>{{action.payments.totalAll}} {{action.currency}}</strong> <?php if($edit):?><small>from which {{action.payments.totalAuth}} {{action.currency}} paid by me</small><?php endif ?></h4>
+        <p ng-if="!action.payments.totalAll">No payment recorded yet.</p>
+        <h4 ng-if="action.payments.totalAll > 0"><strong>{{action.payments.totalAll}} <?=$trip->currency?></strong> <?php if($edit):?><small>from which {{action.payments.totalAuth}} {{action.currency}} paid by me</small><?php endif ?></h4>
     </div>
     <!-- Button trigger modal -->
 
@@ -20,9 +21,9 @@
     <div class="modal fade" id="payment" tabindex="-1" role="dialog" aria-labelledby="Payment">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header color-lightgrey">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h2 class="modal-title" id="myModalLabel">Payment confirmation</h2>
+                    <h2 class="modal-title" id="myModalLabel">Payment</h2>
                     <h4 class="help-block">The amount that is still to pay is {{action.price - action.payments.totalAll}} CHF</h4>
                 </div>
                 <div class="modal-body">
@@ -84,7 +85,7 @@
                     <?php if (!$edit) { ?>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionAddTempPayment(<?= $userSession['id'] ?>);">Save</button>
                     <?php } else {?>
-                        <button type="button" class="btn btn-danger" ng-if="actionPaymentToAdd.payment_id" ng-click="actionDeletePayment(actionPaymentToAdd.payment_id,<?= $action->id ?>)" data-dismiss="modal">Delete</button>
+                        <button type="button" class="btn btn-danger pull-left" ng-if="actionPaymentToAdd.payment_id" ng-click="actionDeletePayment(actionPaymentToAdd.payment_id,<?= $action->id ?>)" data-dismiss="modal">Delete</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionSavePayment(<?= $action->id ?>,<?= $userSession['id'] ?>,actionPaymentToAdd.payment_id)">Save</button>
                     <?php } ?>
                 </div>

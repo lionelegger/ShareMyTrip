@@ -95,6 +95,10 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     $scope.addTrip = function() {
         console.log('call addTrip');
         $scope.welcomeMsg=false;
+        $scope.trip.date_start = $("#date_start").val();
+        $scope.trip.date_end = $("#date_end").val();
+        $scope.trip.currency = $("#currency option:selected").val();
+        console.log("SELECTED="+$scope.trip.currency);
         $http
             .post('Trips/add.json', $scope.trip)
             .success(function(data) {
@@ -116,6 +120,7 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         if (tripId > 0){
             $('#collapseParticipation').collapse('show');
             $scope.loadTrip(tripId);
+            // console.log("currency value is " + $scope.trip.currency);
             $scope.getTripUsers(tripId);
         } else {
             $scope.trip={};
@@ -128,6 +133,10 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     // $scope.trip = {};
     $scope.saveTrip = function(tripId) {
         console.log('call saveTrip with trip ' + tripId);
+        $scope.trip.date_start = $("#date_start").val();
+        $scope.trip.date_end = $("#date_end").val();
+        $scope.trip.currency = $("#currency option:selected").val();
+        console.log("CURRENCY:" + $scope.trip.currency);
         $http
             .post('Trips/edit/' + tripId, $scope.trip)
             .success(function() {

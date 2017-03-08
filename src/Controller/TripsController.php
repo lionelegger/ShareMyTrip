@@ -82,7 +82,7 @@ class TripsController extends AppController
 
                 $record_id=$result->id;
 
-                $this->Flash->success(__('The trip has been saved with ID = ') . $record_id);
+//                $this->Flash->success(__('The trip has been saved with ID = ') . $record_id);
 
 //                return $this->redirect(['action' => 'index']);
             } else {
@@ -105,7 +105,15 @@ class TripsController extends AppController
     public function edit($id = null)
     {
         // When editing a trip, we update only the fields specified below but not 'users' who are added/removed with angularJS controllers
-        $this->Trips->updateAll(["name" => $this->request->data['name']], ["id" => $id]);
+
+//        debug($this->request->data['new_date_start']);
+        $this->Trips->updateAll([
+            "name" => $this->request->data['name'],
+            "date_start" => $this->request->data['date_start'],
+            "date_end" => $this->request->data['date_end'],
+            "currency" => $this->request->data['currency']
+            ],["id" => $id]
+        );
 //        $this->Trips->updateAll(["currency" => $this->request->data['currency']], ["id" => $id]);
 
     }

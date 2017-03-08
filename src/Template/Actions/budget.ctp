@@ -198,7 +198,7 @@ if (!empty($actions)) {
                         <?php if ($n>1) { ?>
                             <a href="#" data-toggle="tooltip" data-placement="top" data-html="true" title="<?=$tipPayment?>"><?=$totalCell?></a>
                         <?php } else { ?>
-                            <?=$totalCell?>
+                            <?=$totalCell . " " . $action->currency ?>
                         <?php } ?>
                     </h4>
                     <?php
@@ -243,14 +243,14 @@ if (!empty($actions)) {
 
     foreach ($tripUsers as $user) {
         echo "<td data-title='".$user->first_name."'>";
-        echo "<h3><strong>" . $totalPaid[$user->id] . "</strong></h3>";
+        echo "<h3><strong>" . $totalPaid[$user->id] . "</strong> ".$trip->currency."</h3>";
         echo "</td>";
     }
 
 
 
     echo "      <td data-title='ALL'>";
-    echo "<h2><strong>" . $globalPaid . "</strong> of ".$totalTrip."</h2>";
+    echo "<h2><strong>" . $globalPaid . "</strong> of ".$totalTrip." ".$trip->currency."</h2>";
     echo "      </td>";
     echo "    </tr>";
 
@@ -263,24 +263,24 @@ if (!empty($actions)) {
         echo "<td data-title='".$user->first_name."'>";
         echo "<h2>";
         if ($totalBalance[$user->id] >= 0) {
-            echo "<span class='label label-success'>".$totalBalance[$user->id]."</span>";
+            echo "<span class='label label-success'>".$totalBalance[$user->id]." ".$trip->currency."</span>";
         } else if ($totalPaid[$user->id] == 0) {
-            echo "<span class='label label-danger'>".$totalBalance[$user->id]."</span>";
+            echo "<span class='label label-danger'>".$totalBalance[$user->id]." ".$trip->currency."</span>";
         } else {
-            echo "<span class='label label-warning'>".$totalBalance[$user->id]."</span>";
+            echo "<span class='label label-warning'>".$totalBalance[$user->id]." ".$trip->currency."</span>";
         };
         echo "</h2>";
         echo "</td>";
     }
     echo "<td data-title='All Trip'><h1>";
     if ($globalBalance < 0) {
-        echo "<span class='label label-warning'>".$globalBalance."</span>";
+        echo "<span class='label label-warning'>".$globalBalance." ".$trip->currency."</span>";
     } else if ($globalBalance == 0) {
-        echo "<span class='label label-success'>".$globalBalance."</span>";
+        echo "<span class='label label-success'>".$globalBalance." ".$trip->currency."</span>";
     } else if ($globalBalance == $totalTrip) {
-        echo "<span class='label label-danger'>".$globalBalance."</span>";
+        echo "<span class='label label-danger'>".$globalBalance." ".$trip->currency."</span>";
     } else {
-        echo "<span class='label label-default'>".$globalBalance."</span>";
+        echo "<span class='label label-default'>".$globalBalance." ".$trip->currency."</span>";
     }
     echo "</h1></td>";
     echo "</tr>";

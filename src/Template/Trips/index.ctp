@@ -35,7 +35,7 @@ $this->end();
     </div>
     <!-- START MODAL -->
     <div class="modal fade" tabindex="-1" role="dialog" id="tripEdit">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form class="form-horizontal" method="post" accept-charset="utf-8">
                     <div class="modal-header color-primary">
@@ -43,10 +43,45 @@ $this->end();
                         <h2 class="modal-title color-primary" ng-if="!trip.id">Add a trip</h2>
                         <h2 class="modal-title" ng-if="trip.id">Edit {{trip.name}}</h2>
                         <br/>
-                        <div class="form-group">
-                            <label for="tripName" class="col-sm-2 control-label">Name</label>
-                            <div class="col-sm-10">
-                                <input class="form-control" id="tripName" placeholder="Trip Name" ng-model="trip.name">
+                        <div class="row">
+                            <div class="form-group col-sm-8">
+                                <label for="tripName" class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" id="tripName" placeholder="Trip Name" ng-model="trip.name">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-sm-5">
+                                <label for="currency" class="col-sm-3 control-label">Currency</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" id="currency" ng-model="trip.currency">
+                                        <option value="">Not defined</option>
+                                        <option value="CHF">CHF [Swiss Francs]</option>
+                                        <option value="USD">USD [Dollars]</option>
+                                        <option value="EUR">EUR [Euros]</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label for="date_start" class="col-sm-1 control-label">From</label>
+                            <div class="col-sm-5">
+                                <div class='input-group date' id='datepickerStart'>
+                                    <input type='text' class='form-control' id="date_start" placeholder='YYYY-MM-DD' ng-model="trip.date_start"/>
+                                    <span class='input-group-addon'>
+                                        <span class='glyphicon glyphicon-calendar'></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <label for="date_end" class="col-sm-1 control-label">To</label>
+                            <div class="col-sm-5">
+                                <div class='input-group date' id='datepickerEnd'>
+                                    <input type='text' class='form-control' id="date_end" placeholder='YYYY-MM-DD' ng-model="trip.date_end"/>
+                                    <span class='input-group-addon'>
+                                        <span class='glyphicon glyphicon-calendar'></span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,10 +101,10 @@ $this->end();
                                     <div class="row row-no-padding">
                                         <div class="avatar-list">
                                             <div class="col-md-12" ng-repeat="user in trips.trip.users" id="tripUser-{{user._joinData.id}}" ng-hide="currentUserId == user.id" >
-                                                <div class="col-xs-3">
+                                                <div class="col-xs-2">
                                                     <button type="button" id="tripDeleteUser-{{user._joinData.id}}" class="btn btn-default" ng-click="tripDeleteUser(user._joinData.id)"><span class="glyphicon glyphicon-remove"></span> Delete</button>
                                                 </div>
-                                                <div class="col-xs-9">
+                                                <div class="col-xs-10">
                                                     <div class="avatar label-right clearfix">
                                                         <img ng-if="!user.photo" ng-src="files/Users/avatars/avatar-{{user.avatar}}.png" class="avatar-img">
                                                         <img ng-if="user.photo" ng-src="{{user.photo_dir}}/{{user.photo}}" class="avatar-img circle">
@@ -140,8 +175,8 @@ $this->end();
                             </button>
                         </div>
                         <div class="mainContent">
-                            <h3 class="text-muted">12 May - 16 May 2017</h3>
-                            <h4>This trip starts in 34 days...</h4>
+                            <h3 class="text-muted"><small><span class="glyphicon glyphicon-calendar text-primary"></span></small> {{trip.date_start | date:'d MMMM'}} - {{trip.date_end | date:'d MMMM'}} {{trip.date_end | date:'yyyy'}}</h3>
+                            <h4>This trip starts in 66 days...</h4>
                             <p class="alert alert-danger"><strong>You still owe 234 CHF to Tata</strong></p>
 
                         </div>
