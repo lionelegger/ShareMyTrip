@@ -34,6 +34,7 @@ $this->end();
                     <div class="col-sm-6">
                         <?= $this->Form->input('first_name', ['class' => 'form-control']); ?>
                     </div>
+                    <br class="visible-xs">
                     <div class="col-sm-6">
                         <?= $this->Form->input('last_name', ['class' => 'form-control']); ?>
                     </div>

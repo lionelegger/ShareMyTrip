@@ -29,10 +29,12 @@ $this->end();
 </div>
 <br>
 <div ng-controller="TripsCtrl" class="container clearfix" ng-init="welcomeMsg=true;">
+    <?php if(iterator_count($trips)==0): ?>
     <div class="welcome text-right" ng-if="welcomeMsg==true">
         <h3>Welcome {{currentUserFirstname}} !</h3>
         <p>Click on the above "New trip" button to create your first trip</p>
     </div>
+    <?php endif ?>
     <!-- START MODAL -->
     <div class="modal fade" tabindex="-1" role="dialog" id="tripEdit">
         <div class="modal-dialog" role="document">
@@ -73,7 +75,7 @@ $this->end();
                                     </span>
                                 </div>
                             </div>
-
+                            <br class="visible-xs">
                             <label for="date_end" class="col-sm-1 control-label">To</label>
                             <div class="col-sm-5">
                                 <div class='input-group date' id='datepickerEnd'>
@@ -101,16 +103,16 @@ $this->end();
                                     <div class="row row-no-padding">
                                         <div class="avatar-list">
                                             <div class="col-md-12" ng-repeat="user in trips.trip.users" id="tripUser-{{user._joinData.id}}" ng-hide="currentUserId == user.id" >
-                                                <div class="col-xs-2">
-                                                    <button type="button" id="tripDeleteUser-{{user._joinData.id}}" class="btn btn-default" ng-click="tripDeleteUser(user._joinData.id)"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-                                                </div>
-                                                <div class="col-xs-10">
+
+                                                    <button type="button" id="tripDeleteUser-{{user._joinData.id}}" class="btn btn-default pull-left" ng-click="tripDeleteUser(user._joinData.id)"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+
+
                                                     <div class="avatar label-right clearfix">
                                                         <img ng-if="!user.photo" ng-src="files/Users/avatars/avatar-{{user.avatar}}.png" class="avatar-img">
                                                         <img ng-if="user.photo" ng-src="{{user.photo_dir}}/{{user.photo}}" class="avatar-img circle">
                                                         <div class="avatar-name">{{user.first_name}} {{user.last_name}}</div>
                                                     </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -150,11 +152,18 @@ $this->end();
                 <div class="row">
                     <div class="col-md-12 trip clearfix">
                         <div class="box-header color-primary clearfix">
-                            <h2 class="box-title col-md-12"><a href="actions/plan/{{trip.id}}">{{trip.name}}</a></h2>
-                            <div class="users col-md-12 text-right">
+                            <h2 class="box-title"><a href="actions/plan/{{trip.id}}">{{trip.name}}</a></h2>
+                            <button type="button" class="btn btn-link top-right" ng-if="currentUserId == trip.owner_id" data-toggle="modal" data-target="#tripEdit" ng-click="editTrip(trip.id)">
+                                <span class="glyphicon glyphicon-cog"></span> Edit
+                            </button>
+                            <h3 class="no-margin text-right" ng-if="trip.date_start"><span class="glyphicon glyphicon-calendar glyphicon-sm"></span> {{trip.date_start | date:'d MMMM'}} - {{trip.date_end | date:'d MMMM'}} {{trip.date_end | date:'yyyy'}}</h3>
+                        </div>
+                        <div class="mainContent">
+                            <div class="col-xs-2"><h2 class="text-muted" ng-if="trip.users.length>1">With</h2><h2 class="text-muted" ng-if="trip.users.length==1">Alone</h2></div>
+                            <div class="avatar-list col-xs-10">
                                 <ul class="list-inline">
                                     <li ng-repeat="user in trip.users" ng-hide="currentUserId == user.id">
-                                        <div class="avatar label-bottom">
+                                        <div class="avatar avatar-lg label-bottom">
                                             <img ng-if="!user.photo" ng-src="files/Users/avatars/avatar-{{user.avatar}}.png" class="avatar-img">
                                             <img ng-if="user.photo" ng-src="{{user.photo_dir}}{{user.photo}}" class="avatar-img circle"/>
                                             <div class="label avatar-name" >{{user.first_name}}</div>
@@ -170,14 +179,9 @@ $this->end();
                                     -->
                                 </ul>
                             </div>
-                            <button type="button" class="btn btn-link top-right" ng-if="currentUserId == trip.owner_id" data-toggle="modal" data-target="#tripEdit" ng-click="editTrip(trip.id)">
-                                <span class="glyphicon glyphicon-cog"></span> Edit
-                            </button>
-                        </div>
-                        <div class="mainContent">
-                            <h3 class="text-muted"><small><span class="glyphicon glyphicon-calendar text-primary"></span></small> {{trip.date_start | date:'d MMMM'}} - {{trip.date_end | date:'d MMMM'}} {{trip.date_end | date:'yyyy'}}</h3>
-                            <h4>This trip starts in 66 days...</h4>
-                            <p class="alert alert-danger"><strong>You still owe 234 CHF to Tata</strong></p>
+
+<!--                            <h4>This trip starts in 66 days...</h4>-->
+<!--                            <p class="alert alert-danger"><strong>You still owe 234 CHF to Tata</strong></p>-->
 
                         </div>
                     </div>
@@ -186,3 +190,5 @@ $this->end();
         </div>
     </div>
 </div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>

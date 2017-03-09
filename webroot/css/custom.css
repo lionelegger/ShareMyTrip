@@ -85,6 +85,12 @@ h1 {
 span.menu-title {
   margin-left: 0.5em; }
 
+.row-light {
+  border-bottom: 1px solid lightgrey;
+  padding-bottom: 15px;
+  background-color: #f5f5f5;
+  margin-bottom: 30px; }
+
 .header-container {
   margin-top: -20px;
   padding: 15px 0 0 0; }
@@ -108,7 +114,8 @@ span.menu-title {
   .header-container .header-title {
     margin: 0;
     font-size: 36px;
-    font-weight: bold; }
+    font-weight: bold;
+    min-height: 66px; }
     .header-container .header-title.no-avatar {
       margin-top: 4px;
       margin-bottom: 20px; }
@@ -189,6 +196,12 @@ button.btn-primary a:hover {
     margin-right: 0;
     margin-left: 0; } }
 
+.no-margin {
+  margin: 0 !important; }
+
+.no-padding {
+  margin: 0 !important; }
+
 .section-container {
   -webkit-transition: opacity .5s ease-in-out;
   -moz-transition: opacity .5s ease-in-out;
@@ -225,7 +238,7 @@ button.btn-primary a:hover {
   box-shadow: 0px 0px 3px 0px rgba(179, 179, 179, 0.2); }
   .box .box-header {
     margin: 0px -15px 0px -15px;
-    padding: 15px;
+    padding: 15px 30px;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
     position: relative; }
@@ -245,10 +258,8 @@ button.btn-primary a:hover {
         .box .box-header h2.box-title a:focus,
         .box .box-header h2.box-title a:visited {
           text-decoration: none; }
-  .box .users {
-    height: 15px; }
   .box .mainContent {
-    margin-top: 35px; }
+    margin-top: 15px; }
   .box .box-footer {
     margin: 0 -15px -15px -15px;
     border-top: 1px solid #e7e7e7;
@@ -271,6 +282,11 @@ button.btn-primary a:hover {
       color: #2e753f; }
     .box .box-footer.status-5 {
       color: #000000; }
+  @media only screen and (max-width: 768px) {
+    .box .box-header {
+      padding: 15px; }
+    .box .mainContent {
+      margin: 15px -15px; } }
 
 .color-primary {
   color: white;
@@ -312,13 +328,12 @@ button.btn-primary a:hover {
   border-bottom-width: 2px; }
 
 .avatar-list .col-md-12 {
-  padding: 5px 0px;
-  border-bottom: 1px solid #e7e7e7; }
+  padding: 5px 15px;
+  border-bottom: 1px solid #e7e7e7;
+  display: inline-block;
+  width: 100%; }
   .avatar-list .col-md-12:last-child {
     border-bottom: none; }
-  @media only screen and (max-width: 992px) {
-    .avatar-list .col-md-12 {
-      border-bottom: none; } }
   .avatar-list .col-md-12 .btn {
     margin-top: 3px; }
   .avatar-list .col-md-12.checkbox-inside {
@@ -326,12 +341,22 @@ button.btn-primary a:hover {
 .avatar-list.checkbox {
   margin-top: 0; }
 
+.btn.pull-left {
+  margin-right: 15px; }
+
+.avatar.avatar-lg .avatar-img {
+  width: 64px; }
+  .avatar.avatar-lg .avatar-img.circle {
+    border-radius: 32px; }
+.avatar.avatar-lg.label-bottom {
+  width: 75px; }
+  .avatar.avatar-lg.label-bottom .avatar-name {
+    font-weight: normal;
+    font-size: 14px; }
 .avatar.label-bottom {
   width: 50px;
   padding: 0 5px;
   text-align: center; }
-  .avatar.label-bottom .avatar-img {
-    width: 40px; }
   .avatar.label-bottom .avatar-name {
     width: 100%;
     font-weight: bold;
@@ -343,7 +368,7 @@ button.btn-primary a:hover {
   .avatar.label-bottom .label {
     margin-top: 3px;
     display: inherit;
-    max-width: 50px;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -465,6 +490,9 @@ input[type=radio].avatar {
   margin: 45px 20px 5px 20px; }
 
 @media only screen and (max-width: 768px) {
+  input[type=file] {
+    height: 40px; } }
+@media only screen and (max-width: 768px) {
   nav form.form-inline {
     margin-top: 12px; }
 
@@ -475,6 +503,9 @@ a.glyphicon-btn {
   display: inline-block;
   cursor: pointer;
   cursor: hand; }
+
+.glyphicon-sm {
+  font-size: smaller; }
 
 .map-icon {
   font-size: 18px; }

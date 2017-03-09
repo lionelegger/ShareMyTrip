@@ -45,6 +45,7 @@ include_once ('include/header.ctp');
 
         $start_year = $this->Time->format($action->start_date, 'YYYY');
         $start_date = $this->Time->format($action->start_date, 'd MMM');
+        $start_date_title = $this->Time->format($action->start_date, 'd MMMM');
         // if start_time is 12:00:01, we don't show the time
         $start_time = $this->Time->format($action->start_date, 'HH:mm:ss');
         if($start_time == '12:00:01') {
@@ -79,11 +80,15 @@ include_once ('include/header.ctp');
         }
 
 
-        if ($start_date != $lastDate || $start_date == '') {
+        if ($start_date != $lastDate || ($start_date == '' && $firstRow==true)) {
             if ($firstRow==false) {echo "</div>";}
             echo "<div class='row actions-day'>";
             echo "    <div class='col-md-2 text-center'>";
-            echo "      <div class='actions-date'>".$start_date."</div>";
+            if ($start_date == '' && $firstRow==true) {
+                echo "      <div class='actions-date'>Before/After</div>";
+            } else {
+                echo "      <div class='actions-date'>".$start_date_title."</div>";
+            }
             echo "    </div>";
             $firstRow=false;
         }

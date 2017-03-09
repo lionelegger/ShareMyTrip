@@ -31,7 +31,7 @@ if (!empty($actions)) {
     echo "<table class='table table-hover table-striped responsive-table table-budget'>";
     echo "<thead>";
     echo "    <tr>";
-    echo "      <th style='min-width:300px'>";
+    echo "      <th style='min-width:300px; max-width: 500px;'>";
     echo "          <h3>Actions</h3>";
     echo "      </th>";
 

@@ -130,7 +130,6 @@ h1 {
     }
     span.menu-title {
         margin-left: 0;
-        //border: 1px solid red;
     }
 }
 
@@ -138,8 +137,12 @@ span.menu-title {
     margin-left: 0.5em;
 }
 
-
-
+.row-light {
+    border-bottom: 1px solid lightgrey;
+    padding-bottom: 15px;
+    background-color: #f5f5f5;
+    margin-bottom: 30px;
+}
 
 .header-container {
     &.color-primary {
@@ -174,6 +177,7 @@ span.menu-title {
         margin: 0;
         font-size: 36px;
         font-weight: bold;
+        min-height: 66px;
 
         &.no-avatar {
             margin-top: 4px;
@@ -291,6 +295,14 @@ button.btn-primary a:hover {
     }
 }
 
+// useful classes
+.no-margin {
+    margin: 0 !important;
+}
+.no-padding {
+    margin: 0 !important;
+}
+
 // section-container (to highlight a box)
 .section-container {
     -webkit-transition: opacity .5s ease-in-out;
@@ -322,7 +334,6 @@ button.btn-primary a:hover {
     .btn {
         z-index: 10;
     }
-
 }
 
 
@@ -340,7 +351,7 @@ button.btn-primary a:hover {
 
     .box-header {
         margin: 0px -15px 0px -15px;
-        padding: 15px;
+        padding: 15px 30px;
         border-top-right-radius: 4px;
         border-top-left-radius: 4px;
         position: relative;
@@ -365,11 +376,9 @@ button.btn-primary a:hover {
             }
         }
     }
-    .users {
-        height: 15px;
-    }
+
     .mainContent {
-        margin-top: 35px;
+        margin-top: 15px;
     }
 
     .box-footer {
@@ -401,6 +410,15 @@ button.btn-primary a:hover {
         &.status-5 {
             color: #000000;
         }
+    }
+    @media only screen and (max-width: 768px) {
+        .box-header {
+            padding: 15px;
+        }
+        .mainContent {
+            margin: 15px -15px;
+        }
+
     }
 }
 
@@ -472,12 +490,12 @@ button.btn-primary a:hover {
 
 .avatar-list {
     .col-md-12 {
-        padding: 5px 0px;
+        padding: 5px 15px;
         border-bottom: 1px solid #e7e7e7;
+        display: inline-block;
+        width: 100%;
+
         &:last-child {
-            border-bottom: none;
-        }
-        @media only screen and (max-width: 992px) {
             border-bottom: none;
         }
         .btn {margin-top: 3px;}
@@ -490,14 +508,32 @@ button.btn-primary a:hover {
     }
 }
 
+.btn.pull-left {
+    margin-right: 15px;
+}
+
+
 .avatar {
+    &.avatar-lg {
+        .avatar-img {
+            width: 64px;
+            &.circle {
+                border-radius: 32px;
+            }
+        }
+        &.label-bottom {
+            width: 75px;
+            .avatar-name {
+                font-weight: normal;
+                font-size: 14px;
+            }
+        }
+    }
     &.label-bottom {
         width: 50px;
         padding: 0 5px;
         text-align: center;
-        .avatar-img {
-            width: 40px;
-        }
+
         .avatar-name {
             width: 100%;
             font-weight: bold;
@@ -511,7 +547,7 @@ button.btn-primary a:hover {
         .label {
             margin-top: 3px;
             display: inherit;
-            max-width: 50px;
+            max-width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -660,6 +696,13 @@ input[type=radio].avatar {
     margin: 45px 20px 5px 20px;
 }
 
+// in profile page, then photo input is not well aligned
+@media only screen and (max-width: 768px) {
+    input[type=file] {
+        height: 40px;
+    }
+}
+
 @media only screen and (max-width: 768px) {
 
     nav form.form-inline {
@@ -675,6 +718,11 @@ a.glyphicon-btn {
     display: inline-block;
     cursor: pointer;
     cursor: hand;
+}
+
+// small glyphicons
+.glyphicon-sm {
+    font-size: smaller;
 }
 
 .map-icon {

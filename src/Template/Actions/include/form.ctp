@@ -135,23 +135,23 @@
     </div>
 
     <?php include_once("googleMap.ctp"); ?>
-
+<div class="row-light">
     <div class="container clearfix">
 
         <div class="clearfix"><br/></div>
         <div class="clearfix"><br/></div>
 
         <div class="row">
-            <div class="col-md-12 form-horizontal">
+            <div class="col-md-4"></div>
+            <div class="col-md-7 col-md-offset-1 form-horizontal">
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Name (required)</label>
+                    <label for="name" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="name" placeholder="Action name" ng-model="action.name">
                     </div>
                 </div>
             </div>
         </div>
-        <p>&nbsp;</p>
         <div class="row">
             <div class="col-md-4 form-horizontal">
                 <div class="form-group">
@@ -175,28 +175,29 @@
             </div>
             <div class="col-md-7 col-md-offset-1 form-horizontal">
                 <div class="form-group">
-                    <label for="note" class="col-sm-1 control-label">Notes</label>
-                    <div class="col-sm-11">
+                    <label for="note" class="col-sm-2 control-label">Notes</label>
+                    <div class="col-sm-10">
                         <textarea class="form-control" id="note" rows="6" ng-model="action.note"></textarea>
                     </div>
                 </div>
             </div>
         </div>
-
-        <hr>
-
-        <div class="debug hidden">
-            <?php
-            echo $this->Form->input('start_name', ['ng-model' => 'action.start_name']);
-            echo $this->Form->input('start_lng', ['ng-model' => 'action.start_lng']);
-            echo $this->Form->input('start_lat', ['ng-model' => 'action.start_lat']);
-            echo $this->Form->input('end_name', ['ng-model' => 'action.end_name']);
-            echo $this->Form->input('end_lng', ['ng-model' => 'action.end_lng']);
-            echo $this->Form->input('end_lat', ['ng-model' => 'action.end_lat']);
-            ?>
-        </div>
-        <?php include_once("participants.ctp"); ?>
     </div>
+</div>
+<div class="container">
+    <div class="debug hidden">
+        <?php
+        echo $this->Form->input('start_name', ['ng-model' => 'action.start_name']);
+        echo $this->Form->input('start_lng', ['ng-model' => 'action.start_lng']);
+        echo $this->Form->input('start_lat', ['ng-model' => 'action.start_lat']);
+        echo $this->Form->input('end_name', ['ng-model' => 'action.end_name']);
+        echo $this->Form->input('end_lng', ['ng-model' => 'action.end_lng']);
+        echo $this->Form->input('end_lat', ['ng-model' => 'action.end_lat']);
+        ?>
+    </div>
+    <?php include_once("participants.ctp"); ?>
+</div>
+
 </form>
 
 
