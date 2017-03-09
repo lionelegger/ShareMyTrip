@@ -3,7 +3,8 @@
     <? use Cake\I18n\Time; ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 text-center col-md-offset-3" id="chooseType">
+            <div class="label-from">from</div>
+            <div class="col-lg-6 col-lg-offset-3 text-center" id="chooseType">
                 <!-- CATEGORY -->
                 <div class="clearfix">
                     <?php
@@ -46,6 +47,7 @@
                     </ul>
                 </div>
             </div>
+            <div class="label-to">to</div>
         </div>
         <!-- START_DATE -->
         <div class="row text-right">
@@ -63,7 +65,11 @@
                     }
                 }
                 ?>
+                <br class="visible-xs">
                 <div class="row">
+                    <div class="col-md-12 text-left visible-xs">
+                        <label for="start_date">Start date and time</label>
+                    </div>
                     <div class="col-xs-7 col-sm-7 col-md-7">
                         <div class='input-group' id='datepickerStart'>
                             <input type='text' class='form-control' id='start_date' name='start_date' placeholder='YYYY-MM-DD' value='<?=$start_date?>'/>
@@ -82,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <br class="visible-xs-block">
+            <br class="visible-xs">
             <div class="col-sm-2 col-md-4 col-lg-6 col-arrow">
                 <div class="arrow-line">
                     <i class="arrow right"></i>
@@ -104,6 +110,9 @@
                 }
                 ?>
                 <div class="row">
+                    <div class="col-md-12 text-left visible-xs">
+                        <label for="start_date">End date and time</label>
+                    </div>
                     <div class="col-xs-7 col-sm-7 col-md-7">
                         <div class='input-group' id='datepickerEnd'>
                             <input type='text' class='form-control' id='end_date' name='end_date' placeholder='YYYY-MM-DD' value='<?=$end_date?>'/>
@@ -124,7 +133,7 @@
             </div>
         </div>
     </div>
-    <br/>
+
     <?php include_once("googleMap.ctp"); ?>
 
     <div class="container clearfix">
@@ -173,6 +182,8 @@
                 </div>
             </div>
         </div>
+
+        <hr>
 
         <div class="debug hidden">
             <?php

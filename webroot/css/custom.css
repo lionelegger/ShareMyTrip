@@ -184,6 +184,11 @@ button.btn-primary a:hover {
 .modal-title {
   font-weight: bold; }
 
+@media only screen and (max-width: 768px) {
+  .modal .form-horizontal .form-group {
+    margin-right: 0;
+    margin-left: 0; } }
+
 .section-container {
   -webkit-transition: opacity .5s ease-in-out;
   -moz-transition: opacity .5s ease-in-out;
@@ -743,8 +748,8 @@ i.arrow {
   margin-bottom: 0; }
   .map-icon-btn .map-icon-button {
     margin: 10px 3px;
-    float: left;
-    width: 50px; }
+    width: 50px;
+    display: inline-block; }
     .map-icon-btn .map-icon-button .map-icon-name {
       margin-top: 5px;
       line-height: 15px; }
@@ -855,6 +860,8 @@ div.tipPayment {
   padding: 2px; }
 .table tr.sum {
   border-top: 3px solid #b3b3b3; }
+.table tr.sum-light {
+  border-top: 2px solid #b3b3b3; }
 
 @media only screen and (max-width: 768px) {
   .responsive-table,
@@ -929,13 +936,32 @@ div.tipPayment {
     .responsive-table > tfoot > tr > td:before {
       display: table-cell;
       vertical-align: middle; } }
+.label-from,
+.label-to {
+  font-size: 55px;
+  color: #d7d7d7;
+  position: absolute;
+  top: 228px;
+  font-weight: bold; }
+  @media only screen and (max-width: 768px) {
+    .label-from,
+    .label-to {
+      display: none; } }
+
+.label-from {
+  left: 15px; }
+
+.label-to {
+  right: 15px; }
+
 /*FOR GOOGLE MAP*/
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
 #map {
   height: 500px;
   width: 100%;
-  border: 1px solid darkgray; }
+  border: 1px solid darkgray;
+  margin-top: 10px; }
 
 .controls {
   margin-top: 10px;
@@ -959,9 +985,30 @@ div.tipPayment {
   margin-left: 12px;
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
-  width: 300px;
+  width: 23%;
   position: relative; }
+  @media only screen and (max-width: 1200px) {
+    #pac-input-start {
+      width: 31%; } }
+  @media only screen and (max-width: 992px) {
+    #pac-input-start {
+      width: 39%; } }
+  @media only screen and (max-width: 768px) {
+    #pac-input-start {
+      width: 80%; } }
 
+@media only screen and (max-width: 768px) {
+  .google-arrow {
+    width: 34px;
+    height: 34px;
+    position: relative;
+    top: 48px;
+    right: 1em;
+    z-index: 2;
+    float: right;
+    background-image: url("../img/google-arrow.png");
+    background-size: 34px 34px;
+    background-repeat: no-repeat; } }
 #pac-input-end {
   background-color: #fff;
   font-size: 15px;
@@ -969,11 +1016,18 @@ div.tipPayment {
   margin-right: 12px;
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
-  width: 300px;
+  width: 23%;
   position: relative; }
+  @media only screen and (max-width: 1200px) {
+    #pac-input-end {
+      width: 31%; } }
+  @media only screen and (max-width: 992px) {
+    #pac-input-end {
+      width: 39%; } }
   @media only screen and (max-width: 768px) {
     #pac-input-end {
-      margin-top: 50px !important; } }
+      margin-top: 50px !important;
+      width: 80%; } }
 
 #pac-input:focus {
   border-color: #337ab7; }

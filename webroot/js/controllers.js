@@ -627,8 +627,13 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
 
     var tempPayments = [];
     $scope.actionPaymentToAdd = {};
+    var sumPayments = 0;
     $scope.actionAddTempPayment = function($userId) {
         console.log('call actionAddPayment for user ' + $userId);
+        $scope.actionPaymentToAdd.currency = $("#paymentCurrency").text();
+        if ($('#datePayment').val()) {
+            $scope.actionPaymentToAdd.date = $('#datePayment').val()+' 12:00:00';
+        }
         var tempPayment = {
             user_id: $userId,
             amount: $scope.actionPaymentToAdd.amount,
@@ -637,15 +642,13 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             date: $scope.actionPaymentToAdd.date
         };
 
+        sumPayments = sumPayments + Number($scope.actionPaymentToAdd.amount);
+        console.log("sumPayments = " + sumPayments);
         tempPayments.push(tempPayment);
         $scope.action.payments = tempPayments;
         console.log($scope.action.payments);
 
-        $scope.action.payments.totalAll=0;
-        $scope.action.payments.forEach(function(payment) {
-            $scope.action.payments.totalAll += payment.amount;
-        });
-
+        $scope.action.payments.totalAll=sumPayments;
         $scope.updateStatus();
 
     };
@@ -653,8 +656,10 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
 
     // Delete payment within an action
     // TODO: do not allow to pay more than the total?
-    $scope.actionPaymentToAdd = {};
+
     $scope.actionAddPayment = function($actionId, $userId) {
+        $scope.actionPaymentToAdd = {};
+        $scope.actionPaymentToAdd.amount = $('#paymentAmount').val();
         $scope.actionPaymentToAdd.currency = $('#paymentCurrency').text();
         if ($('#datePayment').val()) {
             $scope.actionPaymentToAdd.date = $('#datePayment').val()+' 12:00:00';
@@ -663,6 +668,24 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.actionPaymentToAdd.action_id = $actionId;
         $scope.actionPaymentToAdd.user_id = $userId;
         console.log('call actionAddPayment for action ' + $actionId + ' and user ' + $userId);
+        $http
+            .post('Payments/add.json', $scope.actionPaymentToAdd)
+            .success(function() {
+                console.log($scope.actionPaymentToAdd);
+                $scope.actionPaymentToAdd = {};
+                $scope.actionListPayments($actionId);
+            }).error(function() {
+            console.log("Something went wrong during add payment to action " + $actionId);
+        });
+    };
+
+    $scope.actionPayAll = function($actionId,$userId) {
+        $scope.actionPaymentToAdd.amount = $scope.action.price;
+        $scope.actionPaymentToAdd.currency = $scope.action.currency;
+        var today = new Date().toISOString().slice(0,10) + ' 12:00:00';
+        $scope.actionPaymentToAdd.date = today;
+        $scope.actionPaymentToAdd.action_id = $actionId;
+        $scope.actionPaymentToAdd.user_id = $userId;
         $http
             .post('Payments/add.json', $scope.actionPaymentToAdd)
             .success(function() {

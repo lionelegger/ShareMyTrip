@@ -282,6 +282,15 @@ button.btn-primary a:hover {
     font-weight: bold;
 }
 
+.modal {
+    @media only screen and (max-width: 768px) {
+        .form-horizontal .form-group {
+            margin-right: 0;
+            margin-left: 0;
+        }
+    }
+}
+
 // section-container (to highlight a box)
 .section-container {
     -webkit-transition: opacity .5s ease-in-out;
@@ -1031,8 +1040,9 @@ i.arrow {
 
     .map-icon-button {
         margin: 10px 3px;
-        float: left;
+        //float: left;
         width: 50px;
+        display: inline-block;
 
         .map-icon-name {
             margin-top: 5px;
@@ -1185,6 +1195,9 @@ div.tipPayment {
     tr.sum {
         border-top: 3px solid $color-grey;
     }
+    tr.sum-light {
+        border-top: 2px solid $color-grey;
+    }
 }
 
 // Responsive tables (<767px)
@@ -1276,6 +1289,23 @@ div.tipPayment {
 }
 
 
+.label-from,
+.label-to {
+    font-size: 55px;
+    color: #d7d7d7;
+    position: absolute;
+    top: 228px;
+    font-weight: bold;
+    @media only screen and (max-width: 768px) {
+        display: none;
+    }
+}
+.label-from {
+    left: 15px;
+}
+.label-to {
+    right: 15px;
+}
 
 
 // Google maps
@@ -1287,6 +1317,7 @@ div.tipPayment {
     height: 500px;
     width: 100%;
     border: 1px solid darkgray;
+    margin-top: 10px;
 }
 
 .controls {
@@ -1313,10 +1344,35 @@ div.tipPayment {
     margin-left: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: 300px;
+    width: 23%;
     position: relative;
-
+    @media only screen and (max-width: 1200px) {
+        width: 31%;
+    }
+    @media only screen and (max-width: 992px) {
+        width: 39%;
+    }
+    @media only screen and (max-width: 768px) {
+        width: 80%;
+    }
 }
+
+@media only screen and (max-width: 768px) {
+    .google-arrow {
+        width: 34px;
+        height: 34px;
+        position: relative;
+        top: 48px;
+        right: 1em;
+        z-index: 2;
+        float: right;
+        background-image: url("../img/google-arrow.png");
+        background-size: 34px 34px;
+        background-repeat: no-repeat;
+
+    }
+}
+
 
 #pac-input-end {
     background-color: #fff;
@@ -1325,11 +1381,19 @@ div.tipPayment {
     margin-right: 12px;
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
-    width: 300px;
+    width: 23%;
     position: relative;
+    @media only screen and (max-width: 1200px) {
+        width: 31%;
+    }
+    @media only screen and (max-width: 992px) {
+        width: 39%;
+    }
     @media only screen and (max-width: 768px) {
         margin-top: 50px !important;
+        width: 80%;
     }
+
 }
 
 #pac-input:focus {

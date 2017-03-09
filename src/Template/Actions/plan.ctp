@@ -54,7 +54,7 @@ include_once ('include/header.ctp');
         }
 
         $end_date = $this->Time->format($action->end_date, 'd MMM');
-        $end_date_short = $this->Time->format($action->end_date, 'MM-dd');
+        $end_date_short = $this->Time->format($action->end_date, 'd MMM');
         // if end_time is 12:00:01, we don't show the time
         $end_time = $this->Time->format($action->end_date, 'HH:mm:ss');
         if($end_time == '12:00:01') {

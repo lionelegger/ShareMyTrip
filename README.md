@@ -58,7 +58,7 @@ INSERT INTO `types` (`id`, `name`, `category_id`)
             (6, 'Boat', '1'), 
             (7, 'Bicycle', '1'), 
             (8, 'Foot', '1'), 
-            (9, 'Transport', '1'), 
+            (9, 'Travel', '1'), 
             (10, 'Hotel', '2'), 
             (11, 'B&B', '2'), 
             (12, 'Camping', '2'), 

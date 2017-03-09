@@ -2,17 +2,28 @@
     <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
         Register payment
     </button>
+    <button type="button" class="btn btn-success pull-right" ng-if="action.price" ng-click="actionPayAll(<?= $action->id ?>,<?=$userSession['id']?>)">
+        I paid all
+    </button>
     <h3>Payments</h3>
     <br>
     <div class="payment-list">
-        <ul class="refine">
-            <li ng-repeat="payment in action.payments">
-                <strong>{{payment.amount}} {{payment.currency}}</strong> <span ng-if="payment.date" class="text-muted small">[{{payment.date | date:"yyyy-MM-dd"}}]</span>
-                <span ng-if="payment.user.id != <?= $userSession['id'] ?>" class="pull-right">Paid by {{payment.user.first_name}}</span><span ng-if="payment.user_id==currentUserId" class="pull-right"><a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment">Paid by me</a></span>
-            </li>
-        </ul>
-        <p ng-if="!action.payments.totalAll">No payment recorded yet.</p>
-        <h4 ng-if="action.payments.totalAll > 0"><strong>{{action.payments.totalAll}} <?=$trip->currency?></strong> <?php if($edit):?><small>from which {{action.payments.totalAuth}} {{action.currency}} paid by me</small><?php endif ?></h4>
+        <p ng-if="!action.payments.totalAll" class="text-muted">No payment recorded yet.</p>
+        <table class="table table-condensed" ng-if="action.payments.totalAll">
+            <tr ng-repeat="payment in action.payments">
+                <td><strong>{{payment.amount}} {{payment.currency}}</strong></td>
+                <td><span ng-if="payment.date" class="text-muted small">{{payment.date | date:'d MMMM yyyy'}}</span></td>
+                <td class="text-right">Paid by&nbsp;<span ng-if="payment.user.id != <?= $userSession['id'] ?>" class="pull-right">{{payment.user.first_name}}</span><span ng-if="payment.user_id==currentUserId" class="pull-right">me <a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment">[edit]</a></span></td>
+            </tr>
+            <tr class="sum-light">
+                <td>
+                    <h4 ng-if="action.payments.totalAll > 0"><strong>{{action.payments.totalAll}} <?=$trip->currency?></strong></h4>
+                </td>
+                <td colspan="2" class="text-right">
+                    <?php if($edit):?>{{action.payments.totalAuth}} {{action.currency}} paid by me<?php endif ?>
+                </td>
+            </tr>
+        </table>
     </div>
     <!-- Button trigger modal -->
 
@@ -35,7 +46,7 @@
                             <div class="form-group">
                                 <label for="amount" class="col-sm-5 control-label">Amount</label>
                                 <div class="input-group col-sm-6">
-                                    <input type="text" class="form-control" id="price" ng-model="actionPaymentToAdd.amount" placeholder="{{action.price - action.payments.totalAll}}">
+                                    <input type="text" class="form-control" id="paymentAmount" ng-model="actionPaymentToAdd.amount" placeholder="{{action.price - action.payments.totalAll}}">
                                     <div class="input-group-btn">
                                         <button type="button" id="paymentCurrency" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{action.currency}}<i class="arrow down"></i></button>
                                         <!-- TODO: Currency is not working -->
@@ -55,7 +66,6 @@
 
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <!-- TODO: Date is not working -->
                                 <label for="date" class="col-sm-5 control-label">Date</label>
                                 <div class="input-group col-sm-6">
                                     <input type="text" class="form-control" id="datePayment" name="datePayment" ng-init="date=(actionPaymentToAdd.date)" ng-model="actionPaymentToAdd.date" placeholder="Insert date">

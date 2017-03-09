@@ -208,7 +208,7 @@ if (!empty($actions)) {
                         $balanceCell = $totalCell - ($action->price / $nbParticipationsAction);
 //                        echo "<br/>Balance is: <span class='badge'>" . $balanceCell . "</span>";
                         $totalBalance[$user->id] = $totalBalance[$user->id] + $balanceCell;
-                        $totalBalance[$user->id] = round($totalBalance[$user->id], 2);
+                        $totalBalance[$user->id] = round($totalBalance[$user->id], 0);
                     }
                     $isParticipating = true;
                 }
@@ -221,7 +221,11 @@ if (!empty($actions)) {
         }
 
         echo "      <td data-title='Total'>";
-        echo "        <h3>" . $action->price . "&nbsp;" . $action->currency . "</h3>";
+        echo "        <h4><strong>" . $action->price . "</strong>";
+        if ($action->price) {
+            echo "&nbsp;" . $action->currency;
+        }
+        echo "</h4>";
         $totalTrip = $totalTrip + $action->price;
 //        echo "[" . $nbParticipationsAction . " participants]";
         echo "      </td>";
@@ -250,7 +254,7 @@ if (!empty($actions)) {
 
 
     echo "      <td data-title='ALL'>";
-    echo "<h2><strong>" . $globalPaid . "</strong> of ".$totalTrip." ".$trip->currency."</h2>";
+    echo "<h3><strong>" . $globalPaid . "</strong> of ".$totalTrip." ".$trip->currency."</h3>";
     echo "      </td>";
     echo "    </tr>";
 
@@ -261,7 +265,7 @@ if (!empty($actions)) {
     echo "    </td>";
     foreach ($tripUsers as $user) {
         echo "<td data-title='".$user->first_name."'>";
-        echo "<h2>";
+        echo "<h3>";
         if ($totalBalance[$user->id] >= 0) {
             echo "<span class='label label-success'>".$totalBalance[$user->id]." ".$trip->currency."</span>";
         } else if ($totalPaid[$user->id] == 0) {
@@ -269,7 +273,7 @@ if (!empty($actions)) {
         } else {
             echo "<span class='label label-warning'>".$totalBalance[$user->id]." ".$trip->currency."</span>";
         };
-        echo "</h2>";
+        echo "</h3>";
         echo "</td>";
     }
     echo "<td data-title='All Trip'><h1>";

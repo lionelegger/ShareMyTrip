@@ -11,8 +11,8 @@ if ($action->end_name) {
 ?>
 
 <input id="pac-input-start" class="controls" type="text" <?= $start_name_value ?> placeholder="Enter a departure point">
+<div class="google-arrow"></div>
 <input id="pac-input-end" class="controls" type="text" <?= $end_name_value ?> placeholder="Enter an arrival point">
-
 <div id="map"></div>
 
 <?php
