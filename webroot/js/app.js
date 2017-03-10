@@ -63,6 +63,22 @@ function initialize() {
         $("#datepickerEnd").data("DateTimePicker").hide();
     });
 
+    // ACTION date/time pickers for add Trip
+    $('#add_datepickerStart').datetimepicker({
+        format: 'YYYY-MM-DD'
+    });
+    $('#add_datepickerEnd').datetimepicker({
+        format: 'YYYY-MM-DD',
+        useCurrent: false //Important! See issue #1075
+    });
+    $("#add_datepickerStart").on("dp.change", function (e) {
+        $('#datepickerEnd').data("DateTimePicker").minDate(e.date);
+    });
+    $("#add_datepickerEnd").on("dp.change", function (e) {
+        $('#datepickerStart').data("DateTimePicker").maxDate(e.date);
+    });
+
+
     // opacity change of section-containers
     $(".section-container").hover(function() {
         $(".section-container").css("opacity","0.7");

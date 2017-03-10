@@ -244,7 +244,6 @@ button.btn-primary a:hover {
     position: relative; }
     .box .box-header .h2.box-title,
     .box .box-header h2.box-title {
-      text-align: left;
       margin: 15px 0 15px 0; }
       .box .box-header .h2.box-title a,
       .box .box-header h2.box-title a {
@@ -258,6 +257,12 @@ button.btn-primary a:hover {
         .box .box-header h2.box-title a:focus,
         .box .box-header h2.box-title a:visited {
           text-decoration: none; }
+    .box .box-header .btn-link {
+      position: absolute;
+      color: #9fc4e4; }
+      .box .box-header .btn-link:hover {
+        color: white;
+        text-decoration: none; }
   .box .mainContent {
     margin-top: 15px; }
   .box .box-footer {
@@ -287,6 +292,9 @@ button.btn-primary a:hover {
       padding: 15px; }
     .box .mainContent {
       margin: 15px -15px; } }
+  .box .btn {
+    z-index: 2;
+    position: relative; }
 
 .color-primary {
   color: white;
@@ -340,6 +348,8 @@ button.btn-primary a:hover {
     padding-left: 30px; }
 .avatar-list.checkbox {
   margin-top: 0; }
+.avatar-list ul.list-inline li {
+  vertical-align: top; }
 
 .btn.pull-left {
   margin-right: 15px; }
@@ -351,6 +361,15 @@ button.btn-primary a:hover {
 .avatar.avatar-lg.label-bottom {
   width: 75px; }
   .avatar.avatar-lg.label-bottom .avatar-name {
+    font-weight: normal;
+    font-size: 14px; }
+.avatar.avatar-md .avatar-img {
+  width: 48px; }
+  .avatar.avatar-md .avatar-img.circle {
+    border-radius: 24px; }
+.avatar.avatar-md.label-bottom {
+  width: 58px; }
+  .avatar.avatar-md.label-bottom .avatar-name {
     font-weight: normal;
     font-size: 14px; }
 .avatar.label-bottom {
@@ -387,9 +406,11 @@ button.btn-primary a:hover {
   .avatar.label-right input[type='checkbox'] {
     left: 35px;
     top: 16px; }
+.avatar.btn-avatar {
+  margin-top: 5px; }
 .avatar .avatar-add {
-  z-index: 10;
   display: block;
+  z-index: 10;
   position: relative;
   border: 2px dotted #285f8f;
   height: 35px !important;
@@ -416,6 +437,16 @@ button.btn-primary a:hover {
   border-radius: 32px; }
   .avatar.avatar-lg .avatar-add:before {
     font-size: 42px; }
+.avatar.avatar-md .avatar-add {
+  height: 48px !important;
+  width: 48px !important;
+  border-radius: 24px; }
+  .avatar.avatar-md .avatar-add:before {
+    font-size: 32px; }
+.avatar.avatar-md .avatar-add + .label.avatar-name {
+  width: 60px !important;
+  margin-left: -6px;
+  max-width: none; }
 .avatar input[type=checkbox] + .avatar-img {
   opacity: 0.3; }
   .avatar input[type=checkbox] + .avatar-img + .avatar-name {
@@ -522,8 +553,12 @@ a.glyphicon-btn {
   cursor: hand; }
 
 .glyphicon-sm {
-  font-size: smaller; }
+  font-size: small;
+  top: 0; }
 
+@media only screen and (max-width: 768px) {
+  label.control-label > .glyphicon {
+    padding: 7.5px; } }
 .map-icon {
   font-size: 18px; }
 
@@ -559,7 +594,7 @@ a.glyphicon-btn {
     .action .dotIcon.status-4 {
       border-color: #2e753f; }
     .action .dotIcon.status-5 {
-      border-color: #b3b3b3; }
+      border-color: #000; }
   .action .start {
     float: left;
     padding: 0 5px; }

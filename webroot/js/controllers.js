@@ -94,40 +94,49 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     // adds a trip (and the logged user as a participant with cakephp3)
     $scope.addTrip = function() {
         console.log('call addTrip');
+
+        $scope.tripToAdd={};
         $scope.welcomeMsg=false;
-        $scope.trip.date_start = $("#date_start").val();
-        $scope.trip.date_end = $("#date_end").val();
-        $scope.trip.currency = $("#currency option:selected").val();
-        console.log("SELECTED="+$scope.trip.currency);
+        $scope.tripToAdd.name = $("#add_tripName").val();
+        $scope.tripToAdd.date_start = $("#add_date_start").val();
+        $scope.tripToAdd.date_end = $("#add_date_end").val();
+        $scope.tripToAdd.currency = $("#add_currency option:selected").val();
+        console.log("SELECTED="+$scope.tripToAdd.currency);
         $http
-            .post('Trips/add.json', $scope.trip)
+            .post('Trips/add.json', $scope.tripToAdd)
             .success(function(data) {
                 // $scope.loadTrips();
-                console.log(data.trip);
-                $scope.trip = data.trip;
-                console.log("Trip " + data.trip.id + " added...");
-                $scope.getTripUsers(data.trip.id);
+                console.log(data.tripToAdd);
+                $scope.tripToAdd = data.tripToAdd;
+                $scope.loadTrips();
+                // $scope.getTripUsers(data.trip.id);
             }).error(function() {
             console.log("Something went wrong during add Trip");
         });
     };
 
     $scope.editTrip = function(tripId) {
+        console.log("TRIPID="+tripId);
         $scope.btnPressed=false;
         $scope.buttonTxt = "Delete";
         console.log('call editTrip with trip ' + tripId);
         $('.modal .form-message').empty();
-        if (tripId > 0){
-            $('#collapseParticipation').collapse('show');
+        if (tripId){
+            // $('#collapseParticipation').collapse('show');
             $scope.loadTrip(tripId);
             // console.log("currency value is " + $scope.trip.currency);
-            $scope.getTripUsers(tripId);
+            // $scope.getTripUsers(tripId);
         } else {
             $scope.trip={};
             $scope.trips.trip={};
-            $('#collapseParticipation').collapse('hide');
+            // $('#collapseParticipation').collapse('hide');
             // $scope.addTrip();
         }
+    };
+
+    $scope.editParticipants = function(tripId) {
+        $scope.loadTrip(tripId);
+        $scope.getTripUsers(tripId);
     };
 
     // $scope.trip = {};
@@ -152,7 +161,7 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     $scope.deleteConfirm = function(tripId) {
         if($scope.btnPressed){
             $scope.btnPressed = false;
-            $('.modal').modal('toggle');
+            $('#tripEdit').modal('toggle');
             $scope.deleteTrip(tripId);
             $scope.buttonTxt = "Delete trip";
         } else {
@@ -190,6 +199,7 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     // delete a user to a trip
     $scope.tripDeleteUser = function(userId) {
         console.log('call tripDeleteUser for user ' + userId);
+
         $http
             .delete('TripsUsers/delete/'+userId+'.json')
             .success(function() {
