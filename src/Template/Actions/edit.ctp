@@ -31,7 +31,7 @@ include_once ('include/header.ctp');
         <div class="row">
             <div class="col-md-6">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger pull-left" data-toggle="modal" data-target="#deleteModal">
+                <button type="button" class="btn btn-danger btn-lg pull-left" data-toggle="modal" data-target="#deleteModal">
                     Delete
                 </button>
 
@@ -47,7 +47,7 @@ include_once ('include/header.ctp');
                                 Are you sure you want to delete this action ?
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                                 <button type="submit" class="btn btn-danger" ng-click="deleteAction(<?=$action->trip->id?>,<?=$action->id?>)">Delete</button>
                             </div>
                         </div>
@@ -55,8 +55,8 @@ include_once ('include/header.ctp');
                 </div>
             </div>
             <div class="col-md-6 text-right">
-                <a href="actions/plan/<?=$action->trip->id?>" class="btn btn-default">Cancel</a>&nbsp;
-                <button type="submit" class="btn btn-primary pull-right" ng-click="editAction(<?=$action->trip->id?>,<?=$action->id?>);" data-toggle="collapse" href="#collapseParticipation" aria-expanded="false" aria-controls="collapseExample">Save</button>
+                <a href="actions/plan/<?=$action->trip->id?>" class="btn btn-link btn-lg">Cancel</a>&nbsp;
+                <button type="submit" class="btn btn-primary btn-lg pull-right" ng-click="editAction(<?=$action->trip->id?>,<?=$action->id?>);" data-toggle="collapse" href="#collapseParticipation" aria-expanded="false" aria-controls="collapseExample">Save</button>
             </div>
         </div>
     </div>

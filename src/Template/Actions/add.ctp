@@ -22,11 +22,12 @@ include_once ('include/header.ctp');
 
 <div ng-init="tripId=<?=$trip->id ?>;" ng-controller="ActionCtrl">
     <?php include_once("include/form.ctp"); ?>
+    <hr/>
     <div class="container clearfix">
         <div class="row">
             <div class="col-md-12 text-right">
-                <a href="actions/plan/<?=$trip->id?>" class="btn btn-default">Cancel</a>&nbsp;
-                <button class="btn btn-primary" ng-click="validated && addAction(<?=$trip->id?>)">Add</button>
+                <a href="actions/plan/<?=$trip->id?>" class="btn btn-link btn-lg">Cancel</a>&nbsp;
+                <button class="btn btn-primary btn-lg" ng-click="validated && addAction(<?=$trip->id?>)">Add</button>
             </div>
         </div>
     </div>

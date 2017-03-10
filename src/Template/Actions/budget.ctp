@@ -11,7 +11,6 @@ echo $this->element('Layout/navigation', [
 echo $this->fetch('navigation');
 $this->end();
 
-
 include_once ('include/header.ctp');
 
 $total = [];

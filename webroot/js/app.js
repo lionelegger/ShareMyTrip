@@ -20,13 +20,21 @@ function initialize() {
 
     // ACTION date/time pickers
     $('#datepickerStart').datetimepicker({
-        format: 'YYYY-MM-DD'
+        format: 'YYYY-MM-DD',
+        widgetPositioning: {
+            horizontal: 'left',
+            vertical: 'bottom'
+        }
     });
     $('#timepickerStart').datetimepicker({
         format: 'HH:mm'
     });
     $('#datepickerEnd').datetimepicker({
         format: 'YYYY-MM-DD',
+        widgetPositioning: {
+            horizontal: 'left',
+            vertical: 'bottom'
+        },
         useCurrent: false //Important! See issue #1075
     });
     $('#timepickerEnd').datetimepicker({
@@ -69,13 +77,17 @@ function initialize() {
     });
     $('#add_datepickerEnd').datetimepicker({
         format: 'YYYY-MM-DD',
+        widgetPositioning: {
+            horizontal: 'left',
+            vertical: 'top'
+        },
         useCurrent: false //Important! See issue #1075
     });
     $("#add_datepickerStart").on("dp.change", function (e) {
-        $('#datepickerEnd').data("DateTimePicker").minDate(e.date);
+        $('#add_datepickerEnd').data("DateTimePicker").minDate(e.date);
     });
     $("#add_datepickerEnd").on("dp.change", function (e) {
-        $('#datepickerStart').data("DateTimePicker").maxDate(e.date);
+        $('#add_datepickerStart').data("DateTimePicker").maxDate(e.date);
     });
 
 

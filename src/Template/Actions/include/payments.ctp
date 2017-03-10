@@ -2,13 +2,15 @@
     <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
         Register payment
     </button>
-    <button type="button" class="btn btn-success pull-right" ng-if="action.price" ng-click="actionPayAll(<?= $action->id ?>,<?=$userSession['id']?>)">
+    <!--
+    <button type="button" class="btn btn-success pull-right" ng-if="action.price" ng-click="actionPayAll(<?/*= $action->id */?>,<?/*=$userSession['id']*/?>)">
         I paid all
     </button>
+    -->
     <h3>Payments</h3>
     <br>
     <div class="payment-list">
-        <p ng-if="!action.payments.totalAll" class="text-muted">No payment recorded yet.</p>
+        <p ng-if="!action.payments.totalAll" class="text-muted">No payment registered yet.</p>
         <table class="table table-condensed" ng-if="action.payments.totalAll">
             <tr ng-repeat="payment in action.payments">
                 <td><strong>{{payment.amount}} {{payment.currency}}</strong></td>
@@ -51,12 +53,11 @@
                                         <button type="button" id="paymentCurrency" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{action.currency}}<i class="arrow down"></i></button>
                                         <!-- TODO: Currency is not working -->
                                         <ul class="dropdown-menu dropdown-menu-right" >
-                                            <li><a href="javascript:void(0)">CHF</a></li>
                                             <li><a href="javascript:void(0)">USD</a></li>
                                             <li><a href="javascript:void(0)">EUR</a></li>
+                                            <li><a href="javascript:void(0)">CHF</a></li>
                                             <li role="separator" class="divider"></li>
-                                            <li><a href="javascript:void(0)">XXX</a></li>
-                                            <li><a href="javascript:void(0)">YYY</a></li>
+                                            <li><a href="javascript:void(0)">$</a></li>
                                         </ul>
                                     </div><!-- /btn-group -->
                                 </div><!-- /input-group -->
@@ -91,7 +92,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <?php if (!$edit) { ?>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="actionAddTempPayment(<?= $userSession['id'] ?>);">Save</button>
                     <?php } else {?>

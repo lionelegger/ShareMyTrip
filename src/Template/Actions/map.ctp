@@ -1,5 +1,4 @@
 <!-- TODO: MAP should only show the actions in which the logged user is participating -->
-
 <?php
 
 // Breadcrumb

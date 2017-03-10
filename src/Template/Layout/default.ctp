@@ -42,16 +42,14 @@
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="no-collapse" id="bs-example-navbar-collapse-1">
+                <div class="no-collapse">
                     <?php if($userSession): ?>
                         <span class="hidden" id="userId" data-id="<?= $userSession['id'] ?>"></span>
-
                         <?php if ($this->fetch('navigation')): ?>
                             <ul class="nav navbar-nav">
                                 <?= $this->fetch('navigation') ?>
                             </ul>
                         <?php endif; ?>
-
                         <ul class="nav navbar-nav navbar-right hidden-xs">
                             <li><?= $this->Html->link($userSession['first_name']." ".$userSession['last_name'], [
                                 'controller' => 'Users',
@@ -74,7 +72,7 @@
                             ?>
                         </ul>
                     <?php endif; ?>
-                </div><!-- /.navbar-collapse -->
+                </div>
             </div><!-- /.container-fluid -->
             <?= $this->Flash->render() ?>
         </nav>
@@ -82,10 +80,8 @@
     </div>
     <div class="navbar navbar-default navbar-fixed-bottom">
         <div class="container clearfix">
-            <div class="pull-left">
-                <?= $this->Html->getCrumbs(' > '); ?>
-            </div>
-            <div class="pull-right">
+            <!--<div class="pull-left"><?/*= $this->Html->getCrumbs(' > '); */?></div>-->
+            <div class="text-center">
                 © <a href="http://wwww.lionelegger.com">lionelegger.com</a>
             </div>
         </div>

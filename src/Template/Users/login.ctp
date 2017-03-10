@@ -10,11 +10,14 @@
         background-color: transparent;
         color: #FFF;
     }
-    h1 {
+    .modal {
+        color: #333;
+    }
+    h1.login {
         color: #FFF;
         opacity: 0.7;
     }
-    h3 {
+    h3.login {
         color: #337ab7;
     }
     .navbar-fixed-top {
@@ -25,42 +28,47 @@
         border-top: none;
         text-align: center;
     }
+    @media only screen and (max-width: 768px) {
+        .navbar-fixed-bottom {
+            display: block;
+        }
+    }
     .navbar-fixed-bottom .pull-right {
         float: none !important;
     }
     .navbar-fixed-bottom a:hover {
         color: #FFF;
     }
-    .form-control {
+    .form-control.input-login {
         background-color: rgba(0,0,0,0.7);
         border: 1px solid #232323;
         color: #FFF;
     }
-
-    button.btn-link {
+    button.btn-link.btn-login {
         color: lightgrey;
     }
-    button.btn-link:hover {
+    button.btn-link.btn-login:hover {
         color: #FFF;
     }
+
 </style>
 
 <?= $this->Flash->render('auth') ?>
 <div class="container text-center ">
     <div class="col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-3">
-        <h1><?= __("Share my trip") ?></h1>
+        <h1 class="login"><?= __("Share my trip") ?></h1>
 
         <?= $this->Form->create() ?>
-        <p>Keeping the Let's Go and taking the Uh-Oh out of travel</p>
-        <h3><?= __("Please login") ?></h3>
+        <p>Keeping the <i>Let's Go</i> and taking the <i>Uh-Oh</i> out of travel</p>
+        <h3 class="login"><?= __("Please login") ?></h3>
         <form class="form-horizontal">
             <div class="form-group">
-                <?= $this->Form->input('email', ['class' => 'form-control', 'placeholder' => 'Email', 'label' => false]) ?>
+                <?= $this->Form->input('email', ['class' => 'form-control input-login', 'placeholder' => 'Email', 'label' => false]) ?>
                 <br/>
-                <?= $this->Form->input('password', ['class' => 'form-control', 'placeholder' => 'Password', 'label' => false]) ?>
+                <?= $this->Form->input('password', ['class' => 'form-control input-login', 'placeholder' => 'Password', 'label' => false]) ?>
             </div>
             <?= $this->Form->button(__('Login'), ['class' => 'btn btn-primary']); ?>
-            <span>&nbsp;&nbsp;&nbsp;or <button type="button" class="btn btn-link" data-toggle="modal" data-target="#registerModal">Register</button></span>
+            <span>&nbsp;&nbsp;&nbsp;or <button type="button" class="btn btn-link btn-login" data-toggle="modal" data-target="#registerModal">Register</button></span>
             <?= $this->Form->end() ?>
         </form>
     </div>
@@ -69,9 +77,9 @@
 <div class="modal fade" tabindex="-1" role="dialog" id="registerModal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header color-lightgrey">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Register me</h4>
+                <h2 class="modal-title">Registration</h2>
             </div>
             <form method="post" accept-charset="utf-8" _lpchecked="1">
                 <div class="modal-body">
@@ -108,7 +116,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary" id="addUser" ng-click="addUser()" data-dismiss="modal">Add</button>
                 </div>
             </form>

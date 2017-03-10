@@ -145,10 +145,11 @@
             <div class="col-md-4"></div>
             <div class="col-md-7 col-md-offset-1 form-horizontal">
                 <div class="form-group">
-                    <label for="name" class="col-sm-2 control-label">Name</label>
+                    <label for="name" class="col-sm-2 control-label input-lg">Name </label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="name" placeholder="Action name" ng-model="action.name">
+                        <input type="text" class="form-control input-lg" id="name" placeholder="Action name" ng-model="action.name">
                     </div>
+                    <div class="col-sm-10 col-sm-offset-2 text-warning text-right">[Required field]&nbsp;&nbsp;</div>
                 </div>
             </div>
         </div>

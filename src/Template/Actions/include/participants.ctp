@@ -10,7 +10,7 @@
         <div class="box clearfix">
             <div class="box-header color-lightgrey">
                 <h2 class="modal-title">Share</h2>
-                <p class="help-block">Other participants that share this action with me</p>
+                <h4 class="help-block">Other participants that share this action</h4>
             </div>
             <div class="row row-no-padding">
                 <div class="col-md-12">
@@ -108,24 +108,23 @@
             <div class="row">
                 <div class="col-md-5">
                     <h3>Price</h3>
+                    <h4 class="help-block">Price for all persons that share this action</h4>
                     <div class="input-group">
-                        <input type="text" class="form-control" aria-label="..." id="price" ng-model="action.price">
+                        <input type="text" class="form-control input-lg" aria-label="..." id="price" ng-model="action.price">
                         <div class="input-group-btn">
                             <button type="button" id="actionCurrency" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-init="action.currency = '<?=$trip->currency?>'">{{action.currency}}<i class="arrow down"></i></button>
                             <!-- TODO: Currency is not working -->
                             <ul class="dropdown-menu dropdown-menu-right" >
-                                <li><a href="javascript:void(0)">CHF</a></li>
                                 <li><a href="javascript:void(0)">USD</a></li>
                                 <li><a href="javascript:void(0)">EUR</a></li>
+                                <li><a href="javascript:void(0)">CHF</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="javascript:void(0)">XXX</a></li>
-                                <li><a href="javascript:void(0)">YYY</a></li>
+                                <li><a href="javascript:void(0)">$</a></li>
                             </ul>
                         </div><!-- /btn-group -->
                     </div><!-- /input-group -->
-                    <p class="help-block">Please define the price for all persons that share this action</p>
-
                 </div>
+                <hr class="visible-sm">
                 <div class="col-md-6 col-md-offset-1">
                     <?php include_once("payments.ctp") ?>
                 </div>

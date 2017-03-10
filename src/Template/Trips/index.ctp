@@ -21,7 +21,7 @@ $this->end();
             <div class="col-sm-4 text-right">
                 <button type="button" class="btn btn-primary btn-lg btn-calltoaction" data-toggle="modal" ng-click="editTrip()" data-target="#tripAdd">
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span class="btn-text"><strong>NEW trip</strong></span>
+                    <span class="btn-text"><strong>Add a trip</strong></span>
                 </button>
             </div>
         </div>
@@ -32,7 +32,10 @@ $this->end();
     <?php if(iterator_count($trips)==0): ?>
     <div class="welcome text-right" ng-if="welcomeMsg==true">
         <h3>Welcome {{currentUserFirstname}} !</h3>
-        <p>Click on the above "New trip" button to create your first trip</p>
+        <p>Click on the "<strong>Add a trip</strong>" button to create your first trip.</p>
+        <p>Then you can "<strong>Add friends</strong>" with whom you will share this trip.</p>
+        <p>Finally, click on "<strong>Plan the trip</strong>" to add actions to your trip ...</p>
+        <h4 class="help-block">Happy holidays!</h4>
     </div>
     <?php endif ?>
 
@@ -48,7 +51,7 @@ $this->end();
                         <div class="form-group">
                             <label for="tripName" class="col-sm-2 control-label">Name</label>
                             <div class="col-sm-10">
-                                <input class="form-control" id="add_tripName" placeholder="Trip Name" ng-model="tripToAdd.name">
+                                <input class="form-control" id="add_tripName" placeholder="Trip Name">
                             </div>
                         </div>
                     </div>
@@ -56,11 +59,11 @@ $this->end();
                         <div class="form-group">
                             <label for="currency" class="col-sm-3 control-label">Currency</label>
                             <div class="col-sm-9">
-                                <select class="form-control" id="add_currency" ng-model="tripToAdd.currency">
-                                    <option value="">Not defined</option>
-                                    <option value="CHF">CHF [Swiss Francs]</option>
-                                    <option value="USD">USD [Dollars]</option>
+                                <select class="form-control" id="add_currency" >
+                                    <option value="USD" selected="selected">USD [Dollars]</option>
                                     <option value="EUR">EUR [Euros]</option>
+                                    <option value="CHF">CHF [Swiss Francs]</option>
+                                    <option value="$">Other</option>
                                 </select>
                             </div>
                         </div>
@@ -69,7 +72,7 @@ $this->end();
                             <label for="date_start" class="col-sm-3 control-label">From</label>
                             <div class="col-sm-9">
                                 <div class='input-group date' id='add_datepickerStart'>
-                                    <input type='text' class='form-control' id="add_date_start" placeholder='YYYY-MM-DD' ng-model="tripToAdd.date_start"/>
+                                    <input type='text' class='form-control' id="add_date_start" placeholder='YYYY-MM-DD'/>
                                     <span class='input-group-addon'>
                                         <span class='glyphicon glyphicon-calendar'></span>
                                     </span>
@@ -80,7 +83,7 @@ $this->end();
                             <label for="date_end" class="col-sm-3 control-label">To</label>
                             <div class="col-sm-9">
                                 <div class='input-group date' id='add_datepickerEnd'>
-                                    <input type='text' class='form-control' id="add_date_end" placeholder='YYYY-MM-DD' ng-model="tripToAdd.date_end"/>
+                                    <input type='text' class='form-control' id="add_date_end" placeholder='YYYY-MM-DD'/>
                                     <span class='input-group-addon'>
                                         <span class='glyphicon glyphicon-calendar'></span>
                                     </span>
@@ -89,7 +92,7 @@ $this->end();
                         </div>
                     </div>
                     <div class="modal-footer" id="tripNameBTN">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary" ng-click="addTrip()" data-toggle="collapse" data-dismiss="modal">Save</button>
                     </div>
                 </form>
@@ -120,10 +123,10 @@ $this->end();
                             <label for="currency" class="col-sm-3 control-label">Currency</label>
                             <div class="col-sm-9">
                                 <select class="form-control" id="currency" ng-model="trip.currency">
-                                    <option value="">Not defined</option>
-                                    <option value="CHF">CHF [Swiss Francs]</option>
                                     <option value="USD">USD [Dollars]</option>
                                     <option value="EUR">EUR [Euros]</option>
+                                    <option value="CHF">CHF [Swiss Francs]</option>
+                                    <option value="$">Other</option>
                                 </select>
                             </div>
                         </div>
@@ -153,7 +156,7 @@ $this->end();
                     </div>
                     <div class="modal-footer" id="tripNameBTN">
                         <button class="btn btn-danger pull-left" id="deleteTrip" ng-init="btnPressed=false" ng-click="deleteConfirm(trip.id)">{{buttonTxt}}</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary" ng-click="saveTrip(trip.id)" data-dismiss="modal">Save</button>
                     </div>
 
@@ -204,7 +207,7 @@ $this->end();
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-xs-11 form-message col-md-offset-1 text-danger"></div>
+                                    <div class="col-xs-10 col-xs-offset-1 text-left form-message text-success"></div>
                                 </div><!-- /.row -->
                             </form>
                         </div><!-- /.collapse -->
@@ -232,12 +235,12 @@ $this->end();
                                 <button type="button" class="btn btn-link top-right" ng-if="currentUserId == trip.owner_id" data-toggle="modal" data-target="#tripEdit" ng-click="editTrip(trip.id)">
                                     <span class="glyphicon glyphicon-cog"></span> Settings
                                 </button>
-                                <h4 class="no-margin" ng-if="trip.date_start"><span class="glyphicon glyphicon-calendar glyphicon-sm"></span> {{trip.date_start | date:'d MMMM'}} <span ng-if="trip.date_end">-</span> {{trip.date_end | date:'d MMMM'}} {{trip.date_end | date:'yyyy'}}</h4>
+                                <h4 class="trip-date" ng-if="trip.date_start"><span class="glyphicon glyphicon-calendar glyphicon-sm"></span> {{trip.date_start | date:'d MMMM'}} <span ng-if="trip.date_end">-</span> {{trip.date_end | date:'d MMMM'}} {{trip.date_end | date:'yyyy'}}</h4>
                             </div>
                             <div class="mainContent clearfix text-center">
                                 <div class="avatar-list col-xs-12">
                                     <ul class="list-inline">
-                                        <li class="with-alone text-muted"><h3 ng-if="trip.users.length>1">With</h3><h3 ng-if="trip.users.length==1">Alone</h3></li>
+                                        <li class="with-alone text-muted"><h3 ng-if="trip.users.length>1">With</h3><!--<h3 ng-if="trip.users.length==1">Alone</h3>--></li>
                                         <li ng-repeat="user in trip.users" ng-hide="currentUserId == user.id">
                                             <div class="avatar avatar-md label-bottom">
                                                 <img ng-if="!user.photo" ng-src="files/Users/avatars/avatar-{{user.avatar}}.png" class="avatar-img">
@@ -248,7 +251,7 @@ $this->end();
                                         <li ng-hide="currentUserId != trip.owner_id">
                                             <div class="avatar avatar-md label-bottom btn-avatar">
                                                 <a class="avatar-add avatar-img" data-toggle="modal" data-target="#participation" ng-click="editParticipants(trip.id)"></a>
-                                                <div class="label avatar-name">Add/Remove</div>
+                                                <div class="label avatar-name"><span ng-if="trip.users.length==1">Add friends</span><span ng-if="trip.users.length>1">Add/Remove</span></div>
                                             </div>
                                         </li>
                                     </ul>
@@ -257,7 +260,7 @@ $this->end();
                                 <!--                            <p class="alert alert-danger"><strong>You still owe 234 CHF to Tata</strong></p>-->
                             </div>
                             <div class="box-footer text-center">
-                                <a class="btn btn-lg btn-default" href="actions/plan/{{trip.id}}">View trip</a>
+                                <a class="btn btn-lg btn-default" href="actions/plan/{{trip.id}}">Plan this trip</a>
                             </div>
                         </div>
                     </div>

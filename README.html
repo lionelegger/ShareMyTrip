@@ -6,130 +6,138 @@
 <body>
 <h1 id="sharemytrip">ShareMyTrip</h1>
 
-<p>made by <a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#x6c;&#x69;&#111;&#x6e;&#x65;&#x6c;&#x65;&#103;&#103;&#101;&#114;&#64;&#103;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x4c;&#105;&#x6f;&#x6e;&#101;&#108; &#69;&#x47;&#71;&#x45;&#x52;</a></p>
+<p><em>&#8220;Keeping the <em>Let&#8217;s Go</em> and taking the <em>Uh-Oh</em> out of travel&#8221;</em></p>
 
-<h2 id="serverphp">Server PHP</h2>
+<p>Made by <a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#x6c;&#x69;&#111;&#x6e;&#x65;&#x6c;&#x65;&#103;&#103;&#101;&#114;&#64;&#103;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x4c;&#105;&#x6f;&#x6e;&#101;&#108; &#69;&#x47;&#71;&#x45;&#x52;</a></p>
 
-<p>Installation of MAMP with phpMyAdmin (that administrates mySQL)
-NB: Be sure that environment variable points to the the right MAMP version</p>
+<h2 id="whatissharemytrip">What is ShareMyTrip?</h2>
 
-<h2 id="creationofcakephpapplicationskeleton">Creation of CakePHP Application Skeleton</h2>
+<p>ShareMyTrip is a website that helps travellers to plan, map and budget a trip. When you travel alone, everything is easy&#8230; But what happens when you travel with friends, share bills? Sometimes you pay for all your friends, organize excursion only with a subgroup of friends or buy yourself a souvenir&#8230; It can very quickly be a complex task to calculate the trip expenses. ShareMyTrip makes travelling together easy and facilitate all expenses calculation. It helps you to plan, manage and visualize your future trips. </p>
 
-<p>A skeleton for creating applications with <a href="http://cakephp.org">CakePHP</a> 3.x.
-The framework source code can be found here: <a href="https://github.com/cakephp/cakephp">cakephp/cakephp</a>.</p>
+<h2 id="howtousethewebsite">How to use the website</h2>
 
-<h3 id="installation">Installation</h3>
+<p>When you arrive to the homepage, the first thing you need to do is to login or register as a new user. The password is encrypted. If you register, you are automatically logged in.
+Once you are logged in, you arrive on the trip page. Once logged, you can always change your personal information by clicking on your avatar </p>
 
-<ol>
-<li>Download <a href="http://getcomposer.org/doc/00-intro.md">Composer</a> or update <code>composer self-update</code>:
-A. In shell, go to the directory where you want to install composer
-B. run the following instructions:
-<code>sql
-php -r &quot;copy('https://getcomposer.org/installer', 'composer-setup.php');&quot;
-php -r &quot;if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;&quot;
-php composer-setup.php
-php -r &quot;unlink('composer-setup.php');&quot;
-</code></li>
-<li>Run <code>php composer.phar create-project --prefer-dist cakephp/app ShareMyTrip</code>.</li>
-</ol>
+<h3 id="profilepage">Profile page</h3>
 
-<p>You should now be able to visit the path to where you installed the app and see the setup traffic lights.</p>
+<p>This page allows you to modify your personal information, as well as to change your avatar picture or even upload another one (300px by 300px). The changes will be visible only after logout and login again. </p>
 
-<h3 id="configuration">Configuration</h3>
+<h3 id="trippage">Trip page</h3>
 
-<p>Edition of <code>config/app.php</code> and setup the &#8216;Datasources&#8217; and any other configuration relevant for the application:
-- username: ‘root’
-- password: ‘root’
-- database: ‘ShareMyTrip’</p>
+<p>This page is the first one a new user sees when he logs in. A welcome message indicate the 3 main steps he should do: &#8220;Add a trip&#8221;, &#8220;Add users&#8221; and &#8220;Add actions&#8221;. In the beginning, only the &#8220;Add a trip&#8221; option is available.
+* Add trip: This will add a new trip. The currency defines which currency will be used for the current trip. If you plan to manage most of your expenses in the foreign currency, then define it here. NB: The currency functionality is saved but yet no currency rate has been implemented yet. The dates are not mandatory if they are not known yet. You can always change the trip setting by clicking on the &#8220;settings&#8221; button on the top right corner of the trip box.
+* Add user: You can choose to travel alone or with friends. If you travel with friends, click on &#8220;Add a user&#8221;, otherwise, you can directly &#8220;Plan this trip&#8221;. </p>
 
-<h2 id="creationofsharemytripdatabase">creation of ShareMyTrip DATABASE</h2>
+<h3 id="planpage">Plan page</h3>
 
-<p>Creation of a DATABASE called &#8216;ShareMyTrip&#8217; in phpMyAdmin
-The relational design of the ShareMyTrip database has been created with <a href="http://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>:
-- <a href="/db/ShareMyTrip.mwb">mwb</a> contains the whole database made with MySQL Workbench program (editable file)
-- <a href="/db/ShareMyTrip.sql">sql</a> contains the sql code to create the database in PhpMyAdmin (copy/paste)
-- <a href="/db/ShareMyTrip.pdf">pdf</a> contains a static image of the database</p>
+<p>The plan page gives you an overview of all trip actions organised by date. You can also easily see which action is not paid, partially paid or full paid thanks to the action color codes. </p>
 
-<p>Once the database created in phpMyAdmin by copy/pasting the sql requests, all traffic lights are green when accessing the <a href="http://localhost:8888/">http://localhost:8888</a>.</p>
+<h3 id="addeditanactionpage">Add/Edit an action page</h3>
 
-<p>The categories, types and methods entries can be inserted with:
-``<code>sql
-INSERT INTO</code>categories<code>(</code>id<code>,</code>name`)
-VALUES (1, &#8216;Travel&#8217;),
- (2, &#8216;Lodging&#8217;),
- (3, &#8216;Activity&#8217;),
- (4, &#8216;Other&#8217;);</p>
+<h3 id="mappage">Map page</h3>
 
-<p>INSERT INTO <code>types</code> (<code>id</code>, <code>name</code>, <code>category_id</code>)
- VALUES (1, &#8216;Plane&#8217;, &#8216;1&#8217;),
- (2, &#8216;Train&#8217;, &#8216;1&#8217;),
- (3, &#8216;Taxi&#8217;, &#8216;1&#8217;),
- (4, &#8216;Car&#8217;, &#8216;1&#8217;),
- (5, &#8216;Bus&#8217;, &#8216;1&#8217;),
- (6, &#8216;Boat&#8217;, &#8216;1&#8217;),
- (7, &#8216;Bicycle&#8217;, &#8216;1&#8217;),
- (8, &#8216;Foot&#8217;, &#8216;1&#8217;),
- (9, &#8216;Travel&#8217;, &#8216;1&#8217;),
- (10, &#8216;Hotel&#8217;, &#8216;2&#8217;),
- (11, &#8216;B&amp;B&#8217;, &#8216;2&#8217;),
- (12, &#8216;Camping&#8217;, &#8216;2&#8217;),
- (13, &#8216;Lodging&#8217;, &#8216;2&#8217;),
- (20, &#8216;Restaurant&#8217;, &#8216;3&#8217;),
- (21, &#8216;Drinks&#8217;, &#8216;3&#8217;),
- (22, &#8216;Shopping&#8217;, &#8216;3&#8217;),
- (23, &#8216;Museum&#8217;, &#8216;3&#8217;),
- (24, &#8216;Tour&#8217;, &#8216;3&#8217;),
- (25, &#8216;Concert&#8217;, &#8216;3&#8217;),
- (26, &#8216;Activity&#8217;, &#8216;3&#8217;),
- (30, &#8216;Bank&#8217;, &#8216;4&#8217;),
- (31, &#8216;ATM&#8217;, &#8216;4&#8217;),
- (32, &#8216;Other&#8217;, &#8216;4&#8217;);
-INSERT INTO <code>methods</code> (<code>id</code>, <code>name</code>)
-VALUES (1, &#8216;Cash&#8217;),
- (2, &#8216;Bank transfert&#8217;),
- (3, &#8216;Credit card&#8217;),
- (4, &#8216;ATM&#8217;),
- (5, &#8216;Paypal&#8217;);
-```</p>
+<h3 id="budgetpage">Budget page</h3>
 
-<h2 id="cakephp3">CAKEPHP 3</h2>
+<p>If you want to share a trip with someone else, this latter should have an user registered in the system. You can add a new user to a trip using his email.</p>
 
-<h3 id="generationofalltableswithcakephp">Generation of all tables with CakePhp</h3>
+<h2 id="websitearchitecture">Website Architecture</h2>
 
-<p>Before using bake command, install it with Composer (run where composer has been installed):
-<code>sh
-composer require --dev cakephp/bake:~1.0
-</code></p>
+<p>ShareMyTrip website is based on <strong>Model-View-Controller</strong> (MVC) software design pattern.
+* The Database is a <strong>MySql database</strong> managed by <strong><a href="https://cakephp.org/">cakePHP</a></strong>, a php framework. .
+* The controller is managed with <strong>cakePHP</strong> too. This latter provides JSON feeds to the views.
+* The views are html5/css3 with a layer of angularJS. AngularJS send JSON requests to the controller and updates the view in consequence. </p>
 
-<p>Then, in shell, run the following instructions.
-<code>sh
-bin/cake bake all Users
-bin/cake bake all Trips
-bin/cake bake all Categories
-bin/cake bake all Types
-bin/cake bake all Trips
-bin/cake bake all Methods
-bin/cake bake all Payments
-bin/cake bake all Actions
-</code></p>
+<h3 id="model">Model</h3>
 
-<h3 id="creatingrestfulroutes">Creating RESTful Routes</h3>
+<p>The Database contains 9 tables (illustrated in this <a href="/files/ShareMyTrip-DB.pdf">pdf</a>) organised around 3 main tables:
+1. <strong>users</strong>: This table is the core of the DB. In order to use the website, you need first to login or create a user account. This latter has an <em>email</em>, <em>first name</em> and <em>last name</em>, as well as a <em>password</em> and an <em>avatar</em> image. Since a user can participate to several trips (or actions) and a trip (or action) can contain several users, a junction table &#8216;MANY to MANY&#8217; exists to link trips (or actions) to users:
+ + trips_users: This table records all users that belong to a specific trip. When creating a trip, the owner is registered as the only participant of the trip. Then, he can add other users to participate to his trip.
+ + actions_users: Each action can be performed by 1 (at least) to all participants of the trip (proposed by default in the view).
+2. <strong>trips</strong>: A trip will be created only a few times. A trip has a specific <em>name</em>. It also has a preferred <em>currency</em>, depending if the user wants to use the local currency or its own currency. The trip creator is the only one that can edit the trip settings and thus, a <em>owner_id</em> property is defined for each trip. Finally, it has a <em>starting</em> and <em>ending</em> date, that is not necessarily the first and last dates of its actions.
+3. <strong>actions</strong>: The actions will be the most often updated table with most fields. Many actions will be created for a specific trip. Each action has its type, owner and name (required properties). All other properties are not mandatory, like action information (company, reservation, identifier, note). Each action can have a price and a currency. Finally, each action can also have a starting and ending <em>datetime</em>, <em>name</em>, <em>longitude</em> and <em>latitude</em><br/>
+ + <strong>payments</strong>: An action can be paid in several payments. All payments <em>amounts</em> are stored in this table that also provides the <em>payment method</em>, <em>currency</em> and <em>date</em> information.
+ + Each payment can be done with a specific payment method (table <strong>methods</strong>)
+ + <strong>types</strong>: Each action belongs to a specific type. A typical type would be Plane, Boat, Hotel, Bank, etc&#8230;
+ + each type belongs to a specific category (table <strong>categories</strong>). In order not to have too many types, these latter are categorised in 4 categories: Travel, Lodging, Activity, Other</p>
 
-<p><a href="http://book.cakephp.org/3.0/en/development/routing.html#resource-routes">CAKEPHP documentation</a></p>
+<h2 id="userinterface">User interface</h2>
 
-<p>In <em>config/routes.php</em>:
-<code>php
-Router::scope('/', function ($routes) {
-    $routes-&gt;extensions(['json']);
-});
-</code></p>
+<h3 id="personas">Personas</h3>
 
-<h3 id="cakephpuserscontroller:">CakePHP <a href="/src/Controller/Component/UsersController.php">USERS controller</a>:</h3>
+<p>3 set of personas have been imagined that would use this website:
+1. A person travelling alone:
+ * 35 years old
+ * Wants to
+2. A couple travelling together:
+ * 30 years old
+ * One is the
+3. Group of friends travelling together:
+ * 20 years old </p>
+
+<h3 id="usertests">User tests</h3>
+
+<p>Brad wants to organise a trip for Angelina and him to Italy to see his friend George.
+1. Brad uses his Macbook to register himself with the following information:
+ + Email: pitt@email.com
+ + First name: Brad
+ + Last name: Pitt
+2. Angelina register herself on her iPhone 6 (Use your phone to register Angelina) with the following information:
+ + Email: jolie@email.com
+ + First name: Angelina
+ + Last name: Jolie
+3. Brad creates a new trip called &#8216;Italy&#8217; from the 1st May to the 5th May 2017. He will use Euros for his budget calculation.
+4. Then, Brad adds Angelina to his trip to Italy in order that Angelina can access to the trip too.
+5. Brad adds the flight from Los Angeles (departure the 2017&#8211;05&#8211;01 at 15:30) to Milano (arrival the next day at 12:30) with Swiss. The flight costs 2000USD per person and Brad pays it all with his credit card.
+6. On her side, Angelina books a Limousine from Milano to Como. The agency estimate 5 hours to reach Como and it will cost 800 USD. Angelina will pay when arrived at destination.
+7. At L.A. airport, Angelina buy a pair of Gucci shoes for 1200 USD. Brad won&#8217;t pay for that shit! He is upset&#8230;
+8. The next day, George, Brad and Angelina decide make a motorbike trip all together to Locarno in Switzerland. George make himself an account in ShareMyTrip and Brad adds him into the &#8216;Italy&#8217; trip.
+9. Since Brad and Angelina do not have cash, it&#8217;s George who pays for the gasoil and drinks: 200 Euros.
+10. How to make the expenses calculation? Check the Budget page if you couldn&#8217;t do it yourself.
+11. Add an entry for the cash payment that Angelina has to give to George and Brad. </p>
+
+<h3 id="prototyping">Prototyping</h3>
+
+<p>The prototype has been first created on paper and tested on several users. The user interface has been validated with a 3 steps process:
+ 1. A paper prototype for the first ideas and tests
+ 2. An interactive prototype (available in <a href="/files/ShareMyTrip.pdf">pdf</a>) to test the desktop and mobile versions
+ 3. A final test directly on the website for minor adjustments</p>
+
+<h3 id="responsiveness">Responsiveness</h3>
+
+<p>Since this website is supposed to help travellers to manage their travel in all stages and any environment, it was important that it is working as well for desktop (for trip planification) and for mobile devices (for easy and fast trip updates and consultation). Thus, <a href="http://getbootstrap.com/">bootsrap</a> has been used as a base html/css/js framework for responsive design. </p>
+
+<h3 id="controller">Controller</h3>
+
+<h3 id="view">View</h3>
+
+<h2 id="todoshort-term">TODO (short-term)</h2>
 
 <ul>
-<li>function login() : Log in a user and redirects to homepage</li>
-<li>function logout() : Log out a user and redirects to homepage</li>
-<li>function current() : Gets the current user logged</li>
+<li>confirm trip user deletion</li>
+<li>Page Add/Edit an action
+
+<ul>
+<li>finish &#8216;Pay all&#8217; button</li>
+<li>show the payment method in the list of payment in page Add/Edit action</li>
+</ul></li>
+</ul>
+
+<h2 id="knownbugs">Known Bugs</h2>
+
+<ul>
+<li>You can add a trip without a name</li>
+<li>You cannot empty the arrival name location (google map) when add/edit an action</li>
+<li>You can add a user twice into a trip</li>
+<li>When there are no action, the budget page is not working (You can access it when adding your first action)</li>
+</ul>
+
+<h2 id="futuredevelopmentslong-term">Future developments (long-term)</h2>
+
+<ul>
+<li>Currency is not implemented yet</li>
+<li>Timeline in Plan</li>
+<li>Show what is left to pay in the Expenses box (in Add/Edit an action)</li>
 </ul>
 
 </body>

@@ -45,14 +45,14 @@ h1 {
 
 // NAVIGATIONS
 .navbar-fixed-bottom {
-    background-color: lightgrey;
+    background-color: transparent;
     color: grey;
     text-align: center;
     font-size: 12px;
     margin-top: 60px;
     margin-bottom: -26px;
     padding: 3px;
-    border-top: 1px solid darken(lightgrey, 5%);
+    border-top: none;
     height: 24px !important;
     a {
         color: grey;
@@ -61,6 +61,19 @@ h1 {
             text-decoration: none;
         }
     }
+    /*
+    @media only screen and (max-width: 992px) {
+        display: block;
+        position: relative;
+        z-index: 10;
+        margin: 0;
+        min-height: 0;
+    }
+    */
+    @media only screen and (max-width: 600px) {
+        display: none;
+    }
+
 }
 .navbar-header {
     float:left;
@@ -190,6 +203,9 @@ span.menu-title {
             text-align:left;
             margin-bottom: 0;
             margin-top: -5px;
+            @media only screen and (max-width: 768px) {
+                margin-bottom: -10px;
+            }
 
             > li.avatar.label-bottom .label {
                 color: #FFFFFF;
@@ -197,6 +213,20 @@ span.menu-title {
                 font-weight: normal;
                 display: block;
             }
+        }
+    }
+    .header-date {
+        position: absolute;
+        top: 6px;
+        font-size: 30px;
+        opacity: 0.3;
+        vertical-align: text-bottom;
+        right: 0;
+        @media only screen and (max-width: 768px) {
+            position: relative;
+            display: block;
+            padding-bottom: 10px;
+            font-size: 20px;
         }
     }
 }
@@ -255,9 +285,9 @@ button.btn-primary a:hover {
         }
     }
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 992px) {
         position: fixed;
-        bottom: 30px;
+        bottom: 0px;
         right: 20px;
     }
 
@@ -301,6 +331,20 @@ button.btn-primary a:hover {
 }
 .no-padding {
     margin: 0 !important;
+}
+.text-normal {
+    font-weight: normal !important;
+}
+
+// large input
+label.input-lg,
+input.input-lg,
+input.input-lg + .input-group-btn > button {
+    font-size: 20px;
+    height: 40px;
+    i.arrow.down {
+        margin: 2px 0px 6px 8px;
+    }
 }
 
 // section-container (to highlight a box)
@@ -361,6 +405,7 @@ button.btn-primary a:hover {
             margin: 15px 0 15px 0;
 
             a {
+                color: white;
                 font-size: 36px;
                 font-weight: bold;
                 transition: all 0.3s ease;
@@ -380,6 +425,10 @@ button.btn-primary a:hover {
                 color: white;
                 text-decoration: none;
             }
+        }
+        .trip-date {
+            margin: 0;
+            opacity: 0.6;
         }
     }
 
@@ -521,6 +570,7 @@ button.btn-primary a:hover {
             vertical-align: top;
         }
     }
+    margin-bottom: -6px;
 }
 
 .btn.pull-left {
@@ -816,14 +866,22 @@ a.glyphicon-btn {
 
 /* PLAN : Actions */
 .actions {
-    .actions-day {
+    .row.actions-day {
         border-top: 1px solid #CCCCCC;
+        margin-right: 0;
+        margin-left: 0;
         .actions-date {
             margin-top: 40px;
             font-size: 32px;
             color: #a3a3a3;
+            @media only screen and (max-width: 768px) {
+                margin: 0 -15px 15px -15px;
+                background-color: lightgrey;
+                border-bottom: 1px solid #CCC;
+            }
         }
     }
+
 }
 
 .action {
@@ -967,6 +1025,15 @@ a.glyphicon-btn {
     .action-name {
         font-size: 16px;
         font-weight: bold;
+    }
+
+    @media only screen and (max-width: 768px) {
+        padding: 15px 0;
+        //margin: 30px -15px 0px -15px;
+        border-bottom: 1px solid lightgrey;
+        &:last-child {
+            border-bottom: none;
+        }
     }
 
 }
