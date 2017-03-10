@@ -181,7 +181,7 @@ span.menu-title {
 
         &.no-avatar {
             margin-top: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
 
         ul.list-inline {
@@ -575,18 +575,41 @@ button.btn-primary a:hover {
     }
 
     .avatar-add {
+        z-index: 10;
+        display: block;
+        position: relative;
         border: 2px dotted darken($color-primary, 10%);
         height: 35px !important;
         width: 35px !important;
         margin: 0 auto 3px;
         border-radius: 20px;
         background-color: white;
+        -o-transition:.5s;
+        -ms-transition:.5s;
+        -moz-transition:.5s;
+        -webkit-transition:.5s;
+        transition:.5s;
+
         //opacity: 0.8;
         &:before {
             content: "+";
             font-size: 22px;
             color: darken($color-primary, 10%);
             font-weight: bold;
+        }
+        &:hover {
+            background-color: #e2e2e2;
+            text-decoration: none;
+        }
+    }
+    &.avatar-lg {
+        .avatar-add {
+            height: 64px !important;
+            width: 64px !important;
+            border-radius: 32px;
+            &:before {
+                font-size: 42px;
+            }
         }
     }
 

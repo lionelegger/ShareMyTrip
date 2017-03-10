@@ -103,16 +103,12 @@ $this->end();
                                     <div class="row row-no-padding">
                                         <div class="avatar-list">
                                             <div class="col-md-12" ng-repeat="user in trips.trip.users" id="tripUser-{{user._joinData.id}}" ng-hide="currentUserId == user.id" >
-
-                                                    <button type="button" id="tripDeleteUser-{{user._joinData.id}}" class="btn btn-default pull-left" ng-click="tripDeleteUser(user._joinData.id)"><span class="glyphicon glyphicon-remove"></span> Delete</button>
-
-
-                                                    <div class="avatar label-right clearfix">
-                                                        <img ng-if="!user.photo" ng-src="files/Users/avatars/avatar-{{user.avatar}}.png" class="avatar-img">
-                                                        <img ng-if="user.photo" ng-src="{{user.photo_dir}}/{{user.photo}}" class="avatar-img circle">
-                                                        <div class="avatar-name">{{user.first_name}} {{user.last_name}}</div>
-                                                    </div>
-
+                                                <button type="button" id="tripDeleteUser-{{user._joinData.id}}" class="btn btn-default pull-left" ng-click="tripDeleteUser(user._joinData.id)"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                                                <div class="avatar label-right clearfix">
+                                                    <img ng-if="!user.photo" ng-src="files/Users/avatars/avatar-{{user.avatar}}.png" class="avatar-img">
+                                                    <img ng-if="user.photo" ng-src="{{user.photo_dir}}/{{user.photo}}" class="avatar-img circle">
+                                                    <div class="avatar-name">{{user.first_name}} {{user.last_name}}</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -169,19 +165,17 @@ $this->end();
                                             <div class="label avatar-name" >{{user.first_name}}</div>
                                         </div>
                                     </li>
-                                    <!--
                                     <li>
-                                        <div class="avatar label-bottom">
-                                            <div class="avatar-add avatar-img"></div>
+                                        <div class="avatar avatar-lg label-bottom">
+                                            <a class="avatar-add avatar-img" href="http://www.google.com"></a>
                                             <div class="label avatar-name" >Add</div>
                                         </div>
                                     </li>
-                                    -->
                                 </ul>
                             </div>
 
-<!--                            <h4>This trip starts in 66 days...</h4>-->
-<!--                            <p class="alert alert-danger"><strong>You still owe 234 CHF to Tata</strong></p>-->
+                            <h4>This trip starts in 66 days...</h4>
+                            <p class="alert alert-danger"><strong>You still owe 234 CHF to Tata</strong></p>
 
                         </div>
                     </div>

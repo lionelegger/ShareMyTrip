@@ -118,7 +118,7 @@ span.menu-title {
     min-height: 66px; }
     .header-container .header-title.no-avatar {
       margin-top: 4px;
-      margin-bottom: 20px; }
+      margin-bottom: 0; }
     .header-container .header-title ul.list-inline {
       vertical-align: text-top;
       display: inline-block;
@@ -388,17 +388,34 @@ button.btn-primary a:hover {
     left: 35px;
     top: 16px; }
 .avatar .avatar-add {
+  z-index: 10;
+  display: block;
+  position: relative;
   border: 2px dotted #285f8f;
   height: 35px !important;
   width: 35px !important;
   margin: 0 auto 3px;
   border-radius: 20px;
-  background-color: white; }
+  background-color: white;
+  -o-transition: .5s;
+  -ms-transition: .5s;
+  -moz-transition: .5s;
+  -webkit-transition: .5s;
+  transition: .5s; }
   .avatar .avatar-add:before {
     content: "+";
     font-size: 22px;
     color: #285f8f;
     font-weight: bold; }
+  .avatar .avatar-add:hover {
+    background-color: #e2e2e2;
+    text-decoration: none; }
+.avatar.avatar-lg .avatar-add {
+  height: 64px !important;
+  width: 64px !important;
+  border-radius: 32px; }
+  .avatar.avatar-lg .avatar-add:before {
+    font-size: 42px; }
 .avatar input[type=checkbox] + .avatar-img {
   opacity: 0.3; }
   .avatar input[type=checkbox] + .avatar-img + .avatar-name {

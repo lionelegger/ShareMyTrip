@@ -7,7 +7,8 @@
     <title>
         <?= $this->fetch('title') ?>
     </title>
-    <?= $this->Html->meta('icon') ?>
+    <?= $this->Html->meta('lionelegger.ico', '/lionelegger.ico', ['type' => 'icon']); ?>
+    <?= $this->Html->meta('ShareMyTrip', 'Manage your trip expenses Share a trip with friends and manage the expenses'); ?>
 
     <base href="http://127.0.0.1:8888/UNIGE/Projects/ShareMyTrip/"/>
 <!--    <base href="http://lionelegger.com/sharemytrip/"/>-->

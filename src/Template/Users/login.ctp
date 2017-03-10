@@ -1,9 +1,58 @@
-<div class="container text-center">
-    <h1><?= __("Share My Trip") ?></h1>
-    <div class="col-md-4 col-md-offset-4">
-        <?= $this->Flash->render('auth') ?>
+<style>
+    html {
+        background: url("webroot/img/20131123-MM-1323.jpg") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+    body {
+        background-color: transparent;
+        color: #FFF;
+    }
+    h1 {
+        color: #FFF;
+        opacity: 0.7;
+    }
+    h3 {
+        color: #337ab7;
+    }
+    .navbar-fixed-top {
+        display: none;
+    }
+    .navbar-fixed-bottom {
+        background-color: transparent;
+        border-top: none;
+        text-align: center;
+    }
+    .navbar-fixed-bottom .pull-right {
+        float: none !important;
+    }
+    .navbar-fixed-bottom a:hover {
+        color: #FFF;
+    }
+    .form-control {
+        background-color: rgba(0,0,0,0.7);
+        border: 1px solid #232323;
+        color: #FFF;
+    }
+
+    button.btn-link {
+        color: lightgrey;
+    }
+    button.btn-link:hover {
+        color: #FFF;
+    }
+</style>
+
+<?= $this->Flash->render('auth') ?>
+<div class="container text-center ">
+    <div class="col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-3">
+        <h1><?= __("Share my trip") ?></h1>
+
         <?= $this->Form->create() ?>
-        <h3><?= __("Login") ?></h3>
+        <p>Keeping the Let's Go and taking the Uh-Oh out of travel</p>
+        <h3><?= __("Please login") ?></h3>
         <form class="form-horizontal">
             <div class="form-group">
                 <?= $this->Form->input('email', ['class' => 'form-control', 'placeholder' => 'Email', 'label' => false]) ?>
