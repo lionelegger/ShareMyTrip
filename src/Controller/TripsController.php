@@ -21,7 +21,8 @@ class TripsController extends AppController
     {
         // Show only trips of the logged user
         $query = $this->Trips->find('all',[
-            'contain' => ['Users']
+            'contain' => ['Users'],
+            'order' => ['Trips.date_start' => 'DESC']
         ]);
         $query->matching('Users', function ($q) {
             return $q->where([
@@ -90,7 +91,7 @@ class TripsController extends AppController
             }
         }
 
-        $users = $this->Trips->Users->find('list', ['limit' => 200]);
+        $users = $this->Trips->Users->find('all');
         $this->set(compact('trip', 'users', 'record_id'));
         $this->set('_serialize', ['trip'], ['users'], 'record_id');
     }

@@ -8,8 +8,8 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $name
- * @property string $start_date
- * @property string $end_date
+ * @property string $date_start
+ * @property string $date_end
  * @property string $currency
  * @property int $owner_id
  *

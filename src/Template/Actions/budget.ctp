@@ -197,7 +197,7 @@ if (!empty($actions)) {
                         <?php if ($n>1) { ?>
                             <a href="#" data-toggle="tooltip" data-placement="top" data-html="true" title="<?=$tipPayment?>"><?=$totalCell?></a>
                         <?php } else { ?>
-                            <?=$totalCell . " " . $action->currency ?>
+                            <?=$totalCell . "&thinsp;" . $action->currency ?>
                         <?php } ?>
                     </h4>
                     <?php
@@ -208,6 +208,7 @@ if (!empty($actions)) {
 //                        echo "<br/>Balance is: <span class='badge'>" . $balanceCell . "</span>";
                         $totalBalance[$user->id] = $totalBalance[$user->id] + $balanceCell;
                         $totalBalance[$user->id] = round($totalBalance[$user->id], 0);
+
                     }
                     $isParticipating = true;
                 }
@@ -222,7 +223,7 @@ if (!empty($actions)) {
         echo "      <td data-title='Total'>";
         echo "        <h4><strong>" . $action->price . "</strong>";
         if ($action->price) {
-            echo "&nbsp;" . $action->currency;
+            echo "&thinsp;" . $action->currency;
         }
         echo "</h4>";
         $totalTrip = $totalTrip + $action->price;
@@ -246,44 +247,50 @@ if (!empty($actions)) {
 
     foreach ($tripUsers as $user) {
         echo "<td data-title='".$user->first_name."'>";
-        echo "<h3><strong>" . $totalPaid[$user->id] . "</strong> ".$trip->currency."</h3>";
+        echo "<h3><strong>" . $totalPaid[$user->id] . "</strong>&thinsp;".$trip->currency."</h3>";
         echo "</td>";
     }
 
 
 
     echo "      <td data-title='ALL'>";
-    echo "<h3><strong>" . $globalPaid . "</strong> of ".$totalTrip." ".$trip->currency."</h3>";
+    echo "<h3><strong>" . $globalPaid."&thinsp;".$trip->currency."</strong> of ".$totalTrip."&thinsp;".$trip->currency."</h3>";
     echo "      </td>";
     echo "    </tr>";
 
     // BALANCE
     echo "<tr class='balance'>";
     echo "    <td>";
-    echo "          <h3>Balance</h3>";
+    echo "          <h3>Still to pay</h3>";
     echo "    </td>";
     foreach ($tripUsers as $user) {
+        // stillToPay is the inverse of totalBalance
+        $stillToPay[$user->id] = 0 - $totalBalance[$user->id];
         echo "<td data-title='".$user->first_name."'>";
         echo "<h3>";
-        if ($totalBalance[$user->id] >= 0) {
-            echo "<span class='label label-success'>".$totalBalance[$user->id]." ".$trip->currency."</span>";
+        if ($stillToPay[$user->id] < 0) {
+            echo "<span class='label label-default'>".$stillToPay[$user->id]."&thinsp;".$trip->currency."</span>";
+        } else if ($stillToPay[$user->id] == 0) {
+            echo "<span class='label label-success'>".$stillToPay[$user->id]."&thinsp;".$trip->currency."</span>";
         } else if ($totalPaid[$user->id] == 0) {
-            echo "<span class='label label-danger'>".$totalBalance[$user->id]." ".$trip->currency."</span>";
+            echo "<span class='label label-danger'>".$stillToPay[$user->id]."&thinsp;".$trip->currency."</span>";
         } else {
-            echo "<span class='label label-warning'>".$totalBalance[$user->id]." ".$trip->currency."</span>";
+            echo "<span class='label label-warning'>".$stillToPay[$user->id]."&thinsp;".$trip->currency."</span>";
         };
         echo "</h3>";
         echo "</td>";
     }
     echo "<td data-title='All Trip'><h1>";
-    if ($globalBalance < 0) {
-        echo "<span class='label label-warning'>".$globalBalance." ".$trip->currency."</span>";
-    } else if ($globalBalance == 0) {
-        echo "<span class='label label-success'>".$globalBalance." ".$trip->currency."</span>";
-    } else if ($globalBalance == $totalTrip) {
-        echo "<span class='label label-danger'>".$globalBalance." ".$trip->currency."</span>";
+    // globalToPay is the inverse of globalBalance
+    $globalToPay = 0 - $globalBalance;
+    if ($globalToPay > 0) {
+        echo "<span class='label label-warning'>".$globalToPay."&thinsp;".$trip->currency."</span>";
+    } else if ($globalToPay == 0) {
+        echo "<span class='label label-success'>".$globalToPay."&thinsp;".$trip->currency."</span>";
+    } else if ($globalToPay == -$totalTrip) {
+        echo "<span class='label label-danger'>".$globalToPay."&thinsp;".$trip->currency."</span>";
     } else {
-        echo "<span class='label label-default'>".$globalBalance." ".$trip->currency."</span>";
+        echo "<span class='label label-default'>".$globalToPay."&thinsp;".$trip->currency."</span>";
     }
     echo "</h1></td>";
     echo "</tr>";

@@ -108,10 +108,17 @@ h1 {
     }
 }
 
+.nav-avatar {
+    > a {
+        float: right;
+        padding: 0;
+    }
+}
+
 // Keep the navigation inline at small resolution
 @media only screen and (max-width: 768px) {
     .no-collapse ul.navbar-nav {
-        float: right;
+        //float: right;
         margin: 0 15px;
         > li {
             float: left;
@@ -190,7 +197,7 @@ span.menu-title {
         margin: 0;
         font-size: 36px;
         font-weight: bold;
-        min-height: 66px;
+        //min-height: 66px;
 
         &.no-avatar {
             margin-top: 4px;
@@ -203,6 +210,7 @@ span.menu-title {
             text-align:left;
             margin-bottom: 0;
             margin-top: -5px;
+            text-align: center;
             @media only screen and (max-width: 768px) {
                 margin-bottom: -10px;
             }

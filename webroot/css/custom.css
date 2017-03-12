@@ -67,9 +67,12 @@ h1 {
     width: 100%;
     text-align: center; } }
 
+.nav-avatar > a {
+  float: right;
+  padding: 0; }
+
 @media only screen and (max-width: 768px) {
   .no-collapse ul.navbar-nav {
-    float: right;
     margin: 0 15px; }
     .no-collapse ul.navbar-nav > li {
       float: left; }
@@ -126,8 +129,7 @@ span.menu-title {
   .header-container .header-title {
     margin: 0;
     font-size: 36px;
-    font-weight: bold;
-    min-height: 66px; }
+    font-weight: bold; }
     .header-container .header-title.no-avatar {
       margin-top: 4px;
       margin-bottom: 0; }
@@ -136,7 +138,8 @@ span.menu-title {
       display: inline-block;
       text-align: left;
       margin-bottom: 0;
-      margin-top: -5px; }
+      margin-top: -5px;
+      text-align: center; }
       @media only screen and (max-width: 768px) {
         .header-container .header-title ul.list-inline {
           margin-bottom: -10px; } }

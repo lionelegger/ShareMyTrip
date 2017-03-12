@@ -50,7 +50,7 @@
                                 <?= $this->fetch('navigation') ?>
                             </ul>
                         <?php endif; ?>
-                        <ul class="nav navbar-nav navbar-right hidden-xs">
+                        <ul class="nav navbar-nav nav-avatar navbar-right hidden-xs">
                             <li><?= $this->Html->link($userSession['first_name']." ".$userSession['last_name'], [
                                 'controller' => 'Users',
                                     'action' => 'edit', $userSession['id']

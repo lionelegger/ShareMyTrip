@@ -3,10 +3,8 @@ _"Keeping the *Let's Go* and taking the *Uh-Oh* out of travel"_
 
 Made by [Lionel EGGER](mailto:lionelegger@gmail.com)
 
-
 ##What is ShareMyTrip?
 ShareMyTrip is a website that helps travellers to plan, map and budget a trip. When you travel alone, everything is easy... But what happens when you travel with friends, share bills? Sometimes you pay for all your friends, organize excursion only with a subgroup of friends or buy yourself a souvenir... It can very quickly be a complex task to calculate the trip expenses. ShareMyTrip makes travelling together easy and facilitate all expenses calculation. It helps you to plan, manage and visualize your future trips. 
-
 ##How to use the website
 When you arrive to the homepage, the first thing you need to do is to login or register as a new user. The password is encrypted. If you register, you are automatically logged in. 
 Once you are logged in, you arrive on the trip page. Once logged, you can always change your personal information by clicking on your avatar 
@@ -14,8 +12,9 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 This page allows you to modify your personal information, as well as to change your avatar picture or even upload another one (300px by 300px). The changes will be visible only after logout and login again. 
 ###Trip page
 This page is the first one a new user sees when he logs in. A welcome message indicate the 3 main steps he should do: "Add a trip", "Add users" and "Add actions". In the beginning, only the "Add a trip" option is available. 
-* Add trip: This will add a new trip. The currency defines which currency will be used for the current trip. If you plan to manage most of your expenses in the foreign currency, then define it here. NB: The currency functionality is saved but yet no currency rate has been implemented yet. The dates are not mandatory if they are not known yet. You can always change the trip setting by clicking on the "settings" button on the top right corner of the trip box. 
-* Add user: You can choose to travel alone or with friends. If you travel with friends, click on "Add a user", otherwise, you can directly "Plan this trip". 
+* **Add trip**: This will add a new trip. The currency defines which currency will be used for the current trip. If you plan to manage most of your expenses in the foreign currency, then define it here. NB: The currency functionality is saved but yet no currency rate has been implemented yet. The dates are not mandatory if they are not known yet. You can always change the trip setting by clicking on the "settings" button on the top right corner of the trip box. 
+* **Add user**: You can choose to travel alone or with friends. If you travel with friends, click on "Add a user", otherwise, you can directly "Plan this trip". If you want to share a trip with someone else, this latter should have an user registered in the system. You add a new user to a trip using his email adress.
+
 ###Plan page
 The plan page gives you an overview of all trip actions organised by date. You can also easily see which action is not paid, partially paid or full paid thanks to the action color codes. 
 
@@ -26,7 +25,6 @@ The plan page gives you an overview of all trip actions organised by date. You c
 ###Budget page
 
 
-If you want to share a trip with someone else, this latter should have an user registered in the system. You can add a new user to a trip using his email.
 
 
 
@@ -48,28 +46,33 @@ The Database contains 9 tables (illustrated in this [pdf](/files/ShareMyTrip-DB.
     + **types**: Each action belongs to a specific type. A typical type would be Plane, Boat, Hotel, Bank, etc... 
     + each type belongs to a specific category (table **categories**). In order not to have too many types, these latter are categorised in 4 categories: Travel, Lodging, Activity, Other
 
-
 ##User interface
 
 ###Personas
 3 set of personas have been imagined that would use this website: 
 1. A person travelling alone: 
     * 35 years old
-    * Wants to 
+    * Use the app to plan a three weeks trip to Australia 
+    * Wants to visually see his trip on a map
+    * Only flights and car rental expenses are managed with the app.
+    * Bank withdrawns are recorded with the app and all is payed cash (but not recorded)
 2. A couple travelling together:
     * 30 years old
-    * One is the 
-3. Group of friends travelling together: 
-    * 20 years old 
-
+    * Trip to Bali. 
+    * Records Flights, Hotels and excursions. 
+    * The couple have mainly common expenses and share everything, except a few personal expenses.
+3. Group of 5 friends travelling together: 
+    * 20 years old.
+    * Trip to London. They all meet in london and record their flight separately. 
+    * The rest of the expenses and activities are payed in common, by one after the other. 
 
 ###User tests
 Brad wants to organise a trip for Angelina and him to Italy to see his friend George. 
-1. Brad uses his Macbook to register himself with the following information:
+1. Brad uses his laptop to register himself with the following information:
     + Email: pitt@email.com
     + First name: Brad
     + Last name: Pitt
-2. Angelina register herself on her iPhone 6 (Use your phone to register Angelina) with the following information: 
+2. Angelina register herself on her cell phone (Use your phone to register Angelina) with the following information: 
     + Email: jolie@email.com
     + First name: Angelina
     + Last name: Jolie
@@ -78,14 +81,10 @@ Brad wants to organise a trip for Angelina and him to Italy to see his friend Ge
 5. Brad adds the flight from Los Angeles (departure the 2017-05-01 at 15:30) to Milano (arrival the next day at 12:30) with Swiss. The flight costs 2000USD per person and Brad pays it all with his credit card. 
 6. On her side, Angelina books a Limousine from Milano to Como. The agency estimate 5 hours to reach Como and it will cost 800 USD. Angelina will pay when arrived at destination. 
 7. At L.A. airport, Angelina buy a pair of Gucci shoes for 1200 USD. Brad won't pay for that shit! He is upset... 
-8. The next day, George, Brad and Angelina decide make a motorbike trip all together to Locarno in Switzerland. George make himself an account in ShareMyTrip and Brad adds him into the 'Italy' trip. 
-9. Since Brad and Angelina do not have cash, it's George who pays for the gasoil and drinks: 200 Euros.
+8. The next day, George and Brad decide make a motorbike trip to Locarno in Switzerland. George make himself an account in ShareMyTrip and Brad adds him into the 'Italy' trip. 
+9. Since Brad does not have cash, it's George who pays for the gasoil and drinks: 200 Euros.
 10. How to make the expenses calculation? Check the Budget page if you couldn't do it yourself. 
 11. Add an entry for the cash payment that Angelina has to give to George and Brad. 
-
-
-
-
 
 ###Prototyping
 The prototype has been first created on paper and tested on several users. The user interface has been validated with a 3 steps process: 
@@ -96,27 +95,23 @@ The prototype has been first created on paper and tested on several users. The u
 ###Responsiveness
 Since this website is supposed to help travellers to manage their travel in all stages and any environment, it was important that it is working as well for desktop (for trip planification) and for mobile devices (for easy and fast trip updates and consultation). Thus, [bootsrap](http://getbootstrap.com/) has been used as a base html/css/js framework for responsive design. 
 
-
 ###Controller
-
-
 
 ###View
 
-
 ##TODO (short-term)
+* Budget page: 'Balance' is not very clear
 * confirm trip user deletion
 * Page Add/Edit an action
     + finish 'Pay all' button
     + show the payment method in the list of payment in page Add/Edit action
 
-
 ##Known Bugs
 * You can add a trip without a name
+* On "add action" page, payment cannot be deleted
 * You cannot empty the arrival name location (google map) when add/edit an action
 * You can add a user twice into a trip
 * When there are no action, the budget page is not working (You can access it when adding your first action)
-
 
 ##Future developments (long-term)
 * Currency is not implemented yet

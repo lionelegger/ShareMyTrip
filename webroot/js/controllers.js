@@ -98,16 +98,17 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         $scope.tripToAdd={};
         $scope.welcomeMsg=false;
         $scope.tripToAdd.name = $("#add_tripName").val();
-        $scope.tripToAdd.date_start = $("#add_date_start").val();
-        $scope.tripToAdd.date_end = $("#add_date_end").val();
+        $scope.tripToAdd.date_start = $("#add_date_start").val() + ' 12:00:01';
+        $scope.tripToAdd.date_end = $("#add_date_end").val() + ' 12:00:01';
         $scope.tripToAdd.currency = $("#add_currency option:selected").val();
+        console.log("date_start="+$scope.tripToAdd.date_start);
         console.log("SELECTED="+$scope.tripToAdd.currency);
         $http
             .post('Trips/add.json', $scope.tripToAdd)
             .success(function(data) {
                 // $scope.loadTrips();
-                console.log(data.tripToAdd);
-                $scope.tripToAdd = data.tripToAdd;
+                console.log(data);
+                // $scope.tripToAdd = data.tripToAdd;
                 $scope.loadTrips();
                 // $scope.getTripUsers(data.trip.id);
             }).error(function() {
@@ -146,6 +147,7 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         $scope.trip.date_end = $("#date_end").val();
         $scope.trip.currency = $("#currency option:selected").val();
         console.log("CURRENCY:" + $scope.trip.currency);
+        console.log("date_start="+$scope.trip.date_start);
         $http
             .post('Trips/edit/' + tripId, $scope.trip)
             .success(function() {
@@ -338,7 +340,6 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             .post('Actions/add/'+$trip_id, $scope.action)
             .success(function() {
                 console.log($scope.action);
-
                 console.log("Action " + $scope.action.name + " added...");
                 document.location = 'actions/plan/' + $trip_id;
 

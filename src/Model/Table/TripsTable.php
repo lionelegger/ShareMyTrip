@@ -71,9 +71,11 @@ class TripsTable extends Table
             ->notEmpty('name');
 
         $validator
+            ->dateTime('date_start')
             ->allowEmpty('date_start');
 
         $validator
+            ->dateTime('date_end')
             ->allowEmpty('date_end');
 
         $validator

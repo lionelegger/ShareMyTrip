@@ -31,9 +31,9 @@ include_once ('include/header.ctp');
 
 if ($actions->isEmpty()) {
     echo "<div class='container text-right'>";
-    echo "    <h3>Well done!<small><br>You just created your first trip.</small></h3>";
-    echo "<p>'<strong>Add an action</strong>' to manage your travels, lodgings or any other trip activities... <br/>You can define a <i>time</i>, <i>location</i> or <i>price</i> for any action, as well as <i>friends</i> with whom you share it. </p>";
-    echo "<p>Check the '<strong>Map</strong>' and '<strong>Budget</strong>' pages to get a geographic or financial overview of your trip.</p>";
+    echo "    <h3>Well done!<small><br>You just created a new trip.</small></h3>";
+    echo "<p>Now '<strong>Add an action</strong>' to add a travel, lodging or any other trip activity... <br/>You can define a <i>time</i>, <i>location</i> or <i>price</i> for any action, as well as <i>friends</i> with whom you share it. </p>";
+    echo "<p>Then check the '<strong>Map</strong>' and '<strong>Budget</strong>' pages to get a geographic or financial overview of your trip.</p>";
     echo "</div>";
 
 }

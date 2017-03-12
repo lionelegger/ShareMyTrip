@@ -83,7 +83,7 @@ $this->end();
                             <label for="date_end" class="col-sm-3 control-label">To</label>
                             <div class="col-sm-9">
                                 <div class='input-group date' id='add_datepickerEnd'>
-                                    <input type='text' class='form-control' id="add_date_end" placeholder='YYYY-MM-DD'/>
+                                    <input type='text' class='form-control' id="add_date_end" placeholder='YYYY-MM-DD' />
                                     <span class='input-group-addon'>
                                         <span class='glyphicon glyphicon-calendar'></span>
                                     </span>

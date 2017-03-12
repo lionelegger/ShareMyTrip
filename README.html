@@ -26,8 +26,8 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 <h3 id="trippage">Trip page</h3>
 
 <p>This page is the first one a new user sees when he logs in. A welcome message indicate the 3 main steps he should do: &#8220;Add a trip&#8221;, &#8220;Add users&#8221; and &#8220;Add actions&#8221;. In the beginning, only the &#8220;Add a trip&#8221; option is available.
-* Add trip: This will add a new trip. The currency defines which currency will be used for the current trip. If you plan to manage most of your expenses in the foreign currency, then define it here. NB: The currency functionality is saved but yet no currency rate has been implemented yet. The dates are not mandatory if they are not known yet. You can always change the trip setting by clicking on the &#8220;settings&#8221; button on the top right corner of the trip box.
-* Add user: You can choose to travel alone or with friends. If you travel with friends, click on &#8220;Add a user&#8221;, otherwise, you can directly &#8220;Plan this trip&#8221;. </p>
+* <strong>Add trip</strong>: This will add a new trip. The currency defines which currency will be used for the current trip. If you plan to manage most of your expenses in the foreign currency, then define it here. NB: The currency functionality is saved but yet no currency rate has been implemented yet. The dates are not mandatory if they are not known yet. You can always change the trip setting by clicking on the &#8220;settings&#8221; button on the top right corner of the trip box.
+* <strong>Add user</strong>: You can choose to travel alone or with friends. If you travel with friends, click on &#8220;Add a user&#8221;, otherwise, you can directly &#8220;Plan this trip&#8221;. If you want to share a trip with someone else, this latter should have an user registered in the system. You add a new user to a trip using his email adress.</p>
 
 <h3 id="planpage">Plan page</h3>
 
@@ -38,8 +38,6 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 <h3 id="mappage">Map page</h3>
 
 <h3 id="budgetpage">Budget page</h3>
-
-<p>If you want to share a trip with someone else, this latter should have an user registered in the system. You can add a new user to a trip using his email.</p>
 
 <h2 id="websitearchitecture">Website Architecture</h2>
 
@@ -68,21 +66,28 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 <p>3 set of personas have been imagined that would use this website:
 1. A person travelling alone:
  * 35 years old
- * Wants to
+ * Use the app to plan a three weeks trip to Australia
+ * Wants to visually see his trip on a map
+ * Only flights and car rental expenses are managed with the app.
+ * Bank withdrawns are recorded with the app and all is payed cash (but not recorded)
 2. A couple travelling together:
  * 30 years old
- * One is the
-3. Group of friends travelling together:
- * 20 years old </p>
+ * Trip to Bali.
+ * Records Flights, Hotels and excursions.
+ * The couple have mainly common expenses and share everything, except a few personal expenses.
+3. Group of 5 friends travelling together:
+ * 20 years old.
+ * Trip to London. They all meet in london and record their flight separately.
+ * The rest of the expenses and activities are payed in common, by one after the other. </p>
 
 <h3 id="usertests">User tests</h3>
 
 <p>Brad wants to organise a trip for Angelina and him to Italy to see his friend George.
-1. Brad uses his Macbook to register himself with the following information:
+1. Brad uses his laptop to register himself with the following information:
  + Email: pitt@email.com
  + First name: Brad
  + Last name: Pitt
-2. Angelina register herself on her iPhone 6 (Use your phone to register Angelina) with the following information:
+2. Angelina register herself on her cell phone (Use your phone to register Angelina) with the following information:
  + Email: jolie@email.com
  + First name: Angelina
  + Last name: Jolie
@@ -91,8 +96,8 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 5. Brad adds the flight from Los Angeles (departure the 2017&#8211;05&#8211;01 at 15:30) to Milano (arrival the next day at 12:30) with Swiss. The flight costs 2000USD per person and Brad pays it all with his credit card.
 6. On her side, Angelina books a Limousine from Milano to Como. The agency estimate 5 hours to reach Como and it will cost 800 USD. Angelina will pay when arrived at destination.
 7. At L.A. airport, Angelina buy a pair of Gucci shoes for 1200 USD. Brad won&#8217;t pay for that shit! He is upset&#8230;
-8. The next day, George, Brad and Angelina decide make a motorbike trip all together to Locarno in Switzerland. George make himself an account in ShareMyTrip and Brad adds him into the &#8216;Italy&#8217; trip.
-9. Since Brad and Angelina do not have cash, it&#8217;s George who pays for the gasoil and drinks: 200 Euros.
+8. The next day, George and Brad decide make a motorbike trip to Locarno in Switzerland. George make himself an account in ShareMyTrip and Brad adds him into the &#8216;Italy&#8217; trip.
+9. Since Brad does not have cash, it&#8217;s George who pays for the gasoil and drinks: 200 Euros.
 10. How to make the expenses calculation? Check the Budget page if you couldn&#8217;t do it yourself.
 11. Add an entry for the cash payment that Angelina has to give to George and Brad. </p>
 
@@ -114,6 +119,7 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 <h2 id="todoshort-term">TODO (short-term)</h2>
 
 <ul>
+<li>Budget page: &#8216;Balance&#8217; is not very clear</li>
 <li>confirm trip user deletion</li>
 <li>Page Add/Edit an action
 
@@ -127,6 +133,7 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 
 <ul>
 <li>You can add a trip without a name</li>
+<li>On &#8220;add action&#8221; page, payment cannot be deleted</li>
 <li>You cannot empty the arrival name location (google map) when add/edit an action</li>
 <li>You can add a user twice into a trip</li>
 <li>When there are no action, the budget page is not working (You can access it when adding your first action)</li>
