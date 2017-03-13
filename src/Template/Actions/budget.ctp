@@ -23,6 +23,7 @@ $totalUsers = count($tripUsers);
 foreach ($tripUsers as $user):
     $totalPaid[$user->id] = 0;
     $totalBalance[$user->id] = 0;
+    $totalTripCost[$user->id] = 0;
 endforeach;
 
 if (!empty($actions)) {
@@ -59,7 +60,7 @@ if (!empty($actions)) {
     endforeach;
 
     echo "      <th>";
-    echo "          <h3>TOTAL</h3>";
+    echo "          <h3>PRICE</h3>";
     echo "      </th>";
     echo "    </tr>";
     echo "</thead>";
@@ -197,17 +198,22 @@ if (!empty($actions)) {
                         <?php if ($n>1) { ?>
                             <a href="#" data-toggle="tooltip" data-placement="top" data-html="true" title="<?=$tipPayment?>"><?=$totalCell?></a>
                         <?php } else { ?>
-                            <?=$totalCell . "&thinsp;" . $action->currency ?>
+                            <?=$totalCell . "&thinsp;<small>" . $action->currency ."</small>" ?>
                         <?php } ?>
                     </h4>
                     <?php
 //                    echo (" = <a data-toggle='popover' title='Popover title' data-placement='top' data-content='some amazing content. It very engaging. Right?'>". $totalCell . "</a>");
 
                     if ($nbParticipationsAction > 0) {
+                        // Balance (per participant)
                         $balanceCell = $totalCell - ($action->price / $nbParticipationsAction);
-//                        echo "<br/>Balance is: <span class='badge'>" . $balanceCell . "</span>";
+//                      echo "<br/>Balance is: <span class='badge'>" . $balanceCell . "</span>";
                         $totalBalance[$user->id] = $totalBalance[$user->id] + $balanceCell;
                         $totalBalance[$user->id] = round($totalBalance[$user->id], 0);
+                        // Trip cost (per participant)
+                        $actionCostPerParticipant = $action->price / $nbParticipationsAction;
+                        $totalTripCost[$user->id] = $totalTripCost[$user->id] + $actionCostPerParticipant;
+                        $totalTripCost[$user->id] = round($totalTripCost[$user->id], 0);
 
                     }
                     $isParticipating = true;
@@ -220,10 +226,13 @@ if (!empty($actions)) {
             echo "</td>";
         }
 
-        echo "      <td data-title='Total'>";
-        echo "        <h4><strong>" . $action->price . "</strong>";
+
         if ($action->price) {
-            echo "&thinsp;" . $action->currency;
+            echo "      <td data-title='Price'>";
+            echo "        <h4><strong>" . $action->price . "</strong>";
+            echo "&nbsp;<small>" . $action->currency . "</small>";
+        } else {
+            echo "        <td class='hidden-xs'>&nbsp;</td>";
         }
         echo "</h4>";
         $totalTrip = $totalTrip + $action->price;
@@ -247,52 +256,69 @@ if (!empty($actions)) {
 
     foreach ($tripUsers as $user) {
         echo "<td data-title='".$user->first_name."'>";
-        echo "<h3><strong>" . $totalPaid[$user->id] . "</strong>&thinsp;".$trip->currency."</h3>";
+        echo "<h3><strong>" . $totalPaid[$user->id] . "</strong>&thinsp;<small>".$trip->currency."</small></h3>";
         echo "</td>";
     }
 
-
-
     echo "      <td data-title='ALL'>";
-    echo "<h3><strong>" . $globalPaid."&thinsp;".$trip->currency."</strong> of ".$totalTrip."&thinsp;".$trip->currency."</h3>";
+    echo "<h3><strong>" . $globalPaid."</strong>&thinsp;<small>".$trip->currency."</small></h3>";
     echo "      </td>";
     echo "    </tr>";
 
-    // BALANCE
+
+    // TRIP COST
+    echo "    <tr>";
+    echo "      <td>";
+    echo "          <h3 class='help-block'>TOTAL trip</h3>";
+    echo "      </td>";
+
+    foreach ($tripUsers as $user) {
+        echo "<td data-title='".$user->first_name."'>";
+        echo "<h3 class='help-block'><strong>" . $totalTripCost[$user->id] . "</strong>&thinsp;<small>".$trip->currency."</small></h3>";
+        echo "</td>";
+    }
+
+    echo "      <td data-title='ALL'>";
+    echo "<h3 class='help-block'><strong>".$totalTrip."</strong>&thinsp;<small>".$trip->currency."</small></h3>";
+    echo "      </td>";
+    echo "    </tr>";
+
+
+    // STILL TO PAY
     echo "<tr class='balance'>";
     echo "    <td>";
-    echo "          <h3>Still to pay</h3>";
+    echo "          <h3><strong>Still to pay</strong></h3>";
     echo "    </td>";
     foreach ($tripUsers as $user) {
         // stillToPay is the inverse of totalBalance
         $stillToPay[$user->id] = 0 - $totalBalance[$user->id];
         echo "<td data-title='".$user->first_name."'>";
-        echo "<h3>";
+        echo "<h2>";
         if ($stillToPay[$user->id] < 0) {
-            echo "<span class='label label-default'>".$stillToPay[$user->id]."&thinsp;".$trip->currency."</span>";
+            echo "<span class='label label-default'>".$stillToPay[$user->id]."<small class='text-normal'>&thinsp;".$trip->currency."</small></span>";
         } else if ($stillToPay[$user->id] == 0) {
-            echo "<span class='label label-success'>".$stillToPay[$user->id]."&thinsp;".$trip->currency."</span>";
+            echo "<span class='label label-success'>".$stillToPay[$user->id]."<small class='text-normal'>&thinsp;".$trip->currency."</small></span>";
         } else if ($totalPaid[$user->id] == 0) {
-            echo "<span class='label label-danger'>".$stillToPay[$user->id]."&thinsp;".$trip->currency."</span>";
+            echo "<span class='label label-danger'>".$stillToPay[$user->id]."<small class='text-normal'>&thinsp;".$trip->currency."</small></span>";
         } else {
-            echo "<span class='label label-warning'>".$stillToPay[$user->id]."&thinsp;".$trip->currency."</span>";
+            echo "<span class='label label-warning'>".$stillToPay[$user->id]."<small class='text-normal'>&thinsp;".$trip->currency."</small></span>";
         };
-        echo "</h3>";
+        echo "</h2>";
         echo "</td>";
     }
-    echo "<td data-title='All Trip'><h1>";
+    echo "<td data-title='All Trip'><h2>";
     // globalToPay is the inverse of globalBalance
     $globalToPay = 0 - $globalBalance;
     if ($globalToPay > 0) {
-        echo "<span class='label label-warning'>".$globalToPay."&thinsp;".$trip->currency."</span>";
+        echo "<span class='label label-warning'>".$globalToPay."<small class='text-normal'>&thinsp;".$trip->currency."</small></span>";
     } else if ($globalToPay == 0) {
-        echo "<span class='label label-success'>".$globalToPay."&thinsp;".$trip->currency."</span>";
+        echo "<span class='label label-success'>".$globalToPay."<small class='text-normal'>&thinsp;".$trip->currency."</small></span>";
     } else if ($globalToPay == -$totalTrip) {
-        echo "<span class='label label-danger'>".$globalToPay."&thinsp;".$trip->currency."</span>";
+        echo "<span class='label label-danger'>".$globalToPay."<small class='text-normal'>&thinsp;".$trip->currency."</small></span>";
     } else {
-        echo "<span class='label label-default'>".$globalToPay."&thinsp;".$trip->currency."</span>";
+        echo "<span class='label label-default'>".$globalToPay."<small class='text-normal'>&thinsp;".$trip->currency."</small></span>";
     }
-    echo "</h1></td>";
+    echo "</h2></td>";
     echo "</tr>";
     echo "</tbody>";
     echo "</table>";

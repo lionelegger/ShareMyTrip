@@ -18,6 +18,21 @@ hr {
 h1 {
   font-weight: bold; }
 
+.label-primary {
+  background-color: #337ab7; }
+
+.label-warning {
+  background-color: #ed984c; }
+
+.label-danger {
+  background-color: #9b1003; }
+
+.label-success {
+  background-color: #2e753f; }
+
+.text-warning {
+  color: #ed984c; }
+
 .navbar-fixed-bottom {
   background-color: transparent;
   color: grey;
@@ -108,7 +123,8 @@ span.menu-title {
 
 .header-container {
   margin-top: -20px;
-  padding: 15px 0 0 0; }
+  padding: 15px 0 0 0;
+  min-height: 80px; }
   .header-container.color-primary {
     background-color: #337ab7;
     color: #FFFFFF; }
@@ -334,7 +350,7 @@ input.input-lg + .input-group-btn > button {
     .box .box-footer.status-4 {
       color: #2e753f; }
     .box .box-footer.status-5 {
-      color: #000000; }
+      color: #777777; }
   @media only screen and (max-width: 768px) {
     .box .box-header {
       padding: 15px; }
@@ -651,7 +667,7 @@ a.glyphicon-btn {
     .action .dotIcon.status-4 {
       border-color: #2e753f; }
     .action .dotIcon.status-5 {
-      border-color: #000; }
+      border-color: #777777; }
   .action .start {
     float: left;
     padding: 0 5px; }
@@ -700,9 +716,9 @@ a.glyphicon-btn {
       border-left-color: #2e753f;
       border-right-color: #2e753f; }
     .action .line.status-5 .cut {
-      color: #000;
-      border-left-color: #000;
-      border-right-color: #000; }
+      color: #777777;
+      border-left-color: #777777;
+      border-right-color: #777777; }
   .action .time, .action .icons, .action .name {
     line-height: 15px;
     position: relative; }
@@ -742,6 +758,11 @@ a.glyphicon-btn {
 
 .table-budget th, .table-budget td {
   text-align: center; }
+  .table-budget th .h1, .table-budget th .h2, .table-budget th .h3, .table-budget th h1, .table-budget th h2, .table-budget th h3, .table-budget td .h1, .table-budget td .h2, .table-budget td .h3, .table-budget td h1, .table-budget td h2, .table-budget td h3 {
+    margin-top: 20px;
+    margin-bottom: 20px; }
+  .table-budget th .h1 small, .table-budget th .h1 .small, .table-budget th .h2 small, .table-budget th .h2 .small, .table-budget th .h3 small, .table-budget th .h3 .small, .table-budget th .h4 small, .table-budget th .h4 .small, .table-budget th .h5 small, .table-budget th .h5 .small, .table-budget th .h6 small, .table-budget th .h6 .small, .table-budget th h1 small, .table-budget th h1 .small, .table-budget th h2 small, .table-budget th h2 .small, .table-budget th h3 small, .table-budget th h3 .small, .table-budget th h4 small, .table-budget th h4 .small, .table-budget th h5 small, .table-budget th h5 .small, .table-budget th h6 small, .table-budget th h6 .small, .table-budget td .h1 small, .table-budget td .h1 .small, .table-budget td .h2 small, .table-budget td .h2 .small, .table-budget td .h3 small, .table-budget td .h3 .small, .table-budget td .h4 small, .table-budget td .h4 .small, .table-budget td .h5 small, .table-budget td .h5 .small, .table-budget td .h6 small, .table-budget td .h6 .small, .table-budget td h1 small, .table-budget td h1 .small, .table-budget td h2 small, .table-budget td h2 .small, .table-budget td h3 small, .table-budget td h3 .small, .table-budget td h4 small, .table-budget td h4 .small, .table-budget td h5 small, .table-budget td h5 .small, .table-budget td h6 small, .table-budget td h6 .small {
+    color: inherit; }
 
 /* ICON TYPES */
 .map-icon-type-99:before {
@@ -912,7 +933,7 @@ i.arrow {
       .map-icon-btn .map-icon-button .map-icon.status-4.active, .map-icon-btn .map-icon-button .map-icon.status-4:hover {
         background-color: #2e753f; }
       .map-icon-btn .map-icon-button .map-icon.status-5.active, .map-icon-btn .map-icon-button .map-icon.status-5:hover {
-        background-color: #000000; }
+        background-color: #777777; }
     .map-icon-btn .map-icon-button:hover {
       cursor: pointer;
       cursor: hand; }
@@ -940,7 +961,7 @@ i.arrow {
   color: white; }
 
 .status-5 {
-  background-color: #000000;
+  background-color: #777777;
   color: white; }
 
 .navigation {

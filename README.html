@@ -10,9 +10,9 @@
 
 <p>Made by <a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#x6c;&#x69;&#111;&#x6e;&#x65;&#x6c;&#x65;&#103;&#103;&#101;&#114;&#64;&#103;&#109;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;">&#x4c;&#105;&#x6f;&#x6e;&#101;&#108; &#69;&#x47;&#71;&#x45;&#x52;</a></p>
 
-<h2 id="whatissharemytrip">What is ShareMyTrip?</h2>
+<h2 id="whatissharemytrip">What is &#8216;Share My Trip&#8217;?</h2>
 
-<p>ShareMyTrip is a website that helps travellers to plan, map and budget a trip. When you travel alone, everything is easy&#8230; But what happens when you travel with friends, share bills? Sometimes you pay for all your friends, organize excursion only with a subgroup of friends or buy yourself a souvenir&#8230; It can very quickly be a complex task to calculate the trip expenses. ShareMyTrip makes travelling together easy and facilitate all expenses calculation. It helps you to plan, manage and visualize your future trips. </p>
+<p>&#8216;ShareMyTrip&#8217; is a website that helps travellers to plan, map and budget a trip. When you travel alone, everything is easy&#8230; But what happens when you travel with friends, share bills? Sometimes you pay for all your friends, organize excursion only with a subgroup of friends or buy yourself a souvenir&#8230; It can very quickly be a complex task to calculate the trip expenses. ShareMyTrip makes travelling together easy and facilitate all expenses calculation. It helps you to plan, manage and visualize your future trips. </p>
 
 <h2 id="howtousethewebsite">How to use the website</h2>
 
@@ -31,13 +31,27 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 
 <h3 id="planpage">Plan page</h3>
 
-<p>The plan page gives you an overview of all trip actions organised by date. You can also easily see which action is not paid, partially paid or full paid thanks to the action color codes. </p>
+<p>The plan page gives you an overview of all trip actions organised by date. You can also easily see which action is not paid, partially paid or full paid thanks to the action color codes. Each action is represented by a point when the action is described by a single time or spacial entry or two points when an ending time or location has been defined. Each action is editable by just cliking on the icon. When an action extends to the next day, the ending date appears on the right side of the line. </p>
 
 <h3 id="addeditanactionpage">Add/Edit an action page</h3>
 
+<p>&#8216;Add an action&#8217; button is visible on &#8216;Plan&#8217;, &#8216;Map&#8217; and &#8216;Budget&#8217; pages in order to quickly access to this page that will be widely used. &#8216;Edit an action&#8217; is reached anytime you click on the action icon, from any page too.
+* Actions are classified in <strong>4 categories</strong>: Travel, Lodging, Activity and Other. Each category have a certain amount of actions <strong>types</strong>. When you choose the Lodging category, you logically don&#8217;t have an ending location. This fields are mandatory.
+* All other actions can be described with a <strong>starting and ending time and location</strong> but these fields are not mandatory. If the ending date is not filled, it presupposed that it&#8217;s the same date as the starting date.
+* The <strong>name</strong> of the action is mandatory. It describes the action.
+* The &#8216;Company&#8217;, &#8216;Reservation&#8217;, &#8216;Identifier&#8217; and &#8216;Notes&#8217; fields are not mandatory and can be useful to detail an action. For example, the flights or hotel details are typically entered here.
+* <strong>Share</strong>: This field specifies with whom you will share the specific action. By default, you share an action with all participant of the trip. But you can restrict the action scope to only some users, or even only you. For example, If you travel with another couple, one couple could have a superior room which means a higher cost. It would also be used when a participant of the trip joins you for only a part of the trip. The flights can be also registered separately if participants of a trip all meets in a city and then travel together. For a personal expense, you can select the &#8216;only me&#8217; button.
+* <strong>Expenses</strong>: The expenses box is separated in two sections:
+ + <strong>Price</strong>: Define here the total price of the action. It means that it does not represent the individual price, but it encompass the global price for all participants. The price is not mandatory as we can plan an action without knowing the price in advance or even register free actions.
+ + <strong>Payments</strong>: The totality of an action price is not necessarily paid in one go. For example, you might have to pay a first installment before the trip and what&#8217;s left must be paid on site. You can register all payments here and the sum will be automatically calculated, as well as what&#8217;s left to pay. The status of the global payment is updated at each payment registration and the sum will be in the currency defined in the trip settings. </p>
+
 <h3 id="mappage">Map page</h3>
 
+<p>The map page shows on a common map all actions that have been geolocalised. </p>
+
 <h3 id="budgetpage">Budget page</h3>
+
+<p>The budget page summarise all expenses made by all trip participants. The total price of the action on the right is the price defined in the &#8220;add/edit action&#8221; page. At the bottom of the page, in the &#8220;TOTAL paid&#8221; row, we get the totality paid for each participant. In the bottom right corner, we get the totality paid by all participants, as well as the sum of all actions of the trip. </p>
 
 <h2 id="websitearchitecture">Website Architecture</h2>
 
@@ -119,8 +133,10 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 <h2 id="todoshort-term">TODO (short-term)</h2>
 
 <ul>
-<li>Budget page: &#8216;Balance&#8217; is not very clear</li>
+<li>Add color codes on Plan page</li>
+<li>Remove mandatory name on actions</li>
 <li>confirm trip user deletion</li>
+<li>Add link on the whole &#8216;action&#8217; class and not only on the icon to edit an action</li>
 <li>Page Add/Edit an action
 
 <ul>
@@ -133,7 +149,7 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 
 <ul>
 <li>You can add a trip without a name</li>
-<li>On &#8220;add action&#8221; page, payment cannot be deleted</li>
+<li>On &#8220;add action&#8221; page, payment cannot be deleted, date has not the right format and status is not updated when saved</li>
 <li>You cannot empty the arrival name location (google map) when add/edit an action</li>
 <li>You can add a user twice into a trip</li>
 <li>When there are no action, the budget page is not working (You can access it when adding your first action)</li>
@@ -144,7 +160,8 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 <ul>
 <li>Currency is not implemented yet</li>
 <li>Timeline in Plan</li>
-<li>Show what is left to pay in the Expenses box (in Add/Edit an action)</li>
+<li>Budget page: Make summary box of what&#8217;s left to pay (and show an overview also on trip page)</li>
+<li>Add/Edit action: Show what is left to pay in the Expenses box (in Add/Edit an action)</li>
 </ul>
 
 </body>

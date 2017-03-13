@@ -4,7 +4,9 @@ $color-primary: #337ab7;
 $color-warning: #ed984c;
 $color-danger: #9b1003;
 $color-success: #2e753f;
-$color-grey: #b3b3b3;
+$color-lightgrey: #b3b3b3;
+$color-darkgrey: #777777;
+
 
 // mixins
 
@@ -41,7 +43,22 @@ h1 {
     font-weight: bold;
 }
 
-
+// Label colors
+.label-primary {
+    background-color: $color-primary;
+}
+.label-warning {
+    background-color: $color-warning;
+}
+.label-danger {
+    background-color: $color-danger;
+}
+.label-success {
+    background-color: $color-success;
+}
+.text-warning {
+    color: $color-warning;
+}
 
 // NAVIGATIONS
 .navbar-fixed-bottom {
@@ -184,7 +201,7 @@ span.menu-title {
 
     margin-top: -20px;
     padding: 15px 0 0 0;
-
+    min-height: 80px;
 
     @media only screen and (max-width: 768px) {
         text-align: center;
@@ -471,7 +488,7 @@ input.input-lg + .input-group-btn > button {
             color: $color-success;
         }
         &.status-5 {
-            color: #000000;
+            color: $color-darkgrey;
         }
     }
     @media only screen and (max-width: 768px) {
@@ -922,7 +939,7 @@ a.glyphicon-btn {
             border-color: $color-success;
         }
         &.status-5 {
-            border-color: #000;
+            border-color: $color-darkgrey;
         }
     }
     .start {
@@ -987,9 +1004,9 @@ a.glyphicon-btn {
             border-right-color: $color-success;
         }
         &.status-5 .cut {
-            color: #000;
-            border-left-color: #000;
-            border-right-color: #000;
+            color: $color-darkgrey;
+            border-left-color: $color-darkgrey;
+            border-right-color: $color-darkgrey;
         }
     }
 
@@ -1050,6 +1067,15 @@ a.glyphicon-btn {
 .table-budget {
     th, td {
         text-align: center;
+        .h1, .h2, .h3, h1, h2, h3 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+            small, .small {
+                color: inherit;
+            }
+        }
     }
 }
 
@@ -1258,7 +1284,7 @@ i.arrow {
         }
         .map-icon {
             font-size: 30px;
-            background-color: $color-grey;
+            background-color: $color-lightgrey;
             color: white;
 
             &.status-.active,
@@ -1283,7 +1309,7 @@ i.arrow {
             }
             &.status-5.active,
             &.status-5:hover {
-                background-color: #000000; // 5 - overpaid
+                background-color: $color-darkgrey; // 5 - overpaid
             }
         }
         &:hover {
@@ -1298,7 +1324,7 @@ i.arrow {
 }
 
 .status-0 {
-    background-color: $color-grey; // not defined
+    background-color: $color-lightgrey; // not defined
     color: white;
 }
 .status-1 {
@@ -1318,7 +1344,7 @@ i.arrow {
     color: white;
 }
 .status-5 {
-    background-color: #000000; // overpaid
+    background-color: $color-darkgrey; // overpaid
     color: white;
 }
 
@@ -1401,10 +1427,10 @@ div.tipPayment {
         padding: 2px;
     }
     tr.sum {
-        border-top: 3px solid $color-grey;
+        border-top: 3px solid $color-lightgrey;
     }
     tr.sum-light {
-        border-top: 2px solid $color-grey;
+        border-top: 2px solid $color-lightgrey;
     }
 }
 

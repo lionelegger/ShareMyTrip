@@ -14,6 +14,9 @@
         <legend><?= __('Add Trip') ?></legend>
         <?php
             echo $this->Form->input('name');
+            echo $this->Form->input('date_start');
+            echo $this->Form->input('date_end');
+            echo $this->Form->input('currency');
 //            echo $this->Form->input('owner_id', ['options' => $users]);
             echo $this->Form->input('users._ids', ['options' => $users]);
         ?>

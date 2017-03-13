@@ -98,8 +98,12 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         $scope.tripToAdd={};
         $scope.welcomeMsg=false;
         $scope.tripToAdd.name = $("#add_tripName").val();
-        $scope.tripToAdd.date_start = $("#add_date_start").val() + ' 12:00:01';
-        $scope.tripToAdd.date_end = $("#add_date_end").val() + ' 12:00:01';
+        if ($('#add_date_start').val()) {
+            $scope.tripToAdd.date_start = $('#add_date_start').val()+' 12:00:00';
+        }
+        if ($('#add_date_end').val()) {
+            $scope.tripToAdd.date_end = $('#add_date_end').val()+' 12:00:00';
+        }
         $scope.tripToAdd.currency = $("#add_currency option:selected").val();
         console.log("date_start="+$scope.tripToAdd.date_start);
         console.log("SELECTED="+$scope.tripToAdd.currency);
@@ -108,6 +112,7 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
             .success(function(data) {
                 // $scope.loadTrips();
                 console.log(data);
+                $scope.tripToAdd={};
                 // $scope.tripToAdd = data.tripToAdd;
                 $scope.loadTrips();
                 // $scope.getTripUsers(data.trip.id);

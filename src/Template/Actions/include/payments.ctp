@@ -1,6 +1,6 @@
 <div id="payments">
     <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
-        Register payment
+        Add payment
     </button>
     <!--
     <button type="button" class="btn btn-success pull-right" ng-if="action.price" ng-click="actionPayAll(<?/*= $action->id */?>,<?/*=$userSession['id']*/?>)">
@@ -22,7 +22,7 @@
                     <h4 ng-if="action.payments.totalAll > 0"><strong>{{action.payments.totalAll}} <?=$trip->currency?></strong></h4>
                 </td>
                 <td colspan="2" class="text-right">
-                    <?php if($edit):?>{{action.payments.totalAuth}} {{action.currency}} paid by me<?php endif ?>
+                    <?php if($edit):?>{{action.payments.totalAuth}} <?=$trip->currency?> paid by me<?php endif ?>
                 </td>
             </tr>
         </table>
@@ -37,7 +37,7 @@
                 <div class="modal-header color-lightgrey">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h2 class="modal-title" id="myModalLabel">Payment</h2>
-                    <h4 class="help-block">The amount that is still to pay is {{action.price - action.payments.totalAll}} CHF</h4>
+                    <h4 class="help-block">The amount that is still to pay is {{action.price - action.payments.totalAll}} {{action.currency}}</h4>
                 </div>
                 <div class="modal-body">
                     <form id="payment" method="post" accept-charset="utf-8">
@@ -89,6 +89,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </form>
                 </div>
                 <div class="modal-footer">
