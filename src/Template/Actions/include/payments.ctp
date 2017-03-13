@@ -1,5 +1,5 @@
 <div id="payments">
-    <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment">
+    <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment" ng-click="actionEditPayment(null)">
         Add payment
     </button>
     <!--
@@ -15,7 +15,7 @@
             <tr ng-repeat="payment in action.payments">
                 <td><strong>{{payment.amount}} {{payment.currency}}</strong></td>
                 <td><span ng-if="payment.date" class="text-muted small">{{payment.date | date:'d MMMM yyyy'}}</span></td>
-                <td class="text-right">Paid by&nbsp;<span ng-if="payment.user.id != <?= $userSession['id'] ?>" class="pull-right">{{payment.user.first_name}}</span><span ng-if="payment.user_id==currentUserId" class="pull-right">me <a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment">[edit]</a></span></td>
+                <td class="text-right">Paid by&nbsp;<span ng-if="payment.user.id != <?= $userSession['id'] ?>" class="pull-right">{{payment.user.first_name}}</span><span ng-if="payment.user_id==currentUserId" class="pull-right">me <a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment" ng-show="<?=($edit)?>">[edit]</a></span></td>
             </tr>
             <tr class="sum-light">
                 <td>
@@ -47,8 +47,10 @@
                         <div class="form-horizontal">
                             <div class="form-group">
                                 <label for="amount" class="col-sm-5 control-label">Amount</label>
+<!--                                <span class="hidden">{{initAmount = action.price - action.payments.totalAll}}</span>-->
                                 <div class="input-group col-sm-6">
                                     <input type="text" class="form-control" id="paymentAmount" ng-model="actionPaymentToAdd.amount" placeholder="{{action.price - action.payments.totalAll}}">
+<!--                                    <input type="text" class="form-control" id="paymentAmount" ng-model="actionPaymentToAdd.amount">-->
                                     <div class="input-group-btn">
                                         <button type="button" id="paymentCurrency" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{action.currency}}<i class="arrow down"></i></button>
                                         <!-- TODO: Currency is not working -->

@@ -292,9 +292,11 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         // NAME
         if (!$("#name").val()){
             $("html, body").animate({scrollTop: $("#name").offset().top - 120}, "slow", function () {
-                $("#name").parents(".form-group").addClass("has-error");
+                $("#name").parents(".form-group").addClass("has-error alert alert-danger");
             });
             return false;
+        } else {
+            $("#name").parents(".form-group").removeClass("alert alert-danger");
         }
 
         var participants = [];
@@ -338,6 +340,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.action.end_lng = $("#end-lng").val();
         $scope.action.end_lat = $("#end-lat").val();
         $scope.action.currency = $("#actionCurrency").text();
+        $scope.action.status = $("#action-status").text();
         $scope.action.action_users = participants;
         // $scope.action.payments = '';
 
@@ -604,7 +607,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         } else if ($scope.action.payments.totalAll == $scope.action.price) {
             $scope.action.status = 4;  /* All paid (green) */
         } else if ($scope.action.payments.totalAll > $scope.action.price) {
-            $scope.action.status = 5; /* Over paid (green) */
+            $scope.action.status = 5; /* Over paid (grey) */
         } else {
             $scope.action.status = 3; /* Partially paid (orange) */
         }
@@ -680,7 +683,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         if ($('#datePayment').val()) {
             $scope.actionPaymentToAdd.date = $('#datePayment').val()+' 12:00:00';
         }
-        console.log("DATE="+$scope.actionPaymentToAdd.date);
+        $scope.actionPaymentToAdd.method_id = $('#method_id :selected').val();
         $scope.actionPaymentToAdd.action_id = $actionId;
         $scope.actionPaymentToAdd.user_id = $userId;
         console.log('call actionAddPayment for action ' + $actionId + ' and user ' + $userId);
@@ -729,14 +732,19 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     $scope.actionEditPayment = function($paymentId) {
         console.log('call actionEditPayment for payment ' + $paymentId);
 
-        $http.get('Payments/view/'+$paymentId+'.json')
-            .success(function(data) {
-                $scope.actionPaymentToAdd = data.payment;
-                $scope.actionPaymentToAdd.payment_id = $paymentId;
-                console.log($scope.actionPaymentToAdd);
-            }).error(function() {
-            console.log("Something went wrong Edit Payment");
-        });
+        if ($paymentId) {
+            $http.get('Payments/view/'+$paymentId+'.json')
+                .success(function(data) {
+                    $scope.actionPaymentToAdd = data.payment;
+                    $scope.actionPaymentToAdd.payment_id = $paymentId;
+                    console.log($scope.actionPaymentToAdd);
+                }).error(function() {
+                console.log("Something went wrong Edit Payment");
+            });
+        } else {
+            $scope.actionPaymentToAdd={};
+        }
+
     };
 
 

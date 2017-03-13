@@ -23,7 +23,7 @@ $this->end();
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <h1 class="page-header">My profile</h1>
-            <p class="text-info text-center small">Your profile modification will be visible at the next login</p>
+            <p class="text-muted text-center"><i>(Profile modification will be visible at the next login)</i></p>
             <?= $this->Form->create($user, ['type' => 'file', 'class' => 'form-horizontal']) ?>
             <fieldset>
                 <div class="form-group">
@@ -112,7 +112,7 @@ $this->end();
             <br>
             <hr/>
             <div class="text-center">
-                <?= $this->Html->link("<span class='glyphicon glyphicon-off'></span>&nbsp;".__('Logout'), ['controller' => 'Users', 'action' => 'logout'], ['class' => 'btn btn-default', 'type' => 'button', 'escape' => false]) ?>
+                <?= $this->Html->link("<span class='glyphicon glyphicon-off'></span>&nbsp;".__('Logout'), ['controller' => 'Users', 'action' => 'logout'], ['class' => 'btn btn-default btn-lg', 'type' => 'button', 'escape' => false]) ?>
             </div>
         </div>
     </div>

@@ -51,7 +51,7 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 
 <h3 id="budgetpage">Budget page</h3>
 
-<p>The budget page summarise all expenses made by all trip participants. The total price of the action on the right is the price defined in the &#8220;add/edit action&#8221; page. At the bottom of the page, in the &#8220;TOTAL paid&#8221; row, we get the totality paid for each participant. In the bottom right corner, we get the totality paid by all participants, as well as the sum of all actions of the trip. </p>
+<p>The budget page summarise all expenses made by all trip participants. The total price of the action on the right is the price defined in the &#8220;add/edit action&#8221; page. At the bottom of the page, in the &#8220;TOTAL paid&#8221; row, we get the totality paid for each participant. Below, we get the &#8220;TOTAL trip&#8221; row that is the totality that has to pay each participant. It calculates the sum of all actions of the trip for each user. And finally, the last row &#8220;Still to pay&#8221; is the balance between the amount paid and to be paid&#8230; These values are dependent of the user since each user does not necessary takes part in each action. </p>
 
 <h2 id="websitearchitecture">Website Architecture</h2>
 
@@ -77,31 +77,48 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 
 <h3 id="personas">Personas</h3>
 
-<p>3 set of personas have been imagined that would use this website:
-1. A person travelling alone:
+<p>3 set of <em><strong>&#8216;personas&#8217;</strong></em> have been imagined as typical users of this website:
+1. <strong>A person travelling alone</strong>:
  * 35 years old
- * Use the app to plan a three weeks trip to Australia
- * Wants to visually see his trip on a map
+ * Use the app to plan a three weeks trip to Australia.
+ * He use the map to plan his trip much in advance
+ * Wants to visually see his trip on a map and budgetise his trip.
  * Only flights and car rental expenses are managed with the app.
  * Bank withdrawns are recorded with the app and all is payed cash (but not recorded)
-2. A couple travelling together:
+2. <strong>A couple travelling together</strong>:
  * 30 years old
  * Trip to Bali.
+ * All is recorded before the trip.
  * Records Flights, Hotels and excursions.
  * The couple have mainly common expenses and share everything, except a few personal expenses.
-3. Group of 5 friends travelling together:
+3. <strong>Group of 5 friends travelling together</strong>:
  * 20 years old.
- * Trip to London. They all meet in london and record their flight separately.
- * The rest of the expenses and activities are payed in common, by one after the other. </p>
+ * Trip to London. They all meet in london and some will record their flight separately.
+ * Use of the app mainly during the trip. Real-time use.
+ * The rest of the expenses and activities are payed in common, one after the other, how it happens. </p>
 
 <h3 id="usertests">User tests</h3>
 
+<p>1) A first set of tests have been performed with an <a href="/files/ShareMyTrip.pdf">interactive prototype</a>. The feedbacks were the following:
+ + Access to the trip details is not evident. The user instinctively pressed on &#8220;settings&#8221; instead of the trip details (=&gt; Action taken: button &#8220;plan the trip&#8221;)
+ + Navigation: Confusion about where we go when we press on &#8220;Plan&#8221;, &#8220;Maps&#8221; or &#8220;Budget&#8221; since no trip has been chosen. (=&gt; Action taken: As long as no trip has been chosen, only &#8220;Trip&#8221; and &#8220;Profile&#8221; are enabled)
+ + Private action: It would be nice that everybody can see all actions, in order that they can themselves decide to &#8220;join&#8221; an action. A &#8220;private&#8221; checkbox would allow us to register actions that we don&#8217;t want to share. (Action taken =&gt; For version 2, since it means that we should represent the &#8220;Plan&#8221; with subgroups, a bit like we represent a new branch in Git)
+ + Specific currency per trip. Many expenses would be recorded directly in the local currency. It should then deal with currency and currency rates. (Action taken: none yet, but for version 2 since it requires to plug to an external currency API and take the change rate at a specific date into consideration).
+ + Map directly on &#8220;Add/Edit action&#8221;. (=&gt; Action taken: Implemented with google map).</p>
+
+<p>2) A second set of tests have been realised directly on the website.
+ + It&#8217;s still complicated to understand the payment logic and how the calculation is done for the &#8220;Balance&#8221;. Then, a row &#8220;TOTAL trip&#8221; has been added and the &#8220;Balance&#8221; row has been changed to &#8220;Still to pay&#8221;.
+ + Not logical where to manage the users (Action taken =&gt; trip participants are separated from the &#8220;trip settings button&#8221; but now have a separate button)
+ + What is the color logic? </p>
+
+<p>For both tests, the scenario was the following:</p>
+
 <p>Brad wants to organise a trip for Angelina and him to Italy to see his friend George.
-1. Brad uses his laptop to register himself with the following information:
+1. Mr. Pitt uses his laptop to register himself with the following information:
  + Email: pitt@email.com
  + First name: Brad
  + Last name: Pitt
-2. Angelina register herself on her cell phone (Use your phone to register Angelina) with the following information:
+2. Ms. Jolie register herself on her cell phone (Use your phone to register her) with the following information:
  + Email: jolie@email.com
  + First name: Angelina
  + Last name: Jolie
@@ -109,11 +126,10 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 4. Then, Brad adds Angelina to his trip to Italy in order that Angelina can access to the trip too.
 5. Brad adds the flight from Los Angeles (departure the 2017&#8211;05&#8211;01 at 15:30) to Milano (arrival the next day at 12:30) with Swiss. The flight costs 2000USD per person and Brad pays it all with his credit card.
 6. On her side, Angelina books a Limousine from Milano to Como. The agency estimate 5 hours to reach Como and it will cost 800 USD. Angelina will pay when arrived at destination.
-7. At L.A. airport, Angelina buy a pair of Gucci shoes for 1200 USD. Brad won&#8217;t pay for that shit! He is upset&#8230;
-8. The next day, George and Brad decide make a motorbike trip to Locarno in Switzerland. George make himself an account in ShareMyTrip and Brad adds him into the &#8216;Italy&#8217; trip.
-9. Since Brad does not have cash, it&#8217;s George who pays for the gasoil and drinks: 200 Euros.
-10. How to make the expenses calculation? Check the Budget page if you couldn&#8217;t do it yourself.
-11. Add an entry for the cash payment that Angelina has to give to George and Brad. </p>
+7. At L.A. airport, Angelina buy a pair of Gucci shoes for 600 USD. Brad won&#8217;t pay for that shit! He is upset and have a few whiskeys in the plane&#8230;
+8. The next day, George and Brad decide make a motorbike trip to Locarno in Switzerland. Of course, George already has an account in ShareMyTrip (clooney@email.com) and Brad adds him into the &#8216;Italy&#8217; trip.
+9. Brad forgot his purse home and thus, it&#8217;s George who pays for the gasoil and drinks: 200 Euros.
+10. Let&#8217;s do the expenses calculation now&#8230; Check the Budget page and deduct what Angelina has to give to George and Brad to balance the expenses. </p>
 
 <h3 id="prototyping">Prototyping</h3>
 
@@ -126,10 +142,6 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 
 <p>Since this website is supposed to help travellers to manage their travel in all stages and any environment, it was important that it is working as well for desktop (for trip planification) and for mobile devices (for easy and fast trip updates and consultation). Thus, <a href="http://getbootstrap.com/">bootsrap</a> has been used as a base html/css/js framework for responsive design. </p>
 
-<h3 id="controller">Controller</h3>
-
-<h3 id="view">View</h3>
-
 <h2 id="todoshort-term">TODO (short-term)</h2>
 
 <ul>
@@ -140,16 +152,16 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 <li>Page Add/Edit an action
 
 <ul>
-<li>finish &#8216;Pay all&#8217; button</li>
+<li>create &#8216;Pay all&#8217; button</li>
 <li>show the payment method in the list of payment in page Add/Edit action</li>
 </ul></li>
 </ul>
 
-<h2 id="knownbugs">Known Bugs</h2>
+<h2 id="knownbugsshort-term">Known Bugs (short-term)</h2>
 
 <ul>
 <li>You can add a trip without a name</li>
-<li>On &#8220;add action&#8221; page, payment cannot be deleted, date has not the right format and status is not updated when saved</li>
+<li>On &#8220;add action&#8221; page, payment cannot be deleted, date has not the right format.</li>
 <li>You cannot empty the arrival name location (google map) when add/edit an action</li>
 <li>You can add a user twice into a trip</li>
 <li>When there are no action, the budget page is not working (You can access it when adding your first action)</li>
@@ -161,7 +173,6 @@ Once you are logged in, you arrive on the trip page. Once logged, you can always
 <li>Currency is not implemented yet</li>
 <li>Timeline in Plan</li>
 <li>Budget page: Make summary box of what&#8217;s left to pay (and show an overview also on trip page)</li>
-<li>Add/Edit action: Show what is left to pay in the Expenses box (in Add/Edit an action)</li>
 </ul>
 
 </body>

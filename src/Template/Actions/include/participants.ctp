@@ -96,17 +96,21 @@
                 <div ng-if="action.status == 2">
                     <h4><span class="glyphicon glyphicon-ban-circle"></span> <strong>Nothing paid!</strong></h4>
                     <div>{{action.price - action.payments.totalAll}} {{action.currency}} still needs to be paid</div>
+                    <span class="hidden" id="action-status">2</span>
                 </div>
                 <div ng-if="action.status == 3" class="text-warning pull-right">
                     <h4><span class="glyphicon glyphicon-record"></span> <strong>Partially paid!</strong></h4>
                     <div>{{action.price - action.payments.totalAll}} {{action.currency}} still needs to be paid</div>
+                    <span class="hidden" id="action-status">3</span>
                 </div>
                 <div ng-if="action.status == 4" class="text-success pull-right">
                     <h4><span class="glyphicon glyphicon-ok-circle"></span> <strong>All paid!</strong></h4>
+                    <span class="hidden" id="action-status">4</span>
                 </div>
-                <div ng-if="action.status == 5" class="pull-right">
+                <div ng-if="action.status == 5" class="help-muted pull-right">
                     <h4><span class="glyphicon glyphicon-exclamation-sign"></span> <strong>Overpaid!</strong></h4>
-                    <div>{{action.price - action.payments.totalAll}} {{action.currency}} have been overpaid</div>
+                    <div>{{-(action.price - action.payments.totalAll)}} {{action.currency}} have been overpaid</div>
+                    <span class="hidden" id="action-status">5</span>
                 </div>
             </div>
             <div class="row">
