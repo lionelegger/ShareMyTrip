@@ -55,7 +55,7 @@ class ActionsUsersController extends AppController
         if ($this->request->is('post')) {
             $actionsUser = $this->ActionsUsers->patchEntity($actionsUser, $this->request->data);
             if ($this->ActionsUsers->save($actionsUser)) {
-                $this->Flash->success(__('The actions user has been saved.'));
+//                $this->Flash->success(__('The actions user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -83,7 +83,7 @@ class ActionsUsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $actionsUser = $this->ActionsUsers->patchEntity($actionsUser, $this->request->data);
             if ($this->ActionsUsers->save($actionsUser)) {
-                $this->Flash->success(__('The actions user has been saved.'));
+//                $this->Flash->success(__('The actions user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -108,7 +108,7 @@ class ActionsUsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $actionsUser = $this->ActionsUsers->get($id);
         if ($this->ActionsUsers->delete($actionsUser)) {
-            $this->Flash->success(__('The actions user has been deleted.'));
+//            $this->Flash->success(__('The actions user has been deleted.'));
         } else {
             $this->Flash->error(__('The actions user could not be deleted. Please, try again.'));
         }

@@ -196,7 +196,7 @@ if (!empty($actions)) {
                     ?>
                     <h4>
                         <?php if ($n>1) { ?>
-                            <a href="#" data-toggle="tooltip" data-placement="top" data-html="true" title="<?=$tipPayment?>"><?=$totalCell?></a>
+                            <a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" data-html="true" title="<?=$tipPayment?>"><?=$totalCell?></a>
                         <?php } else { ?>
                             <?=$totalCell . "&thinsp;<small>" . $action->currency ."</small>" ?>
                         <?php } ?>

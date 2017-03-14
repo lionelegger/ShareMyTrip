@@ -92,8 +92,8 @@
     ?>
         <div class="box">
             <div class="box-header color-lightgrey clearfix">
-                <h2 class="modal-title pull-left" class="text-danger pull-right">Expenses</h2>
-                <div ng-if="action.status == 2">
+                <h2 class="modal-title pull-left">Expenses</h2>
+                <div ng-if="action.status == 2" class="text-danger pull-right">
                     <h4><span class="glyphicon glyphicon-ban-circle"></span> <strong>Nothing paid!</strong></h4>
                     <div>{{action.price - action.payments.totalAll}} {{action.currency}} still needs to be paid</div>
                     <span class="hidden" id="action-status">2</span>
@@ -107,7 +107,7 @@
                     <h4><span class="glyphicon glyphicon-ok-circle"></span> <strong>All paid!</strong></h4>
                     <span class="hidden" id="action-status">4</span>
                 </div>
-                <div ng-if="action.status == 5" class="help-muted pull-right">
+                <div ng-if="action.status == 5" class="text-muted pull-right">
                     <h4><span class="glyphicon glyphicon-exclamation-sign"></span> <strong>Overpaid!</strong></h4>
                     <div>{{-(action.price - action.payments.totalAll)}} {{action.currency}} have been overpaid</div>
                     <span class="hidden" id="action-status">5</span>

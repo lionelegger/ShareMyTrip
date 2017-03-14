@@ -39,8 +39,6 @@ if ($actions->isEmpty()) {
 }
 ?>
 
-
-
 <?php $lastDate = '' ?>
 <div class="actions">
 <?php if (!empty($actions)):

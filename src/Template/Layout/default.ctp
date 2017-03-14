@@ -10,8 +10,8 @@
     <?= $this->Html->meta('lionelegger.ico', '/lionelegger.ico', ['type' => 'icon']); ?>
     <?= $this->Html->meta('ShareMyTrip', 'Manage your trip expenses Share a trip with friends and manage the expenses'); ?>
 
-    <base href="http://127.0.0.1:8888/UNIGE/Projects/ShareMyTrip/"/>
-<!--    <base href="http://lionelegger.com/sharemytrip/"/>-->
+<!--    <base href="http://127.0.0.1:8888/UNIGE/Projects/ShareMyTrip/"/>-->
+    <base href="http://lionelegger.com/sharemytrip/"/>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700" rel="stylesheet" type="text/css">
 
     <!--  Bootstrap -->
@@ -19,7 +19,6 @@
     <?= $this->Html->css('bootstrap-datetimepicker.min.css') ?>
     <?= $this->Html->css('map-icons.min.css') ?>
     <?= $this->Html->css('custom.css') ?>
-    <?= $this->Html->css('ng-img-crop.css') ?>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <?= $this->Html->script('jquery.min.js') ?>
@@ -96,7 +95,6 @@
     <?= $this->Html->script('bootstrap-datetimepicker.min.js') ?>
     <?= $this->Html->script('app.js') ?>
     <?= $this->Html->script('controllers.js') ?>
-    <?= $this->Html->script('ng-img-crop.js') ?>
 
     <script>window.onload = initialize;</script>
 

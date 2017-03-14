@@ -32,6 +32,9 @@ switch ($action->status) {
     case 4:
         $statusColor = '#2e753f';
         break; // success (green)
+    case 5:
+        $statusColor = '#777777';
+        break; // overpaid (grey)
 }
 ?>
 <script>
