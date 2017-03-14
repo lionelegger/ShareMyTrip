@@ -5,7 +5,7 @@
 Made by [Lionel EGGER](mailto:lionelegger@gmail.com)
 
 ## What is 'Share My Trip'?
-_ShareMyTrip_ is a website that helps travellers to plan, map and budget a trip. When you travel alone, make the expenses is easy... But what happens when you travel with friends and share bills? Sometimes you pay for all your group of friends, sometimes you organize excursion only with a subgroup of friends. What's about when you buy yourself a souvenir, it should not be on the common bill... The trip budget can very quickly be a complex task to calculate. ShareMyTrip makes travelling together easy and facilitate all expenses calculation. It helps you to plan, manage and visualize your future trips. 
+_[Share my trip](http://www.lionelegger.com/sharemytrip)_ is a website that helps travellers to plan, map and budget a trip. When you travel alone, make the expenses is easy... But what happens when you travel with friends and share bills? Sometimes you pay for all your group of friends, sometimes you organize excursion only with a subgroup of friends. What's about when you buy yourself a souvenir, it should not be on the common bill... The trip budget can very quickly be a complex task to calculate. ShareMyTrip makes travelling together easy and facilitate all expenses calculation. It helps you to plan, manage and visualize your future trips. 
 
 ## How to use the website
 When you arrive to the homepage, you have two possibilities: login or register as a new user. If you don't have already an account, please register and you will be automatically logged in after registration. 
