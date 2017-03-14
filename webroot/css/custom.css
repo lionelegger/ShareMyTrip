@@ -662,6 +662,31 @@ a.glyphicon-btn {
         background-color: lightgrey;
         border-bottom: 1px solid #CCC; } }
 
+a.action-link {
+  display: block;
+  cursor: pointer;
+  cursor: hand; }
+  a.action-link:focus, a.action-link:hover {
+    text-decoration: none;
+    color: #337ab7; }
+    a.action-link:focus .status-0,
+    a.action-link:focus .status-1,
+    a.action-link:focus .status-2,
+    a.action-link:focus .status-3,
+    a.action-link:focus .status-4,
+    a.action-link:focus .status-5, a.action-link:hover .status-0,
+    a.action-link:hover .status-1,
+    a.action-link:hover .status-2,
+    a.action-link:hover .status-3,
+    a.action-link:hover .status-4,
+    a.action-link:hover .status-5 {
+      opacity: 0.8;
+      transition: opacity .25s ease-in-out;
+      -moz-transition: opacity .25s ease-in-out;
+      -webkit-transition: opacity .25s ease-in-out; }
+    a.action-link:focus .dotIcon, a.action-link:hover .dotIcon {
+      opacity: 1; }
+
 .action {
   line-height: 1em;
   margin: 40px 0 15px 0; }
@@ -753,7 +778,8 @@ a.glyphicon-btn {
     text-align: center;
     width: 30%;
     font-size: 15px;
-    margin-bottom: 5px; }
+    margin-bottom: 5px;
+    color: #7a7a7a; }
   .action.start-end .start, .action.start-end .end {
     width: 100%; }
   .action.start-end .time .start {

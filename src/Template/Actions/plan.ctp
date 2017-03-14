@@ -101,6 +101,7 @@ if ($actions->isEmpty()) {
             $firstRow=false;
         }
             if (!$startIsEnd) {echo "<div class='col-md-3'>";} else {echo "<div class='col-md-2'>";}
+            echo "  <a class='action-link' href='actions/edit/".$action->id."'>";
             if ($startIsEnd) {
                 echo "        <div class='action start-end'>";
             } else {
@@ -119,18 +120,18 @@ if ($actions->isEmpty()) {
                 }
                 echo "</div>";
             }
-            echo "                  <a href='actions/edit/".$action->id."'>";
-            echo "                      <span class='map-icon map-icon-type-".$action->type_id." map-icon-status status-".$action->status."'></span>";
-            echo "                  </a>";
+            echo " <span class='map-icon map-icon-type-".$action->type_id." map-icon-status status-".$action->status."'></span>";
             if (!$startIsEnd) {echo "                <div class='end'><span class='dotIcon status-".$action->status."'></span></div>";}
             echo "            </div>";
             echo "            <div class='name clearfix'>";
             if ($action->start_name) { echo "                <div class='start'>".$action->start_name."</div>"; }
             if ($action->end_name || $action->start_name) {echo "<div class='end'>".$action->end_name."</div>";}
-            echo '                <div class="action-name text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</div>';
+/*            echo '                <div class="action-name text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</div>';*/
+            echo '                <div class="action-name text-center">' . $action->name . '</div>';
             echo "            </div>";
             echo "        </div>";
             echo "    </div>";
+            echo "</a>";
         $lastDate = $start_date;
     endforeach;
     echo "</div>";

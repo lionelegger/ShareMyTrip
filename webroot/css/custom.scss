@@ -934,6 +934,34 @@ a.glyphicon-btn {
 
 }
 
+a.action-link {
+    display: block;
+    cursor: pointer;
+    cursor: hand;
+
+    &:focus,
+    &:hover {
+        text-decoration: none;
+        color: #337ab7;
+        .status-0,
+        .status-1,
+        .status-2,
+        .status-3,
+        .status-4,
+        .status-5 {
+            opacity: 0.8;
+            transition: opacity .25s ease-in-out;
+            -moz-transition: opacity .25s ease-in-out;
+            -webkit-transition: opacity .25s ease-in-out;
+
+        }
+        .dotIcon {
+            opacity: 1;
+        }
+    }
+}
+
+
 .action {
     line-height: 1em;
     margin: 40px 0 15px 0;
@@ -1054,6 +1082,7 @@ a.glyphicon-btn {
         width: 30%;
         font-size: 15px;
         margin-bottom: 5px;
+        color: #7a7a7a;
     }
     &.start-end {
         .start, .end {

@@ -131,15 +131,10 @@ _SOLUTION: Georges and Brad gives each 200€ to Angelina; Then Angelina pays he
 ### Responsiveness
 Since this website is supposed to help travellers to manage their travel in all stages and any environment, it was important that it is working as well for desktop (for trip planification) and for mobile devices (for easy and fast trip updates and consultation). Thus, [bootsrap](http://getbootstrap.com/) has been used as a base html/css/js framework for responsive design. 
 
-## Known issues
-
-### Improvements (short-term)
-- [ ] Budget page: Sort users by first name
-- [ ] Action page: Remove mandatory field 'name'
-- [ ] Budget and Plan pages: Add link on the whole 'action' class and not only on the icon to edit an action
-
-### Bugs (short-term)
+## Bugs/Improvements (version 1.1)
 - [ ] Trips page: Don't allow to add a trip without a name
+- [ ] Budget page: Sort users by first name
+- [ ] Action page: Action property 'name' should not be mandatory
 - [ ] Registration: When register a new user, put validation for email with message
 - [ ] Plan page: Hide icons when they overlap
 - [ ] Add action page: payment cannot be deleted; date has not the right format; Show payment method
@@ -148,11 +143,11 @@ Since this website is supposed to help travellers to manage their travel in all 
 - [ ] Trips page: Don't allow to add a user twice into a trip
 - [ ] Budget page: when no action has been created, links to Plan & Map are not working
 
-## Future developments (version 2, long-term)
-- [ ] Add a Change password form
-- [ ] Currency is not implemented yet
+## Future developments (version 2)
+- [ ] Add a Change password functionality
+- [ ] Implement Currency rate (with API)
 - [ ] Timeline in Plan page
-- [ ] Budget page: Make summary box of what's left to pay
+- [ ] Budget page: Make summary box of what's left to pay (How can we record refunds?)
 - [ ] Trips page: Show a trip summary for each trip with: 
     - [ ] Time left before leaving
     - [ ] Total cost of the trip

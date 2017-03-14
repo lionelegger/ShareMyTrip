@@ -111,6 +111,7 @@ if (!empty($actions)) {
 
         echo "    <tr>";
         echo "        <td class='no-padding-sm'>";
+        echo " <a class='action-link' href='actions/edit/" . $action->id . "'>";
         if ($startIsEnd) {
             echo "        <div class='action start-end'>";
         } else {
@@ -129,18 +130,18 @@ if (!empty($actions)) {
             }
             echo "</div>";
         }
-        echo "                  <a href='actions/edit/" . $action->id . "'>";
-        echo "                      <span class='map-icon map-icon-type-" . $action->type_id . " map-icon-status status-" . $action->status . "'></span>";
-        echo "                  </a>";
+        echo "<span class='map-icon map-icon-type-" . $action->type_id . " map-icon-status status-" . $action->status . "'></span>";
         if (!$startIsEnd) {echo "<div class='end'><span class='dotIcon status-" . $action->status . "'></span></div>";}
         echo "            </div>";
         echo "            <div class='name clearfix'>";
         if ($action->start_name) {echo "                <div class='start'>" . $action->start_name . "</div>";}
         if ($action->end_name || $action->start_name) {echo "                <div class='end'>" . $action->end_name . "</div>";}
-        echo '                <div class="action-name text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</div>';
+/*        echo '                <div class="action-name text-center">' . $this->Html->link($action->name, ['controller' => 'Actions', 'action' => 'edit', $action->id]) . '</div>';*/
+        echo '                <div class="action-name text-center">' . $action->name . '</div>';
         echo "            </div>";
-        echo "        </div>";
-        echo "        </td>";
+        echo "        </div> <!-- end of action -->";
+        echo "  </a>";
+        echo "    </td>";
 
 //        CONTENT
         // a cell <TD> is created for each participant of the trip (even if they don't participate to any action)
