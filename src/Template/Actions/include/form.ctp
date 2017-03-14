@@ -74,16 +74,16 @@
                         <div class='input-group' id='datepickerStart'>
                             <input type='text' class='form-control' id='start_date' name='start_date' placeholder='YYYY-MM-DD' value='<?=$start_date?>'/>
                             <span class='input-group-addon'>
-                            <span class='glyphicon glyphicon-calendar'></span>
-                        </span>
+                                <span class='glyphicon glyphicon-calendar'></span>
+                            </span>
                         </div>
                     </div>
                     <div class="col-xs-5 col-sm-5 col-md-5">
                         <div class='input-group' id='timepickerStart'>
                             <input type='text' class='form-control' id='start_time' name='start_time' placeholder='HH:MM' value='<?=$start_time?>'/>
                             <span class='input-group-addon'>
-                            <span class='glyphicon glyphicon-time'></span>
-                        </span>
+                                <span class='glyphicon glyphicon-time'></span>
+                            </span>
                         </div>
                     </div>
                 </div>

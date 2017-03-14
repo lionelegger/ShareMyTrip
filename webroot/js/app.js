@@ -48,20 +48,18 @@ function initialize() {
     });
 
     // Payment date
-    $(function () {
-        $('#datePayment').datetimepicker({
-            format: 'YYYY-MM-DD',
-            widgetPositioning: {
-                horizontal: 'left',
-                vertical: 'bottom'
-            }
-        });
+    $('#datePaymentGrp').datetimepicker({
+        format: 'YYYY-MM-DD',
+        widgetPositioning: {
+            horizontal: 'right',
+            vertical: 'bottom'
+        }
     });
 
     // bad trick to update the picker format when we edit a payment
     $('#payment').on('shown.bs.modal', function () {
-        $("#datePayment").data("DateTimePicker").show();
-        $("#datePayment").data("DateTimePicker").hide();
+        $("#datePaymentGrp").data("DateTimePicker").show();
+        $("#datePaymentGrp").data("DateTimePicker").hide();
     });
     // bad trick to update the picker format when we edit a payment
     $('#tripEdit').on('shown.bs.modal', function () {
@@ -98,7 +96,5 @@ function initialize() {
     }, function(){
         $(".section-container").css("opacity","1");
     });
-
-
 
 }

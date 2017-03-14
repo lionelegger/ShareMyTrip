@@ -136,9 +136,7 @@ Since this website is supposed to help travellers to manage their travel in all 
 ### Improvements (short-term)
 - [ ] Budget page: Sort users by first name
 - [ ] Action page: Remove mandatory field 'name'
-- [ ] Trips page: Confirm trip user deletion
 - [ ] Budget and Plan pages: Add link on the whole 'action' class and not only on the icon to edit an action
-- [ ] Add/Edit action page: create 'Pay all' button and show the payment method in the list of payment
 
 ### Bugs (short-term)
 - [ ] Trips page: Don't allow to add a trip without a name

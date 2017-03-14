@@ -62,6 +62,7 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     $scope.loadTrips();
 
     $scope.loadTrip = function(tripId) {
+        secondPress = false;
         $http.get('trips/'+tripId+'.json')
             .success(function(data) {
                 $scope.trip = data.trip;
@@ -137,6 +138,19 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
         }
     };
 
+    $scope.buttonUserTxt = "Delete";
+    // Confirmation to the deletion of a trip
+    $scope.deleteUserConfirm = function(userId) {
+        if($scope.btnUserPressed){
+            $scope.btnUserPressed = false;
+            $scope.tripDeleteUser(userId);
+            $scope.buttonUserTxt = "Delete trip";
+        } else {
+            $scope.btnUserPressed = true;
+            $scope.buttonUserTxt = "Are you sure?";
+        }
+    };
+
     // Deletes a trip (and the logged user as a participant with cakephp3)
     $scope.deleteTrip = function(tripId) {
         $http
@@ -160,17 +174,30 @@ as.controller('TripsCtrl', function($scope, $rootScope, $http) {
     };
 
     // delete a user from a trip
+    var secondPress = false;
     $scope.tripDeleteUser = function(userId) {
-        $http
-            .delete('TripsUsers/delete/'+userId+'.json')
-            .success(function() {
-                // TODO: We should also remove the deleted user as participant of any action of the current trip
-                $('#tripDeleteUser').addClass("btn-default").removeClass("btn-danger");
-                $('#tripDeleteUser-'+userId).parent().css( "opacity", "0.2" );
-                $('#tripDeleteUser-'+userId).text('Deleted');
-            }).error(function() {
-            console.log("Something went wrong during delete tripCurrentUser");
-        });
+        console.log("secondPress = " + secondPress);
+        if (secondPress===false) {
+            $('#tripDeleteUser-'+userId).addClass("btn-danger").removeClass("btn-default");
+            $('#tripDeleteUser-'+userId).text('Are you sure?');
+            secondPress = true;
+            return;
+        }
+        if (secondPress===true) {
+            $http
+                .delete('TripsUsers/delete/'+userId+'.json')
+                .success(function() {
+                    // TODO: We should also remove the deleted user as participant of any action of the current trip
+                    $('#tripDeleteUser').addClass("btn-default").removeClass("btn-danger");
+                    $('#tripDeleteUser-'+userId).parent().css( "opacity", "0.2" );
+                    $('#tripDeleteUser-'+userId).text('Deleted');
+                    secondPress=false;
+                }).error(function() {
+                console.log("Something went wrong during delete tripCurrentUser");
+            });
+        }
+
+
     };
 
     // check if a user exist
@@ -437,7 +464,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             $scope.action.status = 2; /* nothing paid (red) */
         } else if ($scope.action.payments.totalAll == $scope.action.price) {
             $scope.action.status = 4;  /* All paid (green) */
-        } else if ($scope.action.payments.totalAll > $scope.action.price) {
+        } else if ($scope.action.payments.totalAll > $scope.action.price || !$scope.action.price) {
             $scope.action.status = 5; /* Over paid (grey) */
         } else {
             $scope.action.status = 3; /* Partially paid (orange) */
@@ -544,6 +571,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     };
 
     $scope.actionEditPayment = function($paymentId) {
+        $scope.totalPaid = $("#totalPaid").text();
         if ($paymentId) {
             $http.get('Payments/view/'+$paymentId+'.json')
                 .success(function(data) {
@@ -554,6 +582,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
             });
         } else {
             $scope.actionPaymentToAdd={};
+            $scope.actionPaymentToAdd.amount = $scope.action.price - $scope.totalPaid;
         }
     };
 
