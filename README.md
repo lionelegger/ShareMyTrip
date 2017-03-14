@@ -1,27 +1,28 @@
-#Share my trip
+# Share my trip
+
 > _"Keeping the *Let's Go* and taking the *Uh-Oh* out of travel"_
 
 Made by [Lionel EGGER](mailto:lionelegger@gmail.com)
 
-##What is 'Share My Trip'?
+## What is 'Share My Trip'?
 _ShareMyTrip_ is a website that helps travellers to plan, map and budget a trip. When you travel alone, make the expenses is easy... But what happens when you travel with friends and share bills? Sometimes you pay for all your group of friends, sometimes you organize excursion only with a subgroup of friends. What's about when you buy yourself a souvenir, it should not be on the common bill... The trip budget can very quickly be a complex task to calculate. ShareMyTrip makes travelling together easy and facilitate all expenses calculation. It helps you to plan, manage and visualize your future trips. 
 
-##How to use the website
+## How to use the website
 When you arrive to the homepage, you have two possibilities: login or register as a new user. If you don't have already an account, please register and you will be automatically logged in after registration. 
 Once logged in, you arrive on the Trip page. You can always change your personal information by clicking on your avatar or name on the top right corner. You will arrive on your Profile page. 
 
-###Profile page
+### Profile page
 This page allows you to modify your personal information, as well as to change your avatar picture or even upload another one (Please use 300px by 300px or any other light square picture). NB: Be aware that the changes in your profile will be visible only after logout and login again. 
 
-###Trip page
+### Trip page
 This page is the landing page after a users logs in. It lists all trips a user is participating in (the newest would appear first). When you have no trip yet, a welcome message indicate the 3 main steps the user should do: "Add a trip", "Add users" and "Add actions". In the beginning, only the "Add a trip" option is available.  
 * **Add trip**: This will add a new trip with the _trip name_ as a mandatory option. All others options are optional. The _currency_ defines which currency will be used as the default one for the new trip. You might want to manage most of your expenses in the foreign currency. NB: The currency functionality is saved but yet no currency rate has been implemented yet. The dates are also not mandatory if they are not known yet. You can always change the trip setting by clicking on the "settings" button on the top right corner of a blue trip box. The person who creates the trip is the only one that has access to the 'settings' functionality and thus, the only one that can add users and change the trip name, currency and dates.
 * **Add user**: Each trip can be done alone or with friends. If you travel alone, you can directly "Plan this trip". If you travel with friends, click on "Add a user" and the system will ask you to provide an email address. The email address you enter here should be the login (email address) of another user already registered in the system. Theoretically, you can add as many friends as you want but the interface gets messy with more than 10-12 users. Once your trip defined, you can go to the next step by pressing the "Plan this trip" button. You will reach the "Plan page".
 
-###Plan page
+### Plan page
 The plan page gives you an overview of all trip actions organised by date. You can also easily see which action is not paid, partially paid or full paid thanks to the action color codes. Each action is represented by a single dot when the action is defined by a unique starting time/spacial entry; or by two points when an ending time or location has been defined. Each action is editable by clicking on the action icon. When an action extends to the next day, the ending date appears on the right side of the action line.  
 
-###Add/Edit an action page
+### Add/Edit an action page
 'Add an action' button is visible on 'Plan', 'Map' and 'Budget' pages in order to quickly access to this page that will be widely used. 'Edit an action' is reached anytime you click on the action icon, from any of these pages too. Only the owner (creator) of an action can delete it but any participating user can edit the action.
 * Actions are classified in **4 categories**: Travel, Lodging, Activity and Other. Each category is composed of several **types**. The action type is a mandatory field. When you choose the Lodging category, you logically don't have an ending location.
 * All other actions can be described with a **starting and ending time and location** but these fields are not mandatory. If the ending date is not filled, it presupposed that it's the same date as the starting date. 
@@ -32,20 +33,20 @@ The plan page gives you an overview of all trip actions organised by date. You c
   * **Price**: Define here the total price of the action. It means that it does not represent the individual price, but it encompass the global price for all participants. The price is not mandatory as we can plan an action without knowing the price in advance or even register free actions. 
   * **Payments**: The totality of an action price is not necessarily paid in one go. For example, you might have to pay a first installment before the trip and what's left must be paid on site. You can register all payments here and the sum will be automatically calculated, as well as what's left to pay. The status of the global payment is updated at each payment registration and the sum is in the currency defined in the trip settings (not yet implemented). 
 
-###Map page
+### Map page
 The map page shows on a google map all actions that have been geolocalised. 
 
-###Budget page
+### Budget page
 The budget page summarise all expenses made by all trip participants. The price of the action on the right is the price defined in the "add/edit action" page. At the bottom of the page, the "TOTAL paid" row indicates the totality paid for each participant. Below, the "TOTAL trip" shows the totality that each participant should pay. And finally, the last row "Still to pay" is the balance between the amount paid and to be paid... These values are dependent of the user since all users do not necessary takes part in the same actions.   
 
 
-##Website Architecture
+## Website Architecture
 ShareMyTrip website is based on **Model-View-Controller** (MVC) software design pattern. 
 * The Database is a **MySql database** managed by **[cakePHP](https://cakephp.org/)**, a php framework. . 
 * The controller is managed with **cakePHP** too. This latter provides JSON feeds to the views. 
 * The views are html5/css3 with a layer of angularJS. AngularJS send JSON requests to the controller and updates the view in consequence. 
 
-##Database
+## Database
 The [database](/files/ShareMyTrip-DB.pdf) contains 9 tables organised around 3 main tables: users, trips and actions
 
 1. **users**: This table is the core of the DB. In order to use the website, you need first to login or create a user account. This latter has an *email*, *first name* and *last name*, as well as a *password* and an *avatar* image. Since a user can participate to several trips (or actions) and a trip (or action) is made by several users, a joint table 'MANY to MANY' links trips (or actions) to users: 
@@ -58,12 +59,12 @@ The [database](/files/ShareMyTrip-DB.pdf) contains 9 tables organised around 3 m
 8. **types**: Each action belongs to a specific type. A typical type would be Plane, Boat, Hotel, Bank, etc... In order not to have too many types, these latter are categorised in 4 categories: Travel, Lodging, Activity, Other
 9. Each type belongs to a specific category (table **categories**). 
 
-##User experience
+## User experience
 
-###Personas
+### Personas
 3 set of _**'personas'**_ have been imagined as typical users of this website: 
 
-1. A person travelling alone: 
+1. **A person travelling alone**: 
   * Andy has 35 years old
   * He uses the app to plan a three weeks trip to Australia.
   * His preferred device will be his cellphone (iPhone 6) but sometimes will go to an internet cafe too. 
@@ -71,7 +72,7 @@ The [database](/files/ShareMyTrip-DB.pdf) contains 9 tables organised around 3 m
   * Only big expenses like flights, few hotels and car rental are managed through the app. The rest is improvised.
   * Bank withdrawn are recorded with the app and all is payed cash (but not recorded)
   
-2. A couple travelling together:
+2. **A couple travelling together**:
   * 30 years old
   * They travel two weeks to Bali 
   * They use a computer to plan the trip and the cellphone during the trip through hotel wifi. 
@@ -79,7 +80,7 @@ The [database](/files/ShareMyTrip-DB.pdf) contains 9 tables organised around 3 m
   * Records Flights, Hotels and excursions. 
   * The couple have mainly common expenses and share everything, except a few personal expenses.
   
-3. Group of 5 friends travelling together: 
+3. **Group of 5 friends travelling together**: 
   * Around 20 years old.
   * They mainly use their cellphone (Android mainly).
   * 4 days trip to London. 
@@ -87,7 +88,7 @@ The [database](/files/ShareMyTrip-DB.pdf) contains 9 tables organised around 3 m
   * They all meet in london and some will record their flight separately. 
   * The rest of the expenses, like museums, bars and other expenses are registered only when payed in common by someone. 
 
-###User tests
+### User tests
 The user interface has been validated with a 3 steps process: 
 
 1. A paper prototype for the first ideas and user tests
@@ -125,13 +126,14 @@ Brad wants to organise a trip for Angelina and him to Italy to see his friend Ge
 9. While the boys having fun on their bikes, Angelina goes shopping in Como and buys herself a pair of Gucci shoes for 600 USD (with her credit card). 
 10. Let's do the expenses calculation now... Check the Budget page and make the refunds to balance the expenses. 
 ```
-SOLUTION: Georges and Brad gives each 200€ to Angelina; Then Angelina pays her flight 1000€ and all is paid... (it's still complicated...)
+_SOLUTION: Georges and Brad gives each 200€ to Angelina; Then Angelina pays her flight 1000€ and all is paid... (it's still complicated...)_
 
-###Responsiveness
+### Responsiveness
 Since this website is supposed to help travellers to manage their travel in all stages and any environment, it was important that it is working as well for desktop (for trip planification) and for mobile devices (for easy and fast trip updates and consultation). Thus, [bootsrap](http://getbootstrap.com/) has been used as a base html/css/js framework for responsive design. 
 
+## Known issues
 
-##Improvements (short-term)
+### Improvements (short-term)
 - [ ] Budget page: Highlight current user
 - [ ] Budget page: Sort users by first name
 - [ ] Action page: Remove mandatory field 'name'
@@ -139,7 +141,7 @@ Since this website is supposed to help travellers to manage their travel in all 
 - [ ] Budget and Plan pages: Add link on the whole 'action' class and not only on the icon to edit an action
 - [ ] Add/Edit action page: create 'Pay all' button and show the payment method in the list of payment
 
-##Known Bugs (short-term)
+### Bugs (short-term)
 - [ ] Trips page: Don't allow to add a trip without a name
 - [ ] Registration: When register a new user, put validation for email with message
 - [ ] Plan page: Hide icons when they overlap
@@ -149,7 +151,7 @@ Since this website is supposed to help travellers to manage their travel in all 
 - [ ] Trips page: Don't allow to add a user twice into a trip
 - [ ] Budget page: when no action has been created, links to Plan & Map are not working
 
-##Future developments (version 2, long-term)
+## Future developments (version 2, long-term)
 - [ ] Add a Change password form
 - [ ] Currency is not implemented yet
 - [ ] Timeline in Plan page
