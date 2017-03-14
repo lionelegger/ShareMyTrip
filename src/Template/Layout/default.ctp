@@ -10,8 +10,8 @@
     <?= $this->Html->meta('lionelegger.ico', '/lionelegger.ico', ['type' => 'icon']); ?>
     <?= $this->Html->meta('ShareMyTrip', 'Manage your trip expenses Share a trip with friends and manage the expenses'); ?>
 
-<!--    <base href="http://127.0.0.1:8888/UNIGE/Projects/ShareMyTrip/"/>-->
-    <base href="http://lionelegger.com/sharemytrip/"/>
+    <base href="http://127.0.0.1:8888/UNIGE/Projects/ShareMyTrip/"/>
+<!--    <base href="http://lionelegger.com/sharemytrip/"/>-->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700" rel="stylesheet" type="text/css">
 
     <!--  Bootstrap -->

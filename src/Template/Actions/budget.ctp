@@ -267,7 +267,7 @@ if (!empty($actions)) {
 
 
     // TRIP COST
-    echo "    <tr>";
+    echo "    <tr class='total'>";
     echo "      <td>";
     echo "          <h3 class='help-block'>TOTAL trip</h3>";
     echo "      </td>";
@@ -306,7 +306,7 @@ if (!empty($actions)) {
         echo "</h2>";
         echo "</td>";
     }
-    echo "<td data-title='All Trip'><h2>";
+    echo "<td data-title='Full trip'><h2>";
     // globalToPay is the inverse of globalBalance
     $globalToPay = 0 - $globalBalance;
     if ($globalToPay > 0) {
@@ -324,6 +324,7 @@ if (!empty($actions)) {
     echo "</table>";
 }
 ?>
+<?php include_once ("include/status-legend.ctp") ?>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <script>

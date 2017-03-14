@@ -31,9 +31,11 @@ include_once ('include/header.ctp');
         <div class="row">
             <div class="col-md-6">
                 <!-- Button trigger modal -->
-                <button type="button" class="btn btn-danger btn-lg pull-left" data-toggle="modal" data-target="#deleteModal">
-                    Delete
-                </button>
+                <?php if($action->owner_id == $userSession['id']): ?>
+                    <button type="button" class="btn btn-danger btn-lg pull-left" data-toggle="modal" data-target="#deleteModal">
+                        Delete
+                    </button>
+                <?php endif ?>
 
                 <!-- Modal -->
                 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="Delete action">

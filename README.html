@@ -37,15 +37,15 @@ Once logged in, you arrive on the Trip page. You can always change your personal
 
 <h3 id="addeditanactionpage">Add/Edit an action page</h3>
 
-<p>&#8216;Add an action&#8217; button is visible on &#8216;Plan&#8217;, &#8216;Map&#8217; and &#8216;Budget&#8217; pages in order to quickly access to this page that will be widely used. &#8216;Edit an action&#8217; is reached anytime you click on the action icon, from any of these pages too.
+<p>&#8216;Add an action&#8217; button is visible on &#8216;Plan&#8217;, &#8216;Map&#8217; and &#8216;Budget&#8217; pages in order to quickly access to this page that will be widely used. &#8216;Edit an action&#8217; is reached anytime you click on the action icon, from any of these pages too. Only the owner (creator) of an action can delete it but any participating user can edit the action.
 * Actions are classified in <strong>4 categories</strong>: Travel, Lodging, Activity and Other. Each category is composed of several <strong>types</strong>. The action type is a mandatory field. When you choose the Lodging category, you logically don&#8217;t have an ending location.
 * All other actions can be described with a <strong>starting and ending time and location</strong> but these fields are not mandatory. If the ending date is not filled, it presupposed that it&#8217;s the same date as the starting date.
 * The <strong>name</strong> of the action is mandatory. It describes the action.
 * The &#8216;Company&#8217;, &#8216;Reservation&#8217;, &#8216;Identifier&#8217; and &#8216;Notes&#8217; fields are not mandatory and can be useful to detail an action. For example, the flights or hotel details are typically entered here.
 * <strong>Share</strong>: This field specifies with whom you will share the specific action. By default, you share an action with all participants of the trip. But you can restrict the action scope to only some users or even for you only. For example, if you travel with another couple, one couple could have a superior room which means a higher cost. It would also be used when a participant of the trip joins you for only a part of the trip. The flights can be also registered separately if participants of a trip meets in a city and then travel together. For a personal expense, you can press the &#8216;only me&#8217; button.
 * <strong>Expenses</strong>: The expenses box is separated in two sections:
- + <strong>Price</strong>: Define here the total price of the action. It means that it does not represent the individual price, but it encompass the global price for all participants. The price is not mandatory as we can plan an action without knowing the price in advance or even register free actions.
- + <strong>Payments</strong>: The totality of an action price is not necessarily paid in one go. For example, you might have to pay a first installment before the trip and what&#8217;s left must be paid on site. You can register all payments here and the sum will be automatically calculated, as well as what&#8217;s left to pay. The status of the global payment is updated at each payment registration and the sum is in the currency defined in the trip settings (not yet implemented). </p>
+ * <strong>Price</strong>: Define here the total price of the action. It means that it does not represent the individual price, but it encompass the global price for all participants. The price is not mandatory as we can plan an action without knowing the price in advance or even register free actions.
+ * <strong>Payments</strong>: The totality of an action price is not necessarily paid in one go. For example, you might have to pay a first installment before the trip and what&#8217;s left must be paid on site. You can register all payments here and the sum will be automatically calculated, as well as what&#8217;s left to pay. The status of the global payment is updated at each payment registration and the sum is in the currency defined in the trip settings (not yet implemented). </p>
 
 <h3 id="mappage">Map page</h3>
 
@@ -105,70 +105,82 @@ Once logged in, you arrive on the Trip page. You can always change your personal
 <h3 id="usertests">User tests</h3>
 
 <p>The user interface has been validated with a 3 steps process:
-1. A paper prototype for the first ideas and tests
-2. A first set of tests have been performed with an <a href="/files/ShareMyTrip.pdf">interactive prototype</a>. The feedbacks were the following:
-+ Access to the trip details is not evident. The user was selecting &#8220;settings&#8221; instead of the trip details to get to enter a trip (=&gt; Action taken: button &#8220;plan the trip&#8221;)
-+ Navigation: Confusion about where to go when we press on &#8220;Plan&#8221;, &#8220;Maps&#8221; or &#8220;Budget&#8221; when no trip has been chosen. (=&gt; Action taken: As long as no trip has been chosen, only &#8220;Trip&#8221; and &#8220;Profile&#8221; are enabled)
-+ Private action: It would be nice that everybody can see all trip actions, in order that any trip buddy is aware of the other&#8217;s actions and can decide to &#8220;join&#8221; or not. A &#8220;private&#8221; checkbox would allow us to register actions that we don&#8217;t want to share. (Action taken =&gt; For version 2, since it means that we should represent the &#8220;Plan&#8221; with subgroups, a bit like we represent a new branch in Git. It adds a new complexity)
-+ Specific currency per trip. Many expenses would be recorded during the trip directly in the local currency. It should then deal with currency rates. (Action taken: none yet, but for version 2 since it requires to plug to an external currency API and take the change rate at a specific date into consideration).
-+ Map directly on &#8220;Add/Edit action&#8221; and not only when press on the &#8216;localize&#8217; icon. (=&gt; Action taken: Implemented with google map inputs)
+1. A paper prototype for the first ideas and user tests
+2. A second set of tests have been performed with an <a href="/files/ShareMyTrip.pdf">interactive prototype</a>. The feedbacks were the following:
+ * Access to the trip details is not evident. The user was selecting &#8220;settings&#8221; instead of the trip details to get to enter a trip (=&gt; Action taken: button &#8220;plan the trip&#8221;)
+ * Navigation: Confusion about where to go when we press on &#8220;Plan&#8221;, &#8220;Maps&#8221; or &#8220;Budget&#8221; when no trip has been chosen. (=&gt; Action taken: As long as no trip has been chosen, only &#8220;Trip&#8221; and &#8220;Profile&#8221; are enabled)
+ * Private action: It would be nice that everybody can see all trip actions, in order that any trip buddy is aware of the other&#8217;s actions and can decide to &#8220;join&#8221; or not. A &#8220;private&#8221; checkbox would allow us to register actions that we don&#8217;t want to share. (Action taken =&gt; For version 2, since it means that we should represent the &#8220;Plan&#8221; with subgroups, a bit like we represent a new branch in Git. It adds a new complexity)
+ * Specific currency per trip. Many expenses would be recorded during the trip directly in the local currency. It should then deal with currency rates. (Action taken: none yet, but for version 2 since it requires to plug to an external currency API and take the change rate at a specific date into consideration).
+ * Map directly on &#8220;Add/Edit action&#8221; and not only when press on the &#8216;localize&#8217; icon. (=&gt; Action taken: Implemented with google map inputs)
 3. A second set of tests have been realised directly on the website.
-+ It&#8217;s still complicated to understand the payment logic and how the calculation is done for the &#8220;Balance&#8221;. Then, a row &#8220;TOTAL trip&#8221; has been added and the &#8220;Balance&#8221; row has been changed to &#8220;Still to pay&#8221;.
-+ Not logical where to manage the users (Action taken =&gt; trip participants are separated from the &#8220;trip settings button&#8221; but now have a separate button)
-+ What is the color logic? (Action taken =&gt; Add a color explanation box at the bottom)</p>
+ * It&#8217;s still complicated to understand the payment logic and how the calculation is done for the &#8220;Balance&#8221;. Then, a row &#8220;TOTAL trip&#8221; has been added and the &#8220;Balance&#8221; row has been changed to &#8220;Still to pay&#8221;.
+ * Not logical where to manage the users (Action taken =&gt; trip participants are separated from the &#8220;trip settings button&#8221; but now have a separate button)
+ * What is the color logic? (Action taken =&gt; Add a color explanation box at the bottom)</p>
 
 <p>For the two last tests, the scenario was the following:</p>
 
-<p>Brad wants to organise a trip for Angelina and him to Italy to see his friend George.
+<pre><code>Brad wants to organise a trip for Angelina and him to Italy to see his friend George. 
 1. Mr. Pitt uses his laptop to register himself with the following information:
- + Email: pitt@email.com
- + First name: Brad
- + Last name: Pitt
-2. Ms. Jolie register herself on her cell phone (Use your phone to register her) with the following information:
- + Email: jolie@email.com
- + First name: Angelina
- + Last name: Jolie
-3. Brad creates a new trip called &#8216;Italy&#8217; from the 1st to the 5th of June 2017. He will use Euros for his budget calculation.
-4. Then, Brad adds Angelina to his trip to Italy in order that Angelina can access to the trip too.
-5. Brad adds the flight from Los Angeles (departure the 2017&#8211;06&#8211;01 at 15:30) to Milano (arrival the next day at 12:30) with Swiss. The flight costs 1000USD per person and Brad pays only his part with his credit card.
-6. On her side, Angelina books a Limousine from Milano to Como. The agency estimate 5 hours to reach Como and it will cost 800 USD. Angelina pays the totality with a bank transfer.
-7. At L.A. airport, Angelina buys a pair of Gucci shoes for 600 USD. Brad won&#8217;t pay for that shit! He is upset and have a few whiskeys in the plane&#8230;
-8. The next day (3rd June), George and Brad decide make a motorbike trip to Locarno in Switzerland. Of course, George already has an account in ShareMyTrip (clooney@email.com) and Brad adds him into the &#8216;Italy&#8217; trip.
+  * Email: pitt@email.com
+  * First name: Brad
+  * Last name: Pitt
+2. Ms. Jolie register herself on her cell phone (Use your phone to register her) with the following information: 
+  * Email: jolie@email.com
+  * First name: Angelina 
+  * Last name: Jolie
+3. Brad creates a new trip called 'Italy' from the 1st to the 5th of June 2017. He will use Euros for his budget calculation. 
+4. Then, Brad adds Angelina to his trip to Italy in order that Angelina can access to the trip. 
+5. Brad adds the flight from Los Angeles (departure the 2017-06-01 at 15:30) to Milano (arrival the next day at 12:30) with Swiss. The flight costs 1000USD per person and Brad pays only his part with his credit card. 
+6. On her side, Angelina books a Limousine from Milano to Como. The agency estimate 5 hours to reach Como and it will cost 800 USD. Angelina pays the totality with a bank transfer. 
+7. At L.A. airport, Angelina buys a pair of Gucci shoes for 600 USD. Brad won't pay for that shit! He is upset and have a few whiskeys in the plane... 
+8. The next day (3rd June), George and Brad decide make a motorbike trip to Locarno in Switzerland. Of course, George already has an account in ShareMyTrip (clooney@email.com) and Brad adds him into the 'Italy' trip. 
 9. Brad adds the motorbike trip with George and pays for the rent, gasoil and coffee: 400 Euros.
-10. Let&#8217;s do the expenses calculation now&#8230; Check the Budget page and deduct how to make the refunds to balance the expenses. </p>
+10. Let's do the expenses calculation now... Check the Budget page and deduct how to make the refunds to balance the expenses. 
+</code></pre>
 
 <h3 id="responsiveness">Responsiveness</h3>
 
 <p>Since this website is supposed to help travellers to manage their travel in all stages and any environment, it was important that it is working as well for desktop (for trip planification) and for mobile devices (for easy and fast trip updates and consultation). Thus, <a href="http://getbootstrap.com/">bootsrap</a> has been used as a base html/css/js framework for responsive design. </p>
 
-<h2 id="todoshort-term">TODO (short-term)</h2>
+<h2 id="improvementsshort-term">Improvements (short-term)</h2>
 
 <ul>
-<li>[ ] Add color codes on Plan and Budget page</li>
-<li>[ ] Remove mandatory name on actions</li>
-<li>[ ] Confirm trip user deletion</li>
-<li>[ ] Add link on the whole &#8216;action&#8217; class and not only on the icon to edit an action</li>
-<li>[ ] On page Add/Edit an action, create &#8216;Pay all&#8217; button and show the payment method in the list of payment</li>
+<li>[ ] Budget page: Highlight current user</li>
+<li>[ ] Budget page: Sort users by first name</li>
+<li>[ ] Action page: Remove mandatory field &#8216;name&#8217;</li>
+<li>[ ] Trips page: Confirm trip user deletion</li>
+<li>[ ] Budget and Plan pages: Add link on the whole &#8216;action&#8217; class and not only on the icon to edit an action</li>
+<li>[ ] Add/Edit action page: create &#8216;Pay all&#8217; button and show the payment method in the list of payment</li>
 </ul>
 
 <h2 id="knownbugsshort-term">Known Bugs (short-term)</h2>
 
 <ul>
-<li>[ ] Don&#8217;t allow to add a trip without a name</li>
-<li>[ ] When register a new user, put validation for email with message</li>
-<li>[ ] On &#8220;add action&#8221; page, payment cannot be deleted, date has not the right format.</li>
-<li>[ ] Allow to empty the arrival name location (google map) when add/edit an action</li>
-<li>[ ] Don&#8217;t allow tp add a user twice into a trip</li>
-<li>[ ] When there are no action, the budget page is not working (You can access it when adding your first action)</li>
+<li>[ ] Trips page: Don&#8217;t allow to add a trip without a name</li>
+<li>[ ] Registration: When register a new user, put validation for email with message</li>
+<li>[ ] Plan page: Hide icons when they overlap</li>
+<li>[ ] Add action page: payment cannot be deleted; date has not the right format; Show payment method</li>
+<li>[ ] Add/Edit action page: Allow to empty the arrival name location (google map) when add/edit an action</li>
+<li>[ ] Edit action page: If you are not the owner, you should not be able to remove the owner of the action as a participant (share box)</li>
+<li>[ ] Trips page: Don&#8217;t allow tp add a user twice into a trip</li>
+<li>[ ] Budget page: when no action has been created, links to Plan &amp; Map are not working</li>
 </ul>
 
-<h2 id="futuredevelopmentslong-term">Future developments (long-term)</h2>
+<h2 id="futuredevelopmentsversion2long-term">Future developments (version 2, long-term)</h2>
 
 <ul>
 <li>[ ] Add a Change password form</li>
 <li>[ ] Currency is not implemented yet</li>
-<li>[ ] Timeline in Plan</li>
-<li>[ ] Budget page: Make summary box of what&#8217;s left to pay (and show an overview also on trip page)</li>
+<li>[ ] Timeline in Plan page</li>
+<li>[ ] Budget page: Make summary box of what&#8217;s left to pay</li>
+<li>[ ] Trips page: Show a trip summary for each trip with:
+
+<ul>
+<li>[ ] Time left before leaving</li>
+<li>[ ] Total cost of the trip</li>
+<li>[ ] Refund information to other participants</li>
+<li>[ ] Statistics like trip duration, number of actions</li>
+</ul></li>
 </ul>
 
 </body>

@@ -207,9 +207,3 @@ include_once ('include/header.ctp');
         map.fitBounds(bounds);
 
 </script>
-
-
-<!--
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBsahp0E7FSU4WE0dY73LyvTyY6-CWxgI&callback=initMap"></script>
-
--->

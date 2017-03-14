@@ -31,7 +31,7 @@ include_once ('include/header.ctp');
 
 if ($actions->isEmpty()) {
     echo "<div class='container text-right'>";
-    echo "    <h3>Well done!<small><br>You just created a new trip.</small></h3>";
+    echo "    <h3>Well done ". $userSession['first_name'] ."!<small><br>You just created a new trip.</small></h3>";
     echo "<p>Now '<strong>Add an action</strong>' to add a travel, lodging or any other trip activity... <br/>You can define a <i>time</i>, <i>location</i> or <i>price</i> for any action, as well as <i>friends</i> with whom you share it. </p>";
     echo "<p>Then check the '<strong>Map</strong>' and '<strong>Budget</strong>' pages to get a geographic or financial overview of your trip.</p>";
     echo "</div>";
@@ -136,6 +136,7 @@ if ($actions->isEmpty()) {
     echo "</div>";
 endif; ?>
 </div>
+<?php include_once ("include/status-legend.ctp") ?>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 

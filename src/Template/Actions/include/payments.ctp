@@ -17,7 +17,7 @@
                 <td><span ng-if="payment.date" class="text-muted small">{{payment.date | date:'d MMMM yyyy'}}</span></td>
                 <td class="text-right">Paid by&nbsp;<span ng-if="payment.user.id != <?= $userSession['id'] ?>" class="pull-right">{{payment.user.first_name}}</span><span ng-if="payment.user_id==currentUserId" class="pull-right">me <a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment" ng-show="<?=($edit)?>">[edit]</a></span></td>
             </tr>
-            <tr class="sum-light">
+            <tr class="sum-light" ng-if="action.payments.length > 1">
                 <td>
                     <h4 ng-if="action.payments.totalAll > 0"><strong>{{action.payments.totalAll}} <?=$trip->currency?></strong></h4>
                 </td>

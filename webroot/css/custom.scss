@@ -264,6 +264,22 @@ span.menu-title {
     }
 }
 
+// status legend
+ul.status-legend {
+    > li {
+        list-style-type: none;
+        display: inline-block;
+        color: $color-darkgrey;
+        span.legend-pill {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+            float: left;
+            margin: 4px 4px 4px 15px;
+        }
+    }
+}
+
 .cropArea {
     background: #E4E4E4;
     overflow: hidden;
@@ -1085,6 +1101,29 @@ a.glyphicon-btn {
             }
         }
     }
+    @media only screen and (min-width: 768px) {
+        tr.balance {
+            h2 {
+                margin-top: 15px;
+            }
+        }
+    }
+    @media only screen and (max-width: 768px) {
+        tr.sum,
+        tr.total {
+            td:before {
+                top: 10px;
+                font-size: 17px;
+            }
+        }
+        tr.balance {
+            td:before {
+                top: 15px;
+                font-size: 18px;
+            }
+        }
+    }
+    margin-bottom: 0;
 }
 
 

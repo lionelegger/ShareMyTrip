@@ -184,6 +184,17 @@ span.menu-title {
         padding-bottom: 10px;
         font-size: 20px; } }
 
+ul.status-legend > li {
+  list-style-type: none;
+  display: inline-block;
+  color: #777777; }
+  ul.status-legend > li span.legend-pill {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+    float: left;
+    margin: 4px 4px 4px 15px; }
+
 .cropArea {
   background: #E4E4E4;
   overflow: hidden;
@@ -762,13 +773,26 @@ a.glyphicon-btn {
       .action:last-child {
         border-bottom: none; } }
 
-.table-budget th, .table-budget td {
-  text-align: center; }
-  .table-budget th .h1, .table-budget th .h2, .table-budget th .h3, .table-budget th h1, .table-budget th h2, .table-budget th h3, .table-budget td .h1, .table-budget td .h2, .table-budget td .h3, .table-budget td h1, .table-budget td h2, .table-budget td h3 {
-    margin-top: 20px;
-    margin-bottom: 20px; }
-  .table-budget th .h1 small, .table-budget th .h1 .small, .table-budget th .h2 small, .table-budget th .h2 .small, .table-budget th .h3 small, .table-budget th .h3 .small, .table-budget th .h4 small, .table-budget th .h4 .small, .table-budget th .h5 small, .table-budget th .h5 .small, .table-budget th .h6 small, .table-budget th .h6 .small, .table-budget th h1 small, .table-budget th h1 .small, .table-budget th h2 small, .table-budget th h2 .small, .table-budget th h3 small, .table-budget th h3 .small, .table-budget th h4 small, .table-budget th h4 .small, .table-budget th h5 small, .table-budget th h5 .small, .table-budget th h6 small, .table-budget th h6 .small, .table-budget td .h1 small, .table-budget td .h1 .small, .table-budget td .h2 small, .table-budget td .h2 .small, .table-budget td .h3 small, .table-budget td .h3 .small, .table-budget td .h4 small, .table-budget td .h4 .small, .table-budget td .h5 small, .table-budget td .h5 .small, .table-budget td .h6 small, .table-budget td .h6 .small, .table-budget td h1 small, .table-budget td h1 .small, .table-budget td h2 small, .table-budget td h2 .small, .table-budget td h3 small, .table-budget td h3 .small, .table-budget td h4 small, .table-budget td h4 .small, .table-budget td h5 small, .table-budget td h5 .small, .table-budget td h6 small, .table-budget td h6 .small {
-    color: inherit; }
+.table-budget {
+  margin-bottom: 0; }
+  .table-budget th, .table-budget td {
+    text-align: center; }
+    .table-budget th .h1, .table-budget th .h2, .table-budget th .h3, .table-budget th h1, .table-budget th h2, .table-budget th h3, .table-budget td .h1, .table-budget td .h2, .table-budget td .h3, .table-budget td h1, .table-budget td h2, .table-budget td h3 {
+      margin-top: 20px;
+      margin-bottom: 20px; }
+    .table-budget th .h1 small, .table-budget th .h1 .small, .table-budget th .h2 small, .table-budget th .h2 .small, .table-budget th .h3 small, .table-budget th .h3 .small, .table-budget th .h4 small, .table-budget th .h4 .small, .table-budget th .h5 small, .table-budget th .h5 .small, .table-budget th .h6 small, .table-budget th .h6 .small, .table-budget th h1 small, .table-budget th h1 .small, .table-budget th h2 small, .table-budget th h2 .small, .table-budget th h3 small, .table-budget th h3 .small, .table-budget th h4 small, .table-budget th h4 .small, .table-budget th h5 small, .table-budget th h5 .small, .table-budget th h6 small, .table-budget th h6 .small, .table-budget td .h1 small, .table-budget td .h1 .small, .table-budget td .h2 small, .table-budget td .h2 .small, .table-budget td .h3 small, .table-budget td .h3 .small, .table-budget td .h4 small, .table-budget td .h4 .small, .table-budget td .h5 small, .table-budget td .h5 .small, .table-budget td .h6 small, .table-budget td .h6 .small, .table-budget td h1 small, .table-budget td h1 .small, .table-budget td h2 small, .table-budget td h2 .small, .table-budget td h3 small, .table-budget td h3 .small, .table-budget td h4 small, .table-budget td h4 .small, .table-budget td h5 small, .table-budget td h5 .small, .table-budget td h6 small, .table-budget td h6 .small {
+      color: inherit; }
+  @media only screen and (min-width: 768px) {
+    .table-budget tr.balance h2 {
+      margin-top: 15px; } }
+  @media only screen and (max-width: 768px) {
+    .table-budget tr.sum td:before,
+    .table-budget tr.total td:before {
+      top: 10px;
+      font-size: 17px; }
+    .table-budget tr.balance td:before {
+      top: 15px;
+      font-size: 18px; } }
 
 /* ICON TYPES */
 .map-icon-type-99:before {
