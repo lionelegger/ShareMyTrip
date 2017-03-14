@@ -136,7 +136,12 @@ if ($actions->isEmpty()) {
     echo "</div>";
 endif; ?>
 </div>
-<?php include_once ("include/status-legend.ctp") ?>
+
+<?php
+    if (!$actions->isEmpty()) {
+        include_once ("include/status-legend.ctp");
+    }
+?>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 

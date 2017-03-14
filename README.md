@@ -120,12 +120,12 @@ Brad wants to organise a trip for Angelina and him to Italy to see his friend Ge
 4. Then, Brad adds Angelina to his trip to Italy in order that Angelina can access to the trip. 
 5. Brad adds the flight from Los Angeles (departure the 2017-06-01 at 15:30) to Milano (arrival the next day at 12:30) with Swiss. The flight costs 1000USD per person and Brad pays only his part with his credit card. 
 6. On her side, Angelina books a Limousine from Milano to Como. The agency estimate 5 hours to reach Como and it will cost 800 USD. Angelina pays the totality with a bank transfer. 
-7. At L.A. airport, Angelina buys a pair of Gucci shoes for 600 USD. Brad won't pay for that shit! He is upset and have a few whiskeys in the plane... 
-8. The next day (3rd June), George and Brad decide make a motorbike trip to Locarno in Switzerland. Of course, George already has an account in ShareMyTrip (clooney@email.com) and Brad adds him into the 'Italy' trip. 
-9. Brad adds the motorbike trip with George and pays for the rent, gasoil and coffee: 400 Euros.
-10. Let's do the expenses calculation now... Check the Budget page and deduct how to make the refunds to balance the expenses. 
+7. The next day (3rd June), George and Brad decide make a motorbike trip to Locarno in Switzerland. Of course, George already has an account in ShareMyTrip (clooney@email.com) and Brad adds him into the 'Italy' trip. 
+8. Brad adds the motorbike trip with George for the full day. It costs 400€ for the rent, gasoil and a few coffees.
+9. While the boys having fun on their bikes, Angelina goes shopping in Como and buys herself a pair of Gucci shoes for 600 USD (with her credit card). 
+10. Let's do the expenses calculation now... Check the Budget page and make the refunds to balance the expenses. 
 ```
-
+SOLUTION: Georges and Brad gives each 200€ to Angelina; Then Angelina pays her flight 1000€ and all is paid... (it's still complicated...)
 
 ###Responsiveness
 Since this website is supposed to help travellers to manage their travel in all stages and any environment, it was important that it is working as well for desktop (for trip planification) and for mobile devices (for easy and fast trip updates and consultation). Thus, [bootsrap](http://getbootstrap.com/) has been used as a base html/css/js framework for responsive design. 
@@ -146,7 +146,7 @@ Since this website is supposed to help travellers to manage their travel in all 
 - [ ] Add action page: payment cannot be deleted; date has not the right format; Show payment method
 - [ ] Add/Edit action page: Allow to empty the arrival name location (google map) when add/edit an action
 - [ ] Edit action page: If you are not the owner, you should not be able to remove the owner of the action as a participant (share box)
-- [ ] Trips page: Don't allow tp add a user twice into a trip
+- [ ] Trips page: Don't allow to add a user twice into a trip
 - [ ] Budget page: when no action has been created, links to Plan & Map are not working
 
 ##Future developments (version 2, long-term)

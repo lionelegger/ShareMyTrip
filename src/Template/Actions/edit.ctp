@@ -29,10 +29,10 @@ include_once ('include/header.ctp');
     <div class="container clearfix">
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-xs-6 text-left">
                 <!-- Button trigger modal -->
                 <?php if($action->owner_id == $userSession['id']): ?>
-                    <button type="button" class="btn btn-danger btn-lg pull-left" data-toggle="modal" data-target="#deleteModal">
+                    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">
                         Delete
                     </button>
                 <?php endif ?>
@@ -56,7 +56,7 @@ include_once ('include/header.ctp');
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 text-right">
+            <div class="col-xs-6 text-right">
                 <a href="actions/plan/<?=$action->trip->id?>" class="btn btn-link btn-lg">Cancel</a>&nbsp;
                 <button type="submit" class="btn btn-primary btn-lg pull-right" ng-click="editAction(<?=$action->trip->id?>,<?=$action->id?>);" data-toggle="collapse" href="#collapseParticipation" aria-expanded="false" aria-controls="collapseExample">Save</button>
             </div>
