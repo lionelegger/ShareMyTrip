@@ -1101,7 +1101,28 @@ a.glyphicon-btn {
                 color: inherit;
             }
         }
+        &.currentUser {
+            border-right: 1px solid #e2e2e2;
+            border-left: 1px solid #e2e2e2;
+            background-color: white;
+            @media only screen and (max-width: 768px) {
+                border-top: 1px solid #e2e2e2 !important;
+                border-bottom: 1px solid #e2e2e2 !important;
+            }
+        }
+        &.price {
+            border-left: 1px solid #e2e2e2;
+            background-color: #eeeeee;
+            @media only screen and (max-width: 768px) {
+                border-top: 1px solid #e2e2e2 !important;
+                border-bottom: 1px solid #e2e2e2 !important;
+            }
+        }
     }
+    tr {
+        background-color: #f9f9f9;
+    }
+
     @media only screen and (min-width: 768px) {
         tr.balance {
             h2 {
@@ -1119,8 +1140,11 @@ a.glyphicon-btn {
         }
         tr.balance {
             td:before {
-                top: 15px;
-                font-size: 18px;
+                top: 12px;
+                font-size: 20px;
+            }
+            td {
+                min-height: 56px;
             }
         }
     }
@@ -1526,7 +1550,7 @@ div.tipPayment {
             padding-left: 6px !important;
             text-align: center;
             &.date {
-                font-size: 20px;
+                font-size: 32px;
             }
         }
         white-space: normal;

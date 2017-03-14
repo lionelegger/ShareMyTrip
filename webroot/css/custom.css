@@ -784,6 +784,23 @@ a.glyphicon-btn {
       margin-bottom: 20px; }
     .table-budget th .h1 small, .table-budget th .h1 .small, .table-budget th .h2 small, .table-budget th .h2 .small, .table-budget th .h3 small, .table-budget th .h3 .small, .table-budget th .h4 small, .table-budget th .h4 .small, .table-budget th .h5 small, .table-budget th .h5 .small, .table-budget th .h6 small, .table-budget th .h6 .small, .table-budget th h1 small, .table-budget th h1 .small, .table-budget th h2 small, .table-budget th h2 .small, .table-budget th h3 small, .table-budget th h3 .small, .table-budget th h4 small, .table-budget th h4 .small, .table-budget th h5 small, .table-budget th h5 .small, .table-budget th h6 small, .table-budget th h6 .small, .table-budget td .h1 small, .table-budget td .h1 .small, .table-budget td .h2 small, .table-budget td .h2 .small, .table-budget td .h3 small, .table-budget td .h3 .small, .table-budget td .h4 small, .table-budget td .h4 .small, .table-budget td .h5 small, .table-budget td .h5 .small, .table-budget td .h6 small, .table-budget td .h6 .small, .table-budget td h1 small, .table-budget td h1 .small, .table-budget td h2 small, .table-budget td h2 .small, .table-budget td h3 small, .table-budget td h3 .small, .table-budget td h4 small, .table-budget td h4 .small, .table-budget td h5 small, .table-budget td h5 .small, .table-budget td h6 small, .table-budget td h6 .small {
       color: inherit; }
+    .table-budget th.currentUser, .table-budget td.currentUser {
+      border-right: 1px solid #e2e2e2;
+      border-left: 1px solid #e2e2e2;
+      background-color: white; }
+      @media only screen and (max-width: 768px) {
+        .table-budget th.currentUser, .table-budget td.currentUser {
+          border-top: 1px solid #e2e2e2 !important;
+          border-bottom: 1px solid #e2e2e2 !important; } }
+    .table-budget th.price, .table-budget td.price {
+      border-left: 1px solid #e2e2e2;
+      background-color: #eeeeee; }
+      @media only screen and (max-width: 768px) {
+        .table-budget th.price, .table-budget td.price {
+          border-top: 1px solid #e2e2e2 !important;
+          border-bottom: 1px solid #e2e2e2 !important; } }
+  .table-budget tr {
+    background-color: #f9f9f9; }
   @media only screen and (min-width: 768px) {
     .table-budget tr.balance h2 {
       margin-top: 15px; } }
@@ -793,8 +810,10 @@ a.glyphicon-btn {
       top: 10px;
       font-size: 17px; }
     .table-budget tr.balance td:before {
-      top: 15px;
-      font-size: 18px; } }
+      top: 12px;
+      font-size: 20px; }
+    .table-budget tr.balance td {
+      min-height: 56px; } }
 
 /* ICON TYPES */
 .map-icon-type-99:before {
@@ -1099,7 +1118,7 @@ div.tipPayment {
       padding-left: 6px !important;
       text-align: center; }
       .responsive-table td.no-padding-sm.date {
-        font-size: 20px; }
+        font-size: 32px; }
     .responsive-table td h1, .responsive-table td h2, .responsive-table td h3, .responsive-table td h4, .responsive-table td h5, .responsive-table td h6 {
       margin: 0; }
 

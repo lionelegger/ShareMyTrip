@@ -20,7 +20,7 @@ This page is the landing page after a users logs in. It lists all trips a user i
 * **Add user**: Each trip can be done alone or with friends. If you travel alone, you can directly "Plan this trip". If you travel with friends, click on "Add a user" and the system will ask you to provide an email address. The email address you enter here should be the login (email address) of another user already registered in the system. Theoretically, you can add as many friends as you want but the interface gets messy with more than 10-12 users. Once your trip defined, you can go to the next step by pressing the "Plan this trip" button. You will reach the "Plan page".
 
 ### Plan page
-The plan page gives you an overview of all trip actions organised by date. You can also easily see which action is not paid, partially paid or full paid thanks to the action color codes. Each action is represented by a single dot when the action is defined by a unique starting time/spacial entry; or by two points when an ending time or location has been defined. Each action is editable by clicking on the action icon. When an action extends to the next day, the ending date appears on the right side of the action line.  
+The plan page gives you an overview of all trip actions organised by date. You can also easily see which action is not paid, partially paid or full paid thanks to the action color codes. Each action is represented by a single dot when the action is defined by a unique starting time/spacial entry; or by two points when an ending time or location has been defined. Each action is editable by clicking on the action icon. When an action extends to the next day, the ending date appears on the right side of the action line. The logged user only sees the actions in which he is participating. 
 
 ### Add/Edit an action page
 'Add an action' button is visible on 'Plan', 'Map' and 'Budget' pages in order to quickly access to this page that will be widely used. 'Edit an action' is reached anytime you click on the action icon, from any of these pages too. Only the owner (creator) of an action can delete it but any participating user can edit the action.
@@ -134,7 +134,6 @@ Since this website is supposed to help travellers to manage their travel in all 
 ## Known issues
 
 ### Improvements (short-term)
-- [ ] Budget page: Highlight current user
 - [ ] Budget page: Sort users by first name
 - [ ] Action page: Remove mandatory field 'name'
 - [ ] Trips page: Confirm trip user deletion

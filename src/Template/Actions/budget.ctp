@@ -36,8 +36,12 @@ if (!empty($actions)) {
     echo "      </th>";
 
     foreach ($tripUsers as $user):
-        echo "<th>";
-        echo "<div class='avatar'>";
+        if ($user->id == $userSession['id']) {
+            echo("<th class='currentUser'>");
+        } else {
+            echo("<th>");
+        }
+        echo("<div class='avatar'>");
         if ($user->photo) {
             echo "  <img src='".$user->photo_dir."/".$user->photo."' class='avatar-img circle' />";
         } else {
@@ -49,17 +53,10 @@ if (!empty($actions)) {
         echo "  </div>";
         echo "</div>";
 
-        if ($user->id == $userSession['id']) {
-            echo("<h3 class='text-danger'>");
-        } else {
-            echo("<h3>");
-        }
-        echo("</h3>");
-
         echo "</th>";
     endforeach;
 
-    echo "      <th>";
+    echo "      <th class='price'>";
     echo "          <h3>PRICE</h3>";
     echo "      </th>";
     echo "    </tr>";
@@ -148,7 +145,11 @@ if (!empty($actions)) {
 //        CONTENT
         // a cell <TD> is created for each participant of the trip (even if they don't participate to any action)
         foreach ($tripUsers as $tripUser) {
-            echo "<td data-title='" . $tripUser->first_name . "' valign='middle'>";
+            if ($tripUser->id == $userSession['id']) {
+                echo "<td data-title='" . $tripUser->first_name . "' valign='middle' class='currentUser'>";
+            } else {
+                echo "<td data-title='" . $tripUser->first_name . "' valign='middle'>";
+            }
 
             $isParticipating = false;
             // The current user need to participate in the action
@@ -228,11 +229,11 @@ if (!empty($actions)) {
 
 
         if ($action->price) {
-            echo "      <td data-title='Price'>";
+            echo "      <td data-title='Price' class='price'>";
             echo "        <h4><strong>" . $action->price . "</strong>";
             echo "&nbsp;<small>" . $action->currency . "</small>";
         } else {
-            echo "        <td class='hidden-xs'>&nbsp;</td>";
+            echo "        <td class='hidden-xs price'>&nbsp;</td>";
         }
         echo "</h4>";
         $totalTrip = $totalTrip + $action->price;
@@ -255,12 +256,16 @@ if (!empty($actions)) {
     echo "      </td>";
 
     foreach ($tripUsers as $user) {
-        echo "<td data-title='".$user->first_name."'>";
+        if ($user->id == $userSession['id']) {
+            echo "<td data-title='" . $user->first_name . "' class='currentUser'>";
+        } else {
+            echo "<td data-title='" . $user->first_name . "'>";
+        }
         echo "<h3><strong>" . $totalPaid[$user->id] . "</strong>&thinsp;<small>".$trip->currency."</small></h3>";
         echo "</td>";
     }
 
-    echo "      <td data-title='ALL'>";
+    echo "      <td data-title='ALL' class='price'>";
     echo "<h3><strong>" . $globalPaid."</strong>&thinsp;<small>".$trip->currency."</small></h3>";
     echo "      </td>";
     echo "    </tr>";
@@ -273,12 +278,16 @@ if (!empty($actions)) {
     echo "      </td>";
 
     foreach ($tripUsers as $user) {
-        echo "<td data-title='".$user->first_name."'>";
+        if ($user->id == $userSession['id']) {
+        echo "<td data-title='".$user->first_name."' class='currentUser'>";
+        } else {
+            echo "<td data-title='" . $user->first_name . "'>";
+        }
         echo "<h3 class='help-block'><strong>" . $totalTripCost[$user->id] . "</strong>&thinsp;<small>".$trip->currency."</small></h3>";
         echo "</td>";
     }
 
-    echo "      <td data-title='ALL'>";
+    echo "      <td data-title='ALL' class='price'>";
     echo "<h3 class='help-block'><strong>".$totalTrip."</strong>&thinsp;<small>".$trip->currency."</small></h3>";
     echo "      </td>";
     echo "    </tr>";
@@ -292,7 +301,13 @@ if (!empty($actions)) {
     foreach ($tripUsers as $user) {
         // stillToPay is the inverse of totalBalance
         $stillToPay[$user->id] = 0 - $totalBalance[$user->id];
-        echo "<td data-title='".$user->first_name."'>";
+
+        if ($user->id == $userSession['id']) {
+        echo "<td data-title='".$user->first_name."' class='currentUser'>";
+        } else {
+            echo "<td data-title='" . $user->first_name . "'>";
+        }
+
         echo "<h2>";
         if ($stillToPay[$user->id] < 0) {
             echo "<span class='label label-default'>".$stillToPay[$user->id]."<small class='text-normal'>&thinsp;".$trip->currency."</small></span>";
@@ -306,7 +321,7 @@ if (!empty($actions)) {
         echo "</h2>";
         echo "</td>";
     }
-    echo "<td data-title='Full trip'><h2>";
+    echo "<td data-title='Full trip' class='price'><h2>";
     // globalToPay is the inverse of globalBalance
     $globalToPay = 0 - $globalBalance;
     if ($globalToPay > 0) {
