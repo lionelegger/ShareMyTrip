@@ -137,7 +137,7 @@ Since this website is supposed to help travellers to manage their travel in all 
 - [ ] Action page: Action property 'name' should not be mandatory
 - [ ] Registration: When register a new user, put validation for email with message
 - [ ] Plan page: Hide icons when they overlap
-- [ ] Add action page: payment cannot be deleted; date has not the right format; Show payment method
+- [x] Add action page: payment cannot be deleted; date has not the right format; Show payment method
 - [ ] Add/Edit action page: Allow to empty the arrival name location (google map) when add/edit an action
 - [ ] Edit action page: If you are not the owner, you should not be able to remove the owner of the action as a participant (share box)
 - [ ] Trips page: Don't allow to add a user twice into a trip

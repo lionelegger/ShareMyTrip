@@ -12,7 +12,7 @@ use Cake\ORM\Entity;
  * @property int $method_id
  * @property float $amount
  * @property string $currency
- * @property \Cake\I18n\Time $date
+ * @property \Cake\I18n\Date $date
  *
  * @property \App\Model\Entity\Action $action
  * @property \App\Model\Entity\User $user

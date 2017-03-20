@@ -502,7 +502,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     $scope.actionAddTempPayment = function($userId) {
         $scope.actionPaymentToAdd.currency = $("#paymentCurrency").text();
         if ($('#datePayment').val()) {
-            $scope.actionPaymentToAdd.date = $('#datePayment').val()+' 12:00:00';
+            $scope.actionPaymentToAdd.date = $('#datePayment').val();
         }
         var tempPayment = {
             user_id: $userId,
@@ -515,6 +515,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         sumPayments = sumPayments + Number($scope.actionPaymentToAdd.amount);
         tempPayments.push(tempPayment);
         $scope.action.payments = tempPayments;
+        $scope.actionPaymentToAdd.method_name = $('#method_id :selected').text();
         $scope.action.payments.totalAll=sumPayments;
         $scope.updateStatus();
     };
@@ -526,7 +527,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.actionPaymentToAdd.amount = $('#paymentAmount').val();
         $scope.actionPaymentToAdd.currency = $('#paymentCurrency').text();
         if ($('#datePayment').val()) {
-            $scope.actionPaymentToAdd.date = $('#datePayment').val()+' 12:00:00';
+            $scope.actionPaymentToAdd.date = $('#datePayment').val();
         }
         $scope.actionPaymentToAdd.method_id = $('#method_id :selected').val();
         $scope.actionPaymentToAdd.action_id = $actionId;
@@ -545,7 +546,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
     $scope.actionPayAll = function($actionId,$userId) {
         $scope.actionPaymentToAdd.amount = $scope.action.price;
         $scope.actionPaymentToAdd.currency = $scope.action.currency;
-        var today = new Date().toISOString().slice(0,10) + ' 12:00:00';
+        var today = new Date().toISOString().slice(0,10);
         $scope.actionPaymentToAdd.date = today;
         $scope.actionPaymentToAdd.action_id = $actionId;
         $scope.actionPaymentToAdd.user_id = $userId;
@@ -595,7 +596,7 @@ as.controller('ActionCtrl', function($scope, $rootScope, $http) {
         $scope.actionPaymentToAdd.method_id = $("#method_id option:selected").val();
         $scope.actionPaymentToAdd.currency = $('#paymentCurrency').text();
         if ($('#datePayment').val()) {
-            $scope.actionPaymentToAdd.date = $('#datePayment').val()+' 12:00:00';
+            $scope.actionPaymentToAdd.date = $('#datePayment').val();
         }
         $http
             .post('Payments/edit/'+$paymentId, $scope.actionPaymentToAdd)

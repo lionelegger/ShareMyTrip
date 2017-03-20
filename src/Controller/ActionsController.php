@@ -43,7 +43,7 @@ class ActionsController extends AppController
 //        See http://127.0.0.1:8888/UNIGE/Projects/ShareMyTrip/Actions/view/67.json
 //        TODO: Make the participants controller cleaner
         $action = $this->Actions->get($id, [
-            'contain' => ['Trips' => ['Users'], 'Types', 'Users', 'Payments' => ['Users'], 'Users']
+            'contain' => ['Trips' => ['Users'], 'Types', 'Users', 'Payments' => ['Methods','Users'], 'Users']
         ]);
 
         $this->set('action', $action);

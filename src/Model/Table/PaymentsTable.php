@@ -71,7 +71,7 @@ class PaymentsTable extends Table
             ->allowEmpty('currency');
 
         $validator
-            ->dateTime('date')
+            ->date('date')
             ->allowEmpty('date');
 
         return $validator;
