@@ -40,7 +40,7 @@
                 <div class="navbar-header">
                     <!-- TODO: Make a logo and add the logo image below -->
                     <!-- <a class="navbar-brand"><img alt="Share my trip" src="webroot/img/briefcase.png" height="20" width="20"></a> -->
-                    <div class="navigation navbar-brand">Share my trip</div>
+                    <div class="navigation navbar-brand"><?= $this->Html->link(__('Share my trip'), ['controller' => 'Trips', 'action' => 'index']);?></div>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -53,7 +53,7 @@
                             </ul>
                         <?php endif; ?>
                         <ul class="nav navbar-nav nav-avatar navbar-right hidden-xs">
-                            <li><?= $this->Html->link($userSession['first_name']." ".$userSession['last_name'], [
+                            <li><?= $this->Html->link($userSession['first_name'], [
                                 'controller' => 'Users',
                                     'action' => 'edit', $userSession['id']
                                 ]) ?></li>

@@ -33,7 +33,7 @@ include_once ('include/header.ctp');
                 <!-- Button trigger modal -->
                 <?php if($action->owner_id == $userSession['id']): ?>
                     <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">
-                        Delete
+                        <span class="glyphicon glyphicon-trash"></span>&nbsp;Delete
                     </button>
                 <?php endif ?>
 
@@ -58,7 +58,7 @@ include_once ('include/header.ctp');
             </div>
             <div class="col-xs-6 text-right">
                 <a href="actions/plan/<?=$action->trip->id?>" class="btn btn-link btn-lg">Cancel</a>&nbsp;
-                <button type="submit" class="btn btn-primary btn-lg pull-right" ng-click="editAction(<?=$action->trip->id?>,<?=$action->id?>);" data-toggle="collapse" href="#collapseParticipation" aria-expanded="false" aria-controls="collapseExample">Save</button>
+                <button type="submit" class="btn btn-primary btn-lg pull-right" ng-click="editAction(<?=$action->trip->id?>,<?=$action->id?>);" data-toggle="collapse" href="#collapseParticipation" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Save</button>
             </div>
         </div>
     </div>

@@ -27,7 +27,7 @@ include_once ('include/header.ctp');
         <div class="row">
             <div class="col-md-12 text-right">
                 <a href="actions/plan/<?=$trip->id?>" class="btn btn-link btn-lg">Cancel</a>&nbsp;
-                <button class="btn btn-primary btn-lg" ng-click="validated && addAction(<?=$trip->id?>)">Add</button>
+                <button class="btn btn-primary btn-lg" ng-click="validated && addAction(<?=$trip->id?>)"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Save</button>
             </div>
         </div>
     </div>

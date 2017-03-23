@@ -1,6 +1,6 @@
 <div id="payments">
     <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#payment" ng-click="actionEditPayment(null)">
-        Add payment
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;Add payment
     </button>
     <!--
     <button type="button" class="btn btn-success pull-right" ng-if="action.price" ng-click="actionPayAll(<?/*= $action->id */?>,<?/*=$userSession['id']*/?>)">

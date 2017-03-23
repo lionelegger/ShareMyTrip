@@ -105,7 +105,7 @@ $this->end();
                     'action' => 'index'
                 ], ['class' => 'btn btn-link']);
                 echo ("&nbsp;");
-                echo $this->Form->button(__('Save'), ['class' => 'btn btn-primary']);
+                echo $this->Form->button("<span class='glyphicon glyphicon-floppy-disk'></span>&nbsp;".__('Save'), ['class' => 'btn btn-primary']);
                 echo $this->Form->end();
                 ?>
             </div>

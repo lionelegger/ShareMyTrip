@@ -113,6 +113,7 @@ h1 {
 .navbar-nav {
     > li > a {
         font-size: 16px;
+        transition: all .2s ease-in;
     }
 
     // on very small screens
@@ -142,6 +143,9 @@ h1 {
 
 // Keep the navigation inline at small resolution
 @media only screen and (max-width: 768px) {
+    .navigation {
+        margin-right: 1em;
+    }
     .no-collapse ul.navbar-nav {
         //float: right;
         margin: 0 15px;
@@ -155,7 +159,6 @@ h1 {
 }
 
 @media only screen and (max-width: 400px) {
-
     .navbar-fixed-top .container {
         padding: 0;
         text-align: center;
@@ -1450,10 +1453,19 @@ i.arrow {
 }
 
 .navigation {
-    color: lightgray;
-    > a {
-        color: white;
+    a {
+        color: lightgray;
+        //transition: all .2s ease-in;
         display: inline-block;
+        &:visited {
+            color: lightgray;
+        }
+        &:hover,
+        &:focus {
+            color: white;
+            text-decoration: none;
+
+        }
     }
 }
 

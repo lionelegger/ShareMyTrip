@@ -53,7 +53,7 @@
 
 </style>
 
-<?= $this->Flash->render('auth') ?>
+<?//= $this->Flash->render('auth') ?>
 <div class="container text-center ">
     <div class="col-md-3 col-md-offset-0 col-sm-6 col-sm-offset-3">
         <h1 class="login"><?= __("Share my trip") ?></h1>

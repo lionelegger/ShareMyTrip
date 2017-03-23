@@ -155,9 +155,9 @@ $this->end();
                         </div>
                     </div>
                     <div class="modal-footer" id="tripNameBTN">
-                        <button class="btn btn-danger pull-left" id="deleteTrip" ng-init="btnPressed=false" ng-click="deleteConfirm(trip.id)">{{buttonTxt}}</button>
+                        <button class="btn btn-danger pull-left" id="deleteTrip" ng-init="btnPressed=false" ng-click="deleteConfirm(trip.id)"><span class="glyphicon glyphicon-trash"></span>&nbsp;{{buttonTxt}}</button>
                         <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" ng-click="saveTrip(trip.id)" data-dismiss="modal">Save</button>
+                        <button type="submit" class="btn btn-primary" ng-click="saveTrip(trip.id)" data-dismiss="modal"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Save</button>
                     </div>
 
                 </form>
@@ -183,7 +183,7 @@ $this->end();
                                 <div class="row row-no-padding">
                                     <div class="avatar-list">
                                         <div class="col-md-12" ng-repeat="user in trips.trip.users" id="tripUser-{{user._joinData.id}}" ng-hide="currentUserId == user.id" >
-                                            <button type="button" id="tripDeleteUser-{{user._joinData.id}}" class="btn btn-default pull-left" ng-click="tripDeleteUser(user._joinData.id)"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+                                            <button type="button" id="tripDeleteUser-{{user._joinData.id}}" class="btn btn-default pull-left" ng-click="tripDeleteUser(user._joinData.id)"><span class="glyphicon glyphicon-trash"></span> Delete</button>
                                             <div class="avatar label-right clearfix">
                                                 <img ng-if="!user.photo" ng-src="files/Users/avatars/avatar-{{user.avatar}}.png" class="avatar-img">
                                                 <img ng-if="user.photo" ng-src="{{user.photo_dir}}/{{user.photo}}" class="avatar-img circle">
