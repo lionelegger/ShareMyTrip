@@ -529,8 +529,8 @@ switch ($action->status) {
 
     google.maps.event.addDomListener(window, 'load', initAutocomplete);
 
-    // for category 2, hide the Google arrival point
-    $("#pac-input-end").attr('ng-hide', 'category==2');
+    // for category 2 or 3, hide the Google arrival point
+    $("#pac-input-end").attr('ng-hide', 'category==2 || category==3');
 
 </script>
 

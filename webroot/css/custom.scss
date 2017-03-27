@@ -43,6 +43,12 @@ h1 {
     font-weight: bold;
 }
 
+.hidden-xxs {
+    @media only screen and (max-width: 480px) {
+        display: none;
+    }
+}
+
 // Label colors
 .label-primary {
     background-color: $color-primary;
@@ -1251,8 +1257,12 @@ a.action-link {
 .map-icon-type-12:before {
     content: "\e819";
 }
-// Other lodging
+// rental (map-icon-insurance-agency)
 .map-icon-type-13:before {
+    content: "\e84f";
+}
+// Other lodging
+.map-icon-type-19:before {
     content: "L";
     padding: 0 8px;
     font-weight: bold;
@@ -1280,12 +1290,27 @@ a.action-link {
 .map-icon-type-24:before {
     content: "\e83b";
 }
-// concert/theater (map-icon-movie-theater)
+// Leisture (map-icon-bowling-alley)
 .map-icon-type-25:before {
-    content: "\e862";
+    content: "\e815";
 }
-// other activity
+// Store (map-icon-convenience-store)
 .map-icon-type-26:before {
+    content: "\e829";
+}
+// Gaz (map-icon-gas-station)
+.map-icon-type-27:before {
+    content: "\e840";
+}
+// Bank (map-icon-finance)
+.map-icon-type-28:before {
+    content: "\e80b";
+    position:relative;
+    left: 2px;
+}
+
+// other activity
+.map-icon-type-29:before {
     content: "A";
     padding: 0 5px;
     font-weight: bold;
@@ -1293,20 +1318,8 @@ a.action-link {
     font-size: 36px;
     line-height: 24px;
 }
-// Bank (map-icon-finance)
-.map-icon-type-30:before {
-    content: "\e80b";
-    position:relative;
-    left: 2px;
-}
-// ATM (map-icon-atm)
-.map-icon-type-31:before {
-    content: "\e808";
-}
-// Other
-.map-icon-type-32:before {
-    content: "\e877";
-}
+
+
 
 .col-arrow {
     position: relative;

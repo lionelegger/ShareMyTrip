@@ -35,7 +35,7 @@
                 } ?>
             </div>
             <!--  Hide the Add action button when already "add" an action -->
-            <?php if (!isset($edit) || $edit): ?>
+            <?php if (!isset($edit)): ?>
             <div class="col-md-3 text-right">
                 <?= $this->Html->link('<span class="glyphicon glyphicon-plus"></span><span class="btn-text"><strong>'.__('Add an action').'</strong></span>', ['controller' => 'Actions', 'action' => 'add', $trip->id], ['class' => 'btn btn-default btn-lg btn-calltoaction', 'escape' => false]); ?>
             </div>

@@ -18,6 +18,10 @@ hr {
 h1 {
   font-weight: bold; }
 
+@media only screen and (max-width: 480px) {
+  .hidden-xxs {
+    display: none; } }
+
 .label-primary {
   background-color: #337ab7; }
 
@@ -900,6 +904,9 @@ a.action-link {
   content: "\e819"; }
 
 .map-icon-type-13:before {
+  content: "\e84f"; }
+
+.map-icon-type-19:before {
   content: "L";
   padding: 0 8px;
   font-weight: bold;
@@ -923,26 +930,26 @@ a.action-link {
   content: "\e83b"; }
 
 .map-icon-type-25:before {
-  content: "\e862"; }
+  content: "\e815"; }
 
 .map-icon-type-26:before {
+  content: "\e829"; }
+
+.map-icon-type-27:before {
+  content: "\e840"; }
+
+.map-icon-type-28:before {
+  content: "\e80b";
+  position: relative;
+  left: 2px; }
+
+.map-icon-type-29:before {
   content: "A";
   padding: 0 5px;
   font-weight: bold;
   font-family: "Open Sans Condensed", Arial, Helvetica, sans-serif;
   font-size: 36px;
   line-height: 24px; }
-
-.map-icon-type-30:before {
-  content: "\e80b";
-  position: relative;
-  left: 2px; }
-
-.map-icon-type-31:before {
-  content: "\e808"; }
-
-.map-icon-type-32:before {
-  content: "\e877"; }
 
 .col-arrow {
   position: relative; }

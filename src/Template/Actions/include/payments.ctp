@@ -15,9 +15,9 @@
             <tr ng-repeat="payment in action.payments">
                 <td><strong>{{payment.amount}} {{payment.currency}}</strong></td>
                 <td><span ng-if="payment.date" class="text-muted small">{{payment.date | date:'d MMMM yyyy'}}</span></td>
-                <td ng-if="payment.method.id"><span class="text-muted small">{{payment.method.name}}</span></td>
-                <td ng-if="actionPaymentToAdd.method_name"><span class="text-muted small">{{actionPaymentToAdd.method_name}}</span></td>
-                <td ng-if="!payment.method.id">&nbsp;</td>
+                <td ng-if="payment.method.id" class="hidden-xxs"><span class="text-muted small">{{payment.method.name}}</span></td>
+                <td ng-if="actionPaymentToAdd.method_name" class="hidden-xxs"><span class="text-muted small">{{actionPaymentToAdd.method_name}}</span></td>
+                <td ng-if="!payment.method.id" class="hidden-xxs">&nbsp;</td>
                 <td class="text-right">Paid by&nbsp;<span ng-if="payment.user.id != <?= $userSession['id'] ?>" class="pull-right">{{payment.user.first_name}}</span><span ng-if="payment.user_id==currentUserId" class="pull-right">me <a ng-click="actionEditPayment(payment.id)" data-toggle="modal" data-target="#payment" ng-show="<?=($edit)?>">[edit]</a></span></td>
             </tr>
             <div class="hidden" id="totalPaid">{{action.payments.totalAll}}</div>

@@ -29,7 +29,7 @@ include_once ('include/header.ctp');
     <div class="container clearfix">
 
         <div class="row">
-            <div class="col-xs-6 text-left">
+            <div class="col-xs-3 text-left">
                 <!-- Button trigger modal -->
                 <?php if($action->owner_id == $userSession['id']): ?>
                     <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#deleteModal">
@@ -56,7 +56,7 @@ include_once ('include/header.ctp');
                     </div>
                 </div>
             </div>
-            <div class="col-xs-6 text-right">
+            <div class="col-xs-9 text-right">
                 <a href="actions/plan/<?=$action->trip->id?>" class="btn btn-link btn-lg">Cancel</a>&nbsp;
                 <button type="submit" class="btn btn-primary btn-lg pull-right" ng-click="editAction(<?=$action->trip->id?>,<?=$action->id?>);" data-toggle="collapse" href="#collapseParticipation" aria-expanded="false" aria-controls="collapseExample"><span class="glyphicon glyphicon-floppy-disk"></span>&nbsp;Save</button>
             </div>
