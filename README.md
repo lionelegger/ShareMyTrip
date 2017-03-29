@@ -155,5 +155,6 @@ Since this website is supposed to help travellers to manage their travel in all 
     - [ ] Statistics like trip duration, number of actions
 
 
-
+## Presentation
+Download the [keynote](/files/ShareMyTrip.key) or [pdf](/files/ShareMyTrip-presentation.pdf) version of the presentation made on the 2017-03-28
 
